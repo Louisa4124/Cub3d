@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 22:16:32 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 22:57:50 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ typedef struct s_mlx
 	int		line_length;
 	int		bits_per_pixel;
 	int		endian;
-<<<<<<< HEAD
-}				t_mlx;
-=======
 }	t_mlx;
->>>>>>> f1de1bf1e0d3126b76ad886f3e71c5711e47fc59
 
 #endif
 
