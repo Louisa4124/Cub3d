@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 21:47:38 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/07 21:55:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../mlx-linux/mlx.h"
+# include "../math.h"
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>

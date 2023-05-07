@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/07 21:49:15 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/05/07 21:52:46 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
 
 #	==============================	HEADERS	==============================	#
 DIR_HEADER	=	include/
-LST_HDR		=	${NAME}.h 
+LST_HDR		=	${NAME}.h math.h
 HEADER		=	${addprefix ${DIR_HEADER}, ${LST_HDR}}
 
 
