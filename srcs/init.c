@@ -6,9 +6,15 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/06 22:26:28 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 21:47:34 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
+void    ft_init_game(t_game *game)
+{
+    game->camera.x = 0;
+    game->camera.y = 0;
+    game->camera.z = 0.5;
+}
