@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 12:51:55 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/01/20 14:17:38 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:15:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,6 @@ static size_t	ft_findsize(char const *s, char c)
 	return (size);
 }
 
-void	ft_freesplit(char **split)
-{
-	size_t	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		split[i] = NULL;
-		i++;
-	}
-	free(split);
-	split = NULL;
-}
-
 char	**ft_split(char const *s, char c)
 {
 	size_t	n_str;
@@ -61,23 +46,32 @@ char	**ft_split(char const *s, char c)
 	char	**split;
 
 	n_str = ft_countstr(s, c);
-	split = (char **)malloc((n_str + 1) * sizeof(char *));
-	if (!split || !s)
+	split = ft_calloc((n_str + 1), sizeof(char *));
+	if (!split)
 		return (NULL);
 	i = 0;
-	while (*s && i < n_str)
+	while (s && *s && i < n_str)
 	{
 		while (*s == c)
 			s++;
 		split[i] = ft_substr(s, 0, ft_findsize(s, c));
 		if (!split[i])
 		{
-			ft_freesplit(split);
+			ft_free2d((void **)split, 0);
 			return (NULL);
 		}
 		i++;
 		s += ft_findsize(s, c);
 	}
-	split[i] = NULL;
 	return (split);
+}
+
+int	ft_path_splitlen(char **split)
+{
+	int	len;
+
+	len = 0;
+	while (split[len])
+		len++;
+	return (len);
 }

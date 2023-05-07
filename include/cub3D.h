@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 21:45:56 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 22:16:32 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "../libft/libft.h"
+# include "../mlx-linux/mlx.h"
 # include "../math.h"
 # include <stdio.h>
 # include <math.h>
@@ -41,9 +42,22 @@ typedef struct s_mlx
 	void	*win;
 	void	*image;
 	char	*addr;
-	int 	line_length;
+	int		line_length;
 	int		bits_per_pixel;
 	int		endian;
+<<<<<<< HEAD
 }				t_mlx;
+=======
+}	t_mlx;
+>>>>>>> f1de1bf1e0d3126b76ad886f3e71c5711e47fc59
 
 #endif
+
+/*
+typedef struct s_mlx
+{
+	void	*ptr;
+	void	*win;
+}	t_mlx;
+
+*/

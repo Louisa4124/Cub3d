@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_print_tab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 17:59:25 by tlegrand          #+#    #+#             */
-/*   Updated: 2022/12/25 15:47:09 by tlegrand         ###   ########.fr       */
+/*   Created: 2023/03/30 18:26:20 by tlegrand          #+#    #+#             */
+/*   Updated: 2023/03/30 18:30:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_putnbr(int n)
+void	ft_print_tab2d_char(char **tab)
 {
-	int	len;
+	int	i;
 
-	len = 0;
-	if (n == -2147483648)
+	i = 0;
+	if (!tab)
+		return ((void) ft_putstr_fd("tab NULL\n", 2));
+	while (tab[i])
 	{
-		write(1, "-2147483648", 11);
-		return (11);
+		ft_putstr_fd(tab[i], 1);
+		i++;
 	}
-	if (n < 0)
+}
+
+void	ft_print_tab_int(int *tab, int size)
+{
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return ((void) ft_putstr_fd("tab NULL\n", 2));
+	while (i < size)
 	{
-		write(1, "-", 1);
-		n = -n;
-		len++;
+		ft_putnbr_fd(tab[i], 1);
+		i++;
 	}
-	if (n > 9)
-		n += ft_putnbr(n / 10);
-	n += ft_putchar('0' + n % 10);
-	return (n);
 }

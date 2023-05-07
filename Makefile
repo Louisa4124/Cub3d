@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: louisa <louisa@student.42.fr>              +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/07 21:37:04 by louisa           ###   ########.fr        #
+#    Updated: 2023/05/07 21:52:46 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,18 +23,23 @@ DIR_SRCS		=	srcs/
 LST_SRCS		=	main.c init.c mlx.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
+
 #	==============================	OBJECTS	==============================	#
 DIR_OBJS	=	.objs/
 OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
+
 
 #	==============================	HEADERS	==============================	#
 DIR_HEADER	=	include/
 LST_HDR		=	${NAME}.h math.h
 HEADER		=	${addprefix ${DIR_HEADER}, ${LST_HDR}}
 
+
 #	==============================	LIBRARY	==============================	#
 DIR_LIBFT	=	libft/
 LIBFT		=	$(addprefix $(DIR_LIBFT), libft.a)
+DIR_LIBMLX	=	mlx-linux/
+LIBMLX		=	$(addprefix $(DIR_LIBMLX), libmlx.a)
 
 
 #	==============================	COMMANDS	==============================	#
@@ -47,6 +52,8 @@ MAKE		=	make -s
 #	==============================	FLAGS	==============================	#
 CFLAGS		=	-Wall -Wextra -Werror -I${DIR_HEADER} #-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
 FTFLAGS		=	-L${DIR_LIBFT} -lft
+MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11 -lm -lz 
+
 
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	RULES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
 .PHONY : all clean fclean re bonus FORCE nn
@@ -61,6 +68,7 @@ clean	:
 fclean	:	clean
 		@${RM} ${NAME} ${NAME_B}
 		@$(MAKE) -C ${DIR_LIBFT} fclean
+		@${MAKE} -C ${DIR_LIBMLX} clean
 		@printf "$(GREEN)All clean !\n$(END)"
 
 re		:	fclean
@@ -68,24 +76,27 @@ re		:	fclean
 
 
 #	==============================	COMPILATION	==============================	#
-${NAME}			:	${LIBFT} ${DIR_OBJS} ${OBJS}
-				@${CC} ${CFLAGS} ${OBJS} ${FTFLAGS} ${RFLAGS} -o ${NAME}
+${NAME}			:	${LIBFT} ${LIBMLX} ${DIR_OBJS} ${OBJS}
+				@${CC} ${CFLAGS} ${OBJS} ${FTFLAGS} ${MLXFLAGS} -o ${NAME}
 				@printf "$(GREEN_LIGHT)${NAME} created !\n$(END)"
-
 
 ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADER}
 				@printf "$(YELLOW)Making $@...\n$(END)"
 				@${CC} ${CFLAGS} -c $< -o $@
+
 
 #	==============================	UTILS/LIB	==============================	#
 ${DIR_OBJS}	:
 			@${MKDIR} ${DIR_OBJS}
 			
 nn			:
-			@norminette $(sort ${DIR_SRCS}  ${HEADER} )
+			@norminette $(sort ${DIR_SRCS} ${HEADER} )
 
 $(LIBFT)	:	FORCE
 			@$(MAKE) -C ${DIR_LIBFT}
+
+${LIBMLX}	:	FORCE
+			@$(MAKE) -C ${DIR_LIBMLX}
 
 FORCE		:
 

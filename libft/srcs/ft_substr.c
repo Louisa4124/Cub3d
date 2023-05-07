@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 16:22:58 by tlegrand          #+#    #+#             */
-/*   Updated: 2022/12/25 15:39:03 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:35:02 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	if (start >= ft_strlen(s))
-	{
-		sub = (char *)malloc(sizeof(char));
-		if (sub)
-			sub[0] = 0;
-		return (sub);
-	}
+		return (ft_calloc(1, sizeof(char)));
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
-	sub = (char *)malloc((len + 1) * sizeof(char));
+	sub = (char *)ft_calloc((len + 1), sizeof(char));
 	if (!sub)
 		return (sub);
 	ft_strlcpy(sub, s + start, len + 1);

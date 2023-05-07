@@ -36,7 +36,8 @@
 *.x86_64
 *.hex
 
-minishell
+cub3D
+mlx-test
 
 # Debug files
 *.dSYM/
