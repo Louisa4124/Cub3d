@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 21:36:55 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 21:45:56 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 
 typedef struct s_game
 {
-	int pos_x;
-    int pos_y;
-
+	int     pos_x;
+    int     pos_y;
+    t_vec3d camera;
 }	t_game;
 
 typedef struct s_mlx
@@ -43,7 +43,7 @@ typedef struct s_mlx
 	char	*addr;
 	int 	line_length;
 	int		bits_per_pixel;
-	int			endian;
+	int		endian;
 }				t_mlx;
 
 #endif

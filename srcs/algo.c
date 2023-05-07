@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 21:39:27 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 22:15:13 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	ft_loop(void)
 	j = -1;
 	while (++j < H)
 	{
-		i = 0;
+		i = -1;
 		while (++i < W)
 		{
 			ray = //function rayons;
 			// put pixel with raycast
 		}
 	}
+    //mlx_put_image_to_window(p->mlx->mlx_ptr, p->mlx->win_ptr, p->mlx->img.ptr, 0, 0);
+}
 }
