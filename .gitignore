@@ -37,6 +37,7 @@
 *.hex
 
 cub3D
+mlx-test
 
 # Debug files
 *.dSYM/

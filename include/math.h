@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:35:16 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 21:36:29 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 21:55:58 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 
 typedef struct s_vec3d
 {
-	float x;
-    float y;
-    float z;
+	float	x;
+	float	y;
+	float	z;
 }	t_vec3d;
 
 typedef struct s_point
 {
-	int x;
-    int y;
-    int z;
-    int color;
+	int	x;
+	int	y;
+	int	z;
+	int	color;
 }	t_point;
 
 typedef struct s_plan
 {
-	float a;
-    float b;
-    float c;
-    float d;
+	float	a;
+	float	b;
+	float	c;
+	float	d;
 }	t_plan;
 
 #endif

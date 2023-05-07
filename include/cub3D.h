@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 21:55:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/07 21:55:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,6 @@
 # define PI 3.14159265
 # define r_h 2 * tan(FOV / 2) / W
 # define r_v 2 * tan(FOV * H / (W * 2)) / H
-
-typedef struct s_point
-{
-	int	x;
-	int	z;
-	int	y;
-	int	color;
-}	t_point;
-
-typedef struct s_plan
-{
-	float	a;
-	float	b;
-	float	c;
-	float	d;
-}	t_plan;
 
 typedef struct s_game
 {
