@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.c                                             :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 23:16:05 by louisa           ###   ########.fr       */
+/*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
+/*   Updated: 2023/05/07 23:13:25 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#ifndef STRUCT_H
+# define STRUCT_H
 
-void	ft_init_rays(void)
+typedef struct s_game
 {
-	int				i;
-	int				j;
+	int     pos_x;
+    int     pos_y;
+    float   r_h;
+    float   r_v;
+    t_vec3d rays;
+    t_vec3d camera;
+}	t_game;
 
-	j = -1;
-	while (++j < H)
-	{
-		i = -1;
-		while (++i < W)
-		{
-			game->rayon[i][j].x = ((j - game->twidth * 0.5) * r_h);
-			game->rayon[i][j].y = -1.0;
-			game->rayon[i][j].z = ((game->theight * 0.5 - i) * r_v);
-		}
-	}
-}
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	void	*image;
+	char	*addr;
+	int		line_length;
+	int		bits_per_pixel;
+	int		endian;
+}	t_mlx;
+
+#endif

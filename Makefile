@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: louisa <louisa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/07 21:52:46 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/05/07 23:17:28 by louisa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME		=	cub3D
 #	==============================	SOURCES	==============================	#
 DIR_SRCS		=	srcs/
 
-LST_SRCS		=	main.c init.c mlx.c
+LST_SRCS		=	main.c init.c mlx.c algo.c math.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 
@@ -31,7 +31,7 @@ OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
 
 #	==============================	HEADERS	==============================	#
 DIR_HEADER	=	include/
-LST_HDR		=	${NAME}.h math.h
+LST_HDR		=	${NAME}.h math.h struct.h
 HEADER		=	${addprefix ${DIR_HEADER}, ${LST_HDR}}
 
 

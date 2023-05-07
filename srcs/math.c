@@ -6,13 +6,13 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:14:59 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 22:17:34 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 23:14:47 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-inline t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad)
+t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad)
 {
 	t_vec3d	cpy;
 
@@ -22,7 +22,7 @@ inline t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad)
 	return (cpy);
 }
 
-inline t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad)
+t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad)
 {
 	t_vec3d	cpy;
 
@@ -32,7 +32,7 @@ inline t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad)
 	return (cpy);
 }
 
-inline t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad)
+t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad)
 {
 	t_vec3d	cpy;
 
