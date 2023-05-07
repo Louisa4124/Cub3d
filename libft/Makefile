@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: louisa <louisa@student.42.fr>              +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/06 22:30:26 by louisa           ###   ########.fr        #
+#    Created: 2022/11/08 14:39:06 by tlegrand          #+#    #+#              #
+#    Updated: 2023/03/10 15:11:13 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,53 +14,60 @@
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	PROJECT VARIABLES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
 
 #	==============================	NAMES	==============================	#
-NAME		=	cub3D
+NAME		=	libft.a
 
 
 #	==============================	SOURCES	==============================	#
-DIR_SRCS		=	srcs/
+DIR_SRCS	=	srcs/
+LST_SRCS	= 	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isprint.c ft_isascii.c \
+				ft_toupper.c ft_tolower.c ft_atoi.c \
+				ft_strchr.c ft_strrchr.c ft_strnstr.c ft_strncmp.c ft_strlen.c \
+				ft_strdup.c ft_strndup.c ft_calloc.c ft_strlcpy.c ft_strlcat.c \
+				ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_memchr.c ft_memcmp.c \
+				ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
+				ft_strmapi.c ft_striteri.c \
+				ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c ft_putendl_fd.c \
+				ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
+				ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
+				ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_base.c \
+				get_next_line.c get_next_line_utils.c \
+				ft_clean.c
+SRCS		=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
-LST_SRCS		=	main.c init.c mlx.c
-SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 #	==============================	OBJECTS	==============================	#
 DIR_OBJS	=	.objs/
-OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
+OBJS	=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}}
+
 
 #	==============================	HEADERS	==============================	#
-DIR_HEADER	=	include/
-LST_HDR		=	${NAME}.h 
-HEADER		=	${addprefix ${DIR_HEADER}, ${LST_HDR}}
-
-#	==============================	LIBRARY	==============================	#
-DIR_LIBFT	=	libft/
-LIBFT		=	$(addprefix $(DIR_LIBFT), libft.a)
+HEADER 		=	libft.h
 
 
 #	==============================	COMMANDS	==============================	#
 CC 			=	cc
 MKDIR 		=	mkdir -p
 RM			=	rm -rf
-MAKE		=	make -s
 
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-Wall -Wextra -Werror -I${DIR_HEADER} #-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
-FTFLAGS		=	-L${DIR_LIBFT} -lft
+CFLAGS		=	-Wall -Wextra -Werror
+ARFLAGS		=	rcs
+
+
 
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	RULES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
-.PHONY : all clean fclean re bonus FORCE nn
+.PHONY : all clean fclean re msg_start
+
 
 #	==============================	BASIC	==============================	#
 all		:	${NAME}
 
 clean	:
 		@${RM} ${DIR_OBJS}
-		@$(MAKE) -C ${DIR_LIBFT} clean
 
 fclean	:	clean
-		@${RM} ${NAME} ${NAME_B}
-		@$(MAKE) -C ${DIR_LIBFT} fclean
+		@${RM} ${NAME}
 		@printf "$(GREEN)All clean !\n$(END)"
 
 re		:	fclean
@@ -68,26 +75,16 @@ re		:	fclean
 
 
 #	==============================	COMPILATION	==============================	#
-${NAME}			:	${LIBFT} ${DIR_OBJS} ${OBJS}
-				@${CC} ${CFLAGS} ${OBJS} ${FTFLAGS} ${RFLAGS} -o ${NAME}
-				@printf "$(GREEN_LIGHT)${NAME} created !\n$(END)"
-
+${NAME}			:	${DIR_OBJS} ${OBJS} 
+				@${AR} ${ARFLAGS} $@ ${OBJS}
+				@printf "\n$(GREEN_LIGHT)${NAME} created !\n$(END)"
 
 ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADER}
-				@printf "$(YELLOW)Making $@...\n$(END)"
+				@printf "$(RERASE)$(ORANGE)Making ${NAME}...$(END)"
 				@${CC} ${CFLAGS} -c $< -o $@
 
-#	==============================	UTILS/LIB	==============================	#
-${DIR_OBJS}	:
-			@${MKDIR} ${DIR_OBJS}
-			
-nn			:
-			@norminette $(sort ${DIR_SRCS}  ${HEADER} )
-
-$(LIBFT)	:	FORCE
-			@$(MAKE) -C ${DIR_LIBFT}
-
-FORCE		:
+${DIR_OBJS}		:
+				@${MKDIR} $@
 
 
 
@@ -97,7 +94,7 @@ FORCE		:
 BLACK		=	\033[0;30m
 RED			=	\033[0;31m
 GREEN		=	\033[0;32m
-YELLOW		=	\033[0;33m
+ORANGE		=	\033[0;33m
 BLUE		=	\033[0;34m
 PURPLE		=	\033[0;35m
 CYAN		=	\033[0;36m
@@ -111,17 +108,7 @@ VIOLET		=	\033[1;35m
 CYAN		=	\033[1;36m
 WHITE		=	\033[1;37m
 END			=	\033[0m
-BOLD		=	\033[1m
-FAINT		=	\033[2m
-ITALIC		=	\033[3m
 UNDERLINE	=	\033[4m
-BLINK_SLOW	=	\033[5m
-BLINK_FAST	=	\033[6m
-BLINK_OFF	=	\033[25m
-REV_V		=	\033[7m
-CONCEAL		=	\033[8m
-CONCEAL_OFF	=	\033[28m
-CROSS_OUT	=	\033[9m
-CROSS_OUT_O	=	\033[29m
+REV			=	\033[7m
 ERASE		=	\033[2K
 RERASE		=	\r\033[2K
