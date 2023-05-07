@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 14:39:06 by tlegrand          #+#    #+#              #
-#    Updated: 2023/03/10 15:11:13 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/05/06 22:18:25 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,16 +22,18 @@ DIR_SRCS	=	srcs/
 LST_SRCS	= 	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isprint.c ft_isascii.c \
 				ft_toupper.c ft_tolower.c ft_atoi.c \
 				ft_strchr.c ft_strrchr.c ft_strnstr.c ft_strncmp.c ft_strlen.c \
-				ft_strdup.c ft_strndup.c ft_calloc.c ft_strlcpy.c ft_strlcat.c \
+				ft_strdup.c ft_calloc.c ft_strlcpy.c ft_strlcat.c \
 				ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_memchr.c ft_memcmp.c \
-				ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
+				ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strappend.c \
 				ft_strmapi.c ft_striteri.c \
 				ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c ft_putendl_fd.c \
 				ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 				ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
-				ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_base.c \
+				ft_printf.c ft_printf_buffer.c ft_printf_extract_number.c ft_printf_get_flags.c ft_printf_get_value.c \
+				ft_printf_padding.c ft_printf_utils.c \
 				get_next_line.c get_next_line_utils.c \
-				ft_clean.c
+				ft_free.c ft_close.c ft_print_tab.c \
+				 math_utils.c
 SRCS		=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 
@@ -51,13 +53,13 @@ RM			=	rm -rf
 
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
 ARFLAGS		=	rcs
 
 
 
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	RULES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
-.PHONY : all clean fclean re msg_start
+.PHONY : all clean fclean re
 
 
 #	==============================	BASIC	==============================	#
@@ -108,7 +110,5 @@ VIOLET		=	\033[1;35m
 CYAN		=	\033[1;36m
 WHITE		=	\033[1;37m
 END			=	\033[0m
-UNDERLINE	=	\033[4m
-REV			=	\033[7m
 ERASE		=	\033[2K
 RERASE		=	\r\033[2K

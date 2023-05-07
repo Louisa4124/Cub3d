@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strerase_end.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 17:59:15 by tlegrand          #+#    #+#             */
-/*   Updated: 2022/12/25 15:47:09 by tlegrand         ###   ########.fr       */
+/*   Created: 2023/03/20 16:07:52 by tlegrand          #+#    #+#             */
+/*   Updated: 2023/03/30 18:37:51 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_putstr(char *s)
+char	*ft_strerase_end(char *str, char *end)
 {
-	int	n;
+	char	*tmp;
 
-	n = 0;
-	if (!s)
-	{
-		n += ft_putstr("(null)");
-		return (n);
-	}
-	while (*s)
-	{
-		n += ft_putchar(*s);
-		s++;
-	}
-	return (n);
+	if (!end || !str)
+		return (str);
+	tmp = ft_strndup(str, ft_strlen2(str) - ft_strlen2(end));
+	free(str);
+	return (tmp);
 }

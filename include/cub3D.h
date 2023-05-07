@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/06 22:29:11 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 21:47:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "../libft/libft.h"
+# include "../mlx-linux/mlx.h"
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
@@ -29,25 +30,24 @@
 
 typedef struct s_point
 {
-	int x;
-    int y;
-    int z;
-    int color;
+	int	x;
+	int	z;
+	int	y;
+	int	color;
 }	t_point;
 
 typedef struct s_plan
 {
-	float a;
-    float b;
-    float c;
-    float d;
+	float	a;
+	float	b;
+	float	c;
+	float	d;
 }	t_plan;
 
 typedef struct s_game
 {
-	int pos_x;
-    int pos_y;
-
+	int	pos_x;
+	int	pos_y;
 }	t_game;
 
 typedef struct s_mlx
@@ -56,9 +56,18 @@ typedef struct s_mlx
 	void	*win;
 	void	*image;
 	char	*addr;
-	int 	line_length;
+	int		line_length;
 	int		bits_per_pixel;
-	int			endian;
-}				t_mlx;
+	int		endian;
+}	t_mlx;
 
 #endif
+
+/*
+typedef struct s_mlx
+{
+	void	*ptr;
+	void	*win;
+}	t_mlx;
+
+*/
