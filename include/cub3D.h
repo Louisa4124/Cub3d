@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/06 22:29:11 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 21:36:55 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "../libft/libft.h"
+# include "../math.h"
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
@@ -26,22 +27,6 @@
 # define PI 3.14159265
 # define r_h 2 * tan(FOV / 2) / W
 # define r_v 2 * tan(FOV * H / (W * 2)) / H
-
-typedef struct s_point
-{
-	int x;
-    int y;
-    int z;
-    int color;
-}	t_point;
-
-typedef struct s_plan
-{
-	float a;
-    float b;
-    float c;
-    float d;
-}	t_plan;
 
 typedef struct s_game
 {
