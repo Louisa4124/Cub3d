@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 23:16:20 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/07 23:18:59 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 
 /*          Raycasting functiuns    */
-
 
 #endif
