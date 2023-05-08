@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 11:33:05 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:57:12 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@
 # define FOV 60
 # define PI 3.14159265
 
+# define width 24
+# define height 24
+
 /*          Initialisation          */
 void	ft_init_game(t_game *game);
+void	ft_init_rays(t_game *game);
 t_vec3d	**ft_malloc_rays(t_game *game);
 
 /*			Mlx functiuns			*/
@@ -43,5 +47,6 @@ t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 
 /*          Raycasting functiuns    */
+void	ft_display_game(t_game *game);
 
 #endif
