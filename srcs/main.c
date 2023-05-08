@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 15:17:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:30:12 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (ft_man(argc));
 	ft_init_game(&game);
-	dprintf(2, "OUIIIIIIIIIIIIIIIIN\n");
 	game.mlx.ptr = mlx_init();
 	if (game.mlx.ptr == NULL)
 		dprintf(2, "mlx_init failed\n");
-	dprintf(2, "2OUIIIIIIIIIIIIIIIIN2\n");
 	game.mlx.win = mlx_new_window(game.mlx.ptr, W, H, "cub3d");
 	if (game.mlx.ptr == NULL)
 		dprintf(2, "mlx_new_window failed\n");
@@ -78,8 +76,7 @@ int	main(int argc, char **argv)
 	{
 		game.mlx.addr = mlx_get_data_addr \
 			(game.mlx.image, &game.mlx.bpp, &game.mlx.ll, &game.mlx.endian);
-		dprintf(2, "ouiiiiiiin\n");
-		//ft_display_game(&game);
+		ft_display_game(&game);
 		mlx_put_image_to_window(game.mlx.ptr, game.mlx.win, \
 			game.mlx.image, 0, 0);
 		mlx_hook(game.mlx.win, 2, 1L << 0, &key_handler, &game);
