@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 12:57:02 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:22:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_init_game(t_game *game);
 t_vec3d	**ft_malloc_rays(t_game *game);
 
 /*			parsing					*/
-int		parser(char *pathname);
+int		parser(char *pathname, t_texture *texture, t_map *map);
 
 /*			Mlx functiuns			*/
 void	ft_destroy_mlx(t_game *game);

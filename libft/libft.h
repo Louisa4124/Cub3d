@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:43:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/06 22:16:19 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:42:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,12 +222,13 @@ void		ft_print_tab_int(int *tab, int size);
 #  define BUFFER_SIZE 1
 # endif
 
-//	take a fd, return a string with a line from fd inside
+//	take a fd, and a pptr, allocate memory and copy a line from fd inside
 //	subsequent call with same fd (if not closed between) give the other line
 //	can handle multiple call to different fd
 //	a line is a string terminated with '\n' or EOF 
-//	return NULL if an error occur or if there is nothimg else to read
-char		*get_next_line(int fd);
+//	return 1 if an error occuri
+//	if there is nothing else to read, line is set to NULL
+int			get_next_line(int fd, char *line);
 //	take a pathname to a file, return number of char inside
 int			ft_file_size(char *pathname);
 

@@ -3,15 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 11:37:36 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:37:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+typedef struct s_texture
+{
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	int		floor;
+	int		ceiling;
+}	t_texture;
+
+typedef struct s_map
+{
+	int	**layout;
+	int	x_size;
+	int	y_size;
+}	t_map;
 
 typedef struct s_mlx
 {
