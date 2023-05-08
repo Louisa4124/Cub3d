@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 11:33:05 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:57:02 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 /*          Initialisation          */
 void	ft_init_game(t_game *game);
 t_vec3d	**ft_malloc_rays(t_game *game);
+
+/*			parsing					*/
+int		parser(char *pathname);
 
 /*			Mlx functiuns			*/
 void	ft_destroy_mlx(t_game *game);

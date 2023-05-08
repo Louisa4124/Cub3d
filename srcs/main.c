@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 11:38:12 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:27:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@ int	key_handler(int key, t_game *game)
 
 int	main(int argc, char **argv)
 {
-	t_game	game;
+	// t_game	game;
 
 	if (argc != 2)
 		return (ft_man(argc));
+	if (parser(argv[1]))
+		return (1);
+	/*
 	ft_init_game(&game);
 	game.mlx->ptr = mlx_init();
 	game.mlx->win = mlx_new_window(game.mlx->ptr, W, H, "cub3d");
@@ -80,5 +83,6 @@ int	main(int argc, char **argv)
 		mlx_loop(game.mlx->ptr);
 	}
 	ft_clean_exit(&game, EXIT_FAILURE);
+	*/
 	return (0);
 }

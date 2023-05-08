@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/08 12:59:49 by tlegrand         ###   ########.fr       */
+/*   Created: 2023/05/08 13:06:11 by tlegrand          #+#    #+#             */
+/*   Updated: 2023/05/08 13:15:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include <stdio.h>
+#include <math.h>
 
-int	parser_error(int errnum)
+int	main(void)
 {
-	if (errnum == 1)
-		ft_putstr_fd("Error : cub3D only take .cub map\n", 2);
-	return (errnum);
-}
+	double	sq;
 
-int	check_name(char *name)
-{
-	while (*name)
-	{
-		if (!ft_strncmp(name, ".cub", 5))
-			return (0);
-		++name;
-	}
-	return (1);
-}
-
-int	parser(char *pathname)
-{
-	if (check_name(pathname))
-		return (parser_error(1));
+	sq = tan(65);
+	printf("sqrt is %f\n", sq);
 	return (0);
 }
-

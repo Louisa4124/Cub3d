@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 10:55:49 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:00:53 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
+/*
 void	ft_init_game(t_game *game)
 {
 	game->camera.x = 0;
@@ -37,3 +38,4 @@ t_vec3d	**ft_malloc_rays(t_game *game)
 	}
 	return (rays);
 }
+*/
