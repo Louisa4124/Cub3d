@@ -6,7 +6,7 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/08 10:52:54 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/05/08 11:00:41 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME		=	cub3D
 #	==============================	SOURCES	==============================	#
 DIR_SRCS		=	srcs/
 
-LST_SRCS		=	main.c init.c mlx.c algo.c math.c parser.c
+LST_SRCS		=	main.c parser.c init.c mlx.c algo.c math.c 
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 
@@ -51,7 +51,7 @@ MAKE		=	make -s
 
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-Wall -Wextra -Werror -I${DIR_HEADER} #-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
+CFLAGS		=	#-Wall -Wextra -Werror -I${DIR_HEADER} #-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
 FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11 -lm -lz 
 

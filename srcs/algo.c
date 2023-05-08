@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 23:16:05 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/08 10:57:30 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-void	ft_init_rays(void)
+void	ft_init_rays(t_game *game)
 {
 	int				i;
 	int				j;
@@ -23,9 +23,9 @@ void	ft_init_rays(void)
 		i = -1;
 		while (++i < W)
 		{
-			game->rayon[i][j].x = ((j - game->twidth * 0.5) * r_h);
-			game->rayon[i][j].y = -1.0;
-			game->rayon[i][j].z = ((game->theight * 0.5 - i) * r_v);
+			game->rays[i][j].x = ((j - W * 0.5) * game->r_h);
+			game->rays[i][j].y = -1.0;
+			game->rays[i][j].z = ((H * 0.5 - i) * game->r_v);
 		}
 	}
 }

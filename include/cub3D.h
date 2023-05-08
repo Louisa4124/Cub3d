@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 23:18:59 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/08 11:33:05 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@
 # define PI 3.14159265
 
 /*          Initialisation          */
-void    ft_init_game(t_game *game);
+void	ft_init_game(t_game *game);
 t_vec3d	**ft_malloc_rays(t_game *game);
+
+/*			Mlx functiuns			*/
+void	ft_destroy_mlx(t_game *game);
+void	ft_clean_exit(t_game *game, int exit_code);
+int		close_event(t_game *game);
 
 /*          Math utils              */
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);

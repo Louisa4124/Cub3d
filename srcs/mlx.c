@@ -3,19 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/07 21:48:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/08 11:32:34 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-int	close_event(t_mlx *mlx)
+void	ft_destroy_mlx(t_game *game)
 {
-	mlx_destroy_window(mlx->mlx, mlx->win);
-	mlx_destroy_image(mlx->mlx, mlx->image);
+	if (game->mlx->win)
+		mlx_destroy_window(game->mlx->ptr, game->mlx->win);
+	if (game->mlx->ptr)
+	{
+		mlx_destroy_display(game->mlx->ptr);
+		free(game->mlx->ptr);
+	}
+}
+
+void	ft_clean_exit(t_game *game, int exit_code)
+{
+	ft_destroy_mlx(game);
+	exit(exit_code);
+}
+
+int	close_event(t_game *game)
+{
+	mlx_destroy_window(game->mlx->ptr, game->mlx->win);
+	mlx_destroy_image(game->mlx->ptr, game->mlx->image);
+	free(game->mlx->ptr);
 	exit (0);
 	return (0);
 }
