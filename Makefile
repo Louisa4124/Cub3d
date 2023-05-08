@@ -3,16 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: louisa <louisa@student.42.fr>              +#+  +:+       +#+         #
+#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/05/07 23:17:28 by louisa           ###   ########.fr        #
-=======
-#    Updated: 2023/05/07 23:02:05 by tlegrand         ###   ########.fr        #
->>>>>>> 789dd00134a2f4f2646b372110177081e25fac7b
+#    Updated: 2023/05/08 10:52:54 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	PROJECT VARIABLES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
@@ -24,11 +21,7 @@ NAME		=	cub3D
 #	==============================	SOURCES	==============================	#
 DIR_SRCS		=	srcs/
 
-<<<<<<< HEAD
-LST_SRCS		=	main.c init.c mlx.c algo.c math.c
-=======
-LST_SRCS		=	main.c init.c mlx.c parser.c
->>>>>>> 789dd00134a2f4f2646b372110177081e25fac7b
+LST_SRCS		=	main.c init.c mlx.c algo.c math.c parser.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 
