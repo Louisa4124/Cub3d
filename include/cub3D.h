@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 21:55:47 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:57:51 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@ t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 void	debug_printf_texture(t_texture *texture);
 void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
+
+
+int		rgb_to_hexa(int r, int g, int b);
 
 #endif

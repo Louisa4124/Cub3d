@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/08 21:53:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:58:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 		return (1);
 	}
 	return (0);
-}
-
-int	rgb_to_hexa(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
 }
 
 static int	extract_color(int *color, char *line)
@@ -69,7 +64,7 @@ static int	extract_color(int *color, char *line)
 	return (0);
 }
 
-int	extract_selector(t_mlx *mlx, t_texture *texture, char *line)
+static int	extract_selector(t_mlx *mlx, t_texture *texture, char *line)
 {
 	int		i;
 
