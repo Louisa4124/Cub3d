@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 11:45:52 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:15:09 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_vec3d	**ft_malloc_rays(t_game *game)
 	t_vec3d		**rays;
 	int			x;
 
+	(void)game;
 	x = 0;
 	rays = malloc(sizeof(t_vec3d *) * H + 1);
 	while (x < H)

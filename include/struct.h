@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 14:39:02 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:17:09 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_game
 	float	r_h;
 	float	r_v;
 	int		**map;
-	t_mlx	*mlx;
+	t_mlx	mlx;
 	t_plan	*plan_h;
 	t_plan	*plan_v;
 	t_vec3d	**rays;
