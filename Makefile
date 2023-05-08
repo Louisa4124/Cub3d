@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/08 13:28:25 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/05/08 20:33:55 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ NAME		=	cub3D
 #	==============================	SOURCES	==============================	#
 DIR_SRCS		=	srcs/
 
-LST_SRCS		=	main.c parser.c init.c mlx.c algo.c math.c 
+LST_SRCS		=	main.c \
+					parser.c extract_texture.c \
+					init.c mlx.c algo.c math.c clear.c debug.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 

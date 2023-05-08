@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 13:49:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:56:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,20 @@ int	key_handler(int key, t_game *game)
 
 int	main(int argc, char **argv)
 {
-	// t_game	game;
-	t_texture texture;
-	int			**map;
+	t_game	game;
 
-	map = NULL;
 	if (argc != 2)
 		return (ft_man(argc));
-	if (parser(argv[1], &texture, map))
+	if (ft_init_mlx(&game))
 		return (1);
+	s_map_init(&game.map);
+	s_img_init(&game.texture.north);
+	s_img_init(&game.texture.south);
+	s_img_init(&game.texture.east);
+	s_img_init(&game.texture.west);
+	if (parser(argv[1], &game))
+		return (1);
+	ft_clean_exit(&game, EXIT_FAILURE);
 	/*
 	ft_init_game(&game);
 	game.mlx->ptr = mlx_init();
