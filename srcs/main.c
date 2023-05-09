@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 13:04:17 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:40:26 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,54 @@ int	key_handler(int key, t_game *game)
 	return (0);
 }
 
+void	my_mlx_pixel_put(t_img *img, const int x, const int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->ll + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	ft_display(t_game *game)
+{
+	int				i;
+	int				j;
+	t_vec3d			inter;
+
+	game->rays = ft_malloc_rays();
+	ft_init_rays(game);
+	j = -1;
+	while (++j < H)
+	{
+		i = -1;
+		while (++i < W)
+		{
+			printf("ihi\n");
+			if (ft_inter_plan_line(game, &game->plan_h[0], &inter, j, i) == 0)
+			{
+				printf("aha\n");
+				my_mlx_pixel_put(&game->view, j, i, 0xFFFFFF);
+			}
+			if (ft_inter_plan_line(game, &game->plan_h[1], &inter, j, i) == 0)
+			{
+				printf("aha\n");
+				my_mlx_pixel_put(&game->view, j, i, 0xFFFFFF);
+			}
+			if (ft_inter_plan_line(game, &game->plan_v[0], &inter, j, i) == 0)
+			{
+				printf("aha\n");
+				my_mlx_pixel_put(&game->view, j, i, 0xFFFFFF);
+			}
+			if (ft_inter_plan_line(game, &game->plan_v[1], &inter, j, i) == 0)
+			{
+				printf("aha\n");
+				my_mlx_pixel_put(&game->view, j, i, 0xFFFFFF);
+			}
+		}
+	}
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -71,6 +119,7 @@ int	main(int argc, char **argv)
 	s_img_init(&game.texture.south);
 	s_img_init(&game.texture.east);
 	s_img_init(&game.texture.west);
+	s_img_init(&game.view);
 	if (parser(argv[1], &game))
 		return (1);
 	ft_init_game(&game);
@@ -79,6 +128,7 @@ int	main(int argc, char **argv)
 	{
 		game.view.addr = mlx_get_data_addr \
 			(game.view.id, &game.view.bpp, &game.view.ll, &game.view.endian);
+		ft_display(&game);
 		ft_display_game(&game);
 		mlx_put_image_to_window(game.mlx.ptr, game.mlx.win, \
 			game.view.id, 0, 0);

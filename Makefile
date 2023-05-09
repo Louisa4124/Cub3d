@@ -6,7 +6,7 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/09 12:55:01 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/05/09 15:13:39 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DIR_SRCS		=	srcs/
 
 LST_SRCS		=	main.c \
 					parser.c extract_texture.c \
-					init.c mlx.c algo.c math.c clear.c debug.c utils_color.c
+					init.c mlx.c algo.c math.c intersection.c clear.c debug.c utils_color.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 

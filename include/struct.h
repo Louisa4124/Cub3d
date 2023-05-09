@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 13:08:18 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:03:46 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ typedef struct s_game
 	t_map		map;
 	t_mlx		mlx;
 	t_img		view;
+	t_plan		*plan_h;
+	t_plan		*plan_v;
 	t_vec3d		pos;
-	t_vec3d		camera;
+	t_vec3d		dir; //u
+	t_vec3d		camera; //o
 	t_vec3d		**rays;
 	t_texture	texture;
 }	t_game;

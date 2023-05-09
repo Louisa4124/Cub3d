@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 12:56:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:24:30 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@
 /*          Initialisation          */
 void	ft_init_game(t_game *game);
 void	ft_init_rays(t_game *game);
-t_vec3d	**ft_malloc_rays(t_game *game);
+t_vec3d	**ft_malloc_rays(void);
 int		ft_init_mlx(t_game *game);
-
 
 void	s_mlx_init(t_mlx *mlx);
 void	s_map_init(t_map *map);
@@ -66,6 +65,7 @@ t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 
 /*          Raycasting functiuns    */
 void	ft_display_game(t_game *game);
+int		ft_inter_plan_line(t_game *game, t_plan *plan, t_vec3d *inter, int x, int y);
 
 
 /*			Debug					*/
