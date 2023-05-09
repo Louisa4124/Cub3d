@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 14:57:12 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:56:20 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,32 @@
 # define H 600
 # define FOV 60
 # define PI 3.14159265
-
-# define width 24
-# define height 24
+# define WIDTH 24
+# define HEIGHT 24
 
 /*          Initialisation          */
 void	ft_init_game(t_game *game);
 void	ft_init_rays(t_game *game);
 t_vec3d	**ft_malloc_rays(t_game *game);
+int		ft_init_mlx(t_game *game);
+
+
+void	s_mlx_init(t_mlx *mlx);
+void	s_map_init(t_map *map);
+void	s_img_init(t_img *img);
+
+/*			Clear					*/
+void	s_mlx_destroy(t_game *game);
+void	s_img_destroy(t_mlx *mlx, t_img *img);
+
+void	ft_clean_exit(t_game *game, int exit_code);
+
+
+/*			Parsing					*/
+int		parser(char *pathname, t_game *game);
+int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
+
+
 
 /*			Mlx functiuns			*/
 void	ft_destroy_mlx(t_game *game);
@@ -48,5 +66,14 @@ t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 
 /*          Raycasting functiuns    */
 void	ft_display_game(t_game *game);
+
+
+/*			Debug					*/
+void	debug_printf_texture(t_texture *texture);
+void	debug_print_img(t_img *img);
+void	debug_print_mlx(t_mlx *mlx);
+
+
+int		rgb_to_hexa(int r, int g, int b);
 
 #endif
