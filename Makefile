@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/09 12:55:01 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/05/09 14:40:33 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME		=	cub3D
 DIR_SRCS		=	srcs/
 
 LST_SRCS		=	main.c \
-					parser.c extract_texture.c \
+					parser.c extract_texture.c extract_map.c \
 					init.c mlx.c algo.c math.c clear.c debug.c utils_color.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 

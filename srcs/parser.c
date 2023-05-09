@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/08 21:28:33 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:06:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,6 @@ static int	parser_error(int errnum)
 	if (errnum == 1)
 		ft_putstr_fd("Error : cub3D only take .cub map\n", 2);
 	return (errnum);
-}
-
-int	is_start(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (1);
-	return (0);
 }
 
 
@@ -48,12 +41,9 @@ int	parser(char *pathname, t_game *game)
 	if (fd == -1)
 		return (perror("Error : "), 1);
 	if (parser_texture(&game->mlx, &game->texture, fd))
-	{
-		// debug_printf_texture(&game->texture);
 		ft_clean_exit(game, EXIT_FAILURE);
-	}
-	debug_printf_texture(&game->texture);
-
+	if (parser_map(&game->map, &game->pos, &game->dir, fd))
+		ft_clean_exit(game, EXIT_FAILURE);
 	return (0);
 }
 

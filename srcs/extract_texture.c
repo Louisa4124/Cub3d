@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/08 21:58:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:27:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,17 @@ static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 	while (*path && ft_isspace(*path))
 		++path;
 	if (*path == '\0')
-	{
-		ft_putstr_fd("Error : can't find texture\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error : can't find texture\n", 2), 1);
 	i = 0;
 	while (path[i] && path[i] != '\n')
 		++i;
 	path[i] = '\0';
 	img->id = mlx_xpm_file_to_image(mlx->ptr, path, &img->width, &img->height);
 	if (img->id == NULL)
-	{
-		ft_putstr_fd("Error : can't load texture\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error : can't load texture\n", 2), 1);
+	img->addr = mlx_get_data_addr(img->id, &img->bpp, &img->ll, &img->endian);
+	if (img->addr == NULL)
+		return (ft_putstr_fd("Error : can't get texture data\n", 2), 1);
 	return (0);
 }
 
@@ -70,7 +67,7 @@ static int	extract_selector(t_mlx *mlx, t_texture *texture, char *line)
 
 	i = 0;
 	while (line[i] && ft_isspace(line[i]))
-			++i;
+		++i;
 	if (line[i] == '\0')
 		return (2);
 	if (line[i] == 'N' && line[i + 1] == 'O')

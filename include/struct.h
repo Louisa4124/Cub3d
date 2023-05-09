@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 13:08:18 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:43:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_game
 	t_mlx		mlx;
 	t_img		view;
 	t_vec3d		pos;
+	t_vec3d		dir;
 	t_vec3d		camera;
 	t_vec3d		**rays;
 	t_texture	texture;

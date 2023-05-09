@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 12:56:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:40:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_clean_exit(t_game *game, int exit_code);
 /*			Parsing					*/
 int		parser(char *pathname, t_game *game);
 int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
-
+int		parser_map(t_map *map, t_vec3d *pos, t_vec3d *dir, int fd);
 
 
 /*			Mlx functiuns			*/
