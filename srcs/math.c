@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:14:59 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/08 13:02:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:49:47 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,48 @@ t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad)
 	cpy.z = v.z;
 	return (cpy);
 }
+
+
+// void	ft_move_next(int keycode, t_game *game)
+// {	
+// 	if (keycode == EVENT_A)
+// 	{
+// 		if (game->map[(int)(game->player_y - sin(game->angle_z) * 0.20)]
+// 			[(int)(game->player_x - cos(game->angle_z) * 0.20)] != '1')
+// 		{
+// 			game->player_x -= cos(game->angle_z) * 0.1;
+// 			game->player_y -= sin(game->angle_z) * 0.1;
+// 		}
+// 	}
+// 	if (keycode == EVENT_D)
+// 	{
+// 		if (game->map[(int)(game->player_y + sin(game->angle_z) * 0.20)]
+// 			[(int)(game->player_x + cos(game->angle_z) * 0.20)] != '1')
+// 		{
+// 			game->player_x += cos(game->angle_z) * 0.1;
+// 			game->player_y += sin(game->angle_z) * 0.1;
+// 		}
+// 	}
+// }
+// void	ft_move(int keycode, t_game *game)
+// {
+// 	if (keycode == EVENT_W)
+// 	{
+// 		if (game->map[(int)(game->player_y - cos(game->angle_z) * 0.20)]
+// 			[(int)(game->player_x + sin(game->angle_z) * 0.20)] != '1')
+// 		{
+// 			game->player_x += sin(game->angle_z) * 0.1;
+// 			game->player_y -= cos(game->angle_z) * 0.1;
+// 		}
+// 	}
+// 	if (keycode == EVENT_S)
+// 	{
+// 		if (game->map[(int)(game->player_y + cos(game->angle_z) * 0.20)]
+// 			[(int)(game->player_x - sin(game->angle_z) * 0.20)] != '1')
+// 		{
+// 			game->player_x -= sin(game->angle_z) * 0.1;
+// 			game->player_y += cos(game->angle_z) * 0.1;
+// 		}
+// 	}
+// 	ft_move_next(keycode, game);
+// }

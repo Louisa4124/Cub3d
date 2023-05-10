@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 16:24:30 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:23:14 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@
 # define PI 3.14159265
 # define WIDTH 24
 # define HEIGHT 24
+
+# define RED 0xFF0000
+# define GREEN 0x00FF00
+# define BLUE 0x0000FF
+# define WHITE 0xFFFFFF
+# define PURPLE 0x8F00FF
+# define MAROON 0x800000
+# define BLACK 0x000000
 
 /*          Initialisation          */
 void	ft_init_game(t_game *game);
@@ -75,5 +83,7 @@ void	debug_print_mlx(t_mlx *mlx);
 
 
 int		rgb_to_hexa(int r, int g, int b);
+
+int		ft_update(t_game *game);
 
 #endif

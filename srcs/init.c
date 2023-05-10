@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 16:20:18 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:14:30 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,22 @@ void	ft_init_game(t_game *game)
 	game->plan_h[0].a = 0;
 	game->plan_h[0].b = 1;
 	game->plan_h[0].c = 0;
-	game->plan_h[0].d = 3;
+	game->plan_h[0].d = 4;
 
 	game->plan_h[1].a = 0;
 	game->plan_h[1].b = 1;
 	game->plan_h[1].c = 0;
-	game->plan_h[1].d = -3;
+	game->plan_h[1].d = -4;
 
 	game->plan_v[0].a = 1;
 	game->plan_v[0].b = 0;
 	game->plan_v[0].c = 0;
-	game->plan_v[0].d = 3;
+	game->plan_v[0].d = 4;
 
 	game->plan_v[1].a = 1;
 	game->plan_v[1].b = 0;
 	game->plan_v[1].c = 0;
-	game->plan_v[1].d = -3;
+	game->plan_v[1].d = -4;
 
 	game->dir.x = 1;
 	game->dir.y = 0;
@@ -108,7 +108,6 @@ void	ft_init_rays(t_game *game)
 		i = -1;
 		while (++i < W)
 		{
-			printf("oui i = %d\n", i);
 			game->rays[j][i].x = ((j - W * 0.5) * game->r_h);
 			game->rays[j][i].y = -1.0;
 			game->rays[j][i].z = ((H * 0.5 - i) * game->r_v);
