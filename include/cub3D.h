@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 14:40:11 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:27:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_clean_exit(t_game *game, int exit_code);
 /*			Parsing					*/
 int		parser(char *pathname, t_game *game);
 int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
-int		parser_map(t_map *map, t_vec3d *pos, t_vec3d *dir, int fd);
+int		parser_map(t_map *map, t_game *game, int fd);
 
 
 /*			Mlx functiuns			*/
@@ -72,7 +72,7 @@ void	ft_display_game(t_game *game);
 void	debug_printf_texture(t_texture *texture);
 void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
-
+void	debug_print_map(t_map *map);
 
 int		rgb_to_hexa(int r, int g, int b);
 

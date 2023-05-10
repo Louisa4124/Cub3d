@@ -6,11 +6,14 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/09 16:41:51 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:22:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+
+int	ft_len_max(t_list *lst);
+int	extract_map_line_tab(t_map *map, int y, int x);
 
 static int	extract_lst(t_list **lst, char *line)
 {
@@ -35,37 +38,67 @@ static int	extract_lst(t_list **lst, char *line)
 	return (0);
 }
 
-static int	ft_len_max(t_list *lst)
+static void	extract_map_get_start(t_game *game, char c, int x, int y)
 {
-	int	max;
-	int	tmp;
-
-	max = 0;
-	while (lst)
+	game->pos.x = x;
+	game->pos.y = y;
+	game->map.layout[y][x] = 0;
+	if (c == 'N')
 	{
-		tmp = ft_strlen2((char *)lst->content);
-		if (tmp > max)
-			max = tmp;
-		lst = lst->next;
+		game->dir.x = -1;
+		game->dir.y = 0;
 	}
-	return (max);
+	else if (c == 'S')
+	{
+		game->dir.x = 1;
+		game->dir.y = 0;
+	}
+	else if (c == 'W')
+	{
+		game->dir.x = 0;
+		game->dir.y = -1;
+	}
+	else if (c == 'E')
+	{
+		game->dir.x = 0;
+		game->dir.y = 1;
+	}
 }
 
-static int	map_get_int(char c)
-{
-	if (c == ' ')
-		return (-1);
-	if (c == '1' || c == '0')
-		return (c - 48);
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (c);
-	return (-2);
-}
-
-static int	extract_map(t_map *map, t_vec3d *pos, t_vec3d *dir, t_list **lst)
+static int	extract_map_line(t_map *map, t_game *game, char *line, int y)
 {
 	int	x;
+
+	x = -1;
+	while (line[++x] && line[x] != '\n' && x < map->x_size)
+	{
+		dprintf(2, "%d\t", line[x]);
+		if (line[x] == '0')
+			map->layout[y][x] = 0;
+		else if (line[x] == '1')
+			map->layout[y][x] = 1;
+		else if (line[x] == ' ')
+			map->layout[y][x] = -1;
+		else if (line[x] == '\t')
+			extract_map_line_tab(map, y, x);
+		else if (line[x] == 'N' || line[x] == 'S' || line[x] == 'E' \
+			|| line[x] == 'W')
+			extract_map_get_start(game, line[x], x, y);
+		else
+			return (ft_putstr_fd("Error : unexpected char in map\n", 2), 1);
+	}
+	dprintf(2, "\nx : %d\nxsize : %d\n", x, map->x_size);
+	while (++x < map->x_size)
+		map->layout[y][x] = -1;
+	dprintf(2, "\nOUIIIIIINNNN\n");
+	return (0);
+}
+
+static int	extract_map(t_map *map, t_game *game, t_list **lst)
+{
+	t_list	*current;
 	int	y;
+
 
 	map->y_size = ft_lstsize(*lst);
 	map->layout = ft_calloc(map->y_size, sizeof(void *));
@@ -75,21 +108,32 @@ static int	extract_map(t_map *map, t_vec3d *pos, t_vec3d *dir, t_list **lst)
 		ft_putstr_fd("Error : malloc failed\n", 2);
 		return (1);
 	}
-	map->x_size = ft_len_max(*lst);
-	y = 0;
-	while (y++ < map->x_size)
+	map->x_size = ft_len_max(*lst) - 1;
+	y = -1;
+	current = *lst;
+	while (++y < map->y_size)
 	{
-		x = 0;
 		map->layout[y] = ft_calloc(map->x_size, sizeof(int));
-		while (((char *)(*lst)->content)[x])
+		if (map->layout[y] == NULL)
 		{
-			map->layout[y][x] = map_get_int(((char *)(*lst)->content)[x]);
-			++x;
+			ft_lstclear(lst, free);
+			map->layout = ft_free2d((void **)map->layout, y);
+			ft_putstr_fd("Error : malloc failed\n", 2);
+			return (1);
 		}
+		if (extract_map_line(map, game, (char *)current->content, y))
+		{
+			ft_lstclear(lst, free);
+			map->layout = ft_free2d((void **)map->layout, y);
+			ft_putstr_fd("Error : malloc failed\n", 2);
+			return (1);
+		}
+		current = current->next;
 	}
+	return (0);
 }
 
-int	parser_map(t_map *map, t_vec3d *pos, t_vec3d *dir, int fd)
+int	parser_map(t_map *map, t_game *game, int fd)
 {
 	char	*line;
 	t_list	*lst;
@@ -110,8 +154,9 @@ int	parser_map(t_map *map, t_vec3d *pos, t_vec3d *dir, int fd)
 	}
 	if (wit == 2)
 		return (1);
-	if (extract_map(map, pos, dir, &lst))
+	if (extract_map(map, game, &lst))
 		return (1);
 	ft_lstclear(&lst, free);
+	debug_print_map(&game->map);
 	return (0);
 }
