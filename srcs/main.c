@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 16:49:22 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:41:55 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_display(t_game *game)
 		{
 			ft_rotate_vec_z(game->rays[j][i], PI/2);
 			if (ft_inter_plan_line(game, &game->plan[0][0], &inter, j, i) == 0)
-				my_mlx_pixel_put(&game->view, i, j, 0xFFFFFF);
+				my_mlx_pixel_put(&game->view, i, j, RED);
 			else if (ft_inter_plan_line(game, &game->plan[0][1], &inter, j, i) == 0)
 				my_mlx_pixel_put(&game->view, i, j, RED);
 			else if (ft_inter_plan_line(game, &game->plan[1][0], &inter, j, i) == 0)
@@ -121,18 +121,20 @@ int	main(int argc, char **argv)
 	s_img_init(&game.texture.east);
 	s_img_init(&game.texture.west);
 	s_img_init(&game.view);
+	game.rays = ft_malloc_rays();
+	ft_init_rays(&game);
+	ft_init_game(&game);
+	ft_creat_plan_h(&game);
+	ft_creat_plan_v(&game);
 	game.map = ft_malloc_map();
 	if (parser(argv[1], &game))
 		return (1);
-	ft_init_game(&game);
-	game.rays = ft_malloc_rays();
-	ft_init_rays(&game);
 	game.view.id = mlx_new_image(game.mlx.ptr, W, H);
 	if (game.view.id != NULL)
 	{
 		game.view.addr = mlx_get_data_addr \
 			(game.view.id, &game.view.bpp, &game.view.ll, &game.view.endian);
-		ft_display(&game);
+		//ft_display(&game);
 		ft_display_game(&game);
 		mlx_put_image_to_window(game.mlx.ptr, game.mlx.win, \
 			game.view.id, 0, 0);

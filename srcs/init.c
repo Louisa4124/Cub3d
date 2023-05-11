@@ -6,17 +6,25 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 14:36:40 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:44:00 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-t_plan	*ft_malloc_plan(void)
+t_plan	*ft_malloc_plan_v(void)
 {
 	t_plan		*plan;
 
-	plan = malloc(sizeof(t_plan *) * 4 + 2);
+	plan = malloc(sizeof(t_plan) * (WIDTH + 2));
+	return (plan);
+}
+
+t_plan	*ft_malloc_plan_h(void)
+{
+	t_plan		*plan;
+
+	plan = malloc(sizeof(t_plan) * (HEIGHT + 2));
 	return (plan);
 }
 
@@ -61,6 +69,10 @@ void	s_img_init(t_img *img)
 
 void	ft_init_game(t_game *game)
 {
+	game->pos.x = 1;
+	game->pos.y = 0;
+	game->pos.z = 1;
+
 	game->angle_z = 0;
 	game->angle_x = 0;
 
@@ -68,28 +80,28 @@ void	ft_init_game(t_game *game)
 	game->camera.y = 0;
 	game->camera.z = 0.5;
 
-	game->plan[0] = ft_malloc_plan();
-	game->plan[1] = ft_malloc_plan();
+	game->plan[0] = ft_malloc_plan_h();
+	game->plan[1] = ft_malloc_plan_v();
 
-	game->plan[0][0].a = 0;
-	game->plan[0][0].b = 1;
-	game->plan[0][0].c = 0;
-	game->plan[0][0].d = 4;
+	// game->plan[0][0].a = 0;
+	// game->plan[0][0].b = 1;
+	// game->plan[0][0].c = 0;
+	// game->plan[0][0].d = 4;
 
-	game->plan[0][1].a = 0;
-	game->plan[0][1].b = 1;
-	game->plan[0][1].c = 0;
-	game->plan[0][1].d = -4;
+	// game->plan[0][1].a = 0;
+	// game->plan[0][1].b = 1;
+	// game->plan[0][1].c = 0;
+	// game->plan[0][1].d = -4;
 
-	game->plan[1][0].a = 1;
-	game->plan[1][0].b = 0;
-	game->plan[1][0].c = 0;
-	game->plan[1][0].d = 4;
+	// game->plan[1][0].a = 1;
+	// game->plan[1][0].b = 0;
+	// game->plan[1][0].c = 0;
+	// game->plan[1][0].d = 4;
 
-	game->plan[1][1].a = 1;
-	game->plan[1][1].b = 0;
-	game->plan[1][1].c = 0;
-	game->plan[1][1].d = -4;
+	// game->plan[1][1].a = 1;
+	// game->plan[1][1].b = 0;
+	// game->plan[1][1].c = 0;
+	// game->plan[1][1].d = -4;
 
 	game->dir.x = 1;
 	game->dir.y = 0;

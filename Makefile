@@ -6,7 +6,7 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/11 16:56:49 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/05/11 17:39:45 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DIR_SRCS		=	srcs/
 
 LST_SRCS		=	main.c \
 					parser.c extract_texture.c \
-					init.c mlx.c algo.c math.c intersection.c clear.c debug.c utils_color.c move.c
+					init.c mlx.c algo.c math.c intersection.c clear.c debug.c utils_color.c move.c plan.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 
@@ -53,7 +53,7 @@ MAKE		=	make -s
 
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	#-Wall -Wextra -Werror -fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
+CFLAGS		=	-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
 FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11 
 

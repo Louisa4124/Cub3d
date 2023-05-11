@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 16:50:49 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:39:20 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int		close_event(t_game *game);
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
+void	ft_creat_plan_h(t_game *game);
+void	ft_creat_plan_v(t_game *game);
 
 /*          Raycasting functiuns    */
 void	ft_display_game(t_game *game);

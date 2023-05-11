@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/05/11 13:58:34 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:42:38 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_creat_plan_h(t_game *game)
 	i = 0;
 	while (i <= HEIGHT)
 	{
+		dprintf(2, "i = %d\n", i);
 		game->plan[0][i].a = 0;
 		game->plan[0][i].b = 1;
 		game->plan[0][i].c = 0;

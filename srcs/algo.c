@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 16:55:08 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:37:18 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int	ft_update(t_game *game)
 			while (v < 2)
 			{
 				if (v == 0)
-					switch_plan = H;
+					switch_plan = HEIGHT;
 				else
-					switch_plan = W;
+					switch_plan = WIDTH;
 				u = 0;
 				while (u <= switch_plan)
 				{
@@ -94,6 +94,7 @@ int	ft_update(t_game *game)
 								|| (v == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v][u].d) < H && (int)(-game->plan[v][u].d) >= 0 && game->map[(int)(-game->plan[v][u].d)][(int)(game->pos.x + point_x)] == '1')
 								|| (v == 1 && (game->pos.x + point_x) > game->pos.x && (int)(-game->plan[v][u].d) < W && (int)(-game->plan[v][u].d) >= 0 && game->map[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d)] == '1')))
 								{
+									dprintf(1, "OK\n");
 									best_t = t;
 									v_plan = v;
 									u_plan = u;
@@ -120,7 +121,7 @@ int	ft_update(t_game *game)
 					y = (int)(((int)(point_z) - point_z) * game->img_n.ll * 0.25);
 					y = -y;
 					x = -x;
-					//printf("x : %d y : %d | size : %d | color : 0x%08.8X\n", x, y, (int)(game->img_n.ll * 0.25), game->img_n.data[(int)(x * (game->img_n.ll * 0.25) + y)]);
+					printf("OUIN x : %d y : %d | size : %d | color : 0x%08.8X\n", x, y, (int)(game->img_n.ll * 0.25), game->img_n.data[(int)(x * (game->img_n.ll * 0.25) + y)]);
 					img.data[i * WIDTH + j] = game->img_n.data[(int)(y * (game->img_n.ll * 0.25) + x)];
 				}
 				else if (v_plan == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < H && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point_x)] == '1')
