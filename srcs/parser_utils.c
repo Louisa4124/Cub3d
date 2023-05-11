@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:49:15 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/10 13:50:27 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:19:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,15 @@ int	extract_map_line_tab(t_map *map, int y, int x)
 	map->layout[y][x + 2] = -1;
 	map->layout[y][x + 3] = -1;
 	return (4);
+}
+
+int	extract_map_error(t_list **lst, int **layout, int size, char *errstr)
+{
+	ft_lstclear(lst, free);
+	if (size)
+		ft_free2d((void **)layout, size);
+	else
+		free(layout);
+	ft_putstr_fd(errstr, 2);
+	return (1);
 }

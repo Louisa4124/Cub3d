@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/10 15:22:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:49:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_len_max(t_list *lst);
 int	extract_map_line_tab(t_map *map, int y, int x);
+int	extract_map_error(t_list **lst, int **layout, int size, char *errstr);
 
 static int	extract_lst(t_list **lst, char *line)
 {
@@ -24,14 +25,14 @@ static int	extract_lst(t_list **lst, char *line)
 	while (line[i] && ft_isspace(line[i]))
 		++i;
 	if (line[i] == '\0' && *lst == NULL)
-		return (0);
+		return (free(line), 0);
 	else if (line[i] == '\0')
-		return (1);
+		return (free(line), 1);
 	new = ft_lstnew((void *) line);
 	if (!new)
 	{
 		ft_lstclear(lst, free);
-		ft_putstr_fd("Error : malloc failed\n", 2);
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
 		return (2);
 	}
 	ft_lstadd_back(lst, new);
@@ -69,10 +70,9 @@ static int	extract_map_line(t_map *map, t_game *game, char *line, int y)
 {
 	int	x;
 
-	x = -1;
-	while (line[++x] && line[x] != '\n' && x < map->x_size)
+	x = 0;
+	while (line[x] && line[x] != '\n' && x < map->x_size)
 	{
-		dprintf(2, "%d\t", line[x]);
 		if (line[x] == '0')
 			map->layout[y][x] = 0;
 		else if (line[x] == '1')
@@ -85,50 +85,36 @@ static int	extract_map_line(t_map *map, t_game *game, char *line, int y)
 			|| line[x] == 'W')
 			extract_map_get_start(game, line[x], x, y);
 		else
-			return (ft_putstr_fd("Error : unexpected char in map\n", 2), 1);
+			return (ft_putstr_fd("Error\nUnexpected char in map\n", 2), 1);
+		++x;
 	}
-	dprintf(2, "\nx : %d\nxsize : %d\n", x, map->x_size);
-	while (++x < map->x_size)
-		map->layout[y][x] = -1;
-	dprintf(2, "\nOUIIIIIINNNN\n");
+	while (x < map->x_size)
+		map->layout[y][x++] = -1;
 	return (0);
 }
 
 static int	extract_map(t_map *map, t_game *game, t_list **lst)
 {
 	t_list	*current;
-	int	y;
-
+	int		y;
 
 	map->y_size = ft_lstsize(*lst);
 	map->layout = ft_calloc(map->y_size, sizeof(void *));
 	if (!map->layout)
-	{
-		ft_lstclear(lst, free);
-		ft_putstr_fd("Error : malloc failed\n", 2);
-		return (1);
-	}
+		extract_map_error(lst, map->layout, 0, "Error\nMalloc failed\n");
 	map->x_size = ft_len_max(*lst) - 1;
-	y = -1;
+	y = 0;
 	current = *lst;
-	while (++y < map->y_size)
+	while (y < map->y_size)
 	{
 		map->layout[y] = ft_calloc(map->x_size, sizeof(int));
 		if (map->layout[y] == NULL)
-		{
-			ft_lstclear(lst, free);
-			map->layout = ft_free2d((void **)map->layout, y);
-			ft_putstr_fd("Error : malloc failed\n", 2);
-			return (1);
-		}
+			extract_map_error(lst, map->layout, y, "Error\nMalloc failed\n");
 		if (extract_map_line(map, game, (char *)current->content, y))
-		{
-			ft_lstclear(lst, free);
-			map->layout = ft_free2d((void **)map->layout, y);
-			ft_putstr_fd("Error : malloc failed\n", 2);
-			return (1);
-		}
+			extract_map_error(lst, map->layout, y, \
+				"Error\nUnexpected char in map\n");
 		current = current->next;
+		++y;
 	}
 	return (0);
 }
@@ -146,7 +132,7 @@ int	parser_map(t_map *map, t_game *game, int fd)
 		if (get_next_line(fd, &line))
 		{
 			ft_lstclear(&lst, free);
-			return (perror("Error : "), 1);
+			return (perror("Error\n"), 1);
 		}
 		if (line == NULL)
 			break ;
@@ -157,6 +143,5 @@ int	parser_map(t_map *map, t_game *game, int fd)
 	if (extract_map(map, game, &lst))
 		return (1);
 	ft_lstclear(&lst, free);
-	debug_print_map(&game->map);
 	return (0);
 }

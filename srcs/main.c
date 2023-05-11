@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 13:04:17 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:46:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	main(int argc, char **argv)
 	s_img_init(&game.texture.west);
 	if (parser(argv[1], &game))
 		return (1);
+	debug_print_texture(&game.texture);
+	debug_print_map(&game.map);
 	ft_init_game(&game);
 	game.view.id = mlx_new_image(game.mlx.ptr, W, H);
 	if (game.view.id != NULL)

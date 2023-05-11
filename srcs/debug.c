@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:33:34 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/10 13:59:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:46:50 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	debug_print_img(t_img *img)
 	dprintf(2, "	----	\n");
 }
 
-void	debug_printf_texture(t_texture *texture)
+void	debug_print_texture(t_texture *texture)
 {
 	dprintf(2, "####	t_texture	####\n");
 	debug_print_img(&texture->north);
@@ -50,7 +50,7 @@ void	debug_print_map(t_map *map)
 	int	i;
 	int	j;
 
-	dprintf(2, "####	t_texture	####\n");
+	dprintf(2, "####	t_map	####\n");
 	dprintf(2, "map->y_size : %d\n", map->y_size);
 	dprintf(2, "map->x_size : %d\n", map->x_size);
 	i = -1;

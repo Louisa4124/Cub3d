@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/10 13:28:26 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:47:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 static int	parser_error(int errnum)
 {
 	if (errnum == 1)
-		ft_putstr_fd("Error : cub3D only take .cub map\n", 2);
+		ft_putstr_fd("Error\nCub3D only take .cub map\n", 2);
 	return (errnum);
 }
 
-
-int	check_name(char *name)
+static int	check_name(char *name)
 {
 	while (*name)
 	{
@@ -31,6 +30,46 @@ int	check_name(char *name)
 	return (1);
 }
 
+static int	check_tiles(t_map *map, int y, int x)
+{
+	if (map->layout[y - 1][x] == -1)
+		return (1);
+	if (map->layout[y + 1][x] == -1)
+		return (1);
+	if (map->layout[y][x + 1] == -1)
+		return (1);
+	if (map->layout[y][x + 1] == -1)
+		return (1);
+	return (0);
+}
+
+static int	check_map(t_map *map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < map->y_size)
+	{
+		x = 0;
+		while (x < map->x_size)
+		{
+			if (map->layout[y][x] == 0)
+			{
+				if (y == 0 || x == 0 || y == map->y_size || x == map->x_size \
+					|| check_tiles(map, y, x))
+				{
+					ft_putstr_fd("Error\nMap not surrounded by wall\n", 2);
+					return (1);
+				}
+			}
+			++x;
+		}
+		++y;
+	}
+	return (0);
+}
+
 int	parser(char *pathname, t_game *game)
 {
 	int		fd;
@@ -39,26 +78,19 @@ int	parser(char *pathname, t_game *game)
 		return (parser_error(1));
 	fd = open(pathname, O_RDONLY);
 	if (fd == -1)
-		return (perror("Error : "), 1);
+		return (perror("Error\n"), 1);
 	if (parser_texture(&game->mlx, &game->texture, fd))
+	{
+		close(fd);
 		ft_clean_exit(game, EXIT_FAILURE);
+	}
 	if (parser_map(&game->map, game, fd))
+	{
+		close(fd);
 		ft_clean_exit(game, EXIT_FAILURE);
-	
+	}
+	close(fd);
+	if (check_map(&game->map))
+		ft_clean_exit(game, EXIT_FAILURE);
 	return (0);
 }
-
-/*
-	get_next_line(fd, line);
-	while (line && line[0] == '\n')
-	{
-		free(line);
-		get_next_line(fd, line);
-	}
-	while (line && line[0] != '\n')
-	{
-		extract_map(map, line);
-		free(line);
-		get_next_line(fd, line);
-	}
-*/
