@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 14:25:54 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:49:22 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	ft_man(int num)
 	return (0);
 }
 
-int	key_handler(int key, t_game *game)
-{
-	if (key == 53 || key == 65307)
-		close_event(game);
-	return (0);
-}
+// int	key_handler(int key, t_game *game)
+// {
+// 	if (key == 53 || key == 65307)
+// 		close_event(game);
+// 	return (0);
+// }
 
 void	my_mlx_pixel_put(t_img *img, const int x, const int y, int color)
 {
@@ -136,7 +136,7 @@ int	main(int argc, char **argv)
 		ft_display_game(&game);
 		mlx_put_image_to_window(game.mlx.ptr, game.mlx.win, \
 			game.view.id, 0, 0);
-		//mlx_loop_hook(game.mlx.ptr, ft_update, &game);
+		mlx_loop_hook(game.mlx.ptr, ft_update, &game);
 		mlx_hook(game.mlx.win, 2, 1L << 0, &key_handler, &game);
 		mlx_hook(game.mlx.win, 17, 0L, &close_event, &game);
 		mlx_loop(game.mlx.ptr);

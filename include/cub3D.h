@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/10 15:23:14 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:50:49 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 # define W 800
 # define H 600
@@ -38,6 +39,12 @@
 # define MAROON 0x800000
 # define BLACK 0x000000
 
+# define EVENT_W 119
+# define EVENT_A 97
+# define EVENT_S 115
+# define EVENT_D 100
+# define EVENT_ESC 65307
+
 /*          Initialisation          */
 void	ft_init_game(t_game *game);
 void	ft_init_rays(t_game *game);
@@ -53,6 +60,9 @@ void	s_mlx_destroy(t_game *game);
 void	s_img_destroy(t_mlx *mlx, t_img *img);
 
 void	ft_clean_exit(t_game *game, int exit_code);
+
+/*			Move					*/
+int		key_handler(int keycode, t_game *game);
 
 
 /*			Parsing					*/
