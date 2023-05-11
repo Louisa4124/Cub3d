@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 15:03:46 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:36:01 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct s_img
 {
 	void	*id;
 	char	*addr;
+	int		*data;
 	int		height;
 	int		width;
 	int		ll;
@@ -51,15 +52,21 @@ typedef struct s_game
 {
 	float		r_h;
 	float		r_v;
-	t_map		map;
+	float		angle_z;
+	float		angle_x;
+	int			**map;
+	//t_map		map;
+	t_img		img_n;
+	t_img		img_s;
+	t_img		img_w;
+	t_img		img_e;
 	t_mlx		mlx;
 	t_img		view;
-	t_plan		*plan_h;
-	t_plan		*plan_v;
 	t_vec3d		pos;
-	t_vec3d		dir; //u
-	t_vec3d		camera; //o
+	t_vec3d		dir;
+	t_vec3d		camera;
 	t_vec3d		**rays;
+	t_plan		**plan;
 	t_texture	texture;
 }	t_game;
 

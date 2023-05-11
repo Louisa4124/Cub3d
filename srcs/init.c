@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/10 13:14:30 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:36:40 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,32 +61,35 @@ void	s_img_init(t_img *img)
 
 void	ft_init_game(t_game *game)
 {
+	game->angle_z = 0;
+	game->angle_x = 0;
+
 	game->camera.x = 0;
 	game->camera.y = 0;
 	game->camera.z = 0.5;
 
-	game->plan_h = ft_malloc_plan();
-	game->plan_v = ft_malloc_plan();
+	game->plan[0] = ft_malloc_plan();
+	game->plan[1] = ft_malloc_plan();
 
-	game->plan_h[0].a = 0;
-	game->plan_h[0].b = 1;
-	game->plan_h[0].c = 0;
-	game->plan_h[0].d = 4;
+	game->plan[0][0].a = 0;
+	game->plan[0][0].b = 1;
+	game->plan[0][0].c = 0;
+	game->plan[0][0].d = 4;
 
-	game->plan_h[1].a = 0;
-	game->plan_h[1].b = 1;
-	game->plan_h[1].c = 0;
-	game->plan_h[1].d = -4;
+	game->plan[0][1].a = 0;
+	game->plan[0][1].b = 1;
+	game->plan[0][1].c = 0;
+	game->plan[0][1].d = -4;
 
-	game->plan_v[0].a = 1;
-	game->plan_v[0].b = 0;
-	game->plan_v[0].c = 0;
-	game->plan_v[0].d = 4;
+	game->plan[1][0].a = 1;
+	game->plan[1][0].b = 0;
+	game->plan[1][0].c = 0;
+	game->plan[1][0].d = 4;
 
-	game->plan_v[1].a = 1;
-	game->plan_v[1].b = 0;
-	game->plan_v[1].c = 0;
-	game->plan_v[1].d = -4;
+	game->plan[1][1].a = 1;
+	game->plan[1][1].b = 0;
+	game->plan[1][1].c = 0;
+	game->plan[1][1].d = -4;
 
 	game->dir.x = 1;
 	game->dir.y = 0;

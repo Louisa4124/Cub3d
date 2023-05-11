@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/08 21:56:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:32:52 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	ft_clean_exit(t_game *game, int exit_code)
 {
 	ft_destroy_texture(&game->mlx, &game->texture);
 	s_mlx_destroy(game);
-	ft_free2d((void **) game->map.layout, game->map.y_size);
+	//ft_free2d((void **) game->map.layout, game->map.y_size);
 	exit(exit_code);
 }
