@@ -6,11 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/11 14:10:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:21:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 static int	parser_error(int errnum)
 {

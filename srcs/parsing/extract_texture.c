@@ -6,11 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/11 13:24:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:21:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 {

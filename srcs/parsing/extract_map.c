@@ -6,11 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/11 13:49:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:20:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 int	ft_len_max(t_list *lst);
 int	extract_map_line_tab(t_map *map, int y, int x);
