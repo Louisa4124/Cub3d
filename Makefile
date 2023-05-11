@@ -6,7 +6,7 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/11 17:10:40 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/05/11 17:12:30 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,19 @@ NAME		=	cub3D
 #	==============================	SOURCES	==============================	#
 DIR_SRCS		=	srcs/
 
-LST_SRCS		=	main.c \
-					parser.c extract_texture.c \
-					init.c mlx.c algo.c math.c clear.c debug.c utils_color.c
+LST_SRCS		=	main.c clear.c debug.c\
+					init.c mlx.c algo.c math.c  utils.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
+
+DIR_SRCS_PARSE	=	srcs/parsing/
+LST_SRCS_PARSE	=	parser.c extract_texture.c extract_map.c parser_utils.c
+SRCS_PARSE		=	${addprefix ${DIR_SRCS_PARSE}, ${LST_SRCS_PARSE}}
 
 
 #	==============================	OBJECTS	==============================	#
 DIR_OBJS	=	.objs/
 OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
+				${patsubst ${DIR_SRCS_PARSE}%.c, ${DIR_OBJS}%.o, ${SRCS_PARSE}}
 
 
 #	==============================	HEADERS	==============================	#
@@ -84,6 +88,10 @@ ${NAME}			:	${LIBFT} ${LIBMLX} ${DIR_OBJS} ${OBJS}
 				@printf "$(GREEN_LIGHT)${NAME} created !\n$(END)"
 
 ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADER}
+				@printf "$(YELLOW)Making $@...\n$(END)"
+				@${CC} ${CFLAGS} -c $< -o $@
+
+${DIR_OBJS}%.o	:	${DIR_SRCS_PARSE}%.c ${HEADER}
 				@printf "$(YELLOW)Making $@...\n$(END)"
 				@${CC} ${CFLAGS} -c $< -o $@
 

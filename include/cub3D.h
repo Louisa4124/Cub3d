@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 12:56:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:49:48 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_init_rays(t_game *game);
 t_vec3d	**ft_malloc_rays(t_game *game);
 int		ft_init_mlx(t_game *game);
 
-
 void	s_mlx_init(t_mlx *mlx);
 void	s_map_init(t_map *map);
 void	s_img_init(t_img *img);
@@ -44,14 +43,12 @@ void	s_img_init(t_img *img);
 /*			Clear					*/
 void	s_mlx_destroy(t_game *game);
 void	s_img_destroy(t_mlx *mlx, t_img *img);
-
 void	ft_clean_exit(t_game *game, int exit_code);
-
 
 /*			Parsing					*/
 int		parser(char *pathname, t_game *game);
 int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
-
+int		parser_map(t_map *map, t_game *game, int fd);
 
 
 /*			Mlx functiuns			*/
@@ -67,12 +64,11 @@ t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 /*          Raycasting functiuns    */
 void	ft_display_game(t_game *game);
 
-
 /*			Debug					*/
-void	debug_printf_texture(t_texture *texture);
+void	debug_print_texture(t_texture *texture);
 void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
-
+void	debug_print_map(t_map *map);
 
 int		rgb_to_hexa(int r, int g, int b);
 

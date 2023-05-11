@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 12:54:37 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:25:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_init_mlx(t_game *game)
 	game->mlx.ptr = mlx_init();
 	if (!game->mlx.ptr)
 	{
-		ft_putstr_fd("Error : Mlx init fail\n", 2);
+		ft_putstr_fd("Error\nMlx init fail\n", 2);
 		return (1);
 	}
 	game->mlx.win = mlx_new_window(game->mlx.ptr, W, H, "cub3D");
@@ -25,7 +25,7 @@ int	ft_init_mlx(t_game *game)
 	{
 		mlx_destroy_display(game->mlx.ptr);
 		free(game->mlx.ptr);
-		ft_putstr_fd("Error : New window fail\n", 2);
+		ft_putstr_fd("Error\nNew window fail\n", 2);
 		return (1);
 	}
 	return (0);
