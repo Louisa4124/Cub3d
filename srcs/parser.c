@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/11 14:09:09 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:10:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static int	check_map(t_map *map)
 		{
 			if (map->layout[y][x] == 0)
 			{
-				if (y == 0 || x == 0 || y == map->y_size - 1 || x == map->x_size - 1 \
-					|| check_tiles(map, y, x))
+				if (y == 0 || x == 0 || y == map->y_size - 1 || \
+					x == map->x_size - 1 || check_tiles(map, y, x))
 				{
 					ft_putstr_fd("Error\nMap not surrounded by wall\n", 2);
 					return (1);
