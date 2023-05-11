@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:35:16 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/09 13:06:34 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:04:47 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_line2d
 {
 	t_vec2d	p1;
 	t_vec2d	p2;
-}	t_line3d;
+}	t_line2d;
 
 typedef struct s_plan
 {
