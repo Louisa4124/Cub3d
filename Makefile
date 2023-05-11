@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/11 14:23:51 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/05/11 14:27:55 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ NAME		=	cub3D
 #	==============================	SOURCES	==============================	#
 DIR_SRCS		=	srcs/
 
-LST_SRCS		=	main.c \
-					init.c mlx.c algo.c math.c clear.c debug.c utils_color.c
+LST_SRCS		=	main.c clear.c debug.c\
+					init.c mlx.c algo.c math.c  utils.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	srcs/parsing/
@@ -62,6 +62,7 @@ FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11  -lz 
 
 
+
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	RULES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
 .PHONY : all clean fclean re bonus FORCE nn
 
@@ -94,6 +95,7 @@ ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADER}
 ${DIR_OBJS}%.o	:	${DIR_SRCS_PARSE}%.c ${HEADER}
 				@printf "$(YELLOW)Making $@...\n$(END)"
 				@${CC} ${CFLAGS} -c $< -o $@
+
 
 #	==============================	UTILS/LIB	==============================	#
 ${DIR_OBJS}	:
