@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 17:39:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:32:00 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
 void	ft_destroy_mlx(t_game *game);
 void	ft_clean_exit(t_game *game, int exit_code);
 int		close_event(t_game *game);
+void	my_mlx_pixel_put(t_img *img, const int x, const int y, int color);
 
 /*          Math utils              */
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);

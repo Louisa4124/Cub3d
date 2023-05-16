@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 17:41:55 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:21:05 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int map[WIDTH][HEIGHT]=
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,0,0,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -96,7 +96,7 @@ void	ft_display(t_game *game)
 			if (ft_inter_plan_line(game, &game->plan[0][0], &inter, j, i) == 0)
 				my_mlx_pixel_put(&game->view, i, j, RED);
 			else if (ft_inter_plan_line(game, &game->plan[0][1], &inter, j, i) == 0)
-				my_mlx_pixel_put(&game->view, i, j, RED);
+				my_mlx_pixel_put(&game->view, i, j, WHITE);
 			else if (ft_inter_plan_line(game, &game->plan[1][0], &inter, j, i) == 0)
 				my_mlx_pixel_put(&game->view, i, j, GREEN);
 			else if (ft_inter_plan_line(game, &game->plan[1][1], &inter, j, i) == 0)
@@ -104,6 +104,62 @@ void	ft_display(t_game *game)
 		}
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+}
+
+void	ft_get_pos(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			if (game->map[y][x] == 5)
+			{
+				game->pos.x = x;
+				game->pos.y = y;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+int	ft_create_plan(t_game *game)
+{
+	int	x;
+
+	x = 0;
+	game->plan = malloc (sizeof(t_plan *) * 2);
+	if (!game->plan)
+		return (0);
+	game->plan[0] = malloc(sizeof(t_plan) * (HEIGHT + 1));
+	if (!game->plan[0])
+		return (0);
+	game->plan[1] = malloc(sizeof(t_plan) * (WIDTH + 1));
+	if (!game->plan[1])
+		return (0);
+	while (x <= HEIGHT)
+	{
+		game->plan[0][x].a = 0;
+		game->plan[0][x].b = 1;
+		game->plan[0][x].c = 0;
+		game->plan[0][x].d = -x;
+		x++;
+	}
+	x = 0;
+	while (x <= WIDTH)
+	{
+		game->plan[1][x].a = 1;
+		game->plan[1][x].b = 0;
+		game->plan[1][x].c = 0;
+		game->plan[1][x].d = -x;
+		x++;
+	}
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -124,9 +180,18 @@ int	main(int argc, char **argv)
 	game.rays = ft_malloc_rays();
 	ft_init_rays(&game);
 	ft_init_game(&game);
-	ft_creat_plan_h(&game);
-	ft_creat_plan_v(&game);
+	ft_create_plan(&game);
+	//ft_creat_plan_v(&game);
 	game.map = ft_malloc_map();
+    for (int x = 0; x < HEIGHT; x++)
+    {
+        for (int y = 0; y < WIDTH; y++)
+        {
+            game.map[x][y] = map[x][y];
+            printf("%d ", game.map[x][y]);
+        }
+        printf("\n");
+    }
 	if (parser(argv[1], &game))
 		return (1);
 	game.view.id = mlx_new_image(game.mlx.ptr, W, H);
@@ -135,7 +200,10 @@ int	main(int argc, char **argv)
 		game.view.addr = mlx_get_data_addr \
 			(game.view.id, &game.view.bpp, &game.view.ll, &game.view.endian);
 		//ft_display(&game);
-		ft_display_game(&game);
+		//ft_display_game(&game);
+        ft_get_pos(&game);
+        printf("x = %f\n", game.pos.x);
+        printf("y = %f\n", game.pos.y);
 		mlx_put_image_to_window(game.mlx.ptr, game.mlx.win, \
 			game.view.id, 0, 0);
 		mlx_loop_hook(game.mlx.ptr, ft_update, &game);

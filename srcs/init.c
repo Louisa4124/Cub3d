@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 17:44:00 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:07:50 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	s_img_init(t_img *img)
 
 void	ft_init_game(t_game *game)
 {
-	game->pos.x = 1;
+	game->pos.x = 0;
 	game->pos.y = 0;
 	game->pos.z = 1;
 
@@ -80,8 +80,8 @@ void	ft_init_game(t_game *game)
 	game->camera.y = 0;
 	game->camera.z = 0.5;
 
-	game->plan[0] = ft_malloc_plan_h();
-	game->plan[1] = ft_malloc_plan_v();
+	// game->plan[0] = ft_malloc_plan_h();
+	// game->plan[1] = ft_malloc_plan_v();
 
 	// game->plan[0][0].a = 0;
 	// game->plan[0][0].b = 1;
