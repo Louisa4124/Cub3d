@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/11 14:20:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:43:09 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int	extract_lst(t_list **lst, char *line)
 
 static void	extract_map_get_start(t_game *game, char c, int x, int y)
 {
-	game->pos.x = x;
-	game->pos.y = y;
+	game->pos.x = x + 1;
+	game->pos.y = y + 1;
 	game->map.layout[y][x] = 0;
 	if (c == 'N')
 	{

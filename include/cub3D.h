@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 13:49:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:08:12 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,19 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define W 800
-# define H 600
+# define WIDTH 800
+# define HEIGHT 600
 # define FOV 60
 # define PI 3.14159265
-# define WIDTH 24
-# define HEIGHT 24
+
+# define EVENT_W 119
+# define EVENT_A 97
+# define EVENT_S 115
+# define EVENT_D 100
+# define EVENT_ESC 65307
+
+# define DARK_RED 0x8B0000
+# define RED 0xff0000
 
 /*          Initialisation          */
 void	ft_init_game(t_game *game);
@@ -71,5 +78,7 @@ void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 
 int		rgb_to_hexa(int r, int g, int b);
+
+int	    ft_update(t_game *game);
 
 #endif
