@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 16:12:26 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:17:43 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ t_vec3d **ft_malloc_rayon(void)
 	return (rayon);
 }
 
-int	key_handler(int key, t_game *game)
-{
-	if (key == 53 || key == 65307)
-		close_event(game);
-	return (0);
-}
 
 int	ft_win_event(int keycode, t_game *game)
 {
@@ -51,7 +45,8 @@ int	ft_win_event(int keycode, t_game *game)
 
 int	ft_press(int keycode, t_game *game)
 {
-    printf("key = %d\n", keycode);
+	if (keycode == 53 || keycode == 65307)
+		close_event(game);
 	if (keycode == 65362)
 		game->pos.y -= 0.5;
 	if (keycode == 65364)
@@ -148,7 +143,6 @@ int	main(int argc, char **argv)
 	s_img_init(&game.texture.south);
 	s_img_init(&game.texture.east);
 	s_img_init(&game.texture.west);
-	game_select(&game);
 	if (parser(argv[1], &game))
 		return (1);
 	ft_init_game(&game);
