@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:13:55 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/06 21:58:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:06:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	flush_buffer(t_print_buffer *p)
 {
 	int	w_len;
 
+	w_len = 0;
 	if (p->idx)
 		w_len = write(1, p->buffer, p->idx);
 	p->idx = 0;

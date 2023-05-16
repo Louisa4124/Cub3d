@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 13:46:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:02:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,16 @@ int	key_handler(int key, t_game *game)
 	return (0);
 }
 
+int	game_select(t_game *game)
+{
+	int	xres;
+	int	yres;
+
+	mlx_get_screen_size(game->mlx.ptr, &xres, &yres);
+	printf("size res :%dx%d\n", xres, yres);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -71,10 +81,9 @@ int	main(int argc, char **argv)
 	s_img_init(&game.texture.south);
 	s_img_init(&game.texture.east);
 	s_img_init(&game.texture.west);
+	game_select(&game);
 	if (parser(argv[1], &game))
 		return (1);
-	debug_print_texture(&game.texture);
-	debug_print_map(&game.map);
 	ft_init_game(&game);
 	game.view.id = mlx_new_image(game.mlx.ptr, W, H);
 	if (game.view.id != NULL)
