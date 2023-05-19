@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 15:22:39 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/19 12:41:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ int	ft_update(t_game *game)
 	t_vec3d	rays_temp;
 	t_imgs	img;
 
-	img.img_ptr = mlx_new_image(game->mlx.ptr, WIDTH, HEIGHT);
+	img.img_ptr = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
 	x = 0;
 	y = 0;
 	i = 0;
-	while (i < HEIGHT)
+	while (i < game->mlx.win_height)
 	{
 		j = 0;
-		while (j < WIDTH)
+		while (j < game->mlx.win_width)
 		{
 			rays_temp.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z) + game->rays[i][j].z * 0; //z
 			rays_temp.y = game->rays[i][j].x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z) + game->rays[i][j].z * 0;
@@ -120,13 +120,13 @@ int	ft_update(t_game *game)
 				point_y = rays_temp.y * best_t;
 				point_z = 0.5 + rays_temp.z * best_t; // Si pas besoin de le stocker le mettre directement dans le if
 				if (v_plan == 0 && (game->pos.y + point_y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point_x)] == 1)
-					img.data[i * WIDTH + j] = RED;
+					img.data[i * game->mlx.win_width + j] = RED;
 				else if (v_plan == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
-					img.data[i * WIDTH + j] = DARK_RED;
+					img.data[i * game->mlx.win_width + j] = DARK_RED;
 				else if (v_plan == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point_x)] == 1)
-					img.data[i * WIDTH + j] = 0x90fff2;
+					img.data[i * game->mlx.win_width + j] = 0x90fff2;
 				else
-					img.data[i * WIDTH + j] = DARK_RED;
+					img.data[i * game->mlx.win_width + j] = DARK_RED;
 			}
 			y = 0;
 			t = 0;

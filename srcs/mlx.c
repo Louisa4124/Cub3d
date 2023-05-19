@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 14:08:03 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/19 12:42:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	ft_init_mlx(t_game *game)
 		ft_putstr_fd("Error\nMlx init fail\n", 2);
 		return (1);
 	}
-	game->mlx.win = mlx_new_window(game->mlx.ptr, WIDTH, HEIGHT, "cub3D");
+	game->mlx.win_width = 1920;
+	game->mlx.win_height = 1080;
+	game->mlx.win = mlx_new_window(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height, "cub3D");
 	if (!game->mlx.win)
 	{
 		mlx_destroy_display(game->mlx.ptr);
@@ -28,6 +30,7 @@ int	ft_init_mlx(t_game *game)
 		ft_putstr_fd("Error\nNew window fail\n", 2);
 		return (1);
 	}
+	//mlx_get_screen_size(game->mlx);
 	return (0);
 }
 

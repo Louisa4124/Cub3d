@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 16:17:43 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/19 12:40:16 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ int	ft_man(int num)
 	return (0);
 }
 
-t_vec3d **ft_malloc_rayon(void)
+t_vec3d	**ft_malloc_rayon(t_game *game)
 {
 	t_vec3d		**rayon;
 	int			x;
 
 	x = 0;
-	rayon = malloc(sizeof(t_vec3d *) * HEIGHT + 1);
-	while (x < HEIGHT)
+	rayon = malloc(sizeof(t_vec3d *) * game->mlx.win_height + 1);
+	while (x < game->mlx.win_height)
 	{
-		rayon[x] = malloc(sizeof(t_vec3d) * WIDTH + 1);
+		rayon[x] = malloc(sizeof(t_vec3d) * game->mlx.win_width + 1);
 		x++;
 	}
 	return (rayon);
@@ -113,16 +113,16 @@ void	ft_create_vector(t_game *game)
 	float	r_v;
 
 	i = 0;
-	while (i < HEIGHT)
+	while (i < game->mlx.win_height)
 	{
 		j = 0;
-		while (j < WIDTH)
+		while (j < game->mlx.win_width)
 		{
-			r_h = 2 * tan((60 * PI / 180) * 0.5) / WIDTH;
-			r_v = 2 * tan((60 * PI / 180) * HEIGHT / (WIDTH * 2)) / HEIGHT;
-			game->rays[i][j].x = ((j - WIDTH * 0.5) * r_h);
+			r_h = 2 * tan((60 * PI / 180) * 0.5) / game->mlx.win_width;
+			r_v = 2 * tan((60 * PI / 180) * game->mlx.win_height / (game->mlx.win_width * 2)) / game->mlx.win_height;
+			game->rays[i][j].x = ((j - game->mlx.win_width * 0.5) * r_h);
 			game->rays[i][j].y = -1.0;
-			game->rays[i][j].z = ((HEIGHT * 0.5 - i) * r_v);
+			game->rays[i][j].z = ((game->mlx.win_height * 0.5 - i) * r_v);
 			j++;
 		}
 		i++;
@@ -146,7 +146,7 @@ int	main(int argc, char **argv)
 	if (parser(argv[1], &game))
 		return (1);
 	ft_init_game(&game);
-    game.rays = ft_malloc_rayon();
+    game.rays = ft_malloc_rayon(&game);
 	game.angle_x = 0;
 	game.angle_z = 0;
     ft_create_vector(&game);
@@ -154,7 +154,7 @@ int	main(int argc, char **argv)
 	if (ft_create_plan(&game) == 0)
 		return (1);
 	ft_printf("fin init\n");
-	game.view.id = mlx_new_image(game.mlx.ptr, WIDTH, HEIGHT);
+	game.view.id = mlx_new_image(game.mlx.ptr, game.mlx.win_width, game.mlx.win_height);
 	if (game.view.id != NULL)
 	{
 		game.view.addr = mlx_get_data_addr \
