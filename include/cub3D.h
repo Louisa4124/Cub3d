@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 12:31:29 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:56:57 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	debug_print_map(t_map *map);
 
 int		rgb_to_hexa(int r, int g, int b);
 
-int	    ft_update(t_game *game);
+int		ft_update(t_game *game);
+int		ft_creat_plans(t_game *game);
 
 #endif

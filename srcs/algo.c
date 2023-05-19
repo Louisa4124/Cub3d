@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 13:33:10 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:49:00 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	ft_update(t_game *game)
 				else if (v_plan == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
 					img.data[i * game->mlx.win_width + j] = DARK_RED;
 				else if (v_plan == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point_x)] == 1)
-					img.data[i * game->mlx.win_width + j] = 0x90fff2;
+					img.data[i * game->mlx.win_width + j] = RED;
 				else
 					img.data[i * game->mlx.win_width + j] = DARK_RED;
 			}
@@ -122,7 +122,6 @@ int	ft_update(t_game *game)
 		i++;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, img.img_ptr, 0, 0);
-	mlx_destroy_image(game->mlx.ptr, img.img_ptr);
 	if (get_time() - g_fps < 1000)
 		g_frame++;
 	else

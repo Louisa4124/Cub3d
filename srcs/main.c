@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 14:42:24 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:00:07 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,40 +71,6 @@ int	ft_unpress(int keycode, t_game *game)
 	return (0);
 }
 
-int	ft_create_plan(t_game *game)
-{
-	int	x;
-
-	x = 0;
-	game->plan = malloc (sizeof(t_plan *) * 2);
-	if (!game->plan)
-		return (0);
-	game->plan[0] = malloc(sizeof(t_plan) * (game->map.y_size + 1));
-	if (!game->plan[0])
-		return (0);
-	game->plan[1] = malloc(sizeof(t_plan) * (game->map.x_size + 1));
-	if (!game->plan[1])
-		return (0);
-	while (x <= game->map.y_size)
-	{
-		game->plan[0][x].a = 0;
-		game->plan[0][x].b = 1;
-		game->plan[0][x].c = 0;
-		game->plan[0][x].d = -x;
-		x++;
-	}
-	x = 0;
-	while (x <= game->map.x_size)
-	{
-		game->plan[1][x].a = 1;
-		game->plan[1][x].b = 0;
-		game->plan[1][x].c = 0;
-		game->plan[1][x].d = -x;
-		x++;
-	}
-	return (1);
-}
-
 void	ft_create_vector(t_game *game)
 {
 	int		i;
@@ -148,7 +114,7 @@ int	main(int argc, char **argv)
 	game.angle_x = 0;
 	game.angle_z = 0;
     ft_create_vector(&game);
-	if (ft_create_plan(&game) == 0)
+	if (ft_creat_plans(&game) == 0)
 		return (1);
 	game.view.id = mlx_new_image(game.mlx.ptr, game.mlx.win_width, game.mlx.win_height);
 	if (game.view.id != NULL)

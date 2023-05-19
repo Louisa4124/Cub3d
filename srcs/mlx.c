@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 12:42:20 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:48:41 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_init_mlx(t_game *game)
 	}
 	game->mlx.win_width = 1920;
 	game->mlx.win_height = 1080;
-	game->mlx.win = mlx_new_window(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height, "cub3D");
+	game->mlx.win = mlx_new_window(game->mlx.ptr, \
+		game->mlx.win_width, game->mlx.win_height, "cub3D");
 	if (!game->mlx.win)
 	{
 		mlx_destroy_display(game->mlx.ptr);
@@ -51,8 +52,8 @@ void	ft_clean_exit(t_game *game, int exit_code)
 	ft_destroy_mlx(game);
 	exit(exit_code);
 }
-
 */
+
 int	close_event(t_game *game)
 {
 	mlx_destroy_window(game->mlx.ptr, game->mlx.win);
