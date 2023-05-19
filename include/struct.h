@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 14:14:03 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/19 14:19:43 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,16 @@ typedef struct s_mlx
 {
 	void	*ptr;
 	void	*win;
+	int		win_height;
+	int		win_width;
 }	t_mlx;
 
 typedef struct s_game
 {
+	int			pause;
 	float		r_h;
 	float		r_v;
-    float		angle_z;
+	float		angle_z;
 	float		angle_x;
 	t_map		map;
 	t_mlx		mlx;
@@ -69,7 +72,7 @@ typedef struct s_game
 	t_vec3d		dir;
 	t_vec3d		camera;
 	t_vec3d		**rays;
-    t_plan      **plan;
+	t_plan		**plan;
 	t_texture	texture;
 }	t_game;
 
