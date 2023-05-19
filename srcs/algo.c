@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 14:49:00 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:06:25 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ft_update(t_game *game)
 	float	point_x;
 	float	point_y;
 	float	point_z;
+	t_plan	sky;
+	t_plan	ground;
 	t_vec3d	rays_temp;
 	t_imgs	img;
 
@@ -53,6 +55,14 @@ int	ft_update(t_game *game)
 	x = 0;
 	y = 0;
 	i = 0;
+	sky.a = 0;
+	sky.b = 0;
+	sky.c = 1;
+	sky.d = -1;
+	ground.a = 0;
+	ground.b = 0;
+	ground.c = 1;
+	ground.d = 0;
 	while (i < game->mlx.win_height)
 	{
 		j = 0;
@@ -97,6 +107,19 @@ int	ft_update(t_game *game)
 							}
 						}
 					}
+					else
+					{
+						t = (sky.a * rays_temp.x + sky.b * rays_temp.y + sky.c * rays_temp.z);
+						if (t > 0)
+						{
+							img.data[i * game->mlx.win_width + j] = game->texture.ceiling;
+						}
+						t = -(ground.a * game->pos.x + ground.b * game->pos.y + ground.c * 0.5 + ground.d) / t;
+						if (t > 0)
+						{
+							img.data[i * game->mlx.win_width + j] = game->texture.floor;
+						}
+					}
 					u++;
 				}
 				v++;
@@ -132,3 +155,6 @@ int	ft_update(t_game *game)
 	}
 	return (0);
 }
+
+// plan du sol : {0, 0, 1, 0}
+// plan du plafond : {0, 0, 1, -1}

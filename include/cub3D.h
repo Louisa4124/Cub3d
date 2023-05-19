@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 14:56:57 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:52:38 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 
 # define DARK_RED 0x8B0000
 # define RED 0xff0000
+# define WHITE 0xFFFFFF
+# define GREEN 0x77DD77
+# define BLUE 0xA7C7E7
 
 /*          Initialisation          */
 void	ft_init_game(t_game *game);

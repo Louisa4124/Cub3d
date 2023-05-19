@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 15:00:07 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:02:27 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	main(int argc, char **argv)
 	s_img_init(&game.texture.west);
 	if (parser(argv[1], &game))
 		return (1);
+	debug_print_texture(&game.texture);
 	ft_init_game(&game);
     game.rays = ft_malloc_rayon(&game);
 	game.angle_x = 0;
