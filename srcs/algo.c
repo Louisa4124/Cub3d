@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 15:22:39 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/19 12:26:05 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		g_frame;
 void	ft_display_game(t_game *game)
 {
 	(void)game;
-	
 	return ;
 }
 
@@ -30,19 +29,12 @@ int64_t	get_time(void)
 	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
 }
 
-// int	ft_update(t_game *game)
-// {
-//     (void)game;
-//     return (1);
-// }
-
 int	ft_update(t_game *game)
 {
 	int		i;
 	int		j;
 	int		u;
 	int		v;
-	float	r_h;
 	float	best_t;
 	int		v_plan;
 	int		u_plan;
@@ -95,14 +87,11 @@ int	ft_update(t_game *game)
 							point_z = 0.5 + rays_temp.z * t;
 							if (point_z < 1 && point_z > 0 && (int)(game->pos.x + point_x) >= 0 && (int)(game->pos.y + point_y) >= 0 && (int)(game->pos.x + point_x) < game->map.x_size && (int)(game->pos.y + point_y) < game->map.y_size)
 							{
-                               // dprintf(1, "pos.x = %d\n", game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point_x)]);
-                               // dprintf(1, "pos.y = %d\n", game->map.y_size);
 								if ((best_t == 0 || t < best_t) && ((v == 0 && (game->pos.y + point_y) < game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point_x)] == 1)
 								|| (v == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v][u].d - 1) < game->map.x_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d - 1)] == 1)
 								|| (v == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(-game->plan[v][u].d)][(int)(game->pos.x + point_x)] == 1)
 								|| (v == 1 && (game->pos.x + point_x) > game->pos.x && (int)(-game->plan[v][u].d) < game->map.x_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d)] == 1)))
 								{
-                                   // dprintf(1, "OUIN\n");
 									best_t = t;
 									v_plan = v;
 									u_plan = u;
@@ -118,7 +107,7 @@ int	ft_update(t_game *game)
 			{
 				point_x = rays_temp.x * best_t;
 				point_y = rays_temp.y * best_t;
-				point_z = 0.5 + rays_temp.z * best_t; // Si pas besoin de le stocker le mettre directement dans le if
+				point_z = 0.5 + rays_temp.z * best_t;
 				if (v_plan == 0 && (game->pos.y + point_y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point_x)] == 1)
 					img.data[i * WIDTH + j] = RED;
 				else if (v_plan == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
@@ -137,9 +126,7 @@ int	ft_update(t_game *game)
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, img.img_ptr, 0, 0);
 	mlx_destroy_image(game->mlx.ptr, img.img_ptr);
 	if (get_time() - g_fps < 1000)
-	{
 		g_frame++;
-	}
 	else
 	{
 		ft_printf("\033[2K\rFPS: %d\e[0m\n", g_frame);
