@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 13:02:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:07:00 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,17 @@
 # define FOV 60
 # define PI 3.14159265
 
-# define EVENT_W 119
-# define EVENT_A 97
-# define EVENT_S 115
-# define EVENT_D 100
-# define EVENT_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_SPACE 32
+
+# define KEY_UP 65362
+# define KEY_LEFT 65361
+# define KEY_DOWN 65364
+# define KEY_RIGHT 65363
+# define KEY_ESCAPE 65307
 
 # define DARK_RED 0x8B0000
 # define RED 0xff0000
@@ -72,6 +78,9 @@ int		close_event(t_game *game);
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
+t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
+float	math_vec_scalar_prod(t_vec3d u, t_vec3d v);
+t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 
 /*          Raycasting functiuns    */
 void	ft_display_game(t_game *game);
@@ -81,6 +90,7 @@ void	debug_print_texture(t_texture *texture);
 void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
+void	debug_print_vec3d(t_vec3d *u);
 
 int		rgb_to_hexa(int r, int g, int b);
 

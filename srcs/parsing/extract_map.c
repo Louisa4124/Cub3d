@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/16 14:43:09 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/22 21:13:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,27 @@ static void	extract_map_get_start(t_game *game, char c, int x, int y)
 {
 	game->pos.x = x + 1;
 	game->pos.y = y + 1;
+	game->pos.z = 0.5;
 	game->map.layout[y][x] = 0;
 	if (c == 'N')
-	{
-		game->dir.x = -1;
-		game->dir.y = 0;
-	}
-	else if (c == 'S')
-	{
-		game->dir.x = 1;
-		game->dir.y = 0;
-	}
-	else if (c == 'W')
 	{
 		game->dir.x = 0;
 		game->dir.y = -1;
 	}
-	else if (c == 'E')
+	else if (c == 'S')
 	{
 		game->dir.x = 0;
 		game->dir.y = 1;
+	}
+	else if (c == 'W')
+	{
+		game->dir.x = -1;
+		game->dir.y = 0;
+	}
+	else if (c == 'E')
+	{
+		game->dir.x = 1;
+		game->dir.y = 0;
 	}
 }
 
