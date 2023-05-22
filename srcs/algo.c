@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 21:50:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:53:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,9 @@ int	ft_update(t_game *game)
 					{
 						t = (sky.a * rays_temp.x + sky.b * rays_temp.y + sky.c * rays_temp.z);
 						if (t > 0)
-						{
 							img.data[i * game->mlx.win_width + j] = game->texture.ceiling;
-						}
-						t = -(ground.a * game->pos.x + ground.b * game->pos.y + ground.c * 0.5 + ground.d) / t;
-						if (t > 0)
-						{
+						if (t <= 0)
 							img.data[i * game->mlx.win_width + j] = game->texture.floor;
-						}
 					}
 					u++;
 				}
