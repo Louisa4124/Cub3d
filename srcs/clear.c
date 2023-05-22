@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/08 21:56:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:16:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	s_img_destroy(t_mlx *mlx, t_img *img)
 
 void	ft_destroy_texture(t_mlx *mlx, t_texture *texture)
 {
-	s_img_destroy(mlx, &texture->north);
-	s_img_destroy(mlx, &texture->south);
-	s_img_destroy(mlx, &texture->east);
-	s_img_destroy(mlx, &texture->west);
+	s_img_destroy(mlx, &texture->wall[0]);
+	s_img_destroy(mlx, &texture->wall[1]);
+	s_img_destroy(mlx, &texture->wall[2]);
+	s_img_destroy(mlx, &texture->wall[3]);
 }
 
 void	ft_clean_exit(t_game *game, int exit_code)

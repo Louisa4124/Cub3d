@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 15:22:39 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/22 20:19:12 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		g_frame;
 void	ft_display_game(t_game *game)
 {
 	(void)game;
-	
 	return ;
 }
 
@@ -30,11 +29,14 @@ int64_t	get_time(void)
 	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
 }
 
-// int	ft_update(t_game *game)
+// void	my_mlx_pixel_put(t_game *game, const int x, const int y, int color)
 // {
-//     (void)game;
-//     return (1);
+// 	char	*dst;
+
+// 	dst = game->addr + (y * game->ll + x * (game->bpp / 8));
+// 	*(unsigned int *)dst = color;
 // }
+
 
 int	ft_update(t_game *game)
 {
@@ -42,35 +44,36 @@ int	ft_update(t_game *game)
 	int		j;
 	int		u;
 	int		v;
-	float	r_h;
 	float	best_t;
 	int		v_plan;
 	int		u_plan;
 	int		switch_plan;
-	float	r_v;
 	float	t;
-	float	x;
-	float	y;
-	float	point_x;
-	float	point_y;
-	float	point_z;
-	
+	t_vec3d	point;
+	t_plan	sky;
+	t_plan	ground;
 	t_vec3d	rays_temp;
 	t_imgs	img;
 
-	img.img_ptr = mlx_new_image(game->mlx.ptr, WIDTH, HEIGHT);
+	img.img_ptr = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
-	x = 0;
-	y = 0;
 	i = 0;
-	while (i < HEIGHT)
+	sky.a = 0;
+	sky.b = 0;
+	sky.c = 1;
+	sky.d = -1;
+	ground.a = 0;
+	ground.b = 0;
+	ground.c = 1;
+	ground.d = 0;
+	while (i < game->mlx.win_height)
 	{
 		j = 0;
-		while (j < WIDTH)
+		while (j < game->mlx.win_width)
 		{
-			rays_temp.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z) + game->rays[i][j].z * 0; //z
-			rays_temp.y = game->rays[i][j].x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z) + game->rays[i][j].z * 0;
-			rays_temp.z = game->rays[i][j].x * 0 + game->rays[i][j].y * 0 + game->rays[i][j].z * 1;
+			rays_temp.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z);
+			rays_temp.y = game->rays[i][j].x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
+			rays_temp.z = game->rays[i][j].z;
 			v = 0;
 			best_t = 0;
 			v_plan = 3;
@@ -84,25 +87,22 @@ int	ft_update(t_game *game)
 				u = 0;
 				while (u <= switch_plan)
 				{
-					t = (game->plan[v][u].a * rays_temp.x  + game->plan[v][u].b * rays_temp.y + game->plan[v][u].c * rays_temp.z);
+					t = (game->plan[v][u].a * rays_temp.x + game->plan[v][u].b * rays_temp.y + game->plan[v][u].c * rays_temp.z);
 					if (t != 0)
 					{
 						t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * game->pos.y + game->plan[v][u].c * 0.5 + game->plan[v][u].d) / t;
 						if (t > 0)
 						{
-							point_x = rays_temp.x * t;
-							point_y = rays_temp.y * t;
-							point_z = 0.5 + rays_temp.z * t;
-							if (point_z < 1 && point_z > 0 && (int)(game->pos.x + point_x) >= 0 && (int)(game->pos.y + point_y) >= 0 && (int)(game->pos.x + point_x) < game->map.x_size && (int)(game->pos.y + point_y) < game->map.y_size)
+							point.x = rays_temp.x * t;
+							point.y = rays_temp.y * t;
+							point.z = 0.5 + rays_temp.z * t;
+							if (point.z < 1 && point.z > 0 && (int)(game->pos.x + point.x) >= 0 && (int)(game->pos.y + point.y) >= 0 && (int)(game->pos.x + point.x) < game->map.x_size && (int)(game->pos.y + point.y) < game->map.y_size)
 							{
-                               // dprintf(1, "pos.x = %d\n", game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point_x)]);
-                               // dprintf(1, "pos.y = %d\n", game->map.y_size);
-								if ((best_t == 0 || t < best_t) && ((v == 0 && (game->pos.y + point_y) < game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point_x)] == 1)
-								|| (v == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v][u].d - 1) < game->map.x_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d - 1)] == 1)
-								|| (v == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(-game->plan[v][u].d)][(int)(game->pos.x + point_x)] == 1)
-								|| (v == 1 && (game->pos.x + point_x) > game->pos.x && (int)(-game->plan[v][u].d) < game->map.x_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d)] == 1)))
+								if ((best_t == 0 || t < best_t) && ((v == 0 && (game->pos.y + point.y) < game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point.x)] == 1)
+								|| (v == 1 && (game->pos.x + point.x) < game->pos.x && (int)(-game->plan[v][u].d - 1) < game->map.x_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v][u].d - 1)] == 1)
+								|| (v == 0 && (game->pos.y + point.y) > game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(-game->plan[v][u].d)][(int)(game->pos.x + point.x)] == 1)
+								|| (v == 1 && (game->pos.x + point.x) > game->pos.x && (int)(-game->plan[v][u].d) < game->map.x_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v][u].d)] == 1)))
 								{
-                                   // dprintf(1, "OUIN\n");
 									best_t = t;
 									v_plan = v;
 									u_plan = u;
@@ -110,36 +110,45 @@ int	ft_update(t_game *game)
 							}
 						}
 					}
+					else
+					{
+						t = (sky.a * rays_temp.x + sky.b * rays_temp.y + sky.c * rays_temp.z);
+						if (t > 0)
+							img.data[i * game->mlx.win_width + j] = game->texture.ceiling;
+						if (t <= 0)
+							img.data[i * game->mlx.win_width + j] = game->texture.floor;
+					}
 					u++;
 				}
 				v++;
 			}
-		if (best_t != 0 && v_plan != 3 && u_plan != - 7)
+			if (best_t != 0 && v_plan != 3 && u_plan != -7)
 			{
-				point_x = rays_temp.x * best_t;
-				point_y = rays_temp.y * best_t;
-				point_z = 0.5 + rays_temp.z * best_t; // Si pas besoin de le stocker le mettre directement dans le if
-				if (v_plan == 0 && (game->pos.y + point_y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point_x)] == 1)
-					img.data[i * WIDTH + j] = RED;
-				else if (v_plan == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
-					img.data[i * WIDTH + j] = DARK_RED;
-				else if (v_plan == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point_x)] == 1)
-					img.data[i * WIDTH + j] = 0x90fff2;
+				point.x = rays_temp.x * best_t;
+				point.y = rays_temp.y * best_t;
+				point.z = 0.5 + rays_temp.z * best_t;
+				if (v_plan == 0 && (game->pos.y + point.y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point.x)] == 1)
+				{
+					int	x, y = 0;
+					x = (int)(((game->pos.x + point.x) - (int)(game->pos.x + point.x)) * game->texture.wall[0].width);
+					y = (int)((point.z - (int)(point.z)) * game->texture.wall[0].height);
+					img.data[i * game->mlx.win_width + j] = (unsigned int)game->texture.wall[0].addr[(int)(y * (game->texture.wall[0].ll) + x * (game->texture.wall[0].bpp / 8))];
+				}
+				else if (v_plan == 1 && (game->pos.x + point.x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
+					img.data[i * game->mlx.win_width + j] = DARK_RED;
+				else if (v_plan == 0 && (game->pos.y + point.y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point.x)] == 1)
+					img.data[i * game->mlx.win_width + j] = RED;
 				else
-					img.data[i * WIDTH + j] = DARK_RED;
+					img.data[i * game->mlx.win_width + j] = DARK_RED;
 			}
-			y = 0;
 			t = 0;
 			j++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, img.img_ptr, 0, 0);
-	mlx_destroy_image(game->mlx.ptr, img.img_ptr);
 	if (get_time() - g_fps < 1000)
-	{
 		g_frame++;
-	}
 	else
 	{
 		ft_printf("\033[2K\rFPS: %d\e[0m\n", g_frame);
@@ -148,3 +157,7 @@ int	ft_update(t_game *game)
 	}
 	return (0);
 }
+
+// plan du sol : {0, 0, 1, 0}
+// plan du plafond : {0, 0, 1, -1}
+

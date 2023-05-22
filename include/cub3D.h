@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 15:08:12 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/22 13:02:20 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1920
+# define HEIGHT 1085
 # define FOV 60
 # define PI 3.14159265
 
@@ -36,6 +37,9 @@
 
 # define DARK_RED 0x8B0000
 # define RED 0xff0000
+# define WHITE 0xFFFFFF
+# define GREEN 0x77DD77
+# define BLUE 0xA7C7E7
 
 /*          Initialisation          */
 void	ft_init_game(t_game *game);
@@ -46,6 +50,7 @@ int		ft_init_mlx(t_game *game);
 void	s_mlx_init(t_mlx *mlx);
 void	s_map_init(t_map *map);
 void	s_img_init(t_img *img);
+void	s_texture_init(t_texture *texture);
 
 /*			Clear					*/
 void	s_mlx_destroy(t_game *game);
@@ -79,6 +84,7 @@ void	debug_print_map(t_map *map);
 
 int		rgb_to_hexa(int r, int g, int b);
 
-int	    ft_update(t_game *game);
+int		ft_update(t_game *game);
+int		ft_creat_plans(t_game *game);
 
 #endif

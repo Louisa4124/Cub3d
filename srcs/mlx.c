@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 14:08:03 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/22 15:05:04 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	ft_init_mlx(t_game *game)
 		ft_putstr_fd("Error\nMlx init fail\n", 2);
 		return (1);
 	}
-	game->mlx.win = mlx_new_window(game->mlx.ptr, WIDTH, HEIGHT, "cub3D");
+	game->mlx.win_width = 800;
+	game->mlx.win_height = 600;
+	game->mlx.win = mlx_new_window(game->mlx.ptr, \
+		game->mlx.win_width, game->mlx.win_height, "cub3D");
 	if (!game->mlx.win)
 	{
 		mlx_destroy_display(game->mlx.ptr);
@@ -28,6 +31,7 @@ int	ft_init_mlx(t_game *game)
 		ft_putstr_fd("Error\nNew window fail\n", 2);
 		return (1);
 	}
+	//mlx_get_screen_size(game->mlx);
 	return (0);
 }
 
@@ -48,8 +52,8 @@ void	ft_clean_exit(t_game *game, int exit_code)
 	ft_destroy_mlx(game);
 	exit(exit_code);
 }
-
 */
+
 int	close_event(t_game *game)
 {
 	mlx_destroy_window(game->mlx.ptr, game->mlx.win);

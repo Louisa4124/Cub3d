@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/16 14:07:44 by louisa           ###   ########.fr       */
+/*   Updated: 2023/05/22 11:17:46 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,26 @@ void	s_img_init(t_img *img)
 	img->endian = 0;
 }
 
+void	s_texture_init(t_texture *texture)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		s_img_init(&texture->wall[i]);
+		++i;
+	}
+	texture->floor = 0;
+	texture->ceiling = 0;
+}
+
 void	ft_init_game(t_game *game)
 {
 	game->camera.x = 0;
 	game->camera.y = 0;
 	game->camera.z = 0.5;
-	game->r_h = 2 * tan(FOV / 2) / WIDTH;
-	game->r_v = 2 * tan(FOV * HEIGHT / (WIDTH * 2)) / HEIGHT;
-	// game->r_h = 2 * tan((FOV * PI / 180) * 0.5) / W;
-	// game->r_v = 2 * tan((FOV * PI / 180) * H / (W * 2)) / H;
+	game->r_h = 2 * tan((FOV * PI / 180) * 0.5) / game->mlx.win_width;
+	game->r_v = 2 * tan((FOV * PI / 180) * game->mlx.win_height / \
+		(game->mlx.win_width * 2)) / game->mlx.win_height;
 }
