@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 23:35:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:13:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,37 +47,61 @@ int	ft_press(int keycode, t_game *game)
 {
 	t_vec3d	z_axis;
 
-	if (keycode == 53 || keycode == KEY_ESCAPE)
-		close_event(game);
 	z_axis.x = 0;
 	z_axis.y = 0;
 	z_axis.z = 1;
-	if (keycode == KEY_W)
+	if (keycode == 53 || keycode == KEY_ESCAPE)
+		close_event(game);
+	else if (keycode == KEY_W)
 		game->pos = math_vec_op(game->pos, game->dir, '+');
-	if (keycode == KEY_S)
+	else if (keycode == KEY_S)
 		game->pos = math_vec_op(game->pos, game->dir, '-');
-	if (keycode == KEY_A)
+	else if (keycode == KEY_A)
 		game->pos = math_vec_op(game->pos, math_vec_op(game->dir, z_axis, '^'), \
 			'+');
-	if (keycode == KEY_D)
+	else if (keycode == KEY_D)
 		game->pos = math_vec_op(game->pos, math_vec_op(game->dir, z_axis, '^'), \
 			'-');
-	if (keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 	{
 		game->angle_z += 0.07;
 		game->dir = ft_rotate_vec_z(game->dir, 0.07);
 	}
-	if (keycode == KEY_LEFT)
+	else if (keycode == KEY_LEFT)
 	{
 		game->angle_z -= 0.07;
 		game->dir = ft_rotate_vec_z(game->dir, -0.07);
 	}
 	if (game->angle_z >= PI * 2)
 		game->angle_z -= PI * 2;
-	if (game->angle_z <= -PI * 2)
+	else if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
 	return (0);
 }
+/*
+void	event_mouse(int x, int y, t_game *game)
+{
+	int	x_quarter;
+
+	x_quarter = game->mlx.win_width >> 2;
+	if (x < x_quarter)
+	{
+		game->angle_z -= 0.007;
+		game->dir = ft_rotate_vec_z(game->dir, -0.007);
+	}
+	else if (x > x_quarter * 3)
+	{
+		game->angle_z += 0.007;
+		game->dir = ft_rotate_vec_z(game->dir, 0.007);
+	}
+	if (game->angle_z >= PI * 2)
+		game->angle_z -= PI * 2;
+	else if (game->angle_z <= -PI * 2)
+		game->angle_z += PI * 2;
+	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, game->mlx.win_height >> 1);
+}
+*/
+
 
 int	ft_unpress(int keycode, t_game *game)
 {
@@ -131,12 +155,15 @@ int	main(int argc, char **argv)
 	{
 		game.view.addr = mlx_get_data_addr \
 			(game.view.id, &game.view.bpp, &game.view.ll, &game.view.endian);
-		//ft_display_game(&game);
+		ft_display_game(&game);
+		mlx_mouse_move(game.mlx.ptr, game.mlx.win, game.mlx.win_width >> 1, game.mlx.win_height >> 1);
+		mlx_mouse_hide(game.mlx.ptr, game.mlx.win);
 		mlx_loop_hook(game.mlx.ptr, ft_update, &game);
         mlx_hook(game.mlx.win, 2, 1L << 0, ft_press, &game);
 		mlx_hook(game.mlx.win, 17, 0L, &close_event, &game);
 		mlx_loop(game.mlx.ptr);
 	}
+	mlx_mouse_show(game.mlx.ptr, game.mlx.win);
 	ft_clean_exit(&game, EXIT_FAILURE);
 	return (0);
 }

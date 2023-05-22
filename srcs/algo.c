@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 21:53:11 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:12:56 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,30 @@ int64_t	get_time(void)
 // 	*(unsigned int *)dst = color;
 // }
 
+void	tourn(t_game *game)
+{
+	int	x_quarter;
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
+	// dprintf(2, "mouse : x : %d, y : %d\n", x, y);
+	x_quarter = game->mlx.win_width >> 2;
+	if (x >=0 && x < x_quarter)
+	{
+		game->angle_z -= 0.07;
+		game->dir = ft_rotate_vec_z(game->dir, -0.007);
+	}
+	else if (x > x_quarter * 3 && x <= game->mlx.win_width)
+	{
+		game->angle_z += 0.07;
+		game->dir = ft_rotate_vec_z(game->dir, 0.007);
+	}
+	if (game->angle_z >= PI * 2)
+		game->angle_z -= PI * 2;
+	else if (game->angle_z <= -PI * 2)
+		game->angle_z += PI * 2;
+}
 
 int	ft_update(t_game *game)
 {
@@ -55,6 +79,7 @@ int	ft_update(t_game *game)
 	t_vec3d	rays_temp;
 	t_imgs	img;
 
+	tourn(game);
 	img.img_ptr = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
 	i = 0;

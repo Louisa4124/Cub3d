@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:14:59 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 21:06:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 00:15:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad)
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op)
 {
 	t_vec3d	res;
-	
+
 	if (op == '-')
 	{
 		res.x = u.x - v.x;
