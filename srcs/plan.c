@@ -6,32 +6,66 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/05/22 12:24:54 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:38:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+
+static int	ft_create_plan_range_size(int *plan, int size)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = 0;
+	while (i < size)
+	{
+		if (plan[i] == 1)
+		{
+			++len;
+			while (i < size && plan[i] == 1)
+				++i;
+		}
+		else
+			++i;
+	}
+	return (len);
+}
 
 static int	*ft_create_plan_range(t_map *map, int y)
 {
 	int	*range;
 	int	len;
 	int	i;
+	int	j;
 
+	dprintf(2, "plan %d : ", y);
+	len = ft_create_plan_range_size(map->layout[y], map->x_size);
+	dprintf(2, "len %d\t", len);
+	range = ft_calloc(2 * len + 1, sizeof(int));
+	if (!range)
+		return (NULL);
 	i = 0;
-	len = 0;
-	range = NULL;
+	j = 0;
 	while (i < map->x_size)
 	{
-		if (map->layout[y][i] == 0)
+		dprintf(2, "%d ", map->layout[y][i]);
+		if (map->layout[y][i] == 1)
 		{
-			++len;
-			while (i < map->x_size && map->layout[y][i] == 0)
+			range[j++] = i;
+			while (i < map->x_size && map->layout[y][i] == 1)
 				++i;
+			range[j++] = i - 1;
 		}
-		++i;
+		else
+			++i;
 	}
-	dprintf(2, "len range[%d] is %d\n", y, len);
+	i = 0;
+	dprintf(2, "\n%d ", range[i]);
+	while (range[++i])
+		dprintf(2, "%d ", range[i]);
+	dprintf(2, "\n");
 	return (range);
 }
 
