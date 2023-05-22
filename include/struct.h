@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 11:08:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:15:10 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_imgs
+{
+	void		*img_ptr;
+	int			*data;
+	int			size_l;
+	int			bpp;
+	int			endian;
+}				t_imgs;
+
+// N S W E
 typedef struct s_texture
 {
 	t_img	wall[4];
@@ -37,15 +47,6 @@ typedef struct s_map
 	int	x_size;
 	int	y_size;
 }	t_map;
-
-typedef struct s_imgs
-{
-	void		*img_ptr;
-	int			*data;
-	int			size_l;
-	int			bpp;
-	int			endian;
-}				t_imgs;
 
 typedef struct s_mlx
 {

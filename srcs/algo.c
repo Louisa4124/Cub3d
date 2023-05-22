@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 12:33:16 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:33:44 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ int64_t	get_time(void)
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
 }
+
+// void	my_mlx_pixel_put(t_game *game, const int x, const int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = game->addr + (y * game->ll + x * (game->bpp / 8));
+// 	*(unsigned int *)dst = color;
+// }
+
 
 int	ft_update(t_game *game)
 {
@@ -62,9 +71,9 @@ int	ft_update(t_game *game)
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
-			rays_temp.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z) + game->rays[i][j].z * 0;
-			rays_temp.y = game->rays[i][j].x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z) + game->rays[i][j].z * 0;
-			rays_temp.z = game->rays[i][j].x * 0 + game->rays[i][j].y * 0 + game->rays[i][j].z * 1;
+			rays_temp.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z);
+			rays_temp.y = game->rays[i][j].x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
+			rays_temp.z = game->rays[i][j].z;
 			v = 0;
 			best_t = 0;
 			v_plan = 3;
@@ -124,7 +133,12 @@ int	ft_update(t_game *game)
 				point.y = rays_temp.y * best_t;
 				point.z = 0.5 + rays_temp.z * best_t;
 				if (v_plan == 0 && (game->pos.y + point.y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point.x)] == 1)
-					img.data[i * game->mlx.win_width + j] = RED;
+				{
+					int	x, y = 0;
+					x = (int)(((game->pos.x + point.x) - (int)(game->pos.x + point.x)) * game->texture.wall[0].width);
+					y = (int)((point.z - (int)(point.z)) * game->texture.wall[0].height);
+					img.data[i * game->mlx.win_width + j] = (unsigned int)game->texture.wall[0].addr[(int)(y * (game->texture.wall[0].ll) + x * (game->texture.wall[0].bpp / 8))];
+				}
 				else if (v_plan == 1 && (game->pos.x + point.x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
 					img.data[i * game->mlx.win_width + j] = DARK_RED;
 				else if (v_plan == 0 && (game->pos.y + point.y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point.x)] == 1)
@@ -151,3 +165,4 @@ int	ft_update(t_game *game)
 
 // plan du sol : {0, 0, 1, 0}
 // plan du plafond : {0, 0, 1, -1}
+
