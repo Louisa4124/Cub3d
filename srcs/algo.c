@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 16:06:25 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:26:56 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,20 @@ int	ft_update(t_game *game)
 							point_z = 0.5 + rays_temp.z * t;
 							if (point_z < 1 && point_z > 0 && (int)(game->pos.x + point_x) >= 0 && (int)(game->pos.y + point_y) >= 0 && (int)(game->pos.x + point_x) < game->map.x_size && (int)(game->pos.y + point_y) < game->map.y_size)
 							{
-								if ((best_t == 0 || t < best_t) && ((v == 0 && (game->pos.y + point_y) < game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point_x)] == 1)
-								|| (v == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v][u].d - 1) < game->map.x_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d - 1)] == 1)
-								|| (v == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(-game->plan[v][u].d)][(int)(game->pos.x + point_x)] == 1)
-								|| (v == 1 && (game->pos.x + point_x) > game->pos.x && (int)(-game->plan[v][u].d) < game->map.x_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d)] == 1)))
+								if (best_t == 0 || t < best_t)
 								{
-									best_t = t;
-									v_plan = v;
-									u_plan = u;
+									if (v == 0 && belong_in_ranges(game->pos.x + point_x, game->plan[v][u].range))
+									{
+										best_t = t;
+										v_plan = v;
+										u_plan = u;
+									}
+									else if (v == 1 && belong_in_ranges(game->pos.y + point_y, game->plan[v][u].range))
+									{
+										best_t = t;
+										v_plan = v;
+										u_plan = u;
+									}
 								}
 							}
 						}
@@ -158,3 +164,34 @@ int	ft_update(t_game *game)
 
 // plan du sol : {0, 0, 1, 0}
 // plan du plafond : {0, 0, 1, -1}
+
+/*
+if ((best_t == 0 || t < best_t) 
+&& (
+	(v == 0 && 
+	(game->pos.y + point_y) < game->pos.y 
+	&& (int)(-game->plan[v][u].d) < game->map.y_size 
+	&& (int)(-game->plan[v][u].d - 1) >= 0 
+	&& game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point_x)] == 1)
+
+
+|| (v == 1 
+	&& (game->pos.x + point_x) < game->pos.x 
+	&& (int)(-game->plan[v][u].d - 1) < game->map.x_size 
+	&& (int)(-game->plan[v][u].d - 1) >= 0 
+	&& game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d - 1)] == 1)
+
+|| (v == 0 
+	&& (game->pos.y + point_y) > game->pos.y 
+	&& (int)(-game->plan[v][u].d) < game->map.y_size 
+	&& (int)(-game->plan[v][u].d) >= 0 
+	&& game->map.layout[(int)(-game->plan[v][u].d)][(int)(game->pos.x + point_x)] == 1)
+
+|| (v == 1 
+	&& (game->pos.x + point_x) > game->pos.x 
+	&& (int)(-game->plan[v][u].d) < game->map.x_size 
+	&& (int)(-game->plan[v][u].d) >= 0 
+	&& game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d)] == 1)))
+	
+
+*/

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/05/22 15:38:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:06:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static int	ft_create_plan_range_size(int *plan, int size)
 			while (i < size && plan[i] == 1)
 				++i;
 		}
-		else
-			++i;
+		++i;
 	}
 	return (len);
 }
@@ -40,9 +39,7 @@ static int	*ft_create_plan_range(t_map *map, int y)
 	int	i;
 	int	j;
 
-	dprintf(2, "plan %d : ", y);
 	len = ft_create_plan_range_size(map->layout[y], map->x_size);
-	dprintf(2, "len %d\t", len);
 	range = ft_calloc(2 * len + 1, sizeof(int));
 	if (!range)
 		return (NULL);
@@ -50,7 +47,6 @@ static int	*ft_create_plan_range(t_map *map, int y)
 	j = 0;
 	while (i < map->x_size)
 	{
-		dprintf(2, "%d ", map->layout[y][i]);
 		if (map->layout[y][i] == 1)
 		{
 			range[j++] = i;
@@ -58,16 +54,64 @@ static int	*ft_create_plan_range(t_map *map, int y)
 				++i;
 			range[j++] = i - 1;
 		}
-		else
-			++i;
+		++i;
 	}
-	i = 0;
-	dprintf(2, "\n%d ", range[i]);
-	while (range[++i])
-		dprintf(2, "%d ", range[i]);
-	dprintf(2, "\n");
 	return (range);
 }
+
+static int	ft_create_plan_range_v_size(int **plan, int x, int size)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = 0;
+	while (i < size)
+	{
+		if (plan[i][x] == 1)
+		{
+			++len;
+			while (i < size && plan[i][x] == 1)
+				++i;
+		}
+		++i;
+	}
+	return (len);
+}
+
+static int	*ft_create_plan_range_v(t_map *map, int x)
+{
+	int	*range;
+	int	len;
+	int	i;
+	int	j;
+
+	len = ft_create_plan_range_v_size(map->layout, x, map->y_size);
+	range = ft_calloc(2 * len + 1, sizeof(int));
+	if (!range)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (i < map->y_size)
+	{
+		if (map->layout[i][x] == 1)
+		{
+			range[j++] = i;
+			while (i < map->y_size && map->layout[i][x] == 1)
+				++i;
+			range[j++] = i - 1;
+		}
+		++i;
+	}
+	return (range);
+}
+	// i = 0;
+	// dprintf(2, "plan %d : ", y);
+	// dprintf(2, "%d ", range[i++]);
+	// dprintf(2, "%d ", range[i]);
+	// while (range[++i])
+	// 	dprintf(2, "%d ", range[i]);
+	// dprintf(2, "\n");
 
 int	ft_creat_plan_h(t_game *game)
 {
@@ -103,6 +147,7 @@ int	ft_creat_plan_v(t_game *game)
 		game->plan[1][i].b = 0;
 		game->plan[1][i].c = 0;
 		game->plan[1][i].d = -i;
+		game->plan[1][i].range = ft_create_plan_range_v(&game->map, i);
 		i++;
 	}
 	return (1);
@@ -118,4 +163,19 @@ int	ft_creat_plans(t_game *game)
 	if (!ft_creat_plan_v(game))
 		return (0);
 	return (1);
+}
+
+int	belong_in_ranges(int p, int *range)
+{
+	int	i;
+
+	i = 0;
+	if (p >= range[i] && p <= range[++i])
+		return (1);
+	while (range[++i])
+	{
+		if (p >= range[i] && p <= range[++i])
+			return (1);
+	}
+	return (0);
 }
