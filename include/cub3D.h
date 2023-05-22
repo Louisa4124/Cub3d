@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 15:52:38 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:15:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		ft_init_mlx(t_game *game);
 void	s_mlx_init(t_mlx *mlx);
 void	s_map_init(t_map *map);
 void	s_img_init(t_img *img);
+void	s_texture_init(t_texture *texture);
 
 /*			Clear					*/
 void	s_mlx_destroy(t_game *game);

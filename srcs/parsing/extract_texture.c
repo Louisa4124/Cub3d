@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/11 14:21:03 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:18:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,33 @@ static int	extract_selector(t_mlx *mlx, t_texture *texture, char *line)
 	if (line[i] == '\0')
 		return (2);
 	if (line[i] == 'N' && line[i + 1] == 'O')
-		return (extract_texture(mlx, &texture->north, &line[i + 2]));
+		return (extract_texture(mlx, &texture->wall[0], &line[i + 2]));
 	if (line[i] == 'S' && line[i + 1] == 'O')
-		return (extract_texture(mlx, &texture->south, &line[i + 2]));
+		return (extract_texture(mlx, &texture->wall[1], &line[i + 2]));
 	if (line[i] == 'W' && line[i + 1] == 'E')
-		return (extract_texture(mlx, &texture->west, &line[i + 2]));
+		return (extract_texture(mlx, &texture->wall[2], &line[i + 2]));
 	if (line[i] == 'E' && line[i + 1] == 'A')
-		return (extract_texture(mlx, &texture->east, &line[i + 2]));
+		return (extract_texture(mlx, &texture->wall[3], &line[i + 2]));
 	if (line[i] == 'F')
 		return (extract_color(&texture->floor, &line[i + 1]));
 	if (line[i] == 'C')
 		return (extract_color(&texture->ceiling, &line[i + 1]));
 	ft_putstr_fd("Error\nUnexpected line while parsing\n", 2);
 	return (1);
+}
+
+static int	all_texture(t_texture *texture)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (texture->wall[i].id == NULL)
+			return (1);
+		++i;
+	}
+	return (0);
 }
 
 int	parser_texture(t_mlx *mlx, t_texture *texture, int fd)
@@ -107,7 +121,7 @@ int	parser_texture(t_mlx *mlx, t_texture *texture, int fd)
 			--count;
 		line = ft_free_secure(line);
 	}
-	if (count)
+	if (count || all_texture(texture))
 		ft_putstr_fd("Error\nData about color or texture missing\n", 2);
 	return (count);
 }

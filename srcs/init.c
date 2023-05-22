@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 14:46:57 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:17:46 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ void	s_img_init(t_img *img)
 	img->ll = 0;
 	img->bpp = 0;
 	img->endian = 0;
+}
+
+void	s_texture_init(t_texture *texture)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		s_img_init(&texture->wall[i]);
+		++i;
+	}
+	texture->floor = 0;
+	texture->ceiling = 0;
 }
 
 void	ft_init_game(t_game *game)

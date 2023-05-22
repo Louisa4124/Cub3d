@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:33:34 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/11 13:46:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:17:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ void	debug_print_img(t_img *img)
 
 void	debug_print_texture(t_texture *texture)
 {
+	int	i;
+
+	i = 0;
 	dprintf(2, "####	t_texture	####\n");
-	debug_print_img(&texture->north);
-	debug_print_img(&texture->south);
-	debug_print_img(&texture->east);
-	debug_print_img(&texture->west);
+	while (i < 4)
+	{
+		debug_print_img(&texture->wall[i]);
+		++i;
+	}
 	dprintf(2, "t->color floor : %#X\n", texture->floor);
 	dprintf(2, "t->color ceiling : %#X\n", texture->ceiling);
 	dprintf(2, "	----	\n");
