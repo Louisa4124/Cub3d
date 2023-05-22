@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/19 16:06:25 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:33:16 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ int	ft_update(t_game *game)
 	int		u_plan;
 	int		switch_plan;
 	float	t;
-	float	x;
-	float	y;
-	float	point_x;
-	float	point_y;
-	float	point_z;
+	t_vec3d	point;
 	t_plan	sky;
 	t_plan	ground;
 	t_vec3d	rays_temp;
@@ -52,8 +48,6 @@ int	ft_update(t_game *game)
 
 	img.img_ptr = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
-	x = 0;
-	y = 0;
 	i = 0;
 	sky.a = 0;
 	sky.b = 0;
@@ -68,7 +62,7 @@ int	ft_update(t_game *game)
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
-			rays_temp.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z) + game->rays[i][j].z * 0; //z
+			rays_temp.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z) + game->rays[i][j].z * 0;
 			rays_temp.y = game->rays[i][j].x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z) + game->rays[i][j].z * 0;
 			rays_temp.z = game->rays[i][j].x * 0 + game->rays[i][j].y * 0 + game->rays[i][j].z * 1;
 			v = 0;
@@ -90,15 +84,15 @@ int	ft_update(t_game *game)
 						t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * game->pos.y + game->plan[v][u].c * 0.5 + game->plan[v][u].d) / t;
 						if (t > 0)
 						{
-							point_x = rays_temp.x * t;
-							point_y = rays_temp.y * t;
-							point_z = 0.5 + rays_temp.z * t;
-							if (point_z < 1 && point_z > 0 && (int)(game->pos.x + point_x) >= 0 && (int)(game->pos.y + point_y) >= 0 && (int)(game->pos.x + point_x) < game->map.x_size && (int)(game->pos.y + point_y) < game->map.y_size)
+							point.x = rays_temp.x * t;
+							point.y = rays_temp.y * t;
+							point.z = 0.5 + rays_temp.z * t;
+							if (point.z < 1 && point.z > 0 && (int)(game->pos.x + point.x) >= 0 && (int)(game->pos.y + point.y) >= 0 && (int)(game->pos.x + point.x) < game->map.x_size && (int)(game->pos.y + point.y) < game->map.y_size)
 							{
-								if ((best_t == 0 || t < best_t) && ((v == 0 && (game->pos.y + point_y) < game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point_x)] == 1)
-								|| (v == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v][u].d - 1) < game->map.x_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d - 1)] == 1)
-								|| (v == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(-game->plan[v][u].d)][(int)(game->pos.x + point_x)] == 1)
-								|| (v == 1 && (game->pos.x + point_x) > game->pos.x && (int)(-game->plan[v][u].d) < game->map.x_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v][u].d)] == 1)))
+								if ((best_t == 0 || t < best_t) && ((v == 0 && (game->pos.y + point.y) < game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v][u].d - 1)][(int)(game->pos.x + point.x)] == 1)
+								|| (v == 1 && (game->pos.x + point.x) < game->pos.x && (int)(-game->plan[v][u].d - 1) < game->map.x_size && (int)(-game->plan[v][u].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v][u].d - 1)] == 1)
+								|| (v == 0 && (game->pos.y + point.y) > game->pos.y && (int)(-game->plan[v][u].d) < game->map.y_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(-game->plan[v][u].d)][(int)(game->pos.x + point.x)] == 1)
+								|| (v == 1 && (game->pos.x + point.x) > game->pos.x && (int)(-game->plan[v][u].d) < game->map.x_size && (int)(-game->plan[v][u].d) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v][u].d)] == 1)))
 								{
 									best_t = t;
 									v_plan = v;
@@ -126,19 +120,18 @@ int	ft_update(t_game *game)
 			}
 			if (best_t != 0 && v_plan != 3 && u_plan != -7)
 			{
-				point_x = rays_temp.x * best_t;
-				point_y = rays_temp.y * best_t;
-				point_z = 0.5 + rays_temp.z * best_t;
-				if (v_plan == 0 && (game->pos.y + point_y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point_x)] == 1)
+				point.x = rays_temp.x * best_t;
+				point.y = rays_temp.y * best_t;
+				point.z = 0.5 + rays_temp.z * best_t;
+				if (v_plan == 0 && (game->pos.y + point.y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point.x)] == 1)
 					img.data[i * game->mlx.win_width + j] = RED;
-				else if (v_plan == 1 && (game->pos.x + point_x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point_y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
+				else if (v_plan == 1 && (game->pos.x + point.x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
 					img.data[i * game->mlx.win_width + j] = DARK_RED;
-				else if (v_plan == 0 && (game->pos.y + point_y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point_x)] == 1)
+				else if (v_plan == 0 && (game->pos.y + point.y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point.x)] == 1)
 					img.data[i * game->mlx.win_width + j] = RED;
 				else
 					img.data[i * game->mlx.win_width + j] = DARK_RED;
 			}
-			y = 0;
 			t = 0;
 			j++;
 		}
