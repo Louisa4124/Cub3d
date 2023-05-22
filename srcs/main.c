@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 21:49:22 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 23:35:50 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,23 @@ int	ft_win_event(int keycode, t_game *game)
 
 int	ft_press(int keycode, t_game *game)
 {
-	//dprintf(2, "key %d\n", keycode);
-	if (keycode == 53 || keycode == KEY_ESCAPE)
-		close_event(game);
-	// dprintf(2, "\npos before move :\n");
-	// debug_print_vec3d(&game->pos);
-	// dprintf(2, "\nangle z before move : % .5f\n", game->angle_z);
-	// dprintf(2, "dir before move  :\n");
-	// debug_print_vec3d(&game->dir);
 	t_vec3d	z_axis;
 
+	if (keycode == 53 || keycode == KEY_ESCAPE)
+		close_event(game);
 	z_axis.x = 0;
 	z_axis.y = 0;
 	z_axis.z = 1;
 	if (keycode == KEY_W)
-		game->pos = math_vec_op(game->pos, math_vec_k_prod(game->dir, 0.5), '+');
+		game->pos = math_vec_op(game->pos, game->dir, '+');
 	if (keycode == KEY_S)
-		game->pos = math_vec_op(game->pos, math_vec_k_prod(game->dir, 0.5), '-');
+		game->pos = math_vec_op(game->pos, game->dir, '-');
 	if (keycode == KEY_A)
-		game->pos = math_vec_op(game->pos, math_vec_op(math_vec_k_prod(game->dir, 0.5), z_axis, '^'), '+');
+		game->pos = math_vec_op(game->pos, math_vec_op(game->dir, z_axis, '^'), \
+			'+');
 	if (keycode == KEY_D)
-		game->pos = math_vec_op(game->pos, math_vec_op(math_vec_k_prod(game->dir, 0.5), z_axis, '^'), '-');
+		game->pos = math_vec_op(game->pos, math_vec_op(game->dir, z_axis, '^'), \
+			'-');
 	if (keycode == KEY_RIGHT)
 	{
 		game->angle_z += 0.07;
@@ -80,11 +76,6 @@ int	ft_press(int keycode, t_game *game)
 		game->angle_z -= PI * 2;
 	if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
-	// dprintf(2, "pos after move :\n");
-	// debug_print_vec3d(&game->pos);
-	// dprintf(2, "\nangle z after move : % .5f\n", game->angle_z);
-	// dprintf(2, "dir after move  :\n");
-	// debug_print_vec3d(&game->dir);
 	return (0);
 }
 

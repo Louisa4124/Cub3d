@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 21:07:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/22 23:23:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define HEIGHT 1085
 # define FOV 60
 # define PI 3.14159265
+# define DIR_OFFSET 0.5
 
 # define KEY_W 119
 # define KEY_A 97
