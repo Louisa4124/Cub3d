@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   plan.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/05/19 14:58:58 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:24:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+
+static int	*ft_create_plan_range(t_map *map, int y)
+{
+	int	*range;
+	int	len;
+	int	i;
+
+	i = 0;
+	len = 0;
+	range = NULL;
+	while (i < map->x_size)
+	{
+		if (map->layout[y][i] == 0)
+		{
+			++len;
+			while (i < map->x_size && map->layout[y][i] == 0)
+				++i;
+		}
+		++i;
+	}
+	dprintf(2, "len range[%d] is %d\n", y, len);
+	return (range);
+}
 
 int	ft_creat_plan_h(t_game *game)
 {
@@ -26,6 +49,7 @@ int	ft_creat_plan_h(t_game *game)
 		game->plan[0][i].b = 1;
 		game->plan[0][i].c = 0;
 		game->plan[0][i].d = -i;
+		game->plan[0][i].range = ft_create_plan_range(&game->map, i);
 		i++;
 	}
 	return (1);

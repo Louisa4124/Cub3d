@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:35:16 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 17:16:49 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:21:04 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_plan
 	float	b;
 	float	c;
 	float	d;
+	int		*range;
 }	t_plan;
 
 #endif
