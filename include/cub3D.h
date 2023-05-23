@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 20:31:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:54:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
 float	math_vec_scalar_prod(t_vec3d u, t_vec3d v);
 t_vec3d	math_vec_k_prod(t_vec3d u, float k);
+
 
 /*          Raycasting functiuns    */
 void	ft_display_game(t_game *game);

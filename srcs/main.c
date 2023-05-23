@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 20:33:08 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:51:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,23 @@ int	ft_win_event(int keycode, t_game *game)
 	return (0);
 }
 
+t_vec3d	s_vec3d_init(int x, int y, int z)
+{
+	t_vec3d	u;
+
+	u.x = x;
+	u.y = y;
+	u.z = z;
+	return (u);
+}
+
 int	ft_press(int keycode, t_game *game)
 {
-	t_vec3d	x_axis;
 	t_vec3d	z_axis;
 	t_vec3d	dir;
 
-	x_axis.x = 0;
-	x_axis.y = -DIR_OFFSET;
-	x_axis.z = 0;
-	z_axis.x = 0;
-	z_axis.y = 0;
-	z_axis.z = 1;
-	dir = ft_rotate_vec_z(x_axis, game->angle_z);
+	z_axis = s_vec3d_init(0, 0, 1);
+	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
 	if (keycode == 53 || keycode == KEY_ESCAPE)
 		close_event(game);
 	else if (keycode == KEY_W)
