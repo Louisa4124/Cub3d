@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/22 23:22:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:24:18 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,25 @@ static void	extract_map_get_start(t_game *game, char c, int x, int y)
 	game->map.layout[y][x] = 0;
 	if (c == 'N')
 	{
+		game->angle_z = 0;
 		game->dir.x = 0;
 		game->dir.y = -DIR_OFFSET;
 	}
 	else if (c == 'S')
 	{
+		game->angle_z = PI;
 		game->dir.x = 0;
 		game->dir.y = DIR_OFFSET;
 	}
 	else if (c == 'W')
 	{
+		game->angle_z = 1.570796;
 		game->dir.x = -DIR_OFFSET;
 		game->dir.y = 0;
 	}
 	else if (c == 'E')
 	{
+		game->angle_z = 4.712389;
 		game->dir.x = DIR_OFFSET;
 		game->dir.y = 0;
 	}

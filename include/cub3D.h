@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 23:23:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:31:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@
 # define WIDTH 1920
 # define HEIGHT 1085
 # define FOV 60
+# define PI_HALF 1.570796
 # define PI 3.14159265
+# define PI_T_QUART 4.712389
 # define DIR_OFFSET 0.5
+# define ANG_OFFSET 0.07
 
 # define KEY_W 119
 # define KEY_A 97
@@ -91,7 +94,7 @@ void	debug_print_texture(t_texture *texture);
 void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
-void	debug_print_vec3d(t_vec3d *u);
+void	debug_print_vec3d(t_vec3d *u, char *name);
 
 int		rgb_to_hexa(int r, int g, int b);
 

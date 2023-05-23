@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 20:09:12 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:15:18 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_update(t_game *game)
 	t_vec3d	rays_temp;
 	t_imgs	img;
 
-	tourn(game);
+	// tourn(game);
 	img.img_ptr = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
 	// dprintf(2, "img data : sl %d  bpp %d  end %d\n", img.size_l, img.bpp, img.endian);

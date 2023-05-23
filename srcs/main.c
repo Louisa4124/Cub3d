@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 19:13:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:33:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,39 +45,38 @@ int	ft_win_event(int keycode, t_game *game)
 
 int	ft_press(int keycode, t_game *game)
 {
+	t_vec3d	x_axis;
 	t_vec3d	z_axis;
+	t_vec3d	dir;
 
+	x_axis.x = 0;
+	x_axis.y = -DIR_OFFSET;
+	x_axis.z = 0;
 	z_axis.x = 0;
 	z_axis.y = 0;
 	z_axis.z = 1;
+	dir = ft_rotate_vec_z(x_axis, game->angle_z);
 	if (keycode == 53 || keycode == KEY_ESCAPE)
 		close_event(game);
 	else if (keycode == KEY_W)
-		game->pos = math_vec_op(game->pos, game->dir, '+');
+		game->pos = math_vec_op(game->pos, dir, '+');
 	else if (keycode == KEY_S)
-		game->pos = math_vec_op(game->pos, game->dir, '-');
+		game->pos = math_vec_op(game->pos, dir, '-');
 	else if (keycode == KEY_A)
-		game->pos = math_vec_op(game->pos, math_vec_op(game->dir, z_axis, '^'), \
-			'+');
+		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '+');
 	else if (keycode == KEY_D)
-		game->pos = math_vec_op(game->pos, math_vec_op(game->dir, z_axis, '^'), \
-			'-');
+		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '-');
 	else if (keycode == KEY_RIGHT)
-	{
-		game->angle_z += 0.07;
-		game->dir = ft_rotate_vec_z(game->dir, 0.07);
-	}
+		game->angle_z += ANG_OFFSET;
 	else if (keycode == KEY_LEFT)
-	{
-		game->angle_z -= 0.07;
-		game->dir = ft_rotate_vec_z(game->dir, -0.07);
-	}
+		game->angle_z -= ANG_OFFSET;
 	if (game->angle_z >= PI * 2)
 		game->angle_z -= PI * 2;
 	else if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
 	return (0);
 }
+
 /*
 void	event_mouse(int x, int y, t_game *game)
 {
@@ -147,7 +146,6 @@ int	main(int argc, char **argv)
 	ft_init_game(&game);
 	game.rays = ft_malloc_rayon(&game);
 	game.angle_x = 0;
-	game.angle_z = 0;
     ft_create_vector(&game);
 	if (ft_creat_plans(&game) == 0)
 		return (1);
