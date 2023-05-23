@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 19:36:27 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:09:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ void	tourn(t_game *game)
 		game->angle_z += PI * 2;
 }
 
+void	my_mlx_pixel_put(t_imgs *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = (char *) img->data + (y * img->size_l + x * (img->bpp / 8));
+	*(unsigned int *) dst = color;
+}
+
 int	ft_update(t_game *game)
 {
 	int		i;
@@ -82,7 +90,7 @@ int	ft_update(t_game *game)
 	tourn(game);
 	img.img_ptr = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
-	dprintf(2, "img data : sl %d  bpp %d  end %d\n", img.size_l, img.bpp, img.endian);
+	// dprintf(2, "img data : sl %d  bpp %d  end %d\n", img.size_l, img.bpp, img.endian);
 	i = 0;
 	sky.a = 0;
 	sky.b = 0;
@@ -140,9 +148,11 @@ int	ft_update(t_game *game)
 					{
 						t = (sky.a * rays_temp.x + sky.b * rays_temp.y + sky.c * rays_temp.z);
 						if (t > 0)
-							img.data[i * game->mlx.win_width + j] = game->texture.ceiling;
+							my_mlx_pixel_put(&img, j, i, game->texture.ceiling);
+							// img.data[i * game->mlx.win_width + j] = game->texture.ceiling;
 						if (t <= 0)
-							img.data[i * game->mlx.win_width + j] = game->texture.floor;
+							my_mlx_pixel_put(&img, j, i, game->texture.floor);
+							// img.data[i * game->mlx.win_width + j] = game->texture.floor;
 					}
 					u++;
 				}
@@ -156,18 +166,22 @@ int	ft_update(t_game *game)
 				if (v_plan == 0 && (game->pos.y + point.y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point.x)] == 1)
 				{
 					int	x, y = 0;
+					int	color;
 					x = (int)(((game->pos.x + point.x) - (int)(game->pos.x + point.x)) * game->texture.wall[0].width);
 					y = game->texture.wall[0].height - (int)((point.z - (int)(point.z)) * game->texture.wall[0].height) - 1;
-					dprintf(2, "float z = %f\tint part = %d\tsum %f\ny in float %f\ny = %d\n", point.z, (int)(point.z), (point.z - (int)(point.z), ((point.z - (int)(point.z)) * game->texture.wall[0].height), y));
-					dprintf(2, "x = %d\n", x);
-					img.data[i * game->mlx.win_width + j] = (unsigned int)game->texture.wall[0].addr[(int)(y * (game->texture.wall[0].ll) + x * (game->texture.wall[0].bpp / 8))];
+					// dprintf(2, "float z = %f\tint part = %d\tsum %f\ny in float %f\ny = %d\n", point.z, (int)(point.z), (point.z - (int)(point.z), ((point.z - (int)(point.z)) * game->texture.wall[0].height), y));
+					// dprintf(2, "x = %d\n", x);
+					color = *(unsigned int *)(game->texture.wall[0].addr + y * game->texture.wall[0].ll + x * (game->texture.wall[0].bpp / 8));
+					my_mlx_pixel_put(&img, j, i, color);
+					// img.data[i * game->mlx.win_width + j] = color;
+					// img.data[i * game->mlx.win_width + j] = (unsigned int)game->texture.wall[0].addr[(int)(y * (game->texture.wall[0].ll) + x * (game->texture.wall[0].bpp / 8))];
 				}
 				else if (v_plan == 1 && (game->pos.x + point.x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
-					img.data[i * game->mlx.win_width + j] = DARK_RED;
+					my_mlx_pixel_put(&img, j, i, DARK_RED);
 				else if (v_plan == 0 && (game->pos.y + point.y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point.x)] == 1)
-					img.data[i * game->mlx.win_width + j] = RED;
+					my_mlx_pixel_put(&img, j, i, RED);
 				else
-					img.data[i * game->mlx.win_width + j] = DARK_RED;
+					my_mlx_pixel_put(&img, j, i, DARK_RED);
 			}
 			t = 0;
 			j++;
