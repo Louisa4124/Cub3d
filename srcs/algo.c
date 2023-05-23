@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 01:12:56 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:36:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	ft_update(t_game *game)
 	tourn(game);
 	img.img_ptr = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
+	dprintf(2, "img data : sl %d  bpp %d  end %d\n", img.size_l, img.bpp, img.endian);
 	i = 0;
 	sky.a = 0;
 	sky.b = 0;
@@ -156,7 +157,9 @@ int	ft_update(t_game *game)
 				{
 					int	x, y = 0;
 					x = (int)(((game->pos.x + point.x) - (int)(game->pos.x + point.x)) * game->texture.wall[0].width);
-					y = (int)((point.z - (int)(point.z)) * game->texture.wall[0].height);
+					y = game->texture.wall[0].height - (int)((point.z - (int)(point.z)) * game->texture.wall[0].height) - 1;
+					dprintf(2, "float z = %f\tint part = %d\tsum %f\ny in float %f\ny = %d\n", point.z, (int)(point.z), (point.z - (int)(point.z), ((point.z - (int)(point.z)) * game->texture.wall[0].height), y));
+					dprintf(2, "x = %d\n", x);
 					img.data[i * game->mlx.win_width + j] = (unsigned int)game->texture.wall[0].addr[(int)(y * (game->texture.wall[0].ll) + x * (game->texture.wall[0].bpp / 8))];
 				}
 				else if (v_plan == 1 && (game->pos.x + point.x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
@@ -176,7 +179,7 @@ int	ft_update(t_game *game)
 		g_frame++;
 	else
 	{
-		ft_printf("\033[2K\rFPS: %d\e[0m\n", g_frame);
+		// ft_printf("\033[2K\rFPS: %d\e[0m\n", g_frame);
 		g_fps = get_time();
 		g_frame = 0;
 	}
