@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 20:07:20 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:14:59 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,24 @@ typedef struct s_mlx
 typedef struct s_game
 {
 	int			pause;
+	float		t;
 	float		r_h;
 	float		r_v;
 	float		angle_z;
 	float		angle_x;
+	float		close_t;
 	t_map		map;
 	t_mlx		mlx;
 	t_img		view;
+	t_vec3d		point;
 	t_vec3d		pos;
 	t_vec3d		dir;
+	t_vec2d		u_plan;
 	t_vec3d		camera;
+	t_vec3d		u_rays;
 	t_vec3d		**rays;
 	t_plan		**plan;
+	t_plan		sky;
 	t_texture	texture;
 }	t_game;
 

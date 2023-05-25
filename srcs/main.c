@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 13:08:13 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:10:05 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,14 @@ int	ft_press(int keycode, t_game *game)
 
 	z_axis = s_vec3d_init(0, 0, 1);
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
+	// printf("pos.x = %f\n", game->pos.x);
+	// printf("pos.y = %f\n", game->pos.y);
+	// printf("game->map.y_size = %d\n", game->map.y_size);
 	if (keycode == 53 || keycode == KEY_ESCAPE)
 		close_event(game);
-	else if (keycode == KEY_W || keycode == 65362)
+	else if ((keycode == KEY_W || keycode == 65362)) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '+');
-	else if (keycode == KEY_S || keycode == 65364)
+	else if ((keycode == KEY_S || keycode == 65364)) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '-');
 	else if (keycode == KEY_A)
 		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '+');
@@ -158,10 +161,9 @@ int	main(int argc, char **argv)
 	{
 		game.view.addr = mlx_get_data_addr \
 			(game.view.id, &game.view.bpp, &game.view.ll, &game.view.endian);
-		ft_display_game(&game);
 		mlx_mouse_move(game.mlx.ptr, game.mlx.win, game.mlx.win_width >> 1, game.mlx.win_height >> 1);
 		mlx_mouse_hide(game.mlx.ptr, game.mlx.win);
-		mlx_loop_hook(game.mlx.ptr, ft_update, &game);
+		mlx_loop_hook(game.mlx.ptr, ft_update_game, &game);
         mlx_hook(game.mlx.win, 2, 1L << 0, ft_press, &game);
 		mlx_hook(game.mlx.win, 17, 0L, &close_event, &game);
 		mlx_loop(game.mlx.ptr);

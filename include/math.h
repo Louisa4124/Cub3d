@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:35:16 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/11 17:16:49 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:12:38 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct s_vec3d
 
 typedef struct s_vec2d
 {
-	float	x;
-	float	y;
+	int		x;
+	int		y;
 }	t_vec2d;
 
 typedef struct s_line3d
