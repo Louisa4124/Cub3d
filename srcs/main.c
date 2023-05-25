@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 21:51:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:08:13 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_win_event(int keycode, t_game *game)
 	return (0);
 }
 
-t_vec3d	s_vec3d_init(int x, int y, int z)
+t_vec3d	s_vec3d_init(float x, float y, float z)
 {
 	t_vec3d	u;
 
@@ -62,9 +62,9 @@ int	ft_press(int keycode, t_game *game)
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
 	if (keycode == 53 || keycode == KEY_ESCAPE)
 		close_event(game);
-	else if (keycode == KEY_W)
+	else if (keycode == KEY_W || keycode == 65362)
 		game->pos = math_vec_op(game->pos, dir, '+');
-	else if (keycode == KEY_S)
+	else if (keycode == KEY_S || keycode == 65364)
 		game->pos = math_vec_op(game->pos, dir, '-');
 	else if (keycode == KEY_A)
 		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '+');
@@ -124,7 +124,7 @@ void	ft_create_vector(t_game *game)
 		{
 			game->rays[i][j].x = ((j - game->mlx.win_width * 0.5) * game->r_h);
 			game->rays[i][j].y = -1.0;
-			game->rays[i][j].z = ((game->mlx.win_height * 0.5 - i) * game->r_h);
+			game->rays[i][j].z = ((game->mlx.win_height * 0.5 - i) * game->r_v);
 			j++;
 		}
 		i++;
