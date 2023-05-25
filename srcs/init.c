@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 15:36:25 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:41:37 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_init_game(t_game *game)
 	game->sky.b = 0;
 	game->sky.c = 1;
 	game->sky.d = -1;
-	game->r_h = 2 * tan((FOV * PI / 180) * 0.5) / game->mlx.win_width;
-	game->r_v = 2 * tan((FOV * PI / 180) * game->mlx.win_height / \
+	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
+	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
 		(game->mlx.win_width * 2)) / game->mlx.win_height;
 }

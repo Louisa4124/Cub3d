@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 16:20:15 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:46:58 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,15 @@ void	ft_print_texture_so_ea(t_game *game, int wall, int i, int j)
 
 	x = 0;
 	y = 0;
-	x = (int)(((game->pos.y + game->point.y) - (int)(game->pos.y + game->point.y)) * game->texture.wall[1].width);
-	y = game->texture.wall[1].height - (int)((game->point.z - (int)(game->point.z)) * game->texture.wall[1].height) - 1;
-	color = *(unsigned int *)(game->texture.wall[1].addr + y * game->texture.wall[1].ll + x * (game->texture.wall[1].bpp / 8));
-	my_mlx_pixel_put(&game->view, j, i, color); //dark
+	if (j % 2 && i % 2)
+	{
+		x = (int)(((game->pos.y + game->point.y) - (int)(game->pos.y + game->point.y)) * game->texture.wall[1].width);
+		y = game->texture.wall[wall].height - (int)((game->point.z - (int)(game->point.z)) * game->texture.wall[wall].height) - 1;
+		color = *(unsigned int *)(game->texture.wall[wall].addr + y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8));
+		my_mlx_pixel_put(&game->view, j, i, color); //dark	
+	}
+	else
+		my_mlx_pixel_put(&game->view, j, i, BLACK); 
 }
 
 void	ft_print_texture(t_game *game, int i, int j)
@@ -181,9 +186,9 @@ int	ft_update_game(t_game *game)
 			if (game->close_t != 0 && game->u_plan.x != 3 && game->u_plan.y != -7)
 				ft_print_texture(game, i, j);
 			game->t = 0;
-			j++;
+			j += 1;
 		}
-		i++;
+		i += 1;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	if (get_time() - g_fps < 1000)

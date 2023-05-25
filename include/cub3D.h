@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 13:29:49 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:46:29 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define FOV 60
 # define PI_HALF 1.570796
 # define PI 3.14159265
-# define PI_T_QUART 4.712389
+# define PI_DIV_180 0.01745329251
 # define DIR_OFFSET 0.5
 # define ANG_OFFSET 0.07
 
@@ -47,15 +47,16 @@
 
 # define DARK_RED 0x8B0000
 # define RED 0xff0000
+# define BLACK 0x000000
 # define WHITE 0xFFFFFF
 # define GREEN 0x77DD77
 # define BLUE 0xA7C7E7
 
 /*          Initialisation          */
+int		ft_init_mlx(t_game *game);
 void	ft_init_game(t_game *game);
 void	ft_init_rays(t_game *game);
 t_vec3d	**ft_malloc_rays(t_game *game);
-int		ft_init_mlx(t_game *game);
 
 void	s_mlx_init(t_mlx *mlx);
 void	s_map_init(t_map *map);

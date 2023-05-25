@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 15:10:05 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:26:27 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ int	ft_press(int keycode, t_game *game)
 
 	z_axis = s_vec3d_init(0, 0, 1);
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
-	// printf("pos.x = %f\n", game->pos.x);
-	// printf("pos.y = %f\n", game->pos.y);
-	// printf("game->map.y_size = %d\n", game->map.y_size);
 	if (keycode == 53 || keycode == KEY_ESCAPE)
 		close_event(game);
 	else if ((keycode == KEY_W || keycode == 65362)) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
