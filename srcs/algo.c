@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 20:15:18 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:21:49 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,20 @@ int	ft_update(t_game *game)
 	int		u_plan;
 	int		switch_plan;
 	float	t;
+	int	x, y = 0;
+	int color;
 	t_vec3d	point;
 	t_plan	sky;
-	t_plan	ground;
 	t_vec3d	rays_temp;
 	t_imgs	img;
 
-	// tourn(game);
 	img.img_ptr = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
-	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
-	// dprintf(2, "img data : sl %d  bpp %d  end %d\n", img.size_l, img.bpp, img.endian);
+	img.data = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
 	i = 0;
 	sky.a = 0;
 	sky.b = 0;
 	sky.c = 1;
 	sky.d = -1;
-	ground.a = 0;
-	ground.b = 0;
-	ground.c = 1;
-	ground.d = 0;
 	while (i < game->mlx.win_height)
 	{
 		j = 0;
@@ -165,23 +160,32 @@ int	ft_update(t_game *game)
 				point.z = 0.5 + rays_temp.z * best_t;
 				if (v_plan == 0 && (game->pos.y + point.y) < game->pos.y && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d - 1)][(int)(game->pos.x + point.x)] == 1)
 				{
-					int	x, y = 0;
-					int	color;
 					x = (int)(((game->pos.x + point.x) - (int)(game->pos.x + point.x)) * game->texture.wall[0].width);
 					y = game->texture.wall[0].height - (int)((point.z - (int)(point.z)) * game->texture.wall[0].height) - 1;
-					// dprintf(2, "float z = %f\tint part = %d\tsum %f\ny in float %f\ny = %d\n", point.z, (int)(point.z), (point.z - (int)(point.z), ((point.z - (int)(point.z)) * game->texture.wall[0].height), y));
-					// dprintf(2, "x = %d\n", x);
 					color = *(unsigned int *)(game->texture.wall[0].addr + y * game->texture.wall[0].ll + x * (game->texture.wall[0].bpp / 8));
 					my_mlx_pixel_put(&img, j, i, color);
-					// img.data[i * game->mlx.win_width + j] = color;
-					// img.data[i * game->mlx.win_width + j] = (unsigned int)game->texture.wall[0].addr[(int)(y * (game->texture.wall[0].ll) + x * (game->texture.wall[0].bpp / 8))];
 				}
 				else if (v_plan == 1 && (game->pos.x + point.x) < game->pos.x && (int)(-game->plan[v_plan][u_plan].d - 1) < game->map.x_size && (int)(-game->plan[v_plan][u_plan].d - 1) >= 0 && game->map.layout[(int)(game->pos.y + point.y)][(int)(-game->plan[v_plan][u_plan].d - 1)] == 1)
-					my_mlx_pixel_put(&img, j, i, DARK_RED);
+				{
+					x = (int)(((game->pos.y + point.y) - (int)(game->pos.y + point.y)) * game->texture.wall[1].width);
+					y = game->texture.wall[1].height - (int)((point.z - (int)(point.z)) * game->texture.wall[1].height) - 1;
+					color = *(unsigned int *)(game->texture.wall[1].addr + y * game->texture.wall[1].ll + x * (game->texture.wall[1].bpp / 8));
+					my_mlx_pixel_put(&img, j, i, color); //dark
+				}
 				else if (v_plan == 0 && (game->pos.y + point.y) > game->pos.y && (int)(-game->plan[v_plan][u_plan].d) < game->map.y_size && (int)(-game->plan[v_plan][u_plan].d) >= 0 && game->map.layout[(int)(-game->plan[v_plan][u_plan].d)][(int)(game->pos.x + point.x)] == 1)
-					my_mlx_pixel_put(&img, j, i, RED);
+				{
+					x = (int)(((game->pos.x + point.x) - (int)(game->pos.x + point.x)) * game->texture.wall[2].width);
+					y = game->texture.wall[2].height - (int)((point.z - (int)(point.z)) * game->texture.wall[2].height) - 1;
+					color = *(unsigned int *)(game->texture.wall[2].addr + y * game->texture.wall[2].ll + x * (game->texture.wall[2].bpp / 8));
+					my_mlx_pixel_put(&img, j, i, color);
+				}
 				else
-					my_mlx_pixel_put(&img, j, i, DARK_RED);
+				{
+					x = (int)(((game->pos.y + point.y) - (int)(game->pos.y + point.y)) * game->texture.wall[3].width);
+					y = game->texture.wall[3].height - (int)((point.z - (int)(point.z)) * game->texture.wall[3].height) - 1;
+					color = *(unsigned int *)(game->texture.wall[3].addr + y * game->texture.wall[3].ll + x * (game->texture.wall[3].bpp / 8));
+					my_mlx_pixel_put(&img, j, i, color); //dark
+				}
 			}
 			t = 0;
 			j++;
