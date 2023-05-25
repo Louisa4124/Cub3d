@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 16:26:27 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:19:13 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	(void)argv;
+	int res = write(1, "Bonjour ! Je suis le cub3D de Tilou et j'ai treeees sommeil.... \nShmimimimimi\n rommpshhhhh\n", 91);
+	(void) res;
 	if (argc != 2)
 		return (ft_man(argc));
 	if (ft_init_mlx(&game))
