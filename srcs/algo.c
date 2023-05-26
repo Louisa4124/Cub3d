@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 15:59:17 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:34:15 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ int	ft_update_game(t_game *game)
 {
 	int		i;
 	int		j;
+	t_vec3d	ray_tmp;
 
 	i = 0;
 	ft_move(game);
@@ -254,9 +255,12 @@ int	ft_update_game(t_game *game)
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
-			game->u_rays.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z);
-			game->u_rays.y = game->rays[i][j].x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
-			game->u_rays.z = game->rays[i][j].z;
+			ray_tmp.x = game->rays[i][j].x;
+			ray_tmp.y = game->rays[i][j].y * cos(game->angle_x) + game->rays[i][j].z * -sin(game->angle_x);
+			ray_tmp.z= game->rays[i][j].y * sin(game->angle_x) + game->rays[i][j].z * cos(game->angle_x);
+			game->u_rays.x = ray_tmp.x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z);
+			game->u_rays.y = ray_tmp.x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
+			game->u_rays.z = ray_tmp.z;
 			game->close_t = 0;
 			game->u_plan.x = 3;
 			game->u_plan.y = -7;

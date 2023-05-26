@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 16:16:04 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:43:48 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,26 @@ t_vec3d	s_vec3d_init(float x, float y, float z)
 	return (u);
 }
 
+// if (y > HEIGHT / 2 && game->angle_x <= 0.75)
+// 	game->angle_x += 0.025;
+// else if (y < HEIGHT / 2 && game->angle_x >= -0.5)
+// 	game->angle_x -= 0.025;
+
 int	ft_move(t_game *game)
 {
 	t_vec3d	z_axis;
+	t_vec3d	x_axis;
 	t_vec3d	dir;
+	t_vec3d	dir_x;
 
 	z_axis = s_vec3d_init(0, 0, 1);
+	x_axis = s_vec3d_init(1, 0, 0);
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
-	if ((game->key[0] || game->key[1])) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
+	dir_x = ft_rotate_vec_x(s_vec3d_init(-DIR_OFFSET, 0, 0), game->angle_x);
+
+	if (game->key[0]) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '+');
-	if ((game->key[2] || game->key[3])) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
+	if (game->key[2]) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '-');
 	if (game->key[4])
 		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '+');
@@ -72,10 +82,18 @@ int	ft_move(t_game *game)
 		game->angle_z += ANG_OFFSET;
 	if (game->key[7])
 		game->angle_z -= ANG_OFFSET;
+	if (game->key[1])
+		game->angle_x -= ANG_OFFSET;
+	if (game->key[3])
+		game->angle_x += ANG_OFFSET;
 	if (game->angle_z >= PI * 2)
 		game->angle_z -= PI * 2;
 	else if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
+	if (game->angle_x >= PI * 2)
+		game->angle_x -= PI * 2;
+	else if (game->angle_x <= -PI * 2)
+		game->angle_x += PI * 2;
 	return (0);
 }
 
@@ -186,7 +204,6 @@ int	main(int argc, char **argv)
 	// debug_print_texture(&game.texture);
 	ft_init_game(&game);
 	game.rays = ft_malloc_rayon(&game);
-	game.angle_x = 0;
     ft_create_vector(&game);
 	if (ft_creat_plans(&game) == 0)
 		return (1);
