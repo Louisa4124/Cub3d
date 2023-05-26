@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 15:06:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:24:31 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ int	ft_update_game(t_game *game)
 	int		j;
 
 	i = 0;
+	ft_move(game);
 	while (i < game->mlx.win_height)
 	{
 		j = 0;
