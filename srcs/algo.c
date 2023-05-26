@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 15:24:31 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:45:27 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-int	ft_print_texture_no_we(t_game *game, int wall, int i, int j)
+void	ft_print_texture_no_we(t_game *game, int wall, int i, int j)
 {
 	int	x;
 	int	y;
@@ -68,7 +68,7 @@ int	ft_print_texture_no_we(t_game *game, int wall, int i, int j)
 		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
 	game->color = *(unsigned int *)(game->texture.wall[wall].addr + \
 		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8));
-	return (game->color);
+	my_mlx_pixel_put(&game->view, j, i, game->color);
 }
 
 void	ft_print_texture_so_ea(t_game *game, int wall, int i, int j)
@@ -85,6 +85,7 @@ void	ft_print_texture_so_ea(t_game *game, int wall, int i, int j)
 		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
 	game->color = *(unsigned int *)(game->texture.wall[wall].addr + \
 		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8)); //dark	
+	my_mlx_pixel_put(&game->view, j, i, game->color);
 }
 
 void	ft_print_texture(t_game *game, int i, int j)
@@ -167,9 +168,15 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 	game->t = (game->sky.a * game->u_rays.x + game->sky.b * game->u_rays.y \
 		 + game->sky.c * game->u_rays.z);
 	if (game->t > 0)
+	{
+		my_mlx_pixel_put(&game->view, j, i, game->texture.ceiling);
 		game->color = game->texture.ceiling;
+	}
 	else if (game->t <= 0)
+	{
+		my_mlx_pixel_put(&game->view, j, i, game->texture.floor);
 		game->color = game->texture.floor;
+	}
 }
 
 void	ft_switch_plan(t_game *game, int i, int j)
@@ -223,10 +230,10 @@ void	ft_resolution(t_game *game, int i, int j)
 	x = i + RESOLUTION;
 	y = j + RESOLUTION;
 	j2 = j;
-	while (i < x && i < WIDTH)
+	while (i < x && i < game->mlx.win_height)
 	{
 		j = j2;
-		while (j < y && j < HEIGHT)
+		while (j < y && j < game->mlx.win_width)
 		{
 			my_mlx_pixel_put(&game->view, j, i, game->color);
 			++j;
@@ -260,7 +267,7 @@ int	ft_update_game(t_game *game)
 		i += RESOLUTION;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-	//ft_printf_fps();
+	ft_printf_fps();
 	return (0);
 }
 

@@ -3,19 +3,22 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  ms/call  ms/call  name    
- 85.96      1.77     1.77  6480000     0.00     0.00  ft_switch_plan
-  4.86      1.87     0.10 32336326     0.00     0.00  ft_is_wall
-  4.86      1.97     0.10  2719753     0.00     0.00  ft_print_texture
-  4.37      2.06     0.09       54     1.67    38.16  ft_update_game
-  0.00      2.06     0.00       18     0.00     0.00  ft_press
-  0.00      2.06     0.00       18     0.00     0.00  ft_rotate_vec_z
-  0.00      2.06     0.00        9     0.00     0.00  math_vec_op
-  0.00      2.06     0.00        6     0.00     0.00  extract_color
-  0.00      2.06     0.00        2     0.00     0.00  rgb_to_hexa
-  0.00      2.06     0.00        1     0.00     0.00  close_event
-  0.00      2.06     0.00        1     0.00     0.00  ft_len_max
-  0.00      2.06     0.00        1     0.00     0.00  parser_map
-  0.00      2.06     0.00        1     0.00     0.00  parser_texture
+ 59.21      1.74     1.74 383183400     0.00     0.00  ft_update_rays
+ 32.67      2.70     0.96  8160000     0.00     0.00  ft_switch_plan
+  5.10      2.85     0.15 37236233     0.00     0.00  ft_is_wall
+  1.70      2.90     0.05       17     2.94   173.01  ft_update_game
+  1.36      2.94     0.04  2536566     0.00     0.00  ft_print_texture
+  0.00      2.94     0.00       97     0.00     0.00  ft_press
+  0.00      2.94     0.00       96     0.00     0.00  ft_unpress
+  0.00      2.94     0.00       17     0.00     0.00  ft_move
+  0.00      2.94     0.00       17     0.00     0.00  ft_rotate_vec_z
+  0.00      2.94     0.00        8     0.00     0.00  math_vec_op
+  0.00      2.94     0.00        6     0.00     0.00  extract_color
+  0.00      2.94     0.00        2     0.00     0.00  rgb_to_hexa
+  0.00      2.94     0.00        1     0.00     0.00  close_event
+  0.00      2.94     0.00        1     0.00     0.00  ft_len_max
+  0.00      2.94     0.00        1     0.00     0.00  parser_map
+  0.00      2.94     0.00        1     0.00     0.00  parser_texture
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -53,61 +56,73 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 2 byte(s) for 0.49% of 2.06 seconds
+granularity: each sample hit covers 2 byte(s) for 0.34% of 2.94 seconds
 
 index % time    self  children    called     name
-                0.09    1.97      54/54          mlx_loop [2]
-[1]    100.0    0.09    1.97      54         ft_update_game [1]
-                1.77    0.10 6480000/6480000     ft_switch_plan [3]
-                0.10    0.00 2719753/2719753     ft_print_texture [5]
+                0.05    2.89      17/17          mlx_loop [2]
+[1]    100.0    0.05    2.89      17         ft_update_game [1]
+                0.96    1.89 8160000/8160000     ft_switch_plan [3]
+                0.04    0.00 2536566/2536566     ft_print_texture [6]
+                0.00    0.00      17/17          ft_move [9]
 -----------------------------------------------
                                                  <spontaneous>
-[2]    100.0    0.00    2.06                 mlx_loop [2]
-                0.09    1.97      54/54          ft_update_game [1]
-                0.00    0.00      18/18          ft_press [6]
+[2]    100.0    0.00    2.94                 mlx_loop [2]
+                0.05    2.89      17/17          ft_update_game [1]
+                0.00    0.00      97/97          ft_press [7]
+                0.00    0.00      96/96          ft_unpress [8]
 -----------------------------------------------
-                1.77    0.10 6480000/6480000     ft_update_game [1]
-[3]     90.8    1.77    0.10 6480000         ft_switch_plan [3]
-                0.10    0.00 32336326/32336326     ft_is_wall [4]
+                0.96    1.89 8160000/8160000     ft_update_game [1]
+[3]     96.9    0.96    1.89 8160000         ft_switch_plan [3]
+                1.74    0.15 383183400/383183400     ft_update_rays [4]
 -----------------------------------------------
-                0.10    0.00 32336326/32336326     ft_switch_plan [3]
-[4]      4.9    0.10    0.00 32336326         ft_is_wall [4]
+                1.74    0.15 383183400/383183400     ft_switch_plan [3]
+[4]     64.3    1.74    0.15 383183400         ft_update_rays [4]
+                0.15    0.00 37236233/37236233     ft_is_wall [5]
 -----------------------------------------------
-                0.10    0.00 2719753/2719753     ft_update_game [1]
-[5]      4.9    0.10    0.00 2719753         ft_print_texture [5]
+                0.15    0.00 37236233/37236233     ft_update_rays [4]
+[5]      5.1    0.15    0.00 37236233         ft_is_wall [5]
 -----------------------------------------------
-                0.00    0.00      18/18          mlx_loop [2]
-[6]      0.0    0.00    0.00      18         ft_press [6]
-                0.00    0.00      18/18          ft_rotate_vec_z [7]
-                0.00    0.00       9/9           math_vec_op [8]
-                0.00    0.00       1/1           close_event [11]
+                0.04    0.00 2536566/2536566     ft_update_game [1]
+[6]      1.4    0.04    0.00 2536566         ft_print_texture [6]
 -----------------------------------------------
-                0.00    0.00      18/18          ft_press [6]
-[7]      0.0    0.00    0.00      18         ft_rotate_vec_z [7]
+                0.00    0.00      97/97          mlx_loop [2]
+[7]      0.0    0.00    0.00      97         ft_press [7]
+                0.00    0.00       1/1           close_event [14]
 -----------------------------------------------
-                0.00    0.00       9/9           ft_press [6]
-[8]      0.0    0.00    0.00       9         math_vec_op [8]
+                0.00    0.00      96/96          mlx_loop [2]
+[8]      0.0    0.00    0.00      96         ft_unpress [8]
 -----------------------------------------------
-                0.00    0.00       6/6           parser_texture [14]
-[9]      0.0    0.00    0.00       6         extract_color [9]
-                0.00    0.00       2/2           rgb_to_hexa [10]
+                0.00    0.00      17/17          ft_update_game [1]
+[9]      0.0    0.00    0.00      17         ft_move [9]
+                0.00    0.00      17/17          ft_rotate_vec_z [10]
+                0.00    0.00       8/8           math_vec_op [11]
 -----------------------------------------------
-                0.00    0.00       2/2           extract_color [9]
-[10]     0.0    0.00    0.00       2         rgb_to_hexa [10]
+                0.00    0.00      17/17          ft_move [9]
+[10]     0.0    0.00    0.00      17         ft_rotate_vec_z [10]
 -----------------------------------------------
-                0.00    0.00       1/1           ft_press [6]
-[11]     0.0    0.00    0.00       1         close_event [11]
+                0.00    0.00       8/8           ft_move [9]
+[11]     0.0    0.00    0.00       8         math_vec_op [11]
 -----------------------------------------------
-                0.00    0.00       1/1           parser_map [13]
-[12]     0.0    0.00    0.00       1         ft_len_max [12]
+                0.00    0.00       6/6           parser_texture [17]
+[12]     0.0    0.00    0.00       6         extract_color [12]
+                0.00    0.00       2/2           rgb_to_hexa [13]
 -----------------------------------------------
-                0.00    0.00       1/1           parser [147]
-[13]     0.0    0.00    0.00       1         parser_map [13]
-                0.00    0.00       1/1           ft_len_max [12]
+                0.00    0.00       2/2           extract_color [12]
+[13]     0.0    0.00    0.00       2         rgb_to_hexa [13]
 -----------------------------------------------
-                0.00    0.00       1/1           parser [147]
-[14]     0.0    0.00    0.00       1         parser_texture [14]
-                0.00    0.00       6/6           extract_color [9]
+                0.00    0.00       1/1           ft_press [7]
+[14]     0.0    0.00    0.00       1         close_event [14]
+-----------------------------------------------
+                0.00    0.00       1/1           parser_map [16]
+[15]     0.0    0.00    0.00       1         ft_len_max [15]
+-----------------------------------------------
+                0.00    0.00       1/1           parser [149]
+[16]     0.0    0.00    0.00       1         parser_map [16]
+                0.00    0.00       1/1           ft_len_max [15]
+-----------------------------------------------
+                0.00    0.00       1/1           parser [149]
+[17]     0.0    0.00    0.00       1         parser_texture [17]
+                0.00    0.00       6/6           extract_color [12]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -200,8 +215,9 @@ notice and this notice are preserved.
 
 Index by function name
 
-  [11] close_event             [5] ft_print_texture       [13] parser_map
-   [9] extract_color           [7] ft_rotate_vec_z        [14] parser_texture
-   [4] ft_is_wall              [3] ft_switch_plan         [10] rgb_to_hexa
-  [12] ft_len_max              [1] ft_update_game
-   [6] ft_press                [8] math_vec_op
+  [14] close_event             [6] ft_print_texture       [11] math_vec_op
+  [12] extract_color          [10] ft_rotate_vec_z        [16] parser_map
+   [5] ft_is_wall              [3] ft_switch_plan         [17] parser_texture
+  [15] ft_len_max              [8] ft_unpress             [13] rgb_to_hexa
+   [9] ft_move                 [1] ft_update_game
+   [7] ft_press                [4] ft_update_rays
