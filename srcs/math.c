@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:14:59 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/23 00:15:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:15:25 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad)
+inline t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad)
 {
 	t_vec3d	cpy;
 
@@ -22,7 +22,7 @@ t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad)
 	return (cpy);
 }
 
-t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad)
+inline t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad)
 {
 	t_vec3d	cpy;
 
@@ -32,7 +32,7 @@ t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad)
 	return (cpy);
 }
 
-t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad)
+inline t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad)
 {
 	t_vec3d	cpy;
 

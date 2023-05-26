@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 16:14:59 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:09:44 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_mlx
 typedef struct s_game
 {
 	int			pause;
+	int			color;
+	int			key[8];
 	float		t;
 	float		r_h;
 	float		r_v;

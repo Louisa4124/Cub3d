@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 16:46:29 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:07:48 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@
 # define PI_HALF 1.570796
 # define PI 3.14159265
 # define PI_DIV_180 0.01745329251
-# define DIR_OFFSET 0.5
+# define DIR_OFFSET 0.1
 # define ANG_OFFSET 0.07
+# define RESOLUTION 2
 
 # define KEY_W 119
 # define KEY_A 97

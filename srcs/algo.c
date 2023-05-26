@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 17:47:46 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:06:20 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	ft_print_texture_no_we(t_game *game, int wall, int i, int j)
 {
 	int	x;
 	int	y;
-	int	color;
 
 	x = 0;
 	y = 0;
@@ -67,32 +66,25 @@ int	ft_print_texture_no_we(t_game *game, int wall, int i, int j)
 		 game->point.x)) * game->texture.wall[wall].width);
 	y = game->texture.wall[wall].height - (int)((game->point.z - \
 		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
-	color = *(unsigned int *)(game->texture.wall[wall].addr + \
+	game->color = *(unsigned int *)(game->texture.wall[wall].addr + \
 		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8));
-	my_mlx_pixel_put(&game->view, j, i, color);
-	return (color);
+	return (game->color);
 }
 
 void	ft_print_texture_so_ea(t_game *game, int wall, int i, int j)
 {
 	int	x;
 	int	y;
-	int	color;
 
 	x = 0;
 	y = 0;
-	if (j % 2 && i % 2)
-	{
-		x = (int)(((game->pos.y + game->point.y) - (int)(game->pos.y + \
-			 game->point.y)) * game->texture.wall[1].width);
-		y = game->texture.wall[wall].height - (int)((game->point.z - \
-			(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
-		color = *(unsigned int *)(game->texture.wall[wall].addr + \
-			y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8));
-		my_mlx_pixel_put(&game->view, j, i, color); //dark	
-	}
-	else
-		my_mlx_pixel_put(&game->view, j, i, BLACK); 
+
+	x = (int)(((game->pos.y + game->point.y) - (int)(game->pos.y + \
+		 game->point.y)) * game->texture.wall[1].width);
+	y = game->texture.wall[wall].height - (int)((game->point.z - \
+		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
+	game->color = *(unsigned int *)(game->texture.wall[wall].addr + \
+		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8)); //dark	
 }
 
 void	ft_print_texture(t_game *game, int i, int j)
@@ -122,49 +114,45 @@ void	ft_print_texture(t_game *game, int i, int j)
 		ft_print_texture_so_ea(game, 0, i, j);
 }
 
-int	ft_is_wall(t_game *game, int u, int v)
+int	ft_is_wall(t_game *game, int **layout, int u, int v)
 {
-	if ((game->close_t == 0 || game->t < game->close_t) 
-		&& ((v == 0 && (game->pos.y + game->point.y) < game->pos.y 
-		&& (int)(-game->plan[v][u].d) < game->map.y_size 
-		&& (int)(-game->plan[v][u].d - 1) >= 0 
-		&& game->map.layout[(int)(-game->plan[v][u].d - 1)] \
-		 [(int)(game->pos.x + game->point.x)] == 1) 
-		|| (v == 1 && (game->pos.x + game->point.x) < game->pos.x 
-		&& (int)(-game->plan[v][u].d - 1) < game->map.x_size 
-		&& (int)(-game->plan[v][u].d - 1) >= 0 
-		&& game->map.layout[(int)(game->pos.y + game->point.y)] \
-		[(int)(-game->plan[v][u].d - 1)] == 1)
-		|| (v == 0 && (game->pos.y + game->point.y) > game->pos.y 
-		&& (int)(-game->plan[v][u].d) < game->map.y_size 
-		&& (int)(-game->plan[v][u].d) >= 0 
-		&& game->map.layout[(int)(-game->plan[v][u].d)] \
-		[(int)(game->pos.x + game->point.x)] == 1)
-		|| (v == 1 && (game->pos.x + game->point.x) > game->pos.x
-		&& (int)(-game->plan[v][u].d) < game->map.x_size 
-		&& (int)(-game->plan[v][u].d) >= 0 
-		&& game->map.layout[(int)(game->pos.y + game->point.y)] \
-		[(int)(-game->plan[v][u].d)] == 1)))
+	int d;
+	int sumx;
+	int sumy;
+	
+	d = -game->plan[v][u].d;
+	sumx = game->pos.x + game->point.x;
+	sumy = game->pos.y + game->point.y;
+	if ((game->close_t == 0 
+		|| game->t < game->close_t) && ((v == 0 
+		&& sumy < game->pos.y && d < game->map.y_size 
+		&& (d - 1) >= 0 && layout[d - 1][sumx] == 1) 
+		|| (v == 1 && sumx < game->pos.x && (d - 1) < game->map.x_size 
+		&& (d - 1) >= 0 && layout[sumy][d - 1] == 1)
+		|| (v == 0 && sumy > game->pos.y && d < game->map.y_size 
+		&& d >= 0 && layout[d][sumx] == 1)
+		|| (v == 1 && sumx > game->pos.x&& d < game->map.x_size 
+		&& d >= 0 && layout[sumy][d] == 1)))
 		return (1);
 	return (0);
 }
 
 void ft_update_rays(t_game *game, int u, int v)
 {
-	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \ 
+	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \
 		game->pos.y + game->plan[v][u].c * 0.5 + game->plan[v][u].d) / game->t;
 	if (game->t > 0)
 	{
 		game->point.x = game->u_rays.x * game->t;
 		game->point.y = game->u_rays.y * game->t;
 		game->point.z = 0.5 + game->u_rays.z * game->t;
-		if (game->point.z < 1 && game->point.z > 0 
+		if (game->point.z < 1 && game->point.z > 0
 			&& (int)(game->pos.x + game->point.x) >= 0 
 			&& (int)(game->pos.y + game->point.y) >= 0 
 			&& (int)(game->pos.x + game->point.x) < game->map.x_size 
 			&& (int)(game->pos.y + game->point.y) < game->map.y_size)
 		{
-			if (ft_is_wall(game, u, v))
+			if (ft_is_wall(game, game->map.layout, u, v))
 			{
 				game->close_t = game->t;
 				game->u_plan.x = v;
@@ -179,9 +167,9 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 	game->t = (game->sky.a * game->u_rays.x + game->sky.b * game->u_rays.y \
 		 + game->sky.c * game->u_rays.z);
 	if (game->t > 0)
-		my_mlx_pixel_put(&game->view, j, i, game->texture.ceiling);
+		game->color = game->texture.ceiling;
 	else if (game->t <= 0)
-		my_mlx_pixel_put(&game->view, j, i, game->texture.floor);
+		game->color = game->texture.floor;
 }
 
 void	ft_switch_plan(t_game *game, int i, int j)
@@ -206,9 +194,9 @@ void	ft_switch_plan(t_game *game, int i, int j)
 				ft_update_rays(game, u, v);
 			else
 				ft_print_ceiling_floor(game, i, j);
-			u++;
+			++u;
 		}
-		v++;
+		++v;
 	}
 	if (game->close_t != 0 && game->u_plan.x != 3 && game->u_plan.y != -7)
 		ft_print_texture(game, i, j);
@@ -220,9 +208,30 @@ void	ft_printf_fps(void)
 		g_frame++;
 	else
 	{
-		// ft_printf("\033[2K\rFPS: %d\e[0m\n", g_frame);
+		ft_printf("FPS: %d\n", g_frame);
 		g_fps = get_time();
 		g_frame = 0;
+	}
+}
+
+void	ft_resolution(t_game *game, int i, int j)
+{
+	int x;
+	int	y;
+	int	j2;
+
+	x = i + RESOLUTION;
+	y = j + RESOLUTION;
+	j2 = j;
+	while (i < x && i < WIDTH)
+	{
+		j = j2;
+		while (j < y && j < HEIGHT)
+		{
+			my_mlx_pixel_put(&game->view, j, i, game->color);
+			++j;
+		}
+		++i;
 	}
 }
 
@@ -244,13 +253,13 @@ int	ft_update_game(t_game *game)
 			game->u_plan.x = 3;
 			game->u_plan.y = -7;
 			ft_switch_plan(game, i, j);
-			game->t = 0;
-			j += 1;
+			ft_resolution(game, i, j);
+			j += RESOLUTION;
 		}
-		i += 1;
+		i += RESOLUTION;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-	ft_printf_fps();
+	//ft_printf_fps();
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/25 13:43:27 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/05/26 14:50:08 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ LIBMLX		=	$(addprefix $(DIR_LIBMLX), libmlx.a)
 
 
 #	==============================	COMMANDS	==============================	#
-CC 			=	cc
+CC 			=	cc -pg
 MKDIR 		=	mkdir -p
 RM			=	rm -rf
 MAKE		=	make -s

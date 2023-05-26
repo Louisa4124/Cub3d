@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/25 16:54:44 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:11:53 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	s_texture_init(t_texture *texture)
 
 void	ft_init_game(t_game *game)
 {
+	game->color = 0;
 	game->camera.x = 0;
 	game->camera.y = 0;
 	game->camera.z = 0.5;
@@ -59,6 +60,7 @@ void	ft_init_game(t_game *game)
 	game->sky.b = 0;
 	game->sky.c = 1;
 	game->sky.d = -1;
+	ft_bzero(game->key, 8 * sizeof(int));
 	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
 	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
 		(game->mlx.win_width * 2)) / game->mlx.win_height;
