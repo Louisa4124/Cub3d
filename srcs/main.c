@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 15:42:12 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:16:04 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ int	ft_move(t_game *game)
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
 	if ((game->key[0] || game->key[1])) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '+');
-	else if ((game->key[2] || game->key[3])) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
+	if ((game->key[2] || game->key[3])) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '-');
-	else if (game->key[4])
+	if (game->key[4])
 		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '+');
-	else if (game->key[5])
+	if (game->key[5])
 		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '-');
-	else if (game->key[6])
+	if (game->key[6])
 		game->angle_z += ANG_OFFSET;
-	else if (game->key[7])
+	if (game->key[7])
 		game->angle_z -= ANG_OFFSET;
 	if (game->angle_z >= PI * 2)
 		game->angle_z -= PI * 2;
@@ -102,7 +102,6 @@ int	ft_press(int keycode, t_game *game)
 	return (0);
 }
 
-/*
 void	event_mouse(int x, int y, t_game *game)
 {
 	int	x_quarter;
@@ -124,7 +123,6 @@ void	event_mouse(int x, int y, t_game *game)
 		game->angle_z += PI * 2;
 	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, game->mlx.win_height >> 1);
 }
-*/
 
 
 int	ft_unpress(int keycode, t_game *game)
@@ -200,6 +198,7 @@ int	main(int argc, char **argv)
 		mlx_mouse_move(game.mlx.ptr, game.mlx.win, game.mlx.win_width >> 1, game.mlx.win_height >> 1);
 		mlx_mouse_hide(game.mlx.ptr, game.mlx.win);
 		mlx_loop_hook(game.mlx.ptr, ft_update_game, &game);
+		//mlx_mouse_hook(game.mlx.win, event_mouse, &game);
         mlx_hook(game.mlx.win, 2, 1L << 0, ft_press, &game);
 		mlx_hook(game.mlx.win, 3, 1L << 1, ft_unpress, &game);
 		mlx_hook(game.mlx.win, 17, 0L, &close_event, &game);

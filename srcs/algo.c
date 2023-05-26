@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 15:45:27 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:59:17 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = (char *) img->addr + (y * img->ll + x * (img->bpp / 8));
+	dst = (char *) img->addr + (y * img->ll + x * (img->bpp >> 3));
 	*(unsigned int *) dst = color;
 }
 
@@ -169,12 +169,12 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 		 + game->sky.c * game->u_rays.z);
 	if (game->t > 0)
 	{
-		my_mlx_pixel_put(&game->view, j, i, game->texture.ceiling);
+		my_mlx_pixel_put(&game->view, j, i, game->color);
 		game->color = game->texture.ceiling;
 	}
 	else if (game->t <= 0)
 	{
-		my_mlx_pixel_put(&game->view, j, i, game->texture.floor);
+		my_mlx_pixel_put(&game->view, j, i, game->color);
 		game->color = game->texture.floor;
 	}
 }
