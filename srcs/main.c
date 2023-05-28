@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 16:43:48 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/28 11:27:21 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,6 @@ t_vec3d	s_vec3d_init(float x, float y, float z)
 	return (u);
 }
 
-// if (y > HEIGHT / 2 && game->angle_x <= 0.75)
-// 	game->angle_x += 0.025;
-// else if (y < HEIGHT / 2 && game->angle_x >= -0.5)
-// 	game->angle_x -= 0.025;
-
 int	ft_move(t_game *game)
 {
 	t_vec3d	z_axis;
@@ -90,10 +85,6 @@ int	ft_move(t_game *game)
 		game->angle_z -= PI * 2;
 	else if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
-	if (game->angle_x >= PI * 2)
-		game->angle_x -= PI * 2;
-	else if (game->angle_x <= -PI * 2)
-		game->angle_x += PI * 2;
 	return (0);
 }
 
