@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/26 13:20:08 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:03:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,9 @@ int	parser_texture(t_mlx *mlx, t_texture *texture, int fd)
 		line = ft_free_secure(line);
 	}
 	if (count || all_texture(texture))
+	{
 		ft_putstr_fd("Error\nData about color or texture missing\n", 2);
+		return (1);
+	}
 	return (count);
 }

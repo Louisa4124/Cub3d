@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/05/26 14:50:08 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/05/30 14:57:40 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ LIBMLX		=	$(addprefix $(DIR_LIBMLX), libmlx.a)
 
 
 #	==============================	COMMANDS	==============================	#
-CC 			=	cc -pg
+CC 			=	cc
 MKDIR 		=	mkdir -p
 RM			=	rm -rf
 MAKE		=	make -s

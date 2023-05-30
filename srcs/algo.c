@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/30 13:17:09 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:36:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_print_texture_no_we(t_game *game, int wall, int i, int j)
 		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
 	game->color = *(unsigned int *)(game->texture.wall[wall].addr + \
 		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8));
-	my_mlx_pixel_put(&game->view, j, i, game->color);
 }
 
 void	ft_print_texture_so_ea(t_game *game, int wall, int i, int j)
@@ -85,7 +84,6 @@ void	ft_print_texture_so_ea(t_game *game, int wall, int i, int j)
 		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
 	game->color = *(unsigned int *)(game->texture.wall[wall].addr + \
 		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8)); //dark	
-	my_mlx_pixel_put(&game->view, j, i, game->color);
 }
 
 void	ft_print_texture(t_game *game, int i, int j)
@@ -168,22 +166,48 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 	game->t = (game->sky.a * game->u_rays.x + game->sky.b * game->u_rays.y \
 		 + game->sky.c * game->u_rays.z);
 	if (game->t > 0)
-	{
-		my_mlx_pixel_put(&game->view, j, i, game->color);
 		game->color = game->texture.ceiling;
-	}
 	else if (game->t <= 0)
-	{
-		my_mlx_pixel_put(&game->view, j, i, game->color);
 		game->color = game->texture.floor;
-	}
 }
 
-void	ft_plan_plan(t_game *game, int i, int j)
+// float	intersect(t_game *game, t_plan *plan, int i, int j)
+// &game->plan[1][k]
+
+float	intersect(t_game *game, int plan, int k, int i, int j)
 {
-	ft_search_plan_x(game, i, j);
-	ft_search_plan_y(game, i, j);
-	ft_print_texture(game, i, j);
+	float	t;
+
+	t = game->plan[plan][k].a * game->u_rays.x + game->plan[plan][k].b \
+				 * game->u_rays.y + game->plan[plan][k].c * game->u_rays.z;
+	if (t != 0)
+	{
+		t = -(game->plan[plan][k].a * game->pos.x + game->plan[plan][k].b * \
+			game->pos.y + game->plan[plan][k].c * 0.5 + game->plan[plan][k].d) / t;
+		if (t > 0)
+		{
+			game->point.x = game->u_rays.x * t;
+			game->point.y = game->u_rays.y * t;
+			game->point.z = 0.5 + game->u_rays.z * t;
+			if (game->point.z < 1 && game->point.z > 0
+				&& (int)(game->pos.x + game->point.x) >= 0 
+				&& (int)(game->pos.y + game->point.y) >= 0 
+				&& (int)(game->pos.x + game->point.x) <= game->map.x_size 
+				&& (int)(game->pos.y + game->point.y) <= game->map.y_size)
+			{
+				if (ft_is_wall(game, game->map.layout, k, plan))
+				{
+					if (distance_plan(i, j, plan, k) < distance_plan(i, j, game->u_plan.x, game->u_plan.y))
+					{
+						game->close_t = t;
+						game->u_plan.x = plan;
+						game->u_plan.y = k;
+					}
+				}
+			}
+		}
+	}
+	return (t);
 }
 
 void	ft_search_plan_x(t_game *game, int i, int j)
@@ -269,41 +293,13 @@ int	distance_plan(int i, int j, int plan, int k)
 	return (res);
 }
 
-float	intersect(t_game *game, int plan, int k, int i, int j)
+void	ft_plan_plan(t_game *game, int i, int j)
 {
-	float	t;
-
-	t = game->plan[plan][k].a * game->u_rays.x + game->plan[plan][k].b \
-				 * game->u_rays.y + game->plan[plan][k].c * game->u_rays.z;
-	if (t != 0)
-	{
-		t = -(game->plan[plan][k].a * game->pos.x + game->plan[plan][k].b * \
-			game->pos.y + game->plan[plan][k].c * 0.5 + game->plan[plan][k].d) / t;
-		if (t > 0)
-		{
-			game->point.x = game->u_rays.x * t;
-			game->point.y = game->u_rays.y * t;
-			game->point.z = 0.5 + game->u_rays.z * t;
-			if (game->point.z < 1 && game->point.z > 0
-				&& (int)(game->pos.x + game->point.x) >= 0 
-				&& (int)(game->pos.y + game->point.y) >= 0 
-				&& (int)(game->pos.x + game->point.x) < game->map.x_size 
-				&& (int)(game->pos.y + game->point.y) < game->map.y_size)
-			{
-				if (ft_is_wall(game, game->map.layout, k, plan))
-				{
-					if (distance_plan(i, j, plan, k) < distance_plan(i, j, game->u_plan.x, game->u_plan.y))
-					{
-						game->close_t = t;
-						game->u_plan.x = plan;
-						game->u_plan.y = k;
-					}
-				}
-			}
-		}
-	}
-	return (t);
+	ft_search_plan_x(game, i, j);
+	ft_search_plan_y(game, i, j);
+	ft_print_texture(game, i, j);
 }
+
 
 void	ft_switch_plan(t_game *game, int i, int j)
 {
@@ -341,7 +337,7 @@ void	ft_printf_fps(void)
 		g_frame++;
 	else
 	{
-		ft_printf("FPS: %d\n", g_frame);
+		ft_printf("\r\033[2KFPS: %d", g_frame);
 		g_fps = get_time();
 		g_frame = 0;
 	}
@@ -376,6 +372,7 @@ int	ft_update_game(t_game *game)
 
 	i = 0;
 	ft_move(game);
+	tourn(game);
 	while (i < game->mlx.win_height)
 	{
 		j = 0;
