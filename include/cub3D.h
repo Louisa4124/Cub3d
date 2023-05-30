@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 15:34:00 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/28 11:21:10 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define PI 3.14159265
 # define PI_DIV_180 0.01745329251
 # define DIR_OFFSET 0.1
-# define ANG_OFFSET 0.07
+# define ANG_OFFSET 0.05
 # define RESOLUTION 2
 
 # define KEY_W 119

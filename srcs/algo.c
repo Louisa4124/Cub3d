@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/27 19:17:23 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:17:09 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = (char *) img->addr + (y * img->ll + x * (img->bpp / 8));
+	dst = (char *) img->addr + (y * img->ll + x * (img->bpp >> 3));
 	*(unsigned int *) dst = color;
 }
 
@@ -169,12 +169,12 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 		 + game->sky.c * game->u_rays.z);
 	if (game->t > 0)
 	{
-		my_mlx_pixel_put(&game->view, j, i, game->texture.ceiling);
+		my_mlx_pixel_put(&game->view, j, i, game->color);
 		game->color = game->texture.ceiling;
 	}
 	else if (game->t <= 0)
 	{
-		my_mlx_pixel_put(&game->view, j, i, game->texture.floor);
+		my_mlx_pixel_put(&game->view, j, i, game->color);
 		game->color = game->texture.floor;
 	}
 }
@@ -372,6 +372,7 @@ int	ft_update_game(t_game *game)
 {
 	int		i;
 	int		j;
+	t_vec3d	ray_tmp;
 
 	i = 0;
 	ft_move(game);
@@ -380,9 +381,12 @@ int	ft_update_game(t_game *game)
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
-			game->u_rays.x = game->rays[i][j].x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z);
-			game->u_rays.y = game->rays[i][j].x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
-			game->u_rays.z = game->rays[i][j].z;
+			ray_tmp.x = game->rays[i][j].x;
+			ray_tmp.y = game->rays[i][j].y * cos(game->angle_x) + game->rays[i][j].z * -sin(game->angle_x);
+			ray_tmp.z= game->rays[i][j].y * sin(game->angle_x) + game->rays[i][j].z * cos(game->angle_x);
+			game->u_rays.x = ray_tmp.x * cos(game->angle_z) + game->rays[i][j].y * -sin(game->angle_z);
+			game->u_rays.y = ray_tmp.x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
+			game->u_rays.z = ray_tmp.z;
 			game->close_t = 0;
 			game->u_plan.x = 3;
 			game->u_plan.y = -7;
