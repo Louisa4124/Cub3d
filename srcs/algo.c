@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 15:45:27 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:17:23 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,132 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 		my_mlx_pixel_put(&game->view, j, i, game->texture.floor);
 		game->color = game->texture.floor;
 	}
+}
+
+void	ft_plan_plan(t_game *game, int i, int j)
+{
+	ft_search_plan_x(game, i, j);
+	ft_search_plan_y(game, i, j);
+	ft_print_texture(game, i, j);
+}
+
+void	ft_search_plan_x(t_game *game, int i, int j)
+{
+	float	t;
+	int		k;
+
+	t = 1;
+	if (game->u_rays.x < 0)
+	{
+		k = i;
+		while (k >= 0 && t)
+		{
+			t = intersect(game, 1, k, i, j);
+			if (t == 0)
+			{
+				ft_print_ceiling_floor(game, i, j);
+				return ;
+			}
+			--k;
+		}
+	}
+	k = i;
+	while (k < game->map.x_size && t)
+	{
+		t = intersect(game, 1, k, i, j);
+		if (t == 0)
+		{
+			ft_print_ceiling_floor(game, 1, k);
+			return ;
+		}
+		++k;
+	}
+	// game->t = t;
+	// ft_print_texture(game, i, j);
+}
+
+void	ft_search_plan_y(t_game *game, int i, int j)
+{
+	float	t;
+	int		k;
+
+	t = 1;
+	if (game->u_rays.y < 0)
+	{
+		k = i;
+		while (k >= 0 && t)
+		{
+			t = intersect(game, 0, k, i, j);
+			if (t == 0)
+			{
+				ft_print_ceiling_floor(game, i, j);
+				return ;
+			}
+			--k;
+		}
+	}
+	k = i;
+	while (k < game->map.y_size && t)
+	{
+		t = intersect(game, 0, k, i, j);
+		if (t == 0)
+		{
+			ft_print_ceiling_floor(game, 0, k);
+			return ;
+		}
+		++k;
+	}
+	// game->t = t;
+	// ft_print_texture(game, i, j);
+}
+
+int	distance_plan(int i, int j, int plan, int k)
+{
+	int	res;
+
+	if (plan == 0)
+		res = i - k;
+	else if (plan == 1)
+		res = j - k;
+	if (res < 0)
+		res = -res;
+	return (res);
+}
+
+float	intersect(t_game *game, int plan, int k, int i, int j)
+{
+	float	t;
+
+	t = game->plan[plan][k].a * game->u_rays.x + game->plan[plan][k].b \
+				 * game->u_rays.y + game->plan[plan][k].c * game->u_rays.z;
+	if (t != 0)
+	{
+		t = -(game->plan[plan][k].a * game->pos.x + game->plan[plan][k].b * \
+			game->pos.y + game->plan[plan][k].c * 0.5 + game->plan[plan][k].d) / t;
+		if (t > 0)
+		{
+			game->point.x = game->u_rays.x * t;
+			game->point.y = game->u_rays.y * t;
+			game->point.z = 0.5 + game->u_rays.z * t;
+			if (game->point.z < 1 && game->point.z > 0
+				&& (int)(game->pos.x + game->point.x) >= 0 
+				&& (int)(game->pos.y + game->point.y) >= 0 
+				&& (int)(game->pos.x + game->point.x) < game->map.x_size 
+				&& (int)(game->pos.y + game->point.y) < game->map.y_size)
+			{
+				if (ft_is_wall(game, game->map.layout, k, plan))
+				{
+					if (distance_plan(i, j, plan, k) < distance_plan(i, j, game->u_plan.x, game->u_plan.y))
+					{
+						game->close_t = t;
+						game->u_plan.x = plan;
+						game->u_plan.y = k;
+					}
+				}
+			}
+		}
+	}
+	return (t);
 }
 
 void	ft_switch_plan(t_game *game, int i, int j)
