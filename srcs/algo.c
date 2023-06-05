@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/05 15:16:12 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:23:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,16 @@ void ft_update_rays2(t_game *game, int u, int v)
 	}
 }
 
+float	distance_plan(t_vec3d u, t_vec3d v)
+{
+	float	x;
+	float	y;
+
+	x = v.x - u.x;
+	y = v.y - u.y;
+	return (sqrt((x * x) + (y * y)));
+}
+
 int ft_update_rays(t_game *game, int u, int v)
 {
 	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \
@@ -178,14 +188,20 @@ int ft_update_rays(t_game *game, int u, int v)
 		{
 			if (ft_is_wall(game, game->map.layout, u, v))
 			{
-				game->close_t = game->t;
-				game->u_plan.x = v;
-				game->u_plan.y = u;
-				return (1);
+				if (game->dist > distance_plan(game->point, game->pos))
+				{
+					game->dist = distance_plan(game->point, game->pos);
+					game->close_t = game->t;
+					game->u_plan.x = v;
+					game->u_plan.y = u;
+					return (0);
+				}
+				else
+					return (-1);
 			}
 		}
 	}
-	return (0);
+	return (1);
 }
 
 void	ft_print_ceiling_floor(t_game *game, int i, int j)
@@ -200,20 +216,6 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 
 // float	intersect(t_game *game, t_plan *plan, int i, int j)
 // &game->plan[1][k]
-
-int	distance_plan(int i, int j, int plan, int k)
-{
-	int	res;
-
-	res = 0;
-	if (plan == 0)
-		res = i - k;
-	else if (plan == 1)
-		res = j - k;
-	if (res < 0)
-		res = -res;
-	return (res);
-}
 
 // distance_plan(i, j, plan, k) < distance_plan(i, j, game->u_plan.x, game->u_plan.y)
 
@@ -358,54 +360,65 @@ void	ft_switch_plan2(t_game *game, int i, int j)
 
 // plan = 0 -> y
 // plan = 1 -> x
-// quand on parcourt les  
+// i -> y         j -> x
 void	ft_switch_plan(t_game *game, int i, int j)
 {
 	int v;
 	int	u;
 	int	switch_p;
+	int	pos;
+	int	ouin;
 	
 	v = 0;
-	while (v < 1)
+	ouin = 1;
+	while (v < 2)
 	{
 		if (v == 0)
-			switch_p = game->map.y_size;
-		else
-			switch_p = game->map.x_size;
-		u = i;
-		while (u >= 0)
 		{
+			pos = game->pos.y;
+			switch_p = game->map.y_size;
+		}
+		else
+		{
+			pos = game->pos.x;
+			switch_p = game->map.x_size;
+		}
+		u = pos;
+		while (u >= 0 && ouin)
+		{
+			// dprintf(2, "u is %d\n", u);
 			game->t = (game->plan[v][u].a * game->u_rays.x + game->plan[v][u].b \
 				 * game->u_rays.y + game->plan[v][u].c * game->u_rays.z);
 			if (game->t != 0)
 			{
-
-				if (ft_update_rays(game, u, v))
-					return ;
+				ouin = ft_update_rays(game, u, v);
 			}
-			else
-				return (ft_print_ceiling_floor(game, i, j));
 			--u;
 		}
-		u = i;
-		while (u <= switch_p)
+		u = pos;
+		while (u <= switch_p && ouin)
 		{
+			// dprintf(2, "u is %d\n", u);
 			game->t = (game->plan[v][u].a * game->u_rays.x + game->plan[v][u].b \
 				 * game->u_rays.y + game->plan[v][u].c * game->u_rays.z);
 			if (game->t != 0)
 			{
-
-				if (ft_update_rays(game, u, v))
-					return ;
+				ouin = ft_update_rays(game, u, v);
 			}
-			else
-				return (ft_print_ceiling_floor(game, i, j));
 			++u;
 		}
 		++v;
 	}
-	if (game->close_t != 0 && game->u_plan.x != 3 && game->u_plan.y != -7)
+	if (ouin)
+		ft_print_ceiling_floor(game, i, j);
+	else
 		ft_print_texture(game, i, j);
+
+	// if (game->close_t != 0 && game->u_plan.x != 3 && game->u_plan.y != -7)
+	// {
+	// 	// dprintf(2, " yup\n");	
+	// 	ft_print_texture(game, i, j);
+	// }
 }
 
 void	ft_printf_fps(void)
@@ -441,14 +454,6 @@ void	ft_resolution(t_game *game, int i, int j)
 	}
 }
 
-void	ft_plan_plan(t_game *game, int i, int j)
-{
-	ft_search_plan_x(game, i, j);
-	// ft_search_plan_y(game, i, j);
-	ft_print_texture(game, i, j);
-}
-
-
 int	ft_update_game(t_game *game)
 {
 	int		i;
@@ -458,6 +463,7 @@ int	ft_update_game(t_game *game)
 	i = 0;
 	ft_move(game);
 	tourn(game);
+	game->dist = 1000;
 	while (i < game->mlx.win_height)
 	{
 		j = 0;
@@ -472,18 +478,14 @@ int	ft_update_game(t_game *game)
 			game->close_t = 0;
 			game->u_plan.x = 3;
 			game->u_plan.y = -7;
-			ft_switch_plan2(game, i, j);
-			//  ft_plan_plan(game, i, j);
-			// dprintf(2, "t is %f\n", game->close_t);
+			ft_switch_plan(game, i, j);
 			ft_resolution(game, i, j);
-			// dprintf(2, "ouin k is %d\n", j);
 			j += RESOLUTION;
 		}
 		i += RESOLUTION;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	ft_printf_fps();
-	// exit(1);
 	return (0);
 }
 
