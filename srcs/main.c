@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/30 15:34:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:18:55 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,10 @@ t_vec3d	s_vec3d_init(float x, float y, float z)
 int	ft_move(t_game *game)
 {
 	t_vec3d	z_axis;
-	t_vec3d	x_axis;
 	t_vec3d	dir;
-	t_vec3d	dir_x;
 
 	z_axis = s_vec3d_init(0, 0, 1);
-	x_axis = s_vec3d_init(1, 0, 0);
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
-	dir_x = ft_rotate_vec_x(s_vec3d_init(-DIR_OFFSET, 0, 0), game->angle_x);
-
 	if (game->key[0]) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '+');
 	if (game->key[2]) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)

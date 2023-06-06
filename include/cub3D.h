@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/28 11:21:10 by louisa           ###   ########.fr       */
+/*   Updated: 2023/06/06 14:34:15 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		parser_map(t_map *map, t_game *game, int fd);
 void	ft_destroy_mlx(t_game *game);
 void	ft_clean_exit(t_game *game, int exit_code);
 int		close_event(t_game *game);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*          Math utils              */
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
@@ -103,5 +104,7 @@ int		rgb_to_hexa(int r, int g, int b);
 
 int		ft_update_game(t_game *game);
 int		ft_creat_plans(t_game *game);
+
+void	drawMap2D(t_game *game, int size);
 
 #endif
