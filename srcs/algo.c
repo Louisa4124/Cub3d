@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/06 14:34:41 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:58:14 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	ft_is_wall(t_game *game, int **layout, int u, int v)
 	return (0);
 }
 
-void ft_update_rays(t_game *game, int u, int v)
+void ft_update_rays2(t_game *game, int u, int v)
 {
 	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \
 		game->pos.y + game->plan[v][u].c * 0.5 + game->plan[v][u].d) / game->t;
@@ -161,6 +161,33 @@ void ft_update_rays(t_game *game, int u, int v)
 	}
 }
 
+int ft_update_rays(t_game *game, int u, int v)
+{
+	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \
+		game->pos.y + game->plan[v][u].c * 0.5 + game->plan[v][u].d) / game->t;
+	if (game->t > 0)
+	{
+		game->point.x = game->u_rays.x * game->t;
+		game->point.y = game->u_rays.y * game->t;
+		game->point.z = 0.5 + game->u_rays.z * game->t;
+		if (game->point.z < 1 && game->point.z > 0
+			&& (int)(game->pos.x + game->point.x) >= 0 
+			&& (int)(game->pos.y + game->point.y) >= 0 
+			&& (int)(game->pos.x + game->point.x) < game->map.x_size 
+			&& (int)(game->pos.y + game->point.y) < game->map.y_size)
+		{
+			if (ft_is_wall(game, game->map.layout, u, v))
+			{
+				game->close_t = game->t;
+				game->u_plan.x = v;
+				game->u_plan.y = u;
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
 void	ft_print_ceiling_floor(t_game *game, int i, int j)
 {
 	game->t = (game->sky.a * game->u_rays.x + game->sky.b * game->u_rays.y \
@@ -174,21 +201,37 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 // float	intersect(t_game *game, t_plan *plan, int i, int j)
 // &game->plan[1][k]
 
+int	distance_plan(int i, int j, int plan, int k)
+{
+	int	res;
+
+	res = 0;
+	if (plan == 0)
+		res = i - k;
+	else if (plan == 1)
+		res = j - k;
+	if (res < 0)
+		res = -res;
+	return (res);
+}
+
+// distance_plan(i, j, plan, k) < distance_plan(i, j, game->u_plan.x, game->u_plan.y)
+
 float	intersect(t_game *game, int plan, int k, int i, int j)
 {
-	float	t;
+	// float	t;
 
-	t = game->plan[plan][k].a * game->u_rays.x + game->plan[plan][k].b \
+	game->t = game->plan[plan][k].a * game->u_rays.x + game->plan[plan][k].b \
 				 * game->u_rays.y + game->plan[plan][k].c * game->u_rays.z;
-	if (t != 0)
+	if (game->t != 0)
 	{
-		t = -(game->plan[plan][k].a * game->pos.x + game->plan[plan][k].b * \
-			game->pos.y + game->plan[plan][k].c * 0.5 + game->plan[plan][k].d) / t;
-		if (t > 0)
+		game->t = -(game->plan[plan][k].a * game->pos.x + game->plan[plan][k].b * \
+			game->pos.y + game->plan[plan][k].c * 0.5 + game->plan[plan][k].d) / game->t;
+		if (game->t > 0)
 		{
-			game->point.x = game->u_rays.x * t;
-			game->point.y = game->u_rays.y * t;
-			game->point.z = 0.5 + game->u_rays.z * t;
+			game->point.x = game->u_rays.x * game->t;
+			game->point.y = game->u_rays.y * game->t;
+			game->point.z = 0.5 + game->u_rays.z * game->t;
 			if (game->point.z < 1 && game->point.z > 0
 				&& (int)(game->pos.x + game->point.x) >= 0 
 				&& (int)(game->pos.y + game->point.y) >= 0 
@@ -197,9 +240,9 @@ float	intersect(t_game *game, int plan, int k, int i, int j)
 			{
 				if (ft_is_wall(game, game->map.layout, k, plan))
 				{
-					if (distance_plan(i, j, plan, k) < distance_plan(i, j, game->u_plan.x, game->u_plan.y))
+					// if ()
 					{
-						game->close_t = t;
+						game->close_t = game->t;
 						game->u_plan.x = plan;
 						game->u_plan.y = k;
 					}
@@ -207,7 +250,7 @@ float	intersect(t_game *game, int plan, int k, int i, int j)
 			}
 		}
 	}
-	return (t);
+	return (game->t);
 }
 
 void	ft_search_plan_x(t_game *game, int i, int j)
@@ -221,7 +264,8 @@ void	ft_search_plan_x(t_game *game, int i, int j)
 		k = i;
 		while (k >= 0 && t)
 		{
-			t = intersect(game, 1, k, i, j);
+			t = 0; //intersect(game, 1, k, i, j);
+			dprintf(2, "t is %d\n", game->close_t);
 			if (t == 0)
 			{
 				ft_print_ceiling_floor(game, i, j);
@@ -231,9 +275,10 @@ void	ft_search_plan_x(t_game *game, int i, int j)
 		}
 	}
 	k = i;
-	while (k < game->map.x_size && t)
+	while (k < game->map.x_size)
 	{
 		t = intersect(game, 1, k, i, j);
+		dprintf(2, "t is %d\n", game->close_t);
 		if (t == 0)
 		{
 			ft_print_ceiling_floor(game, 1, k);
@@ -280,28 +325,8 @@ void	ft_search_plan_y(t_game *game, int i, int j)
 	// ft_print_texture(game, i, j);
 }
 
-int	distance_plan(int i, int j, int plan, int k)
-{
-	int	res;
 
-	if (plan == 0)
-		res = i - k;
-	else if (plan == 1)
-		res = j - k;
-	if (res < 0)
-		res = -res;
-	return (res);
-}
-
-void	ft_plan_plan(t_game *game, int i, int j)
-{
-	ft_search_plan_x(game, i, j);
-	ft_search_plan_y(game, i, j);
-	ft_print_texture(game, i, j);
-}
-
-
-void	ft_switch_plan(t_game *game, int i, int j)
+void	ft_switch_plan2(t_game *game, int i, int j)
 {
 	int v;
 	int	u;
@@ -323,6 +348,58 @@ void	ft_switch_plan(t_game *game, int i, int j)
 				ft_update_rays(game, u, v);
 			else
 				ft_print_ceiling_floor(game, i, j);
+			++u;
+		}
+		++v;
+	}
+	if (game->close_t != 0 && game->u_plan.x != 3 && game->u_plan.y != -7)
+		ft_print_texture(game, i, j);
+}
+
+// plan = 0 -> y
+// plan = 1 -> x
+// quand on parcourt les  
+void	ft_switch_plan(t_game *game, int i, int j)
+{
+	int v;
+	int	u;
+	int	switch_p;
+	
+	v = 0;
+	while (v < 1)
+	{
+		if (v == 0)
+			switch_p = game->map.y_size;
+		else
+			switch_p = game->map.x_size;
+		u = i;
+		while (u >= 0)
+		{
+			game->t = (game->plan[v][u].a * game->u_rays.x + game->plan[v][u].b \
+				 * game->u_rays.y + game->plan[v][u].c * game->u_rays.z);
+			if (game->t != 0)
+			{
+
+				if (ft_update_rays(game, u, v))
+					return ;
+			}
+			else
+				return (ft_print_ceiling_floor(game, i, j));
+			--u;
+		}
+		u = i;
+		while (u <= switch_p)
+		{
+			game->t = (game->plan[v][u].a * game->u_rays.x + game->plan[v][u].b \
+				 * game->u_rays.y + game->plan[v][u].c * game->u_rays.z);
+			if (game->t != 0)
+			{
+
+				if (ft_update_rays(game, u, v))
+					return ;
+			}
+			else
+				return (ft_print_ceiling_floor(game, i, j));
 			++u;
 		}
 		++v;
@@ -364,6 +441,14 @@ void	ft_resolution(t_game *game, int i, int j)
 	}
 }
 
+void	ft_plan_plan(t_game *game, int i, int j)
+{
+	ft_search_plan_x(game, i, j);
+	// ft_search_plan_y(game, i, j);
+	ft_print_texture(game, i, j);
+}
+
+
 int	ft_update_game(t_game *game)
 {
 	int		i;
@@ -387,8 +472,11 @@ int	ft_update_game(t_game *game)
 			game->close_t = 0;
 			game->u_plan.x = 3;
 			game->u_plan.y = -7;
-			ft_switch_plan(game, i, j);
+			ft_switch_plan2(game, i, j);
+			//  ft_plan_plan(game, i, j);
+			// dprintf(2, "t is %f\n", game->close_t);
 			ft_resolution(game, i, j);
+			// dprintf(2, "ouin k is %d\n", j);
 			j += RESOLUTION;
 		}
 		i += RESOLUTION;
