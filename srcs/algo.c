@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/05 21:23:03 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:15:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,6 @@ int ft_update_rays(t_game *game, int u, int v)
 					game->u_plan.y = u;
 					return (0);
 				}
-				else
-					return (-1);
 			}
 		}
 	}
@@ -218,115 +216,6 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 // &game->plan[1][k]
 
 // distance_plan(i, j, plan, k) < distance_plan(i, j, game->u_plan.x, game->u_plan.y)
-
-float	intersect(t_game *game, int plan, int k, int i, int j)
-{
-	// float	t;
-
-	game->t = game->plan[plan][k].a * game->u_rays.x + game->plan[plan][k].b \
-				 * game->u_rays.y + game->plan[plan][k].c * game->u_rays.z;
-	if (game->t != 0)
-	{
-		game->t = -(game->plan[plan][k].a * game->pos.x + game->plan[plan][k].b * \
-			game->pos.y + game->plan[plan][k].c * 0.5 + game->plan[plan][k].d) / game->t;
-		if (game->t > 0)
-		{
-			game->point.x = game->u_rays.x * game->t;
-			game->point.y = game->u_rays.y * game->t;
-			game->point.z = 0.5 + game->u_rays.z * game->t;
-			if (game->point.z < 1 && game->point.z > 0
-				&& (int)(game->pos.x + game->point.x) >= 0 
-				&& (int)(game->pos.y + game->point.y) >= 0 
-				&& (int)(game->pos.x + game->point.x) <= game->map.x_size 
-				&& (int)(game->pos.y + game->point.y) <= game->map.y_size)
-			{
-				if (ft_is_wall(game, game->map.layout, k, plan))
-				{
-					// if ()
-					{
-						game->close_t = game->t;
-						game->u_plan.x = plan;
-						game->u_plan.y = k;
-					}
-				}
-			}
-		}
-	}
-	return (game->t);
-}
-
-void	ft_search_plan_x(t_game *game, int i, int j)
-{
-	float	t;
-	int		k;
-
-	t = 1;
-	if (game->u_rays.x < 0)
-	{
-		k = i;
-		while (k >= 0 && t)
-		{
-			t = 0; //intersect(game, 1, k, i, j);
-			dprintf(2, "t is %d\n", game->close_t);
-			if (t == 0)
-			{
-				ft_print_ceiling_floor(game, i, j);
-				return ;
-			}
-			--k;
-		}
-	}
-	k = i;
-	while (k < game->map.x_size)
-	{
-		t = intersect(game, 1, k, i, j);
-		dprintf(2, "t is %d\n", game->close_t);
-		if (t == 0)
-		{
-			ft_print_ceiling_floor(game, 1, k);
-			return ;
-		}
-		++k;
-	}
-	// game->t = t;
-	// ft_print_texture(game, i, j);
-}
-
-void	ft_search_plan_y(t_game *game, int i, int j)
-{
-	float	t;
-	int		k;
-
-	t = 1;
-	if (game->u_rays.y < 0)
-	{
-		k = i;
-		while (k >= 0 && t)
-		{
-			t = intersect(game, 0, k, i, j);
-			if (t == 0)
-			{
-				ft_print_ceiling_floor(game, i, j);
-				return ;
-			}
-			--k;
-		}
-	}
-	k = i;
-	while (k < game->map.y_size && t)
-	{
-		t = intersect(game, 0, k, i, j);
-		if (t == 0)
-		{
-			ft_print_ceiling_floor(game, 0, k);
-			return ;
-		}
-		++k;
-	}
-	// game->t = t;
-	// ft_print_texture(game, i, j);
-}
-
 
 void	ft_switch_plan2(t_game *game, int i, int j)
 {
