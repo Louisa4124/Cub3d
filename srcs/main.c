@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/30 15:34:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:44:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,6 @@ int	main(int argc, char **argv)
 	s_texture_init(&game.texture);
 	if (parser(argv[1], &game))
 		return (1);
-	// debug_print_texture(&game.texture);
 	ft_init_game(&game);
 	game.rays = ft_malloc_rayon(&game);
     ft_create_vector(&game);
