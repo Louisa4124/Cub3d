@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/18 16:44:12 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/18 22:54:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,21 @@ int	ft_move(t_game *game)
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
 	dir_x = ft_rotate_vec_x(s_vec3d_init(-DIR_OFFSET, 0, 0), game->angle_x);
 
-	if (game->key[0]) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
+	if (game->bit_key & BFLAG_W) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '+');
-	if (game->key[2]) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
+	if (game->bit_key & BFLAG_S) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
 		game->pos = math_vec_op(game->pos, dir, '-');
-	if (game->key[4])
+	if (game->bit_key & BFLAG_A)
 		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '+');
-	if (game->key[5])
+	if (game->bit_key & BFLAG_D)
 		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '-');
-	if (game->key[6])
+	if (game->bit_key & BFLAG_RIGHT)
 		game->angle_z += ANG_OFFSET;
-	if (game->key[7])
+	if (game->bit_key & BFLAG_LEFT)
 		game->angle_z -= ANG_OFFSET;
-	if (game->key[1])
+	if (game->bit_key & BFLAG_UP)
 		game->angle_x -= ANG_OFFSET;
-	if (game->key[3])
+	if (game->bit_key & BFLAG_DOWN)
 		game->angle_x += ANG_OFFSET;
 	if (game->angle_z >= PI * 2)
 		game->angle_z -= PI * 2;
@@ -93,21 +93,21 @@ int	ft_press(int keycode, t_game *game)
 	if (keycode == 53 || keycode == KEY_ESCAPE)
 		close_event(game);
 	else if (keycode == KEY_W)
-		game->key[0] = 1;
-	else if (keycode == 65362)
-		game->key[1] = 1;
+		game->bit_key |= BFLAG_W;
+	else if (keycode == KEY_UP)
+		game->bit_key |= BFLAG_UP;
 	else if (keycode == KEY_S)
-		game->key[2] = 1;
-	else if (keycode == 65364)
-		game->key[3] = 1;
+		game->bit_key |= BFLAG_S;
+	else if (keycode == KEY_DOWN)
+		game->bit_key |= BFLAG_DOWN;
 	else if (keycode == KEY_A)
-		game->key[4] = 1;
+		game->bit_key |= BFLAG_A;
 	else if (keycode == KEY_D)
-		game->key[5] = 1;
+		game->bit_key |= BFLAG_D;
 	else if (keycode == KEY_RIGHT)
-		game->key[6] = 1;
+		game->bit_key |= BFLAG_RIGHT;
 	else if (keycode == KEY_LEFT)
-		game->key[7] = 1;
+		game->bit_key |= BFLAG_LEFT;
 	return (0);
 }
 
@@ -133,25 +133,24 @@ void	event_mouse(int x, int y, t_game *game)
 	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, game->mlx.win_height >> 1);
 }
 
-
 int	ft_unpress(int keycode, t_game *game)
 {	
 	if (keycode == KEY_W)
-		game->key[0] = 0;
-	else if (keycode == 65362)
-		game->key[1] = 0;
+		game->bit_key ^= BFLAG_W;
+	else if (keycode == KEY_UP)
+		game->bit_key ^= BFLAG_UP;
 	else if (keycode == KEY_S)
-		game->key[2] = 0;
-	else if (keycode == 65364)
-		game->key[3] = 0;
+		game->bit_key ^= BFLAG_S;
+	else if (keycode == KEY_DOWN)
+		game->bit_key ^= BFLAG_DOWN;
 	else if (keycode == KEY_A)
-		game->key[4] = 0;
+		game->bit_key ^= BFLAG_A;
 	else if (keycode == KEY_D)
-		game->key[5] = 0;
+		game->bit_key ^= BFLAG_D;
 	else if (keycode == KEY_RIGHT)
-		game->key[6] = 0;
+		game->bit_key ^= BFLAG_RIGHT;
 	else if (keycode == KEY_LEFT)
-		game->key[7] = 0;
+		game->bit_key ^= BFLAG_LEFT;
 	return (0);
 }
 

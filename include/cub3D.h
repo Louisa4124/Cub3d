@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/18 17:42:46 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/18 22:40:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,22 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
-# define KEY_SPACE 32
-
 # define KEY_UP 65362
 # define KEY_LEFT 65361
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
+
+# define KEY_SPACE 32
 # define KEY_ESCAPE 65307
+
+# define BFLAG_W 0b00000001
+# define BFLAG_A 0b00000010
+# define BFLAG_S 0b00000100
+# define BFLAG_D 0b00001000
+# define BFLAG_UP 0b00010000
+# define BFLAG_LEFT 0b00100000
+# define BFLAG_DOWN 0b01000000
+# define BFLAG_RIGHT 0b100000000
 
 # define DARK_RED 0x8B0000
 # define RED 0xff0000

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/05 21:16:21 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/18 22:54:33 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_game
 {
 	int			pause;
 	int			color;
-	int			key[8];
+	int			bit_key;
 	float		t;
 	float		r_h;
 	float		r_v;
