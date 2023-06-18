@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/18 17:45:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:51:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,43 +136,6 @@ int	ft_is_wall(t_game *game, int **layout, int u, int v)
 	return (0);
 }
 
-void ft_update_rays2(t_game *game, int u, int v)
-{
-	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \
-		game->pos.y + game->plan[v][u].c * 0.5 + game->plan[v][u].d) / game->t;
-	if (game->t > 0)
-	{
-		game->point.x = game->u_rays.x * game->t;
-		game->point.y = game->u_rays.y * game->t;
-		game->point.z = 0.5 + game->u_rays.z * game->t;
-		if (game->point.z < 1 && game->point.z > 0
-			&& (int)(game->pos.x + game->point.x) >= 0 
-			&& (int)(game->pos.y + game->point.y) >= 0 
-			&& (int)(game->pos.x + game->point.x) < game->map.x_size 
-			&& (int)(game->pos.y + game->point.y) < game->map.y_size)
-		{
-			if (ft_is_wall(game, game->map.layout, u, v))
-			{
-				game->close_t = game->t;
-				game->u_plan.x = v;
-				game->u_plan.y = u;
-			}
-		}
-	}
-}
-
-float	distance_plan(t_vec3d u, t_vec3d v)
-{
-	float	x;
-	float	y;
-	float	z;
-
-	x = v.x - u.x;
-	y = v.y - u.y;
-	z = v.z - u.z;
-	return ((sqrt(x * x) + (y * y) + (z * z)));
-}
-
 int ft_update_rays(t_game *game, int u, int v, int wit)
 {
 	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \
@@ -215,49 +178,20 @@ void	ft_print_ceiling_floor(t_game *game, int i, int j)
 }
 
 
-void	ft_switch_plan2(t_game *game, int i, int j)
-{
-	int v;
-	int	u;
-	int	switch_p;
-	
-	v = 0;
-	while (v < 2)
-	{
-		if (v == 0)
-			switch_p = game->map.y_size;
-		else
-			switch_p = game->map.x_size;
-		u = 0;
-		while (u <= switch_p)
-		{
-			game->t = (game->plan[v][u].a * game->u_rays.x + game->plan[v][u].b \
-				 * game->u_rays.y + game->plan[v][u].c * game->u_rays.z);
-			if (game->t != 0)
-				ft_update_rays2(game, u, v);
-			else
-				ft_print_ceiling_floor(game, i, j);
-			++u;
-		}
-		++v;
-	}
-	if (game->close_t != 0 && game->u_plan.x != 3 && game->u_plan.y != -7)
-		ft_print_texture(game, i, j);
-}
 
 // plan = 0 -> y
 // plan = 1 -> x
 // i -> y         j -> x
 
 
-int	ft_intersect(t_game *game, int pos, int max, int plan, int found)
+int	ft_intersect(t_game *game, int pos, int max, int plan, int found, int dir)
 {
 	int	u;
 	int	wit;
 
 	u = pos;
 	wit = 1;
-	while (u >= 0 && wit > 0)
+	while (u >= 0 && wit > 0 && dir < 0)
 	{
 		game->t = (game->plan[plan][u].a * game->u_rays.x + game->plan[plan][u].b \
 				* game->u_rays.y + game->plan[plan][u].c * game->u_rays.z);
@@ -266,7 +200,7 @@ int	ft_intersect(t_game *game, int pos, int max, int plan, int found)
 		--u;
 	}
 	u = pos;
-	while (u <= max && wit > 0)
+	while (u <= max && wit > 0 && dir > 0)
 	{
 		game->t = (game->plan[plan][u].a * game->u_rays.x + game->plan[plan][u].b \
 				* game->u_rays.y + game->plan[plan][u].c * game->u_rays.z);
@@ -277,14 +211,22 @@ int	ft_intersect(t_game *game, int pos, int max, int plan, int found)
 	return (wit);
 }
 
+int	ft_sign_comp(float f)
+{
+	if (f < 0)
+		return (-1);
+	else if (f > 0)
+		return (1);
+	return (0);
+}
 
 void	ft_switch_plan(t_game *game, int i, int j)
 {
 	int	wit_y;
 	int	wit_x;
 
-	wit_y = ft_intersect(game, game->pos.y, game->map.y_size, 0, 1);
-	wit_x = ft_intersect(game, game->pos.x, game->map.x_size, 1, wit_y);
+	wit_y = ft_intersect(game, game->pos.y, game->map.y_size, 0, 1, ft_sign_comp(game->u_rays.y));
+	wit_x = ft_intersect(game, game->pos.x, game->map.x_size, 1, wit_y, ft_sign_comp(game->u_rays.x));
 	
 	if (wit_y == 0 || wit_x == 0)
 		ft_print_texture(game, i, j);
@@ -348,8 +290,7 @@ int	ft_update_game(t_game *game)
 			game->u_rays.y = ray_tmp.x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
 			game->u_rays.z = ray_tmp.z;
 			game->close_t = 0;
-			game->u_plan.x = 3;
-			game->u_plan.y = -7;
+			
 			ft_switch_plan(game, i, j);
 			ft_resolution(game, i, j);
 			j += RESOLUTION;
