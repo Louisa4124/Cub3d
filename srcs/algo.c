@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/06 15:58:14 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:48:32 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -453,9 +453,11 @@ int	ft_update_game(t_game *game)
 {
 	int		i;
 	int		j;
+	int		size;
 	t_vec3d	ray_tmp;
 
 	i = 0;
+	size = 10;
 	ft_move(game);
 	tourn(game);
 	while (i < game->mlx.win_height)
@@ -463,6 +465,11 @@ int	ft_update_game(t_game *game)
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
+			if (i > 10 && i < (game->map.y_size * size) + 10 && j > 10 && j < (game->map.x_size * size) + 10)
+			{
+				j += RESOLUTION;
+				continue ;
+			}
 			ray_tmp.x = game->rays[i][j].x;
 			ray_tmp.y = game->rays[i][j].y * cos(game->angle_x) + game->rays[i][j].z * -sin(game->angle_x);
 			ray_tmp.z= game->rays[i][j].y * sin(game->angle_x) + game->rays[i][j].z * cos(game->angle_x);
@@ -473,17 +480,15 @@ int	ft_update_game(t_game *game)
 			game->u_plan.x = 3;
 			game->u_plan.y = -7;
 			ft_switch_plan2(game, i, j);
-			//  ft_plan_plan(game, i, j);
-			// dprintf(2, "t is %f\n", game->close_t);
 			ft_resolution(game, i, j);
-			// dprintf(2, "ouin k is %d\n", j);
 			j += RESOLUTION;
 		}
 		i += RESOLUTION;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	ft_printf_fps();
-	drawMap2D(game, 10);
+	drawMap2D(game, size);
+	ft_draw_circle(game, 80, 80, 70);
 	return (0);
 }
 

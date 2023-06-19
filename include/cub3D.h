@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/06 14:34:15 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:33:09 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ int		ft_update_game(t_game *game);
 int		ft_creat_plans(t_game *game);
 
 void	drawMap2D(t_game *game, int size);
+void	ft_draw_circle(t_game *game, int center_x, int center_y, int radius);
 
 #endif
