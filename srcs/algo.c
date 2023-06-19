@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/18 18:18:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:05:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,77 @@ void	ft_resolution(t_game *game, int i, int j, int color)
 		++i;
 	}
 }
+// add && U > 0
+int	ft_intersect_2(t_game *game, int max, int plan, int pos, int found, int dir)
+{
+	int	u;
+	int	wit;
+	int	i;
+
+	u = pos;
+	wit = 1;
+	i = 0;
+	while (i < max && wit > 0)
+	{
+		game->t = (game->plan[plan][u].a * game->u_rays.x + game->plan[plan][u].b \
+				* game->u_rays.y + game->plan[plan][u].c * game->u_rays.z);
+		if (game->t != 0)
+			wit = ft_update_rays(game, u, plan, found);
+	
+		u += dir;
+		++i;
+	}
+	return (wit);
+}
+// rx ratio de x pour 1y
+// ry ratio de y pour 1x  
+int	ft_give_me_ratio(float x, float y)
+{
+	int	r_x;
+	int	r_y;
+
+	r_x = x / y;
+	r_y = y / x;
+	if (r_x)
+		return (ft_abs(r_x));
+	else if (r_y)
+		return (-ft_abs(r_y));
+	return (0);
+}
+
+// use k < 0 tech for kx ky
+int	ft_algo_the_third(t_game *game)
+{
+	t_vec3d	tmp_ray;
+	int		k;
+	int		pos_x;
+	int		pos_y;
+	int		wit_y;
+	int		wit_x;
+
+	k = ft_give_me_ratio(game->u_rays.x, game->u_rays.y);
+	pos_x = game->pos.x;
+	pos_y = game->pos.y;
+	while (1)
+	{
+		if (k < 0)
+		{
+			wit_x = intersect_2(game, k_x, 1, pos_x, 0, dir);
+			wit_y = intersect_2(game, k_y, 0, pos_y, wit_x, dir);
+		}
+		else
+		{
+			wit_y = intersect_2(game, k_y, 0, pos_y, 0, dir);
+			wit_x = intersect_2(game, k_x, 1, pos_x, wit_y, dir);
+		}
+		if (wit_x <= 0 || wit_y <= 0)
+			break ;
+	}
+	if (wit_y == 0 || wit_x == 0)
+		return (ft_print_texture(game, i, j));
+	else
+		return (ft_print_ceiling_floor(game, i, j));
+}
 
 int	ft_update_game(t_game *game)
 {
@@ -292,7 +363,6 @@ int	ft_update_game(t_game *game)
 			game->u_rays.y = ray_tmp.x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
 			game->u_rays.z = ray_tmp.z;
 			game->close_t = 0;
-			
 			color = ft_switch_plan(game, i, j);
 			ft_resolution(game, i, j, color);
 			j += RESOLUTION;

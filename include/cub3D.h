@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/18 22:40:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:39:17 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define WIDTH 1920
-# define HEIGHT 1085
+# define WIDTH 1000
+# define HEIGHT 600
 # define FOV 60
 # define PI_HALF 1.570796
 # define PI 3.14159265
