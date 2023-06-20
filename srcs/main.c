@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/06 14:18:55 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:49:02 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,57 @@ t_vec3d	s_vec3d_init(float x, float y, float z)
 	return (u);
 }
 
+// verifier que x et y sont dans la map
+int	ft_in_wall(t_game *game, int x, int y)
+{
+	if (x >= 0 && y >= 0 && game->map.layout[y][x] == 1)
+		return (1);
+	return (0);
+}
+
+int ft_hit_wall(t_game *game, float x, float y)
+{
+	if (ft_in_wall(game, x - 0.25, y + 0.25)
+		|| ft_in_wall(game, x + 0.25, y + 0.25)
+		|| ft_in_wall(game, x - 0.25, y - 0.25)
+		|| ft_in_wall(game, x + 0.25, y - 0.25))
+		return (1);
+	return (0);
+}
+
 int	ft_move(t_game *game)
 {
 	t_vec3d	z_axis;
 	t_vec3d	dir;
+	t_vec3d	new_pos;
 
 	z_axis = s_vec3d_init(0, 0, 1);
+	new_pos = s_vec3d_init(game->pos.x, game->pos.y, game->pos.z);
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
-	if (game->key[0]) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
-		game->pos = math_vec_op(game->pos, dir, '+');
-	if (game->key[2]) //&& game->pos.y + 2 < game->map.y_size + 2 && game->pos.y - 2 > 0)
-		game->pos = math_vec_op(game->pos, dir, '-');
+	if (game->key[0])
+	{
+		new_pos = math_vec_op(new_pos, dir, '+');
+		if (!ft_hit_wall(game, new_pos.x, new_pos.y))
+			game->pos = math_vec_op(game->pos, dir, '+');
+	}
+	if (game->key[2])
+	{
+		new_pos = math_vec_op(new_pos, dir, '-');
+		if (!ft_hit_wall(game, new_pos.x, new_pos.y))
+			game->pos = math_vec_op(game->pos, dir, '-');
+	}
 	if (game->key[4])
-		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '+');
+	{
+		new_pos = math_vec_op(new_pos, math_vec_op(dir, z_axis, '^'), '+');
+		if (!ft_hit_wall(game, new_pos.x, new_pos.y))
+			game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '+');
+	}
 	if (game->key[5])
-		game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '-');
+	{
+		new_pos = math_vec_op(new_pos, math_vec_op(dir, z_axis, '^'), '-');
+		if (!ft_hit_wall(game, new_pos.x, new_pos.y))
+			game->pos = math_vec_op(game->pos, math_vec_op(dir, z_axis, '^'), '-');
+	}
 	if (game->key[6])
 		game->angle_z += ANG_OFFSET;
 	if (game->key[7])
