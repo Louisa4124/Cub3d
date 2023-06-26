@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/20 16:03:04 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:58:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,8 @@ int	ft_intersectest(t_game *game, int *pos, int max, int plan, int found, int di
 	i = 0;
 	if (dir == 0)
 		return (wit);
+	if (*pos < 0 || *pos > max)
+		return (-1);
 	while (wit > 0 && *pos >= 0 && *pos <= max)
 	{
 		game->t = (game->plan[plan][*pos].a * game->u_rays.x + game->plan[plan][*pos].b \
@@ -320,7 +322,7 @@ int	ft_intersectest(t_game *game, int *pos, int max, int plan, int found, int di
 	return (wit);
 }
 
-int	ft_algo_the_third(t_game *game)
+int	ft_algo_the_third(t_game *game, int i, int j)
 {
 	t_vec3d	tmp_ray;
 	int		k;
@@ -330,7 +332,6 @@ int	ft_algo_the_third(t_game *game)
 	int		wit_x;
 	int		dir_x;
 	int		dir_y;
-	int		i = 0;
 
 	k = ft_give_me_ratio(game->u_rays.x, game->u_rays.y);
 	pos_x = game->pos.x;
@@ -339,7 +340,7 @@ int	ft_algo_the_third(t_game *game)
 	dir_y = ft_sign_comp(game->u_rays.y);
 	wit_x = 1;
 	wit_y = 1;
-	while (wit_x > 0 && wit_y > 0)
+	while (wit_x > 0 && wit_y > 0 )
 	{
 		// wit_x = intersect_2(game, 1, 1, &pos_x, wit_y, dir_x);
 		// dprintf(2, "wit is %d\txpos is %d\n", wit_x, pos_x);
@@ -364,6 +365,7 @@ int	ft_algo_the_third(t_game *game)
 		// if (i)
 		// 	dprintf(2, "count %d\n", i);
 		// ++i;
+		// dprintf(2, "BLOCK witx %d witx %d\tposy %d posx %d\n", wit_y, wit_x, pos_y, pos_x);
 	}
 	// dprintf(2, "OUT\n");
 	if (wit_y == 0 || wit_x == 0)
@@ -395,10 +397,9 @@ int	ft_update_game(t_game *game)
 			game->u_rays.y = ray_tmp.x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
 			game->u_rays.z = ray_tmp.z;
 			game->close_t = 0;
-			color = ft_algo_the_third(game);
+			color = ft_algo_the_third(game, i, j);
 			ft_resolution(game, i, j, color);
 			j += RESOLUTION;
-			// dprintf(2, "END RAYS\n");
 		}
 		i += RESOLUTION;
 	}
