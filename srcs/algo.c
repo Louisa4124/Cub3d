@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/26 12:58:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:03:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_print_texture_so_ea(t_game *game, int wall)
 	y = 0;
 
 	x = (int)(((game->pos.y + game->point.y) - (int)(game->pos.y + \
-		 game->point.y)) * game->texture.wall[1].width);
+		 game->point.y)) * game->texture.wall[wall].width);
 	y = game->texture.wall[wall].height - (int)((game->point.z - \
 		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
 		return (*(unsigned int *)(game->texture.wall[wall].addr + \
@@ -102,15 +102,15 @@ int	ft_print_texture(t_game *game)
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) >= 0 
 		&& game->map.layout[(int)(game->pos.y + game->point.y)][(int)\
 		(-game->plan[game->u_plan.x][game->u_plan.y].d - 1)] == 1)
-		return (ft_print_texture_so_ea(game, 1));
+		return (ft_print_texture_so_ea(game, 2));
 	else if (game->u_plan.x == 0 && (game->pos.y + game->point.y) > game->pos.y \
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d) < game->map.y_size \
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d) >= 0 
 		&& game->map.layout[(int)(-game->plan[game->u_plan.x][game->u_plan.y].d)] \
 		[(int)(game->pos.x + game->point.x)] == 1)
-		return (ft_print_texture_no_we(game, 2));
+		return (ft_print_texture_no_we(game, 1));
 	else
-		return (ft_print_texture_so_ea(game, 0));
+		return (ft_print_texture_so_ea(game, 3));
 }
 
 int	ft_is_wall(t_game *game, int **layout, int u, int v)
@@ -300,29 +300,33 @@ int	ft_give_me_ratio(float x, float y)
 	return (0);
 }
 
-int	ft_intersectest(t_game *game, int *pos, int max, int plan, int found, int dir)
+int	ft_intersectest(t_game *game, int *pos, int max, int plan, int found, int dir, int limit)
 {
 	int	wit;
 	int	i;
 
 	wit = 1;
 	i = 0;
-	if (dir == 0)
-		return (wit);
-	if (*pos < 0 || *pos > max)
+	if (dir == 0 || found < 0)
+	{
+		// dprintf(2, "dir == 0 out\n");
 		return (-1);
-	while (wit > 0 && *pos >= 0 && *pos <= max)
+	}
+	while (wit > 0 && *pos >= 0 && *pos <= limit)
 	{
 		game->t = (game->plan[plan][*pos].a * game->u_rays.x + game->plan[plan][*pos].b \
 				* game->u_rays.y + game->plan[plan][*pos].c * game->u_rays.z);
 		if (game->t != 0)
 			wit = ft_update_rays(game, *pos, plan, found);
 		*pos += dir;
+		++i;
 	}
+	if (*pos < 0 || *pos > limit)
+		return (-1);
 	return (wit);
 }
 
-int	ft_algo_the_third(t_game *game, int i, int j)
+int	ft_algo_the_third(t_game *game)
 {
 	t_vec3d	tmp_ray;
 	int		k;
@@ -332,42 +336,46 @@ int	ft_algo_the_third(t_game *game, int i, int j)
 	int		wit_x;
 	int		dir_x;
 	int		dir_y;
+	int		i = 0;
 
 	k = ft_give_me_ratio(game->u_rays.x, game->u_rays.y);
+	// dprintf(2, "POS : %f %f\n", game->pos.y, game->pos.x);
 	pos_x = game->pos.x;
 	pos_y = game->pos.y;
 	dir_x = ft_sign_comp(game->u_rays.x);
 	dir_y = ft_sign_comp(game->u_rays.y);
 	wit_x = 1;
 	wit_y = 1;
-	while (wit_x > 0 && wit_y > 0 )
+	while (wit_x > 0 && wit_y > 0)
 	{
+		// dprintf(2, "BLOCK wity %d witx %d\tposy %d posx %d\n", wit_y, wit_x, pos_y, pos_x);
 		// wit_x = intersect_2(game, 1, 1, &pos_x, wit_y, dir_x);
 		// dprintf(2, "wit is %d\txpos is %d\n", wit_x, pos_x);
 		// wit_y = intersect_2(game, 1, 0, &pos_y, wit_x, dir_y);
-		wit_y = ft_intersectest(game, &pos_y, game->map.y_size, 0, wit_x, dir_y);
-		wit_x = ft_intersectest(game, &pos_x, game->map.x_size, 1, wit_y, dir_x);
+		wit_y = ft_intersectest(game, &pos_y, 1, 0, wit_x, dir_y, game->map.y_size);
+		wit_x = ft_intersectest(game, &pos_x, 1, 1, wit_y, dir_x, game->map.x_size);
 		// if (k > 0)
 		// {
-		// 	wit_x = intersect_2(game, 1, 1, &pos_x, 0, dir_x);
-		// 	wit_y = intersect_2(game, k, 0, &pos_y, wit_x, dir_y);
+		// 	wit_x = ft_intersectest(game, &pos_x, 1, 1, wit_y, dir_x, game->map.x_size);
+		// 	wit_y = ft_intersectest(game, &pos_y, k, 0, wit_x, dir_y, game->map.y_size);
 		// }
 		// else if (k < 0)
 		// {
-		// 	wit_y = intersect_2(game, 1, 0, &pos_y, 0, dir_y);
-		// 	wit_x = intersect_2(game, -k, 1, &pos_x, wit_y, dir_x);
+		// 	wit_y = ft_intersectest(game, &pos_y, 1, 0, wit_x, dir_y, game->map.y_size);
+		// 	wit_x = ft_intersectest(game, &pos_x, -k, 1, wit_y, dir_x, game->map.x_size);
 		// }
 		// else
 		// {
-		// 	wit_x = intersect_2(game, 1, 1, &pos_x, 0, dir_x);
-		// 	wit_y = intersect_2(game, 1, 0, &pos_y, wit_x, dir_y);
+		// 	wit_x = ft_intersectest(game, &pos_x, 1, 1, wit_y, dir_x, game->map.x_size);
+		// 	wit_y = ft_intersectest(game, &pos_y, 1, 0, wit_x, dir_y, game->map.y_size);
 		// }
-		// if (i)
-		// 	dprintf(2, "count %d\n", i);
-		// ++i;
-		// dprintf(2, "BLOCK witx %d witx %d\tposy %d posx %d\n", wit_y, wit_x, pos_y, pos_x);
+		++i;
+		if (wit_x == 0 || wit_y == 0)
+			break ;
+		if (wit_x < 0 && wit_y < 0)
+			break ;
 	}
-	// dprintf(2, "OUT\n");
+	// dprintf(2, "OUT %d\n", i);
 	if (wit_y == 0 || wit_x == 0)
 		return (ft_print_texture(game));
 	else
@@ -397,7 +405,7 @@ int	ft_update_game(t_game *game)
 			game->u_rays.y = ray_tmp.x * sin(game->angle_z) + game->rays[i][j].y * cos(game->angle_z);
 			game->u_rays.z = ray_tmp.z;
 			game->close_t = 0;
-			color = ft_algo_the_third(game, i, j);
+			color = ft_switch_plan(game);
 			ft_resolution(game, i, j, color);
 			j += RESOLUTION;
 		}
@@ -411,4 +419,4 @@ int	ft_update_game(t_game *game)
 
 // plan du sol : {0, 0, 1, 0}
 // plan du plafond : {0, 0, 1, -1}
-
+// rays entre -1.000 et 1.000
