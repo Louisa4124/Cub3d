@@ -6,21 +6,19 @@ C         167,199,231
 
 
 			NO maps/tree_1.xpm
-SO   maps/01.xpm
+SO   maps/wall_gr.xpm
 
 
 WE maps/astronaut.xpm
 
 
-	EA maps/00.xpm
-
+	EA maps/01.xpm
 
 1111
 1001
 1N01
 1001 
 1111
-
 
 
 
@@ -38,4 +36,6 @@ WE maps/astronaut.xpm
 11000001110101011111011110N0111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
+
+
 

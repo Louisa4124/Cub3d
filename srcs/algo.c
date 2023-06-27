@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/26 22:52:25 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:24:19 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ int	ft_print_texture_no_we(t_game *game, int wall)
 	return (*(unsigned int *)(game->texture.wall[wall].addr + \
 		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8)));
 }
-
+// protection offerflow
 int	ft_print_texture_so_ea(t_game *game, int wall)
 {
 	int	x;
 	int	y;
+	int	ret;
 
 	x = 0;
 	y = 0;
@@ -83,7 +84,31 @@ int	ft_print_texture_so_ea(t_game *game, int wall)
 		 game->point.y)) * game->texture.wall[wall].width);
 	y = game->texture.wall[wall].height - (int)((game->point.z - \
 		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
-	// dprintf(2, "in print : x is %d y is %d\n", x, y);
+	// dprintf(2, " addr in uint : %lu\n", game->texture.wall[wall].addr);
+	// return (ret);
+	ret = *(unsigned int *)(game->texture.wall[wall].addr + \
+		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8));
+	if (ret > game->texture.wall[wall].height * game->texture.wall[wall].width || ret < 0)
+	{
+		dprintf(2, "color overflow ind wall %d\n", wall);
+		ret = RED;
+	}
+	return (ret);
+}
+
+int	ft_print_texture_wall(t_game *game, int wall)
+{
+	int	x;
+	int	y;
+
+	if (wall % 2 == 1)
+		x = (int)(((game->pos.y + game->point.y) - (int)(game->pos.y + \
+		 game->point.y)) * game->texture.wall[wall].width);
+	else
+		x = (int)(((game->pos.x + game->point.x) - (int)(game->pos.x + \
+		 game->point.x)) * game->texture.wall[wall].width);
+	y = game->texture.wall[wall].height - (int)((game->point.z - \
+		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
 	return (*(unsigned int *)(game->texture.wall[wall].addr + \
 		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8)));
 }
@@ -98,21 +123,21 @@ int	ft_print_texture(t_game *game)
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) >= 0 
 		&& game->map.layout[(int)(-game->plan[game->u_plan.x] \
 		[game->u_plan.y].d - 1)][(int)(game->pos.x + game->point.x)] == 1)	
-		return (ft_print_texture_no_we(game, 0));
+		return (ft_print_texture_wall(game, 0));
 	else if (game->u_plan.x == 1 && (game->pos.x + game->point.x) < game->pos.x 
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) < game->map.x_size 
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) >= 0 
 		&& game->map.layout[(int)(game->pos.y + game->point.y)][(int)\
 		(-game->plan[game->u_plan.x][game->u_plan.y].d - 1)] == 1)
-		return (ft_print_texture_so_ea(game, 2));
+		return (ft_print_texture_wall(game, 1));
 	else if (game->u_plan.x == 0 && (game->pos.y + game->point.y) > game->pos.y \
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d) < game->map.y_size \
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d) >= 0 
 		&& game->map.layout[(int)(-game->plan[game->u_plan.x][game->u_plan.y].d)] \
 		[(int)(game->pos.x + game->point.x)] == 1)
-		return (ft_print_texture_no_we(game, 1));
+		return (ft_print_texture_wall(game, 2));
 	else
-		return (ft_print_texture_so_ea(game, 3));
+		return (ft_print_texture_wall(game, 3));
 }
 
 int	ft_is_wall(t_game *game, int **layout, int u, int v)
@@ -325,6 +350,7 @@ int	ft_intersectest(t_game *game, int *pos, int max, int plan, int *found, int d
 		*pos += dir;
 		++i;
 	}
+	// dprintf(2, "OUTin : wit = %d pos = %d i = %d (limit = %d)\n", wit, *pos, i, limit);
 	if (*pos < 0 || *pos > limit)
 		return (-1);
 	if (wit == 0)
@@ -358,13 +384,56 @@ int	ft_algo_the_third(t_game *game)
 	// dprintf(2, "DIR : x is %d\ty is %d\n", dir_x, dir_y);
 	while (found > 0)
 	{
-		// wit_x = intersect_2(game, 1, 1, &pos_x, wit_y, dir_x);
+		// game->t = 0;
+		if (dir_x == 0)
+			wit_x = -1;
+		i = 0;
+		while (wit_x > 0 && pos_x >= 0 && pos_x <= game->map.x_size && i < 1)
+		{
+			game->t = (game->plan[1][pos_x].a * game->u_rays.x + game->plan[1][pos_x].b \
+					* game->u_rays.y + game->plan[1][pos_x].c * game->u_rays.z);
+			if (game->t != 0)
+				wit_x = ft_update_rays(game, pos_x, 1, found);
+			pos_x += dir_x;
+			++i;
+		}
+		if (pos_x < 0 || pos_x > game->map.x_size)
+			return (-1);
+		if (wit_x == 0)
+			found = 0;
+		if (dir_y == 0)
+			wit_y = -1;
+		i = 0;
+		while (wit_y > 0 && pos_y >= 0 && pos_y <= game->map.y_size && i < 1)
+		{
+			game->t = (game->plan[0][pos_y].a * game->u_rays.x + game->plan[0][pos_y].b \
+					* game->u_rays.y + game->plan[0][pos_y].c * game->u_rays.z);
+			if (game->t != 0)
+				wit_y = ft_update_rays(game, pos_y, 0, found);
+			pos_y += dir_y;
+			++i;
+		}
+		if (pos_y < 0 || pos_y > game->map.y_size)
+			return (-1);
+		if (wit_y == 0)
+			found = 0;
+		if (wit_x < 0 && wit_y < 0)
+			break ;
+	}
+	// dprintf(2, "OUT at %d\tfound is %d\n", i, found);
+	if (found == 0)
+		return (ft_print_texture(game));
+	else
+		return (ft_print_ceiling_floor(game));
+}
+/*
+	// wit_x = intersect_2(game, 1, 1, &pos_x, wit_y, dir_x);
 		// dprintf(2, "wit is %d\txpos is %d\n", wit_x, pos_x);
 		// wit_y = intersect_2(game, 1, 0, &pos_y, wit_x, dir_y);
-		if (wit_y > 0)
-			wit_y = ft_intersectest(game, &pos_y, 1, 0, &found, dir_y, game->map.y_size);
 		if (wit_x > 0)
 			wit_x = ft_intersectest(game, &pos_x, 1, 1, &found, dir_x, game->map.x_size);
+		if (wit_y > 0)
+			wit_y = ft_intersectest(game, &pos_y, 1, 0, &found, dir_y, game->map.y_size);
 		// if (k > 0)
 		// {
 		// 	wit_x = ft_intersectest(game, &pos_x, 1, 1, wit_y, dir_x, game->map.x_size);
@@ -381,16 +450,10 @@ int	ft_algo_the_third(t_game *game)
 		// 	wit_y = ft_intersectest(game, &pos_y, 1, 0, wit_x, dir_y, game->map.y_size);
 		// }
 		++i;
-		dprintf(2, "BLOCK wity %d witx %d\tposy %d posx %d\n", wit_y, wit_x, pos_y, pos_x);
+		// dprintf(2, "BLOCK wity %d witx %d\tposy %d posx %d\n", wit_y, wit_x, pos_y, pos_x);
 		if (wit_x < 0 && wit_y < 0)
-			found = -1;
-	}
-	dprintf(2, "OUT at %d\tfound is %d\n", i, found);
-	if (found == 0)
-		return (ft_print_texture(game));
-	else
-		return (ft_print_ceiling_floor(game));
-}
+			break ;
+*/
 
 int	ft_update_game(t_game *game)
 {
@@ -421,6 +484,7 @@ int	ft_update_game(t_game *game)
 		}
 		i += RESOLUTION;
 	}
+	// exit(1);
 	// dprintf(2, "END FRAME\n");
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	ft_printf_fps();
@@ -430,3 +494,7 @@ int	ft_update_game(t_game *game)
 // plan du sol : {0, 0, 1, 0}
 // plan du plafond : {0, 0, 1, -1}
 // rays entre -1.000 et 1.000
+// NO -> 0
+// SO -> 1
+// WE -> 2
+// EA -> 3
