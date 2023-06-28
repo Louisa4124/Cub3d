@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/06/19 14:59:01 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:43:52 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	drawMap2D(t_game *game, int size)
 	int x1 = 10;
 	int y1 = 10;
 
-	while (x < 14)
+	while (x < game->map.x_size)
 	{
 		y = 0;
 		while (y < game->map.y_size)

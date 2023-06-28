@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/20 13:49:02 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:29:38 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_vec3d	**ft_malloc_rayon(t_game *game)
 	return (rayon);
 }
 
-
 int	ft_win_event(int keycode, t_game *game)
 {
 	return (0);
@@ -63,10 +62,10 @@ int	ft_in_wall(t_game *game, int x, int y)
 
 int ft_hit_wall(t_game *game, float x, float y)
 {
-	if (ft_in_wall(game, x - 0.25, y + 0.25)
-		|| ft_in_wall(game, x + 0.25, y + 0.25)
-		|| ft_in_wall(game, x - 0.25, y - 0.25)
-		|| ft_in_wall(game, x + 0.25, y - 0.25))
+	if (ft_in_wall(game, x - 0.1, y + 0.1)
+		|| ft_in_wall(game, x + 0.1, y + 0.1)
+		|| ft_in_wall(game, x - 0.1, y - 0.1)
+		|| ft_in_wall(game, x + 0.1, y - 0.1))
 		return (1);
 	return (0);
 }
@@ -108,9 +107,9 @@ int	ft_move(t_game *game)
 		game->angle_z += ANG_OFFSET;
 	if (game->key[7])
 		game->angle_z -= ANG_OFFSET;
-	if (game->key[1])
+	if (game->key[1] && game->angle_x > -0.5)
 		game->angle_x -= ANG_OFFSET;
-	if (game->key[3])
+	if (game->key[3]&& game->angle_x < 0.5)
 		game->angle_x += ANG_OFFSET;
 	if (game->angle_z >= PI * 2)
 		game->angle_z -= PI * 2;
