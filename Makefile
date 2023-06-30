@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/06/30 11:10:29 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/06/30 15:45:16 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,18 +22,28 @@ NAME		=	cub3D
 DIR_SRCS		=	srcs/
 
 LST_SRCS		=	main.c clear.c debug.c \
-					init.c mlx.c algo.c math.c utils.c plan.c draw.c
+					init.c math.c utils.c plan.c event.c move.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	srcs/parsing/
 LST_SRCS_PARSE	=	parser.c extract_texture.c extract_map.c parser_utils.c
 SRCS_PARSE		=	${addprefix ${DIR_SRCS_PARSE}, ${LST_SRCS_PARSE}}
 
+DIR_SRCS_ALGO	=	srcs/algo/
+LST_SRCS_ALGO	=	algo_utils.c algo_k_plan.c algo_switch_plan.c
+SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
+
+DIR_SRCS_DISP	=	srcs/display/
+LST_SRCS_DISP	=	display.c color.c draw.c mlx.c
+SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
+
 
 #	==============================	OBJECTS	==============================	#
 DIR_OBJS	=	.objs/
 OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
-				${patsubst ${DIR_SRCS_PARSE}%.c, ${DIR_OBJS}%.o, ${SRCS_PARSE}}
+				${patsubst ${DIR_SRCS_PARSE}%.c, ${DIR_OBJS}%.o, ${SRCS_PARSE}} \
+				${patsubst ${DIR_SRCS_ALGO}%.c, ${DIR_OBJS}%.o, ${SRCS_ALGO}} \
+				${patsubst ${DIR_SRCS_DISP}%.c, ${DIR_OBJS}%.o, ${SRCS_DISP}}
 
 
 #	==============================	HEADERS	==============================	#
@@ -94,6 +104,15 @@ ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADER}
 ${DIR_OBJS}%.o	:	${DIR_SRCS_PARSE}%.c ${HEADER}
 				@printf "$(YELLOW)Making $@...\n$(END)"
 				@${CC} ${CFLAGS} -c $< -o $@
+
+${DIR_OBJS}%.o	:	${DIR_SRCS_ALGO}%.c ${HEADER}
+				@printf "$(YELLOW)Making $@...\n$(END)"
+				@${CC} ${CFLAGS} -c $< -o $@
+
+${DIR_OBJS}%.o	:	${DIR_SRCS_DISP}%.c ${HEADER}
+				@printf "$(YELLOW)Making $@...\n$(END)"
+				@${CC} ${CFLAGS} -c $< -o $@
+
 
 
 #	==============================	UTILS/LIB	==============================	#

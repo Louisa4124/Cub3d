@@ -6,12 +6,15 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/18 22:54:33 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:59:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# define WIDTH 1080
+# define HEIGHT 720
 
 typedef struct s_img
 {
@@ -23,15 +26,6 @@ typedef struct s_img
 	int		bpp;
 	int		endian;
 }	t_img;
-
-typedef struct s_imgs
-{
-	void		*img_ptr;
-	char		*data;
-	int			size_l;
-	int			bpp;
-	int			endian;
-}				t_imgs;
 
 // N S W E
 typedef struct s_texture
@@ -78,7 +72,7 @@ typedef struct s_game
 	t_vec3d		camera;
 	t_vec3d		u_rays;
 	t_vec3d		**rays;
-	t_plan		**plan;
+	t_plan		*plan[2];
 	t_plan		sky;
 	t_texture	texture;
 }	t_game;

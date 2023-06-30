@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 11:22:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:47:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define WIDTH 1080
-# define HEIGHT 720
+
 # define FOV 60
 # define PI_HALF 1.570796
 # define PI 3.14159265
@@ -62,12 +61,18 @@
 # define GREEN 0x77DD77
 # define BLUE 0xA7C7E7
 
+# define NO_ERR 0
+# define MLX_ERR_INIT 1
+# define MLX_ERR_WINDOW 2
+# define MLX_ERR_IMAGE 3
+# define MLX_ERR_DATA 4
+
 /*          Initialisation          */
 int		ft_init_mlx(t_game *game);
-void	ft_init_game(t_game *game);
-void	ft_init_rays(t_game *game);
-t_vec3d	**ft_malloc_rays(t_game *game);
+int		ft_init_game(t_game *game);
+int		rays_create(t_game *game);
 
+t_vec3d	s_vec3d_init(float x, float y, float z);
 void	s_mlx_init(t_mlx *mlx);
 void	s_map_init(t_map *map);
 void	s_img_init(t_img *img);
@@ -85,10 +90,22 @@ int		parser_map(t_map *map, t_game *game, int fd);
 
 
 /*			Mlx functiuns			*/
+int		ft_mlx_error(int errnum);
 void	ft_destroy_mlx(t_game *game);
-void	ft_clean_exit(t_game *game, int exit_code);
 int		close_event(t_game *game);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+int		display_game(t_game *game);
+
+/*			Algo 				*/
+int		k_plan_algo(t_game *game);
+int		switch_plan_algo(t_game *game);
+
+
+/*			Events 				*/
+int	event_press(int keycode, t_game *game);
+int	event_unpress(int keycode, t_game *game);
+void	event_mouse(int x, int y, t_game *game);
+
 
 /*          Math utils              */
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
@@ -97,7 +114,7 @@ t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
 float	math_vec_scalar_prod(t_vec3d u, t_vec3d v);
 t_vec3d	math_vec_k_prod(t_vec3d u, float k);
-
+int		math_sign_float(float f);
 
 /*          Raycasting functiuns    */
 void	ft_display_game(t_game *game);
@@ -109,10 +126,10 @@ void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
 
+void	ft_clean_exit(t_game *game, int exit_code);
 int		rgb_to_hexa(int r, int g, int b);
 
-int		ft_update_game(t_game *game);
-int		ft_creat_plans(t_game *game);
+
 
 void	drawMap2D(t_game *game, int size);
 void	ft_draw_circle(t_game *game, int center_x, int center_y, int radius);

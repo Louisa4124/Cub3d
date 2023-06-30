@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/18 22:54:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:25:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	s_texture_init(t_texture *texture)
 	texture->ceiling = 0;
 }
 
-void	ft_init_game(t_game *game)
+int	ft_init_game(t_game *game)
 {
 	game->color = 0;
 	game->bit_key = 0;
@@ -65,6 +65,9 @@ void	ft_init_game(t_game *game)
 	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
 	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
 		(game->mlx.win_width * 2)) / game->mlx.win_height;
-	game->view.id = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
-	game->view.addr = mlx_get_data_addr(game->view.id, &game->view.bpp, &game->view.ll, &game->view.endian);
+	if (rays_create(game))
+		return (EXIT_FAILURE);
+	if (plane_create(game))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/06/27 12:43:52 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:23:04 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 void ft_draw_circle(t_game *game, int center_x, int center_y, int radius)
 {
@@ -21,7 +21,7 @@ void ft_draw_circle(t_game *game, int center_x, int center_y, int radius)
     {
         x = center_x + radius * cos(angle * PI / 180);
         y = center_y + radius * sin(angle * PI / 180);
-        my_mlx_pixel_put(&game->view, x, y, 0xFFFFFF);
+        ft_mlx_pixel_put(&game->view, x, y, 0xFFFFFF);
     }
 }
 
@@ -39,7 +39,7 @@ void	ft_draw_square_black(t_game *game, int size, int x, int y)
 		y = tmp;
 		while (y < j)
 		{
-			my_mlx_pixel_put(&game->view, y, x, BLACK);
+			ft_mlx_pixel_put(&game->view, y, x, BLACK);
 			y++;
 		}
 		x++;
@@ -60,7 +60,7 @@ void	ft_draw_square_white(t_game *game, int size, int x, int y)
 		y = tmp;
 		while (y < j)
 		{
-			my_mlx_pixel_put(&game->view, y, x, WHITE);
+			ft_mlx_pixel_put(&game->view, y, x, WHITE);
 			y++;
 		}
 		x++;
@@ -81,7 +81,7 @@ void	ft_draw_square_grey(t_game *game, int size, int x, int y)
 		y = tmp;
 		while (y < j)
 		{
-			my_mlx_pixel_put(&game->view, y, x, 0x808080);
+			ft_mlx_pixel_put(&game->view, y, x, 0x808080);
 			y++;
 		}
 		x++;
@@ -102,7 +102,7 @@ void	ft_draw_pos(t_game *game, int size, int x, int y)
 		y = tmp;
 		while (y < j)
 		{
-			my_mlx_pixel_put(&game->view, y, x, RED);
+			ft_mlx_pixel_put(&game->view, y, x, RED);
 			y++;
 		}
 		x++;
