@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 16:32:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:13:13 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ int	event_press(int keycode, t_game *game)
 		game->bit_key |= BFLAG_RIGHT;
 	else if (keycode == KEY_LEFT)
 		game->bit_key |= BFLAG_LEFT;
+	else if (keycode == KEY_P && game->pause == 0)
+	{
+		game->pause = 1;
+		ft_display_menu(game);
+	}
+	else if (keycode == KEY_P && game->pause == 1)
+		game->pause = 0;
 	return (0);
 }
 

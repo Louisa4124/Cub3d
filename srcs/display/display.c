@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 16:56:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:15:43 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,28 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 	}
 }
 
+
+void ft_display_menu(t_game *game)
+{
+	int	i;
+	int	j;
+
+	unsigned int *image_data = (unsigned int *)game->view.addr;
+	i = 0;
+	blur_image(image_data, WIDTH, HEIGHT);
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
+			//my_mlx_pixel_put(&game->view, i, j, BLACK);
+			++j;
+		}
+		++i;
+	}
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+}
+
 static void	display_game(t_game *game, int size)
 {
 	int		i;
@@ -72,8 +94,11 @@ void	update_game(t_game *game)
 {
 	ft_move(game);
 	view_rotate(game);
-	display_game(game, MINIMAP_SIZE);
-	drawMap2D(game, MINIMAP_SIZE);
+	if (game->fps_booster == 0 && game->pause == 0)
+	{
+		display_game(game, MINIMAP_SIZE);
+		drawMap2D(game, MINIMAP_SIZE);
+	}
 	ft_printf_fps();
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }

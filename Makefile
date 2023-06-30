@@ -6,7 +6,7 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/06/30 17:07:33 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/06/30 17:17:34 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME		=	cub3D
 DIR_SRCS		=	srcs/
 
 LST_SRCS		=	main.c clear.c debug.c \
-					math.c utils.c fps.c image.c
+					math.c utils.c fps.c 
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	srcs/parsing/
@@ -35,7 +35,7 @@ LST_SRCS_ALGO	=	algo_k_plan.c algo_switch_plan.c algo_utils.c
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	srcs/display/
-LST_SRCS_DISP	=	color.c display.c draw.c 
+LST_SRCS_DISP	=	color.c display.c draw.c image.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	srcs/init/

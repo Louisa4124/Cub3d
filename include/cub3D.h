@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 17:08:39 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:14:05 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,6 @@ int		ft_is_wall(t_game *game, int **layout, int u, int v);
 
 void	blur_image(unsigned int *image_data, int width, int height);
 void	ft_printf_fps(void);
+void 	ft_display_menu(t_game *game);
 
 #endif

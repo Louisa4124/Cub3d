@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:44 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 16:32:29 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:13:36 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,3 +101,5 @@ void	view_rotate(t_game *game)
 	else if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
 }
+
+//d = sqrt(2g(z0 - z)) / FPS => gravite que loulou a la flemme d'ajouter
