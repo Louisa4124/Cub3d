@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:14:59 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/27 18:57:19 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:09:53 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,14 @@ t_vec3d	math_vec_k_prod(t_vec3d u, float k)
 	res.y = k * u.y;
 	res.z = k * u.z;
 	return (res);
+}
+
+t_vec3d	s_vec3d_init(float x, float y, float z)
+{
+	t_vec3d	u;
+
+	u.x = x;
+	u.y = y;
+	u.z = z;
+	return (u);
 }

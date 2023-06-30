@@ -6,12 +6,15 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 14:00:49 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:07:54 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# define WIDTH 1080
+# define HEIGHT 720
 
 typedef struct s_img
 {
@@ -69,7 +72,7 @@ typedef struct s_game
 	t_vec2d		u_plan;
 	t_vec3d		u_rays;
 	t_vec3d		**rays;
-	t_plan		**plan;
+	t_plan		*plan[2];
 	t_plan		sky;
 	t_texture	texture;
 }	t_game;

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 13:26:01 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:08:14 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 void	s_mlx_init(t_mlx *mlx)
 {
@@ -48,22 +48,4 @@ void	s_texture_init(t_texture *texture)
 	}
 	texture->floor = 0;
 	texture->ceiling = 0;
-}
-
-void	ft_init_game(t_game *game)
-{
-	game->pause = 0;
-	game->fps_booster = 0;
-	game->color = 0;
-	game->bit_key = 0;
-	game->sky.a = 0;
-	game->sky.b = 0;
-	game->sky.c = 1;
-	game->sky.d = -1;
-	game->angle_x = -0.1;
-	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
-	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
-		(game->mlx.win_width * 2)) / game->mlx.win_height;
-	game->view.id = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
-	game->view.addr = mlx_get_data_addr(game->view.id, &game->view.bpp, &game->view.ll, &game->view.endian);
 }

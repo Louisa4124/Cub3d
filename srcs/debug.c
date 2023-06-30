@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:33:34 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/27 15:21:07 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:29:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,3 @@ void	debug_print_vec3d(t_vec3d *u, char *name)
 	dprintf(2, "u.y = % .3f\n", u->y);
 	dprintf(2, "u.z = % .3f\n", u->z);
 }
-

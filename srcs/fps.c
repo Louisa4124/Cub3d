@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.h                                             :+:      :+:    :+:   */
+/*   fps.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 21:35:16 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 14:14:32 by tlegrand         ###   ########.fr       */
+/*   Created: 2023/06/30 16:45:36 by tlegrand          #+#    #+#             */
+/*   Updated: 2023/06/30 16:45:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATH_H
-# define MATH_H
+#include "../include/cub3D.h"
 
-typedef struct s_vec3d
+int64_t	g_fps;
+int		g_frame;
+
+int64_t	get_time(void)
 {
-	float	x;
-	float	y;
-	float	z;
-}	t_vec3d;
+	static struct timeval	tv;
 
-typedef struct s_vec2d
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
+}
+
+void	ft_printf_fps(void)
 {
-	int		x;
-	int		y;
-}	t_vec2d;
-
-
-typedef struct s_plan
-{
-	float	a;
-	float	b;
-	float	c;
-	float	d;
-}	t_plan;
-
-#endif
+	if (get_time() - g_fps < 1000)
+		g_frame++;
+	else
+	{
+		ft_printf("%d\n", g_frame);
+		g_fps = get_time();
+		g_frame = 0;
+	}
+}

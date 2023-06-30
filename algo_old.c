@@ -6,11 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 11:11:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:14:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 int64_t	g_fps;
 int		g_frame;
@@ -23,7 +23,7 @@ int64_t	get_time(void)
 	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
 }
 
-void	tourn(t_game *game)
+void	view_rotate(t_game *game)
 {
 	int	x_quarter;
 	int	x;
@@ -47,7 +47,7 @@ void	tourn(t_game *game)
 		game->angle_z += PI * 2;
 }
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -55,7 +55,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void	ft_print_texture_no_we(t_game *game, int wall, int i, int j)
+void	get_color_no_we(t_game *game, int wall, int i, int j)
 {
 	int	x;
 	int	y;
@@ -70,7 +70,7 @@ void	ft_print_texture_no_we(t_game *game, int wall, int i, int j)
 		y * game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8));
 }
 
-void	ft_print_texture_so_ea(t_game *game, int wall, int i, int j)
+void	get_color_so_ea(t_game *game, int wall, int i, int j)
 {
 	int	x;
 	int	y;
@@ -92,7 +92,7 @@ void	ft_print_texture_so_ea(t_game *game, int wall, int i, int j)
 	game->color = ret; //dark	
 }
 
-void	ft_print_texture(t_game *game, int i, int j)
+void	get_color(t_game *game, int i, int j)
 {
 	game->point.x = game->u_rays.x * game->close_t;
 	game->point.y = game->u_rays.y * game->close_t;
@@ -102,21 +102,21 @@ void	ft_print_texture(t_game *game, int i, int j)
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) >= 0 
 		&& game->map.layout[(int)(-game->plan[game->u_plan.x] \
 		[game->u_plan.y].d - 1)][(int)(game->pos.x + game->point.x)] == 1)	
-		ft_print_texture_no_we(game, 0, i, j);
+		get_color_no_we(game, 0, i, j);
 	else if (game->u_plan.x == 1 && (game->pos.x + game->point.x) < game->pos.x 
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) < game->map.x_size 
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) >= 0 
 		&& game->map.layout[(int)(game->pos.y + game->point.y)][(int)\
 		(-game->plan[game->u_plan.x][game->u_plan.y].d - 1)] == 1)
-		ft_print_texture_so_ea(game, 2, i, j);
+		get_color_so_ea(game, 2, i, j);
 	else if (game->u_plan.x == 0 && (game->pos.y + game->point.y) > game->pos.y \
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d) < game->map.y_size \
 		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d) >= 0 
 		&& game->map.layout[(int)(-game->plan[game->u_plan.x][game->u_plan.y].d)] \
 		[(int)(game->pos.x + game->point.x)] == 1)
-		ft_print_texture_no_we(game, 1, i, j);
+		get_color_no_we(game, 1, i, j);
 	else
-		ft_print_texture_so_ea(game, 3, i, j);
+		get_color_so_ea(game, 3, i, j);
 }
 
 int	ft_is_wall(t_game *game, int **layout, int u, int v)
@@ -142,7 +142,7 @@ int	ft_is_wall(t_game *game, int **layout, int u, int v)
 	return (0);
 }
 
-int ft_update_rays(t_game *game, int u, int v)
+int intersect(t_game *game, int u, int v)
 {
 	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \
 		game->pos.y + game->plan[v][u].c * 0.5 + game->plan[v][u].d) / game->t;
@@ -169,7 +169,7 @@ int ft_update_rays(t_game *game, int u, int v)
 	return (0);
 }
 
-void	ft_print_ceiling_floor(t_game *game, int i, int j)
+void	get_color_ceilling_floor(t_game *game, int i, int j)
 {
 	game->t = (game->sky.a * game->u_rays.x + game->sky.b * game->u_rays.y \
 		 + game->sky.c * game->u_rays.z);
@@ -198,15 +198,15 @@ void	ft_switch_plan2(t_game *game, int i, int j)
 			game->t = (game->plan[v][u].a * game->u_rays.x + game->plan[v][u].b \
 				 * game->u_rays.y + game->plan[v][u].c * game->u_rays.z);
 			if (game->t != 0)
-				ft_update_rays(game, u, v);
+				intersect(game, u, v);
 			else
-				ft_print_ceiling_floor(game, i, j);
+				get_color_ceilling_floor(game, i, j);
 			++u;
 		}
 		++v;
 	}
 	if (game->close_t != 0 && game->u_plan.x != 3 && game->u_plan.y != -7)
-		ft_print_texture(game, i, j);
+		get_color(game, i, j);
 }
 
 void	ft_printf_fps(void)
@@ -235,14 +235,14 @@ void	ft_resolution(t_game *game, int i, int j)
 		j = j2;
 		while (j < y && j < game->mlx.win_width)
 		{
-			my_mlx_pixel_put(&game->view, j, i, game->color);
+			ft_mlx_pixel_put(&game->view, j, i, game->color);
 			++j;
 		}
 		++i;
 	}
 }
 
-int	ft_update_game(t_game *game)
+int	display_game(t_game *game)
 {
 	int		i;
 	int		j;
@@ -252,7 +252,7 @@ int	ft_update_game(t_game *game)
 	i = 0;
 	size = 10;
 	ft_move(game);
-	tourn(game);
+	view_rotate(game);
 	while (i < game->mlx.win_height)
 	{
 		j = 0;
