@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 14:25:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:00:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 void	s_mlx_init(t_mlx *mlx)
 {
@@ -48,26 +48,4 @@ void	s_texture_init(t_texture *texture)
 	}
 	texture->floor = 0;
 	texture->ceiling = 0;
-}
-
-int	ft_init_game(t_game *game)
-{
-	game->color = 0;
-	game->bit_key = 0;
-	game->camera.x = 0;
-	game->camera.y = 0;
-	game->camera.z = 0.5;
-	game->sky.a = 0;
-	game->sky.b = 0;
-	game->sky.c = 1;
-	game->sky.d = -1;
-	game->angle_x = -0.1;
-	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
-	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
-		(game->mlx.win_width * 2)) / game->mlx.win_height;
-	if (rays_create(game))
-		return (EXIT_FAILURE);
-	if (plane_create(game))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
 }

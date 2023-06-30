@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:02:40 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 15:46:43 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:08:32 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static int	k_plan_inter_search(t_game *game, int *pos, int max, int plan, int *f
 	return (wit);
 }
 
-
 // rx ratio de x pour 1y
 // ry ratio de y pour 1x  
 // return k > 0 for rx 
@@ -60,10 +59,8 @@ static int	ft_give_me_ratio(float x, float y)
 	return (0);
 }
 
-
 int	k_plan_algo(t_game *game)
 {
-	t_vec3d	tmp_ray;
 	int		k;
 	int		pos_x;
 	int		pos_y;
@@ -72,7 +69,6 @@ int	k_plan_algo(t_game *game)
 	int		dir_x;
 	int		dir_y;
 	int		found;
-	int		i = 0;
 
 	k = ft_give_me_ratio(game->u_rays.x, game->u_rays.y);
 	pos_x = game->pos.x;

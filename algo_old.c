@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 15:22:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:14:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int64_t	get_time(void)
 	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
 }
 
-void	tourn(t_game *game)
+void	view_rotate(t_game *game)
 {
 	int	x_quarter;
 	int	x;
@@ -252,7 +252,7 @@ int	display_game(t_game *game)
 	i = 0;
 	size = 10;
 	ft_move(game);
-	tourn(game);
+	view_rotate(game);
 	while (i < game->mlx.win_height)
 	{
 		j = 0;

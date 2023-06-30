@@ -6,13 +6,13 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:44 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 15:06:47 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:32:29 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
-// verifier que x et y sont dans la map
+// TODO: verifier que x et y sont dans la map
 int	ft_in_wall(t_game *game, int x, int y)
 {
 	if (x >= 0 && y >= 0 && game->map.layout[y][x] == 1)
@@ -20,7 +20,7 @@ int	ft_in_wall(t_game *game, int x, int y)
 	return (0);
 }
 
-int ft_hit_wall(t_game *game, float x, float y)
+int	ft_hit_wall(t_game *game, float x, float y)
 {
 	if (ft_in_wall(game, x - 0.1, y + 0.1)
 		|| ft_in_wall(game, x + 0.1, y + 0.1)
@@ -69,7 +69,7 @@ int	ft_move(t_game *game)
 		game->angle_z -= ANG_OFFSET;
 	if (game->bit_key & BFLAG_UP && game->angle_x > -0.5)
 		game->angle_x -= ANG_OFFSET;
-	if (game->bit_key & BFLAG_DOWN&& game->angle_x < 0.5)
+	if (game->bit_key & BFLAG_DOWN && game->angle_x < 0.5)
 		game->angle_x += ANG_OFFSET;
 	if (game->angle_z >= PI * 2)
 		game->angle_z -= PI * 2;
@@ -78,7 +78,7 @@ int	ft_move(t_game *game)
 	return (0);
 }
 
-void	tourn(t_game *game)
+void	view_rotate(t_game *game)
 {
 	int	x_quarter;
 	int	x;
@@ -86,7 +86,7 @@ void	tourn(t_game *game)
 
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	x_quarter = game->mlx.win_width >> 2;
-	if (x >=0 && x < x_quarter)
+	if (x >= 0 && x < x_quarter)
 	{
 		game->angle_z -= 0.07;
 		game->dir = ft_rotate_vec_z(game->dir, -0.007);

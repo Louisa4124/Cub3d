@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 15:47:20 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:50:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define DIR_OFFSET 0.1
 # define ANG_OFFSET 0.05
 # define RESOLUTION 2
+# define MINIMAP_SIZE 10
 
 # define KEY_W 119
 # define KEY_A 97
@@ -70,7 +71,6 @@
 /*          Initialisation          */
 int		ft_init_mlx(t_game *game);
 int		ft_init_game(t_game *game);
-int		rays_create(t_game *game);
 
 t_vec3d	s_vec3d_init(float x, float y, float z);
 void	s_mlx_init(t_mlx *mlx);
@@ -94,12 +94,24 @@ int		ft_mlx_error(int errnum);
 void	ft_destroy_mlx(t_game *game);
 int		close_event(t_game *game);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		display_game(t_game *game);
+
 
 /*			Algo 				*/
 int		k_plan_algo(t_game *game);
 int		switch_plan_algo(t_game *game);
+int		intersect(t_game *game, t_plan *plan, int u, int v, int wit);
 
+/*			Color				*/
+int		get_color(t_game *game);
+int		get_color_ceilling_floor(t_game *game);
+
+/*			Move		*/
+int		ft_move(t_game *game);
+void	view_rotate(t_game *game);
+
+
+/*			Display			*/
+void	update_game(t_game *game);
 
 /*			Events 				*/
 int	event_press(int keycode, t_game *game);
@@ -135,5 +147,7 @@ void	drawMap2D(t_game *game, int size);
 void	ft_draw_circle(t_game *game, int center_x, int center_y, int radius);
 
 int		ft_is_wall(t_game *game, int **layout, int u, int v);
+
+void	ft_printf_fps(void);
 
 #endif

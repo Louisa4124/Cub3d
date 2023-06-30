@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 15:30:09 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:36:29 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ft_init_mlx(t_game *game)
 	game->view.addr = mlx_get_data_addr(game->view.id, &game->view.bpp, &game->view.ll, &game->view.endian);
 	if (!game->view.addr)
 		return (ft_destroy_mlx(game), MLX_ERR_DATA);
+	game->view.height = game->mlx.win_height;
+	game->view.width = game->mlx.win_width;
 	return (NO_ERR);
 }
 

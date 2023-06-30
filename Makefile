@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/06/30 15:45:16 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/06/30 16:50:24 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME		=	cub3D
 DIR_SRCS		=	srcs/
 
 LST_SRCS		=	main.c clear.c debug.c \
-					init.c math.c utils.c plan.c event.c move.c
+					math.c utils.c fps.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	srcs/parsing/
@@ -30,12 +30,20 @@ LST_SRCS_PARSE	=	parser.c extract_texture.c extract_map.c parser_utils.c
 SRCS_PARSE		=	${addprefix ${DIR_SRCS_PARSE}, ${LST_SRCS_PARSE}}
 
 DIR_SRCS_ALGO	=	srcs/algo/
-LST_SRCS_ALGO	=	algo_utils.c algo_k_plan.c algo_switch_plan.c
+LST_SRCS_ALGO	=	algo_k_plan.c algo_switch_plan.c algo_utils.c 
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	srcs/display/
-LST_SRCS_DISP	=	display.c color.c draw.c mlx.c
+LST_SRCS_DISP	=	color.c display.c draw.c 
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
+
+DIR_SRCS_INIT	=	srcs/init/
+LST_SRCS_INIT	=	init_game.c init_mlx.c init_struct.c
+SRCS_INIT		=	${addprefix ${DIR_SRCS_INIT}, ${LST_SRCS_INIT}}
+
+DIR_SRCS_EVENT	=	srcs/event_mlx/
+LST_SRCS_EVENT	=	event.c move.c
+SRCS_EVENT		=	${addprefix ${DIR_SRCS_EVENT}, ${LST_SRCS_EVENT}}
 
 
 #	==============================	OBJECTS	==============================	#
@@ -43,8 +51,9 @@ DIR_OBJS	=	.objs/
 OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
 				${patsubst ${DIR_SRCS_PARSE}%.c, ${DIR_OBJS}%.o, ${SRCS_PARSE}} \
 				${patsubst ${DIR_SRCS_ALGO}%.c, ${DIR_OBJS}%.o, ${SRCS_ALGO}} \
-				${patsubst ${DIR_SRCS_DISP}%.c, ${DIR_OBJS}%.o, ${SRCS_DISP}}
-
+				${patsubst ${DIR_SRCS_DISP}%.c, ${DIR_OBJS}%.o, ${SRCS_DISP}} \
+				${patsubst ${DIR_SRCS_INIT}%.c, ${DIR_OBJS}%.o, ${SRCS_INIT}} \
+				${patsubst ${DIR_SRCS_EVENT}%.c, ${DIR_OBJS}%.o, ${SRCS_EVENT}}
 
 #	==============================	HEADERS	==============================	#
 DIR_HEADER	=	include/
@@ -113,6 +122,13 @@ ${DIR_OBJS}%.o	:	${DIR_SRCS_DISP}%.c ${HEADER}
 				@printf "$(YELLOW)Making $@...\n$(END)"
 				@${CC} ${CFLAGS} -c $< -o $@
 
+${DIR_OBJS}%.o	:	${DIR_SRCS_INIT}%.c ${HEADER}
+				@printf "$(YELLOW)Making $@...\n$(END)"
+				@${CC} ${CFLAGS} -c $< -o $@
+
+${DIR_OBJS}%.o	:	${DIR_SRCS_EVENT}%.c ${HEADER}
+				@printf "$(YELLOW)Making $@...\n$(END)"
+				@${CC} ${CFLAGS} -c $< -o $@
 
 
 #	==============================	UTILS/LIB	==============================	#

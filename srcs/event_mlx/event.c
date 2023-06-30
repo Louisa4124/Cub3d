@@ -6,11 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 14:39:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:32:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
 int	event_press(int keycode, t_game *game)
 {
@@ -60,6 +60,7 @@ void	event_mouse(int x, int y, t_game *game)
 {
 	int	x_quarter;
 
+	(void) y;
 	x_quarter = game->mlx.win_width >> 2;
 	if (x < x_quarter)
 	{
@@ -75,7 +76,6 @@ void	event_mouse(int x, int y, t_game *game)
 		game->angle_z -= PI * 2;
 	else if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
-	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, game->mlx.win_height >> 1);
 }
 
 int	close_event(t_game *game)

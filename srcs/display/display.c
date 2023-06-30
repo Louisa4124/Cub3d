@@ -6,34 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 15:45:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:56:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
-
-int64_t	g_fps;
-int		g_frame;
-
-int64_t	get_time(void)
-{
-	static struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
-}
-
-void	ft_printf_fps(void)
-{
-	if (get_time() - g_fps < 1000)
-		g_frame++;
-	else
-	{
-		ft_printf("%d\n", g_frame);
-		g_fps = get_time();
-		g_frame = 0;
-	}
-}
 
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
@@ -43,9 +20,9 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void	ft_resolution(t_game *game, int i, int j, int color)
+static void	ft_resolution(t_game *game, int i, int j, int color)
 {
-	int x;
+	int	x;
 	int	y;
 	int	j2;
 
@@ -64,39 +41,39 @@ void	ft_resolution(t_game *game, int i, int j, int color)
 	}
 }
 
-int	display_game(t_game *game)
+static void	display_game(t_game *game, int size)
 {
 	int		i;
 	int		j;
-	int		color;
-	int		size;
-	t_vec3d	ray_tmp;
 
 	i = 0;
-	size = 10;
-	ft_move(game);
-	tourn(game);
 	while (i < game->mlx.win_height)
 	{
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
-			if (i > 10 && i < (game->map.y_size * size) + 10 && j > 10 && j < (game->map.x_size * size) + 10)
+			if (i > 10 && i < (game->map.y_size * size) + 10 && j > 10 && \
+				j < (game->map.x_size * size) + 10)
 			{
 				j += RESOLUTION;
 				continue ;
 			}
-			ray_tmp = ft_rotate_vec_x(game->rays[i][j], game->angle_x);
-			game->u_rays = ft_rotate_vec_z(ray_tmp, game->angle_z);
+			game->u_rays = ft_rotate_vec_z(ft_rotate_vec_x(game->rays[i][j], \
+				game->angle_x), game->angle_z);
 			game->close_t = 0;
-			color = k_plan_algo(game);
-			ft_resolution(game, i, j, color);
+			ft_resolution(game, i, j, k_plan_algo(game));
 			j += RESOLUTION;
 		}
 		i += RESOLUTION;
 	}
-	drawMap2D(game, size);
+}
+
+void	update_game(t_game *game)
+{
+	ft_move(game);
+	view_rotate(game);
+	display_game(game, MINIMAP_SIZE);
+	drawMap2D(game, MINIMAP_SIZE);
+	ft_printf_fps();
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-	// ft_printf_fps();
-	return (0);
 }
