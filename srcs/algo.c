@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 11:22:19 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:27:00 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,10 +399,10 @@ int	ft_update_game(t_game *game)
 	size = 10;
 	ft_move(game);
 	tourn(game);
-	while (i < game->mlx.win_height)
+	while (i < game->mlx.win_height && game->fps_booster == 0 && game->pause == 0)
 	{
 		j = 0;
-		while (j < game->mlx.win_width)
+		while (j < game->mlx.win_width && game->fps_booster == 0 && game->pause == 0)
 		{
 			
 			if (i > 10 && i < (game->map.y_size * size) + 10 && j > 10 && j < (game->map.x_size * size) + 10)
@@ -419,9 +419,11 @@ int	ft_update_game(t_game *game)
 		}
 		i += RESOLUTION;
 	}
-	drawMap2D(game, size);
+	if (game->fps_booster == 0 && game->pause == 0)
+		drawMap2D(game, size);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	ft_printf_fps();
+	//printf("pause = %d\n", game->pause);
 	return (0);
 }
 

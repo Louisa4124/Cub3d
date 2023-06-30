@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/18 22:54:33 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:00:49 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ typedef struct s_img
 	int		bpp;
 	int		endian;
 }	t_img;
-
-typedef struct s_imgs
-{
-	void		*img_ptr;
-	char		*data;
-	int			size_l;
-	int			bpp;
-	int			endian;
-}				t_imgs;
 
 // N S W E
 typedef struct s_texture
@@ -59,6 +50,7 @@ typedef struct s_mlx
 typedef struct s_game
 {
 	int			pause;
+	int			fps_booster;
 	int			color;
 	int			bit_key;
 	float		t;
@@ -75,7 +67,6 @@ typedef struct s_game
 	t_vec3d		pos;
 	t_vec3d		dir;
 	t_vec2d		u_plan;
-	t_vec3d		camera;
 	t_vec3d		u_rays;
 	t_vec3d		**rays;
 	t_plan		**plan;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 11:14:55 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:39:05 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,27 @@ int ft_hit_wall(t_game *game, float x, float y)
 	return (0);
 }
 
+void ft_display_menu(t_game *game)
+{
+	int	i;
+	int	j;
+
+	unsigned int *image_data = (unsigned int *)game->view.addr;
+	i = 0;
+	blur_image(image_data, WIDTH, HEIGHT);
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
+			//my_mlx_pixel_put(&game->view, i, j, BLACK);
+			++j;
+		}
+		++i;
+	}
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+}
+
 int	ft_move(t_game *game)
 {
 	t_vec3d	z_axis;
@@ -107,6 +128,10 @@ int	ft_move(t_game *game)
 		game->angle_z += ANG_OFFSET;
 	if (game->bit_key & BFLAG_LEFT)
 		game->angle_z -= ANG_OFFSET;
+	if (game->fps_booster == 0)
+		game->fps_booster = 1;
+	else if (game->fps_booster == 1)
+		game->fps_booster = 0;
 	if (game->bit_key & BFLAG_UP && game->angle_x > -0.5)
 		game->angle_x -= ANG_OFFSET;
 	if (game->bit_key & BFLAG_DOWN&& game->angle_x < 0.5)
@@ -138,8 +163,18 @@ int	ft_press(int keycode, t_game *game)
 		game->bit_key |= BFLAG_RIGHT;
 	else if (keycode == KEY_LEFT)
 		game->bit_key |= BFLAG_LEFT;
+	else if (keycode == KEY_P && game->pause == 0)
+	{
+		game->pause = 1;
+		ft_display_menu(game);
+	}
+	else if (keycode == KEY_P && game->pause == 1)
+		game->pause = 0;
+	//printf("key = %d\n", keycode);
 	return (0);
 }
+
+//d = sqrt(2g(z0 - z)) / FPS => gravite que loulou a la flemme d'ajouter
 
 void	event_mouse(int x, int y, t_game *game)
 {
@@ -203,7 +238,6 @@ void	ft_create_vector(t_game *game)
 		i++;
 	}
 }
-
 //LOULOU EST SUPER FORTE NANMEOH!!!!!!
 
 int	main(int argc, char **argv)
@@ -244,3 +278,4 @@ int	main(int argc, char **argv)
 	ft_clean_exit(&game, EXIT_FAILURE);
 	return (0);
 }
+

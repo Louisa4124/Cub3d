@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 11:22:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:39:55 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <stdbool.h>
+# include </nfs/homes/lboudjem/Downloads/lib/gif_lib.h>
 
 # define WIDTH 1080
 # define HEIGHT 720
@@ -30,6 +32,7 @@
 # define PI_HALF 1.570796
 # define PI 3.14159265
 # define PI_DIV_180 0.01745329251
+# define G 9.81
 # define DIR_OFFSET 0.1
 # define ANG_OFFSET 0.05
 # define RESOLUTION 2
@@ -38,10 +41,12 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_P 112
 # define KEY_UP 65362
 # define KEY_LEFT 65361
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
+# define SPACE 32
 
 # define KEY_SPACE 32
 # define KEY_ESCAPE 65307
@@ -54,6 +59,7 @@
 # define BFLAG_LEFT 0b00100000
 # define BFLAG_DOWN 0b01000000
 # define BFLAG_RIGHT 0b100000000
+# define BFLAG_P 0b1000000000
 
 # define DARK_RED 0x8B0000
 # define RED 0xff0000
@@ -118,5 +124,7 @@ void	drawMap2D(t_game *game, int size);
 void	ft_draw_circle(t_game *game, int center_x, int center_y, int radius);
 
 int		ft_is_wall(t_game *game, int **layout, int u, int v);
+
+void	blur_image(unsigned int *image_data, int width, int height);
 
 #endif
