@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/22 15:05:04 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:37:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	ft_init_mlx(t_game *game)
 		ft_putstr_fd("Error\nMlx init fail\n", 2);
 		return (1);
 	}
-	game->mlx.win_width = 800;
-	game->mlx.win_height = 600;
+	game->mlx.win_width = WIDTH;
+	game->mlx.win_height = HEIGHT;
 	game->mlx.win = mlx_new_window(game->mlx.ptr, \
 		game->mlx.win_width, game->mlx.win_height, "cub3D");
 	if (!game->mlx.win)

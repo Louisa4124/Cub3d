@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/05/26 15:40:13 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/06/18 22:54:33 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ typedef struct s_game
 {
 	int			pause;
 	int			color;
-	int			key[8];
+	int			bit_key;
 	float		t;
 	float		r_h;
 	float		r_v;
 	float		angle_z;
 	float		angle_x;
 	float		close_t;
+	float		dist;
 	t_map		map;
 	t_mlx		mlx;
 	t_img		view;

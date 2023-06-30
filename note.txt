@@ -1,0 +1,39 @@
+####    t_texture       ####
+####    t_img   ####
+img->id : 0x2419fb0
+img->addr : 0x7fe4c3c23000
+img->height: 96
+img->width: 96
+img->ll: 384
+img->bpp: 32
+img->endian: 0
+        ----
+####    t_img   ####
+img->id : 0x245a270
+img->addr : 0x7fe4c359a000
+img->height: 512
+img->width: 512
+img->ll: 2048
+img->bpp: 32
+img->endian: 0
+        ----
+####    t_img   ####
+img->id : 0x245a730
+img->addr : 0x7fe4c3496000
+img->height: 500
+img->width: 500
+img->ll: 2000
+img->bpp: 32
+img->endian: 0
+        ----
+####    t_img   ####
+img->id : 0x245a820
+img->addr : 0x7fe4c3c1d000
+img->height: 60
+img->width: 60
+img->ll: 240
+img->bpp: 32
+img->endian: 0
+        ----
+t->color floor : 0X73D973
+t->color ceiling : 0XA3C3E3
