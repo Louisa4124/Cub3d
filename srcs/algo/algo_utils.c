@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 17:05:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:35:46 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,23 @@ int intersect(t_game *game, t_plan *plan, int u, int v, int wit)
 		game->pos.y + plan->c * 0.5 + plan->d) / game->t;
 	if (wit == 0 && game->t > game->close_t)
 		return (-1);
-	if (game->t > 0)
+	if (game->t <= 0)
+		return (1);
+	game->point.x = game->u_rays.x * game->t;
+	game->point.y = game->u_rays.y * game->t;
+	game->point.z = 0.5 + game->u_rays.z * game->t;
+	if (game->point.z >= 1 || game->point.z <= 0 \
+		|| (int)(game->pos.x + game->point.x) < 0 \
+		|| (int)(game->pos.y + game->point.y) < 0 \
+		|| (int)(game->pos.x + game->point.x) >= game->map.x_size \
+		|| (int)(game->pos.y + game->point.y) >= game->map.y_size)
+		return (-1);
+	if (ft_is_wall(game, game->map.layout, u, v))
 	{
-		game->point.x = game->u_rays.x * game->t;
-		game->point.y = game->u_rays.y * game->t;
-		game->point.z = 0.5 + game->u_rays.z * game->t;
-		if (game->point.z < 1 && game->point.z > 0
-			&& (int)(game->pos.x + game->point.x) >= 0 \
-			&& (int)(game->pos.y + game->point.y) >= 0 \
-			&& (int)(game->pos.x + game->point.x) < game->map.x_size \
-			&& (int)(game->pos.y + game->point.y) < game->map.y_size)
-		{
-			if (ft_is_wall(game, game->map.layout, u, v))
-			{
-				game->close_t = game->t;
-				game->u_plan.x = v;
-				game->u_plan.y = u;
-				return (0);
-			}
-		}
-		else
-			return (-1);
+		game->close_t = game->t;
+		game->u_plan.x = v;
+		game->u_plan.y = u;
+		return (0);
 	}
 	return (1);
 }
@@ -74,14 +70,3 @@ int	math_sign_float(float f)
 		return (1);
 	return (0);
 }
-
-
-
-
-// plan du sol : {0, 0, 1, 0}
-// plan du plafond : {0, 0, 1, -1}
-// rays entre -1.000 et 1.000
-// NO -> 0
-// SO -> 1
-// WE -> 2
-// EA -> 3

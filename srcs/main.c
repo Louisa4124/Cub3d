@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 17:08:02 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:06:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,21 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
+// plan du sol : {0, 0, 1, 0}
+// plan du plafond : {0, 0, 1, -1}
+// rays entre -1.000 et 1.000
+// NO -> 0
+// SO -> 1
+// WE -> 2
+// EA -> 3
+
+/*
+if (game->point.z < 1 && game->point.z > 0
+		&& (int)(game->pos.x + game->point.x) >= 0 \
+		&& (int)(game->pos.y + game->point.y) >= 0 \
+		&& (int)(game->pos.x + game->point.x) < game->map.x_size \
+		&& (int)(game->pos.y + game->point.y) < game->map.y_size)
+*/
+
+
+//d = sqrt(2g(z0 - z)) / FPS => gravite que loulou a la flemme d'ajouter

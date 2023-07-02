@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:02:40 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 16:08:32 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:42:00 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	k_plan_inter_search(t_game *game, int *pos, int max, int plan, int *f
 // ry ratio de y pour 1x  
 // return k > 0 for rx 
 // return k < 0 for ry
-static int	ft_give_me_ratio(float x, float y)
+static int	k_plan_ratio(float x, float y)
 {
 	float	r_x;
 	float	r_y;
@@ -58,7 +58,14 @@ static int	ft_give_me_ratio(float x, float y)
 		return (-ft_abs(ky));
 	return (0);
 }
-
+// 	int		k;
+// 	int		pos_x;
+// 	int		pos_y;
+// 	int		wit_y;
+// 	int		wit_x;
+// 	int		dir_x;
+// 	int		dir_y;
+// 	int		found;
 int	k_plan_algo(t_game *game)
 {
 	int		k;
@@ -70,7 +77,7 @@ int	k_plan_algo(t_game *game)
 	int		dir_y;
 	int		found;
 
-	k = ft_give_me_ratio(game->u_rays.x, game->u_rays.y);
+	k = k_plan_ratio(game->u_rays.x, game->u_rays.y);
 	pos_x = game->pos.x;
 	pos_y = game->pos.y;
 	dir_x = math_sign_float(game->u_rays.x);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/06/30 17:17:34 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/07/02 15:07:19 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ DIR_SRCS_INIT	=	srcs/init/
 LST_SRCS_INIT	=	init_game.c init_mlx.c init_struct.c
 SRCS_INIT		=	${addprefix ${DIR_SRCS_INIT}, ${LST_SRCS_INIT}}
 
-DIR_SRCS_EVENT	=	srcs/event_mlx/
-LST_SRCS_EVENT	=	event.c move.c
+DIR_SRCS_EVENT	=	srcs/move/
+LST_SRCS_EVENT	=	event.c view_update_pos.c view_update_dir.c
 SRCS_EVENT		=	${addprefix ${DIR_SRCS_EVENT}, ${LST_SRCS_EVENT}}
 
 

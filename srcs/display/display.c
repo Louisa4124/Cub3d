@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/06/30 17:15:43 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:03:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 		++i;
 	}
 }
-
 
 void ft_display_menu(t_game *game)
 {
@@ -83,7 +82,7 @@ static void	display_game(t_game *game, int size)
 			game->u_rays = ft_rotate_vec_z(ft_rotate_vec_x(game->rays[i][j], \
 				game->angle_x), game->angle_z);
 			game->close_t = 0;
-			ft_resolution(game, i, j, k_plan_algo(game));
+			ft_resolution(game, i, j, switch_plan_algo(game));
 			j += RESOLUTION;
 		}
 		i += RESOLUTION;
@@ -92,8 +91,9 @@ static void	display_game(t_game *game, int size)
 
 void	update_game(t_game *game)
 {
-	ft_move(game);
-	view_rotate(game);
+	view_update_pos(game);
+	view_update_dir_key(game);
+	view_update_dir_mouse(game);
 	if (game->fps_booster == 0 && game->pause == 0)
 	{
 		display_game(game, MINIMAP_SIZE);
