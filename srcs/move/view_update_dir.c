@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:05:38 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/02 15:31:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:57:09 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,34 @@ float	pi_modulo(float z)
 void	view_update_dir_key(t_game *game)
 {
 	if (game->bit_key & BFLAG_RIGHT)
-		game->angle_z += ANG_OFFSET;
+		game->angle_z += ANG_OFFSET_KEY;
 	if (game->bit_key & BFLAG_LEFT)
-		game->angle_z -= ANG_OFFSET;
+		game->angle_z -= ANG_OFFSET_KEY;
 	if (game->bit_key & BFLAG_UP && game->angle_x > -0.5)
-		game->angle_x -= ANG_OFFSET;
+		game->angle_x -= ANG_OFFSET_KEY;
 	if (game->bit_key & BFLAG_DOWN && game->angle_x < 0.5)
-		game->angle_x += ANG_OFFSET;
+		game->angle_x += ANG_OFFSET_KEY;
 	game->angle_z = pi_modulo(game->angle_z);
 }
 
 void	view_update_dir_mouse(t_game *game)
 {
-	int	x_quarter;
-	int	x;
-	int	y;
+	float	tmp;
+	int		mid;
+	int		x;
+	int		y;
 
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
 		return ;
-	x_quarter = game->mlx.win_width >> 2;
-	if (x < x_quarter)
-	{
-		game->angle_z -= 0.07;
-		game->dir = ft_rotate_vec_z(game->dir, -0.007);
-	}
-	else if (x > x_quarter * 3)
-	{
-		game->angle_z += 0.07;
-		game->dir = ft_rotate_vec_z(game->dir, 0.007);
-	}
+	mid = game->mlx.win_width >> 1;
+	x = (x - mid) >> 8;
+	game->angle_z += ANG_OFFSET_MOUSE * x;
 	game->angle_z = pi_modulo(game->angle_z);
+	mid = game->mlx.win_height >> 1;
+	y = (y - mid) >> 8;
+	tmp = game->angle_x + ANG_OFFSET_MOUSE * y;
+	if (tmp < -0.5 || tmp > 0.5)
+		return ;
+	game->angle_x = tmp;
 }

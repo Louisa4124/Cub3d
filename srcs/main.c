@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/02 15:06:11 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:27:43 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_man(int num)
 	return (0);
 }
 
+//LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
 //LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
 int	main(int argc, char **argv)
 {

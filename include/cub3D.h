@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/02 15:26:54 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:57:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@
 # define PI_DIV_180 0.01745329251
 # define G 9.81
 # define DIR_OFFSET 0.1
-# define ANG_OFFSET 0.05
+# define ANG_OFFSET_KEY 0.05
+# define ANG_OFFSET_MOUSE 0.04
 # define RESOLUTION 2
 # define MINIMAP_SIZE 10
 
@@ -55,7 +56,7 @@
 # define BFLAG_S 0b00000100
 # define BFLAG_D 0b00001000
 # define BFLAG_UP 0b00010000
-# define BFLAG_LEFT 0b00100000//LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
+# define BFLAG_LEFT 0b00100000
 # define BFLAG_DOWN 0b01000000
 # define BFLAG_RIGHT 0b100000000
 # define BFLAG_P 0b1000000000
