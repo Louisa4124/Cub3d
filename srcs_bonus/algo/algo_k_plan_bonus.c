@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_k_plan.c                                      :+:      :+:    :+:   */
+/*   algo_k_plan_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:02:40 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/02 13:42:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3D.h"
+#include "../../include/cub3D_bonus.h"
 
 static int	k_plan_inter_search(t_game *game, int *pos, int max, int plan, int *found, int dir, int limit)
 {

@@ -3,18 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 17:07:54 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/03 21:56:48 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# define WIDTH 1080
-# define HEIGHT 720
+typedef struct s_vec3d
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_vec3d;
+
+typedef struct s_vec2d
+{
+	int		x;
+	int		y;
+}	t_vec2d;
+
+typedef struct s_plan
+{
+	float	a;
+	float	b;
+	float	c;
+	float	d;
+}	t_plan;
 
 typedef struct s_img
 {

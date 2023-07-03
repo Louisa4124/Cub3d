@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_switch_plan.c                                 :+:      :+:    :+:   */
+/*   algo_switch_plan_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/02 14:05:53 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/03 22:00:21 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3D.h"
-
-static int	switch_plan_inter_search2(t_game *game, int pos, int max, int id_plan, int found, int dir)
-{
-	t_plan	*plan;
-	int		wit;
-
-	wit = 1;
-	plan = game->plan[id_plan];
-	while (pos >= 0 && pos <= max && wit > 0 && dir != 0)
-	{
-		game->t = (plan[pos].a * game->u_rays.x + plan[pos].b \
-				* game->u_rays.y + plan[pos].c * game->u_rays.z);
-		if (game->t != 0)
-			wit = intersect(game, &plan[pos], pos, id_plan, found);
-		pos += dir;
-	}
-	return (wit);
-}
+#include "../../include/cub3D_bonus.h"
 
 static int	switch_plan_inter_search(t_game *game, int data[4], int found)
 {

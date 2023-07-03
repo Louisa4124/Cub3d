@@ -6,11 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:49:15 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/11 14:21:08 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/03 21:41:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3D.h"
+#include "../include/cub3D.h"
 
 int	ft_len_max(t_list *lst)
 {

@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/03 19:26:28 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/07/03 22:07:02 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,9 @@ NAME_B		=	cub3D_bonus
 
 #	==============================	SOURCES	==============================	#
 DIR_SRCS_M		=	srcs_m/
-LST_SRCS_M		=	main.c clear.c debug.c \
-					math.c utils.c fps.c parser.c extract_texture.c extract_map.c \
-					parser_utils.c algo_k_plan.c algo_switch_plan.c algo_utils.c \
-					color.c display.c draw.c image.c init_game.c init_mlx.c init_struct.c \
-					event.c view_update_pos.c view_update_dir.c
+LST_SRCS_M		=	algo.c clear.c color.c display.c event.c math.c main.c \
+					parser.c extract_texture.c extract_map.c parser_utils.c \
+					init_game.c init_mlx.c init_struct.c view_update.c debug.c
 SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
 DIR_SRCS		=	srcs_bonus/
@@ -66,9 +64,10 @@ OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
 
 #	==============================	HEADERS	==============================	#
 DIR_HEADER	=	include/
-LST_HDR		=	${NAME}.h math.h struct.h
+LST_HDR_M	=	${NAME}.h struct.h
+HEADER_M	=	${addprefix ${DIR_HEADER}, ${LST_HDR_M}}
+LST_HDR		=	${NAME_B}.h struct.h
 HEADER		=	${addprefix ${DIR_HEADER}, ${LST_HDR}}
-
 
 #	==============================	LIBRARY	==============================	#
 DIR_LIBFT	=	libft/
@@ -114,14 +113,14 @@ re		:	fclean
 
 #	==============================	COMPILATION	==============================	#
 ${NAME}			:	${LIBFT} ${LIBMLX} ${DIR_OBJS} ${OBJS_M}
-				@${CC} -I${DIR_HEADER} ${CFLAGS} ${OBJS} ${FTFLAGS} ${MLXFLAGS} -o ${NAME} -lm
+				@${CC} -I${DIR_HEADER} ${CFLAGS} ${OBJS_M} ${FTFLAGS} ${MLXFLAGS} -o ${NAME} -lm
 				@printf "$(GREEN_LIGHT)$@ created !\n$(END)"
 
 ${NAME_B}			:	${LIBFT} ${LIBMLX} ${DIR_OBJS} ${OBJS}
 				@${CC} -I${DIR_HEADER} ${CFLAGS} ${OBJS} ${FTFLAGS} ${MLXFLAGS} -o ${NAME_B} -lm
 				@printf "$(GREEN_LIGHT)$@ created !\n$(END)"
 
-${DIR_OBJS}%.o	:	${DIR_SRCS_M}%.c ${HEADER}
+${DIR_OBJS}%.o	:	${DIR_SRCS_M}%.c ${HEADER_M}
 				@printf "$(YELLOW)Making $@...\n$(END)"
 				@${CC} ${CFLAGS} -c $< -o $@
 
