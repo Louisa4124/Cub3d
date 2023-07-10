@@ -3,13 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/06/30 17:17:34 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/07/03 22:07:02 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 
 
@@ -17,38 +16,44 @@
 
 #	==============================	NAMES	==============================	#
 NAME		=	cub3D
-
+NAME_B		=	cub3D_bonus
 
 #	==============================	SOURCES	==============================	#
-DIR_SRCS		=	srcs/
+DIR_SRCS_M		=	srcs_m/
+LST_SRCS_M		=	algo.c clear.c color.c display.c event.c math.c main.c \
+					parser.c extract_texture.c extract_map.c parser_utils.c \
+					init_game.c init_mlx.c init_struct.c view_update.c debug.c
+SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
-LST_SRCS		=	main.c clear.c debug.c \
-					math.c utils.c fps.c 
+DIR_SRCS		=	srcs_bonus/
+LST_SRCS		=	main_bonus.c clear_bonus.c debug_bonus.c \
+					math_bonus.c utils_bonus.c fps_bonus.c 
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
-DIR_SRCS_PARSE	=	srcs/parsing/
-LST_SRCS_PARSE	=	parser.c extract_texture.c extract_map.c parser_utils.c
+DIR_SRCS_PARSE	=	srcs_bonus/parsing/
+LST_SRCS_PARSE	=	parser_bonus.c extract_texture_bonus.c extract_map_bonus.c parser_utils_bonus.c
 SRCS_PARSE		=	${addprefix ${DIR_SRCS_PARSE}, ${LST_SRCS_PARSE}}
 
-DIR_SRCS_ALGO	=	srcs/algo/
-LST_SRCS_ALGO	=	algo_k_plan.c algo_switch_plan.c algo_utils.c 
+DIR_SRCS_ALGO	=	srcs_bonus/algo/
+LST_SRCS_ALGO	=	algo_k_plan_bonus.c algo_switch_plan_bonus.c algo_utils_bonus.c 
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
-DIR_SRCS_DISP	=	srcs/display/
-LST_SRCS_DISP	=	color.c display.c draw.c image.c
+DIR_SRCS_DISP	=	srcs_bonus/display/
+LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c image_bonus.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
-DIR_SRCS_INIT	=	srcs/init/
-LST_SRCS_INIT	=	init_game.c init_mlx.c init_struct.c
+DIR_SRCS_INIT	=	srcs_bonus/init/
+LST_SRCS_INIT	=	init_game_bonus.c init_mlx_bonus.c init_struct_bonus.c
 SRCS_INIT		=	${addprefix ${DIR_SRCS_INIT}, ${LST_SRCS_INIT}}
 
-DIR_SRCS_EVENT	=	srcs/event_mlx/
-LST_SRCS_EVENT	=	event.c move.c
+DIR_SRCS_EVENT	=	srcs_bonus/move/
+LST_SRCS_EVENT	=	event_bonus.c view_update_pos_bonus.c view_update_dir_bonus.c
 SRCS_EVENT		=	${addprefix ${DIR_SRCS_EVENT}, ${LST_SRCS_EVENT}}
 
 
 #	==============================	OBJECTS	==============================	#
 DIR_OBJS	=	.objs/
+OBJS_M		=	${patsubst ${DIR_SRCS_M}%.c, ${DIR_OBJS}%.o, ${SRCS_M}}
 OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
 				${patsubst ${DIR_SRCS_PARSE}%.c, ${DIR_OBJS}%.o, ${SRCS_PARSE}} \
 				${patsubst ${DIR_SRCS_ALGO}%.c, ${DIR_OBJS}%.o, ${SRCS_ALGO}} \
@@ -56,11 +61,13 @@ OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
 				${patsubst ${DIR_SRCS_INIT}%.c, ${DIR_OBJS}%.o, ${SRCS_INIT}} \
 				${patsubst ${DIR_SRCS_EVENT}%.c, ${DIR_OBJS}%.o, ${SRCS_EVENT}}
 
+
 #	==============================	HEADERS	==============================	#
 DIR_HEADER	=	include/
-LST_HDR		=	${NAME}.h math.h struct.h
+LST_HDR_M	=	${NAME}.h struct.h
+HEADER_M	=	${addprefix ${DIR_HEADER}, ${LST_HDR_M}}
+LST_HDR		=	${NAME_B}.h struct.h
 HEADER		=	${addprefix ${DIR_HEADER}, ${LST_HDR}}
-
 
 #	==============================	LIBRARY	==============================	#
 DIR_LIBFT	=	libft/
@@ -88,6 +95,8 @@ MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11
 #	==============================	BASIC	==============================	#
 all		:	${NAME}
 
+bonus	:	${NAME_B}
+
 clean	:
 		@${RM} ${DIR_OBJS}
 		@$(MAKE) -C ${DIR_LIBFT} clean
@@ -103,9 +112,17 @@ re		:	fclean
 
 
 #	==============================	COMPILATION	==============================	#
-${NAME}			:	${LIBFT} ${LIBMLX} ${DIR_OBJS} ${OBJS}
-				@${CC} -I${DIR_HEADER} ${CFLAGS} ${OBJS} ${FTFLAGS} ${MLXFLAGS} -o ${NAME} -lm
-				@printf "$(GREEN_LIGHT)${NAME} created !\n$(END)"
+${NAME}			:	${LIBFT} ${LIBMLX} ${DIR_OBJS} ${OBJS_M}
+				@${CC} -I${DIR_HEADER} ${CFLAGS} ${OBJS_M} ${FTFLAGS} ${MLXFLAGS} -o ${NAME} -lm
+				@printf "$(GREEN_LIGHT)$@ created !\n$(END)"
+
+${NAME_B}			:	${LIBFT} ${LIBMLX} ${DIR_OBJS} ${OBJS}
+				@${CC} -I${DIR_HEADER} ${CFLAGS} ${OBJS} ${FTFLAGS} ${MLXFLAGS} -o ${NAME_B} -lm
+				@printf "$(GREEN_LIGHT)$@ created !\n$(END)"
+
+${DIR_OBJS}%.o	:	${DIR_SRCS_M}%.c ${HEADER_M}
+				@printf "$(YELLOW)Making $@...\n$(END)"
+				@${CC} ${CFLAGS} -c $< -o $@
 
 ${DIR_OBJS}%.o	:	${DIR_SRCS}%.c ${HEADER}
 				@printf "$(YELLOW)Making $@...\n$(END)"
