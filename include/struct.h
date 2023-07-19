@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:56:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:37:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-// N S W E
+// wall 0=N 1=S 2=W 3=E
 typedef struct s_texture
 {
 	t_img	wall[4];
@@ -86,7 +86,7 @@ typedef struct s_game
 	t_img		view;
 	t_vec3d		point;
 	t_vec3d		pos;
-	t_vec3d		dir;
+	// t_vec3d		dir;
 	t_vec2d		u_plan;
 	t_vec3d		u_rays;
 	t_vec3d		**rays;

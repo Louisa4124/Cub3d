@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:33:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	event_unpress(int keycode, t_game *game)
 }
 
 // FIXME: non utilise
+/*
 void	event_mouse(int x, int y, t_game *game)
 {
 	int	x_quarter;
@@ -85,6 +86,7 @@ void	event_mouse(int x, int y, t_game *game)
 	else if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
 }
+*/
 
 int	close_event(t_game *game)
 {

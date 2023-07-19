@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:49:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,16 @@ static int	rays_create(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_init_game(t_game *game)
+int	ft_init_airplane(t_game *game)
+{
+	if (rays_create(game))
+		return (EXIT_FAILURE);
+	if (plane_create(game))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+void	ft_init_game(t_game *game)
 {
 	game->color = 0;
 	game->bit_key = 0;
@@ -80,9 +89,7 @@ int	ft_init_game(t_game *game)
 	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
 	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
 		(game->mlx.win_width * 2)) / game->mlx.win_height;
-	if (rays_create(game))
-		return (EXIT_FAILURE);
-	if (plane_create(game))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	game->plan[0] = NULL;
+	game->plan[1] = NULL;
+	game->rays = NULL;
 }

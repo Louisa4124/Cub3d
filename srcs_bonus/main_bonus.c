@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:07:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ int	main(int argc, char **argv)
 	err = ft_init_mlx(&game);
 	if (err)
 		return (ft_mlx_error(err));
+	ft_init_game(&game);
 	if (parser(argv[1], &game))
 		ft_clean_exit(&game, EXIT_FAILURE);
-	if (ft_init_game(&game))
+	if (ft_init_airplane(&game))
 		ft_clean_exit(&game, EXIT_FAILURE);
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);

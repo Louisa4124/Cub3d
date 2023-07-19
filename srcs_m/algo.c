@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:43:28 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:37:18 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int	ft_is_wall(t_game *game, int **layout, int u, int v)
 {
-	int d;
-	int sumx;
-	int sumy;
-	
+	int	d;
+	int	sumx;
+	int	sumy;
+
 	d = -game->plan[v][u].d;
 	sumx = game->pos.x + game->point.x;
 	sumy = game->pos.y + game->point.y;
@@ -35,7 +35,7 @@ static int	ft_is_wall(t_game *game, int **layout, int u, int v)
 	return (0);
 }
 
-static void intersect(t_game *game, int u, int v)
+static void	intersect(t_game *game, int u, int v)
 {
 	game->t = -(game->plan[v][u].a * game->pos.x + game->plan[v][u].b * \
 		game->pos.y + game->plan[v][u].c * 0.5 + game->plan[v][u].d) / game->t;

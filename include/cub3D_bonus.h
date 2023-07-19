@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:59:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:49:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define FOV 60
 # define PI_HALF 1.570796
 # define PI 3.14159265
+# define PI_3_QUARTER 4.712389
 # define PI_DOUBLE 6.28318531
 # define PI_DIV_180 0.01745329251
 # define G 9.81
@@ -77,8 +78,9 @@
 # define MLX_ERR_DATA 4
 
 /*          Initialisation          */
+void	ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
-int		ft_init_game(t_game *game);
+int		ft_init_airplane(t_game *game);
 
 t_vec3d	s_vec3d_init(float x, float y, float z);
 void	s_mlx_init(t_mlx *mlx);
