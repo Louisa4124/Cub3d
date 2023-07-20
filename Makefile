@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/03 22:07:02 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/07/19 14:51:27 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME_B		=	cub3D_bonus
 DIR_SRCS_M		=	srcs_m/
 LST_SRCS_M		=	algo.c clear.c color.c display.c event.c math.c main.c \
 					parser.c extract_texture.c extract_map.c parser_utils.c \
-					init_game.c init_mlx.c init_struct.c view_update.c debug.c
+					init_game.c init_mlx.c init_struct.c view_update.c debug.c 
 SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
 DIR_SRCS		=	srcs_bonus/
@@ -39,7 +39,7 @@ LST_SRCS_ALGO	=	algo_k_plan_bonus.c algo_switch_plan_bonus.c algo_utils_bonus.c
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	srcs_bonus/display/
-LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c image_bonus.c
+LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c image_bonus.c pause_bonus.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	srcs_bonus/init/

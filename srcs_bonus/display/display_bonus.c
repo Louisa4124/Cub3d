@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:01:01 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,7 @@ void ft_display_menu(t_game *game)
 	unsigned int *image_data = (unsigned int *)game->view.addr;
 	i = 0;
 	blur_image(image_data, WIDTH, HEIGHT);
-	while (i < WIDTH)
-	{
-		j = 0;
-		while (j < HEIGHT)
-		{
-			//my_mlx_pixel_put(&game->view, i, j, BLACK);
-			++j;
-		}
-		++i;
-	}
+	load_pause(game);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 

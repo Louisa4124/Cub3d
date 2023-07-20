@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   extract_texture_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:01:20 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
+int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 {
 	int	i;
 
