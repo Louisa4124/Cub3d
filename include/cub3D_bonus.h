@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:30:42 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:34:34 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@
 # define DARK_RED 0x8B0000
 # define RED 0xff0000
 # define BLACK 0x000000
+# define GREY 0x808080
 # define WHITE 0xFFFFFF
 # define GREEN 0x77DD77
 # define BLUE 0xA7C7E7
@@ -98,13 +99,11 @@ int		parser(char *pathname, t_game *game);
 int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
 int		parser_map(t_map *map, t_game *game, int fd);
 
-
 /*			Mlx functiuns			*/
 int		ft_mlx_error(int errnum);
 void	ft_destroy_mlx(t_game *game);
 int		close_event(t_game *game);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
-
 
 /*			Algo 				*/
 int		k_plan_algo(t_game *game);
@@ -114,15 +113,17 @@ int		intersect(t_game *game, t_plan *plan, int u, int v, int wit);
 /*			Color				*/
 int		get_color(t_game *game);
 int		get_color_ceilling_floor(t_game *game);
+int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
 void	view_update_pos(t_game *game);
 void	view_update_dir_mouse(t_game *game);
 void	view_update_dir_key(t_game *game);
 
-
 /*			Display			*/
-void	update_game(t_game *game);
+int		update_game(t_game *game);
+void	ft_printf_fps(int mode);
+void	ft_display_menu(t_game *game);
 
 /*			Events 				*/
 int	event_press(int keycode, t_game *game);
@@ -130,18 +131,21 @@ int	event_unpress(int keycode, t_game *game);
 void	event_mouse(int x, int y, t_game *game);
 int		event_pause(int keycode, t_game *game);
 
+/*			Draw			*/
+void	draw_map(t_game *game, int size);
+void	blur_image(unsigned int *image_data, int width, int height);
+
+/*			Events 				*/
+int		event_press(int keycode, t_game *game);
+int		event_unpress(int keycode, t_game *game);
 
 /*          Math utils              */
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
-float	math_vec_scalar_prod(t_vec3d u, t_vec3d v);
 t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
-
-/*          Raycasting functiuns    */
-void	ft_display_game(t_game *game);
 
 /*			Debug					*/
 void	debug_print_texture(t_texture *texture);
@@ -149,19 +153,5 @@ void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
-
-void	ft_clean_exit(t_game *game, int exit_code);
-int		rgb_to_hexa(int r, int g, int b);
-
-
-
-void	drawMap2D(t_game *game, int size);
-void	ft_draw_circle(t_game *game, int center_x, int center_y, int radius);
-
-int		ft_is_wall(t_game *game, int **layout, int u, int v);
-
-void	blur_image(unsigned int *image_data, int width, int height);
-void	ft_printf_fps(void);
-void 	ft_display_menu(t_game *game);
 
 #endif

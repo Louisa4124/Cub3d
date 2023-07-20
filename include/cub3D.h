@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:30:36 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:35:28 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define FOV 60
 # define PI_HALF 1.570796
 # define PI 3.14159265
+# define PI_3_QUARTER 4.712389
 # define PI_DOUBLE 6.28318531
 # define PI_DIV_180 0.01745329251
 # define DIR_OFFSET 0.1
@@ -90,12 +91,11 @@ int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
 void	view_update_pos(t_game *game);
-void	view_update_dir_key(t_game *game);
+void	view_update_dir(t_game *game);
 
 /*			Display			*/
-void	update_game(t_game *game);
+int		update_game(t_game *game);
 void	display_pause(t_game *game);
-
 
 
 /*			Math utils			*/
@@ -103,7 +103,6 @@ t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
-float	math_vec_scalar_prod(t_vec3d u, t_vec3d v);
 t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 

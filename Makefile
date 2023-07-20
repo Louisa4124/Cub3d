@@ -6,9 +6,10 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/20 11:04:52 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/07/20 15:34:42 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 
 
@@ -109,6 +110,9 @@ fclean	:	clean
 
 re		:	fclean
 		@${MAKE} all
+
+reb		:	fclean
+		@${MAKE} bonus
 
 
 #	==============================	COMPILATION	==============================	#

@@ -6,13 +6,14 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/19 15:23:26 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:33:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
 int	ft_len_max(t_list *lst);
+int	is_start(char c);
 int	extract_map_line_tab(t_map *map, int y, int x);
 int	extract_map_error(t_list **lst, int **layout, int size, char *errstr);
 
@@ -73,11 +74,10 @@ static int	extract_map_line(t_map *map, t_game *game, char *line, int y)
 			map->layout[y][x] = -1;
 		else if (line[x] == '\t')
 			extract_map_line_tab(map, y, x);
-		else if (line[x] == 'N' || line[x] == 'S' || line[x] == 'E' \
-			|| line[x] == 'W')
+		else if (is_start(line[x]))
 		{
 			if (extract_map_get_start(game, line[x], x, y))
-				return (ft_putstr_fd("Error\nToo much starting pos in map\n", 2), 1);
+				return (ft_putstr_fd("Error\nToo much starting pos\n", 2), 1);
 		}
 		else
 			return (ft_putstr_fd("Error\nUnexpected char in map\n", 2), 1);

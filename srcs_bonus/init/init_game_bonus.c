@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/20 11:14:31 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:36:21 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	ft_init_airplane(t_game *game)
 void	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
+	game->pause = 0;
 	game->sky.a = 0;
 	game->sky.b = 0;
 	game->sky.c = 1;

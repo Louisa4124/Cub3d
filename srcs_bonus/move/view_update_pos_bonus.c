@@ -6,13 +6,12 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:44 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:08:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-// TODO: verifier que j'ai pas fait nimp en modifiant
 int	ft_in_wall(t_map *map, int x, int y)
 {
 	if (x > map->x_size || y > map->y_size)
@@ -34,17 +33,18 @@ int	ft_hit_wall(t_game *game, float x, float y)
 	return (0);
 }
 
-void	view_update_pos_vertical(t_game *game, int bitflag, t_vec3d dir, t_vec3d new_pos)
+void	view_update_pos_vertical(t_game *game, int flag, t_vec3d dir, \
+	t_vec3d new_pos)
 {
-	if ((bitflag & BFLAG_W) && (bitflag & BFLAG_S))
+	if ((flag & BFLAG_W) && (flag & BFLAG_S))
 		return ;
-	if (bitflag & BFLAG_W)
+	if (flag & BFLAG_W)
 	{
 		new_pos = math_vec_op(new_pos, dir, '+');
 		if (!ft_hit_wall(game, new_pos.x, new_pos.y))
 			game->pos = new_pos;
 	}
-	if (bitflag & BFLAG_S)
+	if (flag & BFLAG_S)
 	{
 		new_pos = math_vec_op(new_pos, dir, '-');
 		if (!ft_hit_wall(game, new_pos.x, new_pos.y))
@@ -52,20 +52,21 @@ void	view_update_pos_vertical(t_game *game, int bitflag, t_vec3d dir, t_vec3d ne
 	}
 }
 
-void	view_update_pos_lateral(t_game *game, int bitflag, t_vec3d dir, t_vec3d new_pos)
+void	view_update_pos_lateral(t_game *game, int flag, t_vec3d dir, \
+	t_vec3d new_pos)
 {
 	t_vec3d	z_axis;
 
-	if ((bitflag & BFLAG_A) && (bitflag & BFLAG_D))
+	if ((flag & BFLAG_A) && (flag & BFLAG_D))
 		return ;
 	z_axis = s_vec3d_init(0, 0, 1);
-	if (bitflag & BFLAG_A)
+	if (flag & BFLAG_A)
 	{
 		new_pos = math_vec_op(new_pos, math_vec_op(dir, z_axis, '^'), '+');
 		if (!ft_hit_wall(game, new_pos.x, new_pos.y))
 			game->pos = new_pos;
 	}
-	if (bitflag & BFLAG_D)
+	if (flag & BFLAG_D)
 	{
 		new_pos = math_vec_op(new_pos, math_vec_op(dir, z_axis, '^'), '-');
 		if (!ft_hit_wall(game, new_pos.x, new_pos.y))

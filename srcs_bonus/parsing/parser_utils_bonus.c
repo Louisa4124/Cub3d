@@ -6,30 +6,17 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:49:15 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/19 16:13:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:33:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	only_space(char *line)
+int	is_start(char c)
 {
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-	{
-		if (line[i] == '\t')
-			len += 4;
-		else
-			++len;
-		++i;
-	}
-	if (line[i] == '\0')
-		return (-1);
-	return (i);
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	return (0);
 }
 
 int	ft_line_len(char *line)

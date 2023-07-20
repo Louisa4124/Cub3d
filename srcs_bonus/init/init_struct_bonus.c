@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:26:19 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:03:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ void	s_map_init(t_map *map)
 	map->layout = NULL;
 	map->x_size = 0;
 	map->y_size = 0;
+}
+
+t_vec3d	s_vec3d_init(float x, float y, float z)
+{
+	t_vec3d	u;
+
+	u.x = x;
+	u.y = y;
+	u.z = z;
+	return (u);
 }
 
 void	s_img_init(t_img *img)

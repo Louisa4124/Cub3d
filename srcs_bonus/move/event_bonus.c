@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 15:33:05 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:36:37 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ int	event_press(int keycode, t_game *game)
 	else if (keycode == KEY_LEFT)
 		game->bit_key |= BFLAG_LEFT;
 	else if (keycode == KEY_P && game->pause == 0)
-	{
-		game->pause = 1;
 		ft_display_menu(game);
-	}
 	else if (keycode == KEY_P && game->pause == 1)
 		game->pause = 0;
 	return (0);
@@ -50,13 +47,13 @@ int	event_pause(int keycode, t_game *game)
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	// printf("x = %d\n", x);
 	// printf("y = %d\n", y);
-	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
-		return ;
+	// if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
+	// 	return ;
 	return (0);
 }
 
 int	event_unpress(int keycode, t_game *game)
-{	
+{
 	if (keycode == KEY_W)
 		game->bit_key ^= BFLAG_W;
 	else if (keycode == KEY_UP)
@@ -75,31 +72,6 @@ int	event_unpress(int keycode, t_game *game)
 		game->bit_key ^= BFLAG_LEFT;
 	return (0);
 }
-
-// FIXME: non utilise
-/*
-void	event_mouse(int x, int y, t_game *game)
-{
-	int	x_quarter;
-
-	(void) y;
-	x_quarter = game->mlx.win_width >> 2;
-	if (x < x_quarter)
-	{
-		game->angle_z -= 0.007;
-		game->dir = ft_rotate_vec_z(game->dir, -0.007);
-	}
-	else if (x > x_quarter * 3)
-	{
-		game->angle_z += 0.007;
-		game->dir = ft_rotate_vec_z(game->dir, 0.007);
-	}
-	if (game->angle_z >= PI * 2)
-		game->angle_z -= PI * 2;
-	else if (game->angle_z <= -PI * 2)
-		game->angle_z += PI * 2;
-}
-*/
 
 int	close_event(t_game *game)
 {

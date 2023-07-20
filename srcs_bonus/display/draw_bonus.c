@@ -6,163 +6,67 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:32:50 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-void	ft_draw_circle(t_game *game, int center_x, int center_y, int radius)
-{
-    int	angle;
-    int	x, y;
-
-    for (angle = 0; angle < 360; angle++)
-    {
-        x = center_x + radius * cos(angle * PI / 180);
-        y = center_y + radius * sin(angle * PI / 180);
-        ft_mlx_pixel_put(&game->view, x, y, 0xFFFFFF);
-    }
-}
-
-void	ft_draw_square_black(t_game *game, int size, int x, int y)
+void	draw_square(t_game *game, int size, t_vec2d pos, int color)
 {
 	int	i;
 	int	j;
 	int	tmp;
 
-	i = x + size;
-	j = y + size;
-	tmp = y;
-	while (x < i)
+	i = pos.y + size;
+	j = pos.x + size;
+	tmp = pos.x;
+	while (pos.y < i)
 	{
-		y = tmp;
-		while (y < j)
+		pos.x = tmp;
+		while (pos.x < j)
 		{
-			ft_mlx_pixel_put(&game->view, y, x, BLACK);
-			y++;
+			ft_mlx_pixel_put(&game->view, pos.x, pos.y, color);
+			pos.x++;
 		}
-		x++;
+		pos.y++;
 	}
 }
 
-void	ft_draw_square_white(t_game *game, int size, int x, int y)
+t_vec2d	s_vec2d_init(int x, int y)
 {
-	int	i;
-	int	j;
-	int	tmp;
+	t_vec2d	u;
 
-	i = x + size;
-	j = y + size;
-	tmp = y;
-	while (x < i)
-	{
-		y = tmp;
-		while (y < j)
-		{
-			ft_mlx_pixel_put(&game->view, y, x, WHITE);
-			y++;
-		}
-		x++;
-	}
+	u.x = x;
+	u.y = y;
+	return (u);
 }
 
-void	ft_draw_square_grey(t_game *game, int size, int x, int y)
+void	draw_map(t_game *game, int size)
 {
-	int	i;
-	int	j;
-	int	tmp;
+	t_vec2d	idx;
+	t_vec2d	idx2;
 
-	i = x + size;
-	j = y + size;
-	tmp = y;
-	while (x < i)
+	idx = s_vec2d_init(0, 0);
+	idx2 = s_vec2d_init(10, 10);
+	while (idx.x < game->map.x_size)
 	{
-		y = tmp;
-		while (y < j)
+		idx.y = 0;
+		while (idx.y < game->map.y_size)
 		{
-			ft_mlx_pixel_put(&game->view, y, x, 0x808080);
-			y++;
+			if (game->map.layout[idx.y][idx.x] == 1)
+				draw_square(game, size, idx2, WHITE);
+			else if (game->map.layout[idx.y][idx.x] == 0)
+				draw_square(game, size, idx2, BLACK);
+			else if (game->map.layout[idx.y][idx.x] == -1)
+				draw_square(game, size, idx2, GREY);
+			if (idx.x == (int)game->pos.x && idx.y == (int)game->pos.y)
+				draw_square(game, 5, idx2, RED);
+			idx2.y += size;
+			idx.y++;
 		}
-		x++;
+		idx2.y = 10;
+		idx2.x += size;
+		idx.x++;
 	}
 }
-
-void	ft_draw_pos(t_game *game, int size, int x, int y)
-{
-	int	i;
-	int	j;
-	int	tmp;
-
-	i = x + size;
-	j = y + size;
-	tmp = y;
-	while (x < i)
-	{
-		y = tmp;
-		while (y < j)
-		{
-			ft_mlx_pixel_put(&game->view, y, x, RED);
-			y++;
-		}
-		x++;
-	}
-}
-
-void	drawMap2D(t_game *game, int size)
-{
-	int	x = 0;
-	int	y = 0;
-	int	x1 = 10;
-	int	y1 = 10;
-
-	while (x < game->map.x_size)
-	{
-		y = 0;
-		while (y < game->map.y_size)
-		{
-			if (game->map.layout[y][x] == 1)
-				ft_draw_square_white(game, size, y1, x1);
-			else if (game->map.layout[y][x] == 0)
-				ft_draw_square_black(game, size, y1, x1);
-			else if (game->map.layout[y][x] == -1)
-				ft_draw_square_grey(game, size, y1, x1);
-			if (x == (int)game->pos.x && y == (int)game->pos.y)
-				ft_draw_pos(game, 5, y1, x1);
-			y1 += size;
-			y++;
-		}
-		y1 = 10;
-		x1 += size;
-		x++;
-	}
-}
-
-// void	drawMap2D(t_game *game, int size)
-// {
-// 	int x = 0;
-// 	int y = 0;
-// 	int x1 = 10;
-// 	int y1 = 10;
-
-// 	while (x < game->map.x_size)
-// 	{
-// 		y = 0;
-// 		while (y < game->map.y_size)
-// 		{
-// 			if (game->map.layout[y][x] == 1)
-// 				ft_draw_square_white(game, size, y1, x1);
-// 			else if (game->map.layout[y][x] == 0)
-// 				ft_draw_square_black(game, size, y1, x1);
-// 			else if (game->map.layout[y][x] == -1)
-// 				ft_draw_square_grey(game, size, y1, x1);
-// 			if (x == (int)game->pos.x && y == (int)game->pos.y)
-// 				ft_draw_pos(game, 5, y1, x1);
-// 			y1 += size;
-// 			y++;
-// 		}
-// 		y1 = 10;
-// 		x1 += size;
-// 		x++;
-// 	}
-// }

@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 11:18:08 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:34:53 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_game
 {
 	t_img		button;
 	int			pause;
-	int			fps_booster;
 	int			color;
 	int			bit_key;
 	float		t;
@@ -94,7 +93,6 @@ typedef struct s_game
 	t_img		view;
 	t_vec3d		point;
 	t_vec3d		pos;
-	// t_vec3d		dir;
 	t_vec2d		u_plan;
 	t_vec3d		u_rays;
 	t_vec3d		**rays;

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 21:41:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:26:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,13 @@ static void	extract_map_get_start(t_game *game, char c, int x, int y)
 	game->pos.z = 0.5;
 	game->map.layout[y][x] = 0;
 	if (c == 'N')
-	{
 		game->angle_z = 0;
-		game->dir = s_vec3d_init(0, -DIR_OFFSET, 0);
-	}
 	else if (c == 'S')
-	{
 		game->angle_z = PI;
-		game->dir = s_vec3d_init(0, DIR_OFFSET, 0);
-	}
 	else if (c == 'W')
-	{
-		game->angle_z = 1.570796;
-		game->dir = s_vec3d_init(-DIR_OFFSET, 0, 0);
-	}
+		game->angle_z = PI_HALF;
 	else if (c == 'E')
-	{
-		game->angle_z = 4.712389;
-		game->dir = s_vec3d_init(DIR_OFFSET, 0, 0);
-	}
+		game->angle_z = PI_3_QUARTER;
 }
 
 static int	extract_map_line(t_map *map, t_game *game, char *line, int y)

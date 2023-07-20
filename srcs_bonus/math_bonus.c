@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:14:59 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:04:29 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ inline t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad)
 	return (cpy);
 }
 
+/**
+ * @brief do +,- and ^ operation between 3d-vector, 
+ * 
+ * @param op + or -, ^ by default
+ * @return t_vec3d 
+ */
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op)
 {
 	t_vec3d	res;
@@ -58,18 +64,13 @@ t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op)
 		res.y = u.y + v.y;
 		res.z = u.z + v.z;
 	}
-	else if (op == '^')
+	else
 	{
 		res.x = u.y * v.z - u.z * v.y;
 		res.y = u.z * v.x - u.x * v.z;
 		res.z = u.x * v.y - u.y * v.x;
 	}
 	return (res);
-}
-
-float	math_vec_scalar_prod(t_vec3d u, t_vec3d v)
-{
-	return (u.x * v.x + u.y * v.y + u.z * v.z);
 }
 
 t_vec3d	math_vec_k_prod(t_vec3d u, float k)
@@ -80,14 +81,4 @@ t_vec3d	math_vec_k_prod(t_vec3d u, float k)
 	res.y = k * u.y;
 	res.z = k * u.z;
 	return (res);
-}
-
-t_vec3d	s_vec3d_init(float x, float y, float z)
-{
-	t_vec3d	u;
-
-	u.x = x;
-	u.y = y;
-	u.z = z;
-	return (u);
 }
