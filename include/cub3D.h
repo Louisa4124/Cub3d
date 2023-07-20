@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:55:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:28:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define FOV 60
 # define PI_HALF 1.570796
 # define PI 3.14159265
+# define PI_3_QUARTER 4.712389
 # define PI_DOUBLE 6.28318531
 # define PI_DIV_180 0.01745329251
 # define DIR_OFFSET 0.1
@@ -90,10 +91,10 @@ int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
 void	view_update_pos(t_game *game);
-void	view_update_dir_key(t_game *game);
+void	view_update_dir(t_game *game);
 
 /*			Display			*/
-void	update_game(t_game *game);
+int		update_game(t_game *game);
 
 
 

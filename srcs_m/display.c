@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 21:44:07 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:29:22 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	ft_resolution(t_game *game, int i, int j)
 {
-	int x;
+	int	x;
 	int	y;
 	int	j2;
 
@@ -41,7 +41,7 @@ void	ft_resolution(t_game *game, int i, int j)
 	}
 }
 
-void	update_game(t_game *game)
+int	update_game(t_game *game)
 {
 	int		i;
 	int		j;
@@ -67,5 +67,6 @@ void	update_game(t_game *game)
 		i += RESOLUTION;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+	return (0);
 }
 
