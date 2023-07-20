@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:39:15 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/19 14:44:46 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:01:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,73 @@ void	add_color(t_color *c, int v1, int v2, int v3)
 	c->b += v3;
 }
 
+unsigned int	*copy_img(unsigned int *image_data, int width, int height)
+{
+	unsigned int	*temp_data;
+
+	temp_data = malloc(width * height * sizeof(unsigned int));
+	if (!temp_data)
+		return (NULL);
+	ft_memcpy(temp_data, image_data, width * height * sizeof(unsigned int));
+	return (temp_data);
+}
+
+			// if ((i.y + k.y) * width + (i.x + k.x) > width * height)
+			// 	dprintf(2, "overflow \n");
+
+int	ft_super_mod_cycle(int width, int height, t_vec2d i, t_vec2d k)
+{
+	return (0);
+}
+
+t_color	blur_image_avg(unsigned int *temp_data, t_vec2d i, int width, int height, int half_kernel)
+{
+	unsigned int	pixel;
+	t_vec2d			k;
+	t_color			c;
+	t_color			sum;
+
+	set_color(&sum, 0, 0, 0);
+	k.y = -half_kernel;
+
+	while (k.y <= half_kernel)
+	{
+		k.x = -half_kernel;
+		while (k.x <= half_kernel)
+		{
+			pixel = temp_data[((i.y + k.y) % height) * width + ((i.x + k.x) % width)];
+			set_color(&c, (pixel >> 16) & 0xFF, (pixel >> 8) & 0xFF, pixel & 0xFF);
+			add_color(&sum, c.r, c.g, c.b);
+			++k.x;
+		}
+		++k.y;
+	}
+	return (sum);
+}
+
 void	blur_image(unsigned int *image_data, int width, int height)
 {
 	unsigned int	*temp_data;
-	unsigned int	pixel;
-	int				kernel_size;
-	int				half_kernel;
+	int				ker_size;
+	int				half_ker;
 	t_vec2d			i;
-	t_vec2d			k;
 	t_color			sum;
 	t_color			avg;
-	t_color			c;
-	
-	temp_data = malloc(width * height * sizeof(unsigned int));
-	ft_memcpy(temp_data, image_data, width * height * sizeof(unsigned int));
-	kernel_size = 25;
-	half_kernel = kernel_size * 0.5;
-	i.y = half_kernel;
+
+	temp_data = copy_img(image_data, width, height);
+	if (temp_data == NULL)
+		return ;
+	ker_size = 25;
+	half_ker = ker_size * 0.5;
+	i.y = half_ker;
 	while (i.y < height) 
 	{
-		i.x = half_kernel;
+		i.x = half_ker;
 		while (i.x < width) 
 		{
-			set_color(&sum, 0, 0, 0);
-			k.y = -half_kernel;
-			while (k.y <= half_kernel)
-			{
-				k.x = -half_kernel;
-				while (k.x <= half_kernel)
-				{
-					pixel = temp_data[(i.y + k.y) * width + (i.x + k.x)];
-					set_color(&c, (pixel >> 16) & 0xFF, (pixel >> 8) & 0xFF, pixel & 0xFF);
-					add_color(&sum, c.r, c.g, c.b);
-					++k.x;
-				}
-				++k.y;
-			}
-			set_color(&avg, sum.r / (kernel_size * kernel_size), sum.g / \
-				(kernel_size * kernel_size), sum.b / (kernel_size * kernel_size));
+			sum = blur_image_avg(temp_data, i, width, height, half_ker);
+			set_color(&avg, sum.r / (ker_size * ker_size), sum.g / \
+				(ker_size * ker_size), sum.b / (ker_size * ker_size));
 			image_data[i.y * width + i.x] = (avg.r << 16) | (avg.g << 8) | avg.b;
 			++i.x;
 		}

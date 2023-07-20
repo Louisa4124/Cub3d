@@ -37,6 +37,7 @@
 *.hex
 
 cub3D
+cub3D_bonus
 mlx-test
 
 # Debug files
