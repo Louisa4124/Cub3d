@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:01:01 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:05:47 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,10 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 
 void ft_display_menu(t_game *game)
 {
-	int	i;
-	int	j;
-
 	unsigned int *image_data = (unsigned int *)game->view.addr;
-	i = 0;
 	blur_image(image_data, WIDTH, HEIGHT);
-	load_pause(game);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->button.id, 350, 100);
 }
 
 static void	display_game(t_game *game, int size)
@@ -82,14 +78,14 @@ static void	display_game(t_game *game, int size)
 
 void	update_game(t_game *game)
 {
-	view_update_pos(game);
-	view_update_dir_key(game);
-	view_update_dir_mouse(game);
 	if (game->fps_booster == 0 && game->pause == 0)
 	{
+		view_update_pos(game);
+		view_update_dir_key(game);
+		view_update_dir_mouse(game);
 		display_game(game, MINIMAP_SIZE);
 		drawMap2D(game, MINIMAP_SIZE);
+		ft_printf_fps();
+		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	}
-	ft_printf_fps();
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }

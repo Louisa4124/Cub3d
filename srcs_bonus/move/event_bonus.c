@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/19 12:31:59 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:33:05 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ int	event_press(int keycode, t_game *game)
 	return (0);
 }
 
+int	event_pause(int keycode, t_game *game)
+{
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
+	// printf("x = %d\n", x);
+	// printf("y = %d\n", y);
+	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
+		return ;
+	return (0);
+}
+
 int	event_unpress(int keycode, t_game *game)
 {	
 	if (keycode == KEY_W)
@@ -64,6 +77,7 @@ int	event_unpress(int keycode, t_game *game)
 }
 
 // FIXME: non utilise
+/*
 void	event_mouse(int x, int y, t_game *game)
 {
 	int	x_quarter;
@@ -85,6 +99,7 @@ void	event_mouse(int x, int y, t_game *game)
 	else if (game->angle_z <= -PI * 2)
 		game->angle_z += PI * 2;
 }
+*/
 
 int	close_event(t_game *game)
 {

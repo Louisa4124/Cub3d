@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/19 15:03:21 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:30:36 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int		parser_map(t_map *map, t_game *game, int fd);
 int		ft_mlx_error(int errnum);
 void	ft_destroy_mlx(t_game *game);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		extract_texture(t_mlx *mlx, t_img *img, char *path);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);

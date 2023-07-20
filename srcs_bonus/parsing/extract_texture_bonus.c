@@ -6,13 +6,13 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/19 15:01:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:05:19 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	extract_texture(t_mlx *mlx, t_img *img, char *path)
+static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 {
 	int	i;
 
