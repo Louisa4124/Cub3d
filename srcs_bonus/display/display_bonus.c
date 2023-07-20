@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:38:23 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:46:26 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ int	update_game(t_game *game)
 	view_update_pos(game);
 	view_update_dir_key(game);
 	view_update_dir_mouse(game);
-	if (game->fps_booster == 0 && game->pause == 0)
+	if (game->pause == 0)
 	{
 		display_game(game, MINIMAP_SIZE);
 		drawMap2D(game, MINIMAP_SIZE);
 	}
-	ft_printf_fps();
+	ft_printf_fps(0);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/19 14:49:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:42:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_init_game(t_game *game)
 {
 	game->color = 0;
 	game->bit_key = 0;
+	game->pause = 0;
 	game->sky.a = 0;
 	game->sky.b = 0;
 	game->sky.c = 1;

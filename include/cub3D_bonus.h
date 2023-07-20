@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 11:37:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:46:48 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void	ft_draw_circle(t_game *game, int center_x, int center_y, int radius);
 int		ft_is_wall(t_game *game, int **layout, int u, int v);
 
 void	blur_image(unsigned int *image_data, int width, int height);
-void	ft_printf_fps(void);
-void 	ft_display_menu(t_game *game);
+void	ft_printf_fps(int mode);
+void	ft_display_menu(t_game *game);
 
 #endif
