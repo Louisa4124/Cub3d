@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:46:26 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:28:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 	}
 }
 
-void ft_display_menu(t_game *game)
+void	ft_display_menu(t_game *game)
 {
 	int	i;
 	int	j;
 
+	game->pause = 1;
 	unsigned int *image_data = (unsigned int *)game->view.addr;
 	i = 0;
 	blur_image(image_data, WIDTH, HEIGHT);
@@ -91,15 +92,16 @@ static void	display_game(t_game *game, int size)
 
 int	update_game(t_game *game)
 {
-	view_update_pos(game);
-	view_update_dir_key(game);
-	view_update_dir_mouse(game);
 	if (game->pause == 0)
 	{
+		view_update_pos(game);
+		view_update_dir_key(game);
+		view_update_dir_mouse(game);
 		display_game(game, MINIMAP_SIZE);
-		drawMap2D(game, MINIMAP_SIZE);
+		draw_map(game, MINIMAP_SIZE);
+		ft_printf_fps(0);
+		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
+			game->view.id, 0, 0);
 	}
-	ft_printf_fps(0);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	return (0);
 }

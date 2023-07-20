@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:43:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/05/08 21:16:51 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:30:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,4 +261,9 @@ long int	ft_abs(long int a);
 int			ft_max(int a, int b);
 // 	return min(a,b)
 int			ft_min(int a, int b);
+
+/*	####################	debug	####################	*/
+// print tab
+void		debug_print_tab(int *tab, int n);
+
 #endif

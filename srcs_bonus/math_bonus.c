@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:14:59 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 11:36:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:04:29 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,6 @@ t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op)
 	return (res);
 }
 
-float	math_vec_scalar_prod(t_vec3d u, t_vec3d v)
-{
-	return (u.x * v.x + u.y * v.y + u.z * v.z);
-}
-
 t_vec3d	math_vec_k_prod(t_vec3d u, float k)
 {
 	t_vec3d	res;
@@ -86,14 +81,4 @@ t_vec3d	math_vec_k_prod(t_vec3d u, float k)
 	res.y = k * u.y;
 	res.z = k * u.z;
 	return (res);
-}
-
-t_vec3d	s_vec3d_init(float x, float y, float z)
-{
-	t_vec3d	u;
-
-	u.x = x;
-	u.y = y;
-	u.z = z;
-	return (u);
 }

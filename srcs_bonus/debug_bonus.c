@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:33:34 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:32:26 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,4 @@ void	debug_print_vec3d(t_vec3d *u, char *name)
 	dprintf(2, "u.x = % .3f\n", u->x);
 	dprintf(2, "u.y = % .3f\n", u->y);
 	dprintf(2, "u.z = % .3f\n", u->z);
-}
-
-void	debug_print_tab(int *tab, int n)
-{
-	int	i;
-
-	i = -1;
-	while (++i < n)
-		dprintf(2, "tab[%d] = %d\n", i, tab[i]);
 }

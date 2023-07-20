@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/19 15:15:47 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/07/20 15:26:39 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,6 +109,9 @@ fclean	:	clean
 
 re		:	fclean
 		@${MAKE} all
+
+reb		:	fclean
+		@${MAKE} bonus
 
 
 #	==============================	COMPILATION	==============================	#
