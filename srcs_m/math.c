@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:14:59 by louisa            #+#    #+#             */
-/*   Updated: 2023/06/30 16:09:53 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:34:23 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ inline t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad)
 	return (cpy);
 }
 
+/**
+ * @brief do +,- and ^ operation between 3d-vector, 
+ * 
+ * @param op + or -, ^ by default
+ * @return t_vec3d 
+ */
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op)
 {
 	t_vec3d	res;
@@ -58,7 +64,7 @@ t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op)
 		res.y = u.y + v.y;
 		res.z = u.z + v.z;
 	}
-	else if (op == '^')
+	else
 	{
 		res.x = u.y * v.z - u.z * v.y;
 		res.y = u.z * v.x - u.x * v.z;

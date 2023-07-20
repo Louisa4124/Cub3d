@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/19 14:49:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:37:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,11 @@ void	view_update_dir_key(t_game *game);
 
 
 /*			Display			*/
-void	update_game(t_game *game);
+int		update_game(t_game *game);
 
 /*			Events 				*/
-int	event_press(int keycode, t_game *game);
-int	event_unpress(int keycode, t_game *game);
+int		event_press(int keycode, t_game *game);
+int		event_unpress(int keycode, t_game *game);
 void	event_mouse(int x, int y, t_game *game);
 
 
