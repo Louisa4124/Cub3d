@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:39:15 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/20 22:23:36 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:26:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,14 @@ int	ft_super_mod_cycle(int max, t_vec2d i, t_vec2d k, int axis)
 	int	mod;
 
 	if (axis == 0)
-	{
 		mod = (i.y + k.y);
-		if (mod < 0)
-			mod = max - mod;
-		else
-			mod %= max;
-		return (mod);
-	}
 	else
-	{
 		mod = (i.x + k.x);
-		if (mod < 0)
-			mod = max - mod;
-		else
-			mod %= max;
-		return (mod);
-	}
+	if (mod < 0)
+		mod = max - mod;
+	else if (mod > max)
+		mod %= max;
+	return (mod);
 }
 
 t_color	blur_image_avg(unsigned int *img_data, t_vec2d i, int width, int height, int half_kernel)
