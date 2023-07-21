@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:35:41 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:40:56 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_man(int num)
 	return (0);
 }
 
-//LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
+// LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
 
 int	main(int argc, char **argv)
 {
