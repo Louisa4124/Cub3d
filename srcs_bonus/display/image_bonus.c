@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:39:15 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/20 22:29:21 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:59:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,53 +41,52 @@ int	ft_super_mod_cycle(int max, t_vec2d i, t_vec2d k, int axis)
 	return (mod);
 }
 
-t_color	blur_image_avg(unsigned int *img_data, t_vec2d i, int width, int height, int half_kernel)
+t_color	blur_image_avg(t_img *img, unsigned int *img_data, t_vec2d i, \
+	int kernel[2])
 {
 	unsigned int	pixel;
 	t_vec2d			k;
 	t_color			c;
-	t_color			sum;
+	t_color			avg;
 
-	set_color(&sum, 0, 0, 0);
-	k.y = -half_kernel;
-
-	while (k.y <= half_kernel)
+	set_color(&avg, 0, 0, 0);
+	k.y = -kernel[0];
+	while (k.y <= kernel[0])
 	{
-		k.x = -half_kernel;
-		while (k.x <= half_kernel)
+		k.x = -kernel[0];
+		while (k.x <= kernel[0])
 		{
-			pixel = img_data[ft_super_mod_cycle(height, i, k, 0) * width + \
-				ft_super_mod_cycle(width, i, k, 1)];
-			set_color(&c, (pixel >> 16) & 0xFF, (pixel >> 8) & 0xFF, \
+			pixel = img_data[ft_super_mod_cycle(img->height, i, k, 0) * \
+				img->width + ft_super_mod_cycle(img->width, i, k, 1)];
+			add_color(&avg, (pixel >> 16) & 0xFF, (pixel >> 8) & 0xFF, \
 				pixel & 0xFF);
-			add_color(&sum, c.r, c.g, c.b);
 			++k.x;
 		}
 		++k.y;
 	}
-	return (sum);
+	avg.r = avg.r / kernel[1];
+	avg.g = avg.g / kernel[1];
+	avg.b = avg.b / kernel[1];
+	return (avg);
 }
 
-void	blur_image(unsigned int *img_data, int width, int height)
+void	blur_image(t_img *img, unsigned int *img_data)
 {
-	int				ker_size;
-	int				half_ker;
-	t_vec2d			i;
-	t_color			sum;
-	t_color			avg;
+	int		kernel[2];
+	t_vec2d	i;
+	t_color	avg;
 
-	ker_size = 25;
-	half_ker = ker_size * 0.5;
+	kernel[0] = BLUR * 0.5;
+	kernel[1] = BLUR * BLUR;
 	i.y = 0;
-	while (i.y < height) 
+	while (i.y < img->height) 
 	{
 		i.x = 0;
-		while (i.x < width) 
+		while (i.x < img->width) 
 		{
-			sum = blur_image_avg(img_data, i, width, height, half_ker);
-			set_color(&avg, sum.r / (ker_size * ker_size), sum.g / \
-				(ker_size * ker_size), sum.b / (ker_size * ker_size));
-			img_data[i.y * width + i.x] = (avg.r << 16) | (avg.g << 8) | avg.b;
+			avg = blur_image_avg(img, img_data, i, kernel);
+			img_data[i.y * img->width + i.x] = \
+				(avg.r << 16) | (avg.g << 8) | avg.b;
 			++i.x;
 		}
 		++i.y;

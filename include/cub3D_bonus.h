@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:34:34 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:50:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define WIDTH 1080
 # define HEIGHT 720
 # define MINIMAP_SIZE 10
+# define BLUR 25
 
 # define KEY_W 119
 # define KEY_A 97
@@ -126,14 +127,14 @@ void	ft_printf_fps(int mode);
 void	ft_display_menu(t_game *game);
 
 /*			Events 				*/
-int	event_press(int keycode, t_game *game);
-int	event_unpress(int keycode, t_game *game);
+int		event_press(int keycode, t_game *game);
+int		event_unpress(int keycode, t_game *game);
 void	event_mouse(int x, int y, t_game *game);
 int		event_pause(int keycode, t_game *game);
 
 /*			Draw			*/
 void	draw_map(t_game *game, int size);
-void	blur_image(unsigned int *image_data, int width, int height);
+void	blur_image(t_img *img, unsigned int *img_data);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);

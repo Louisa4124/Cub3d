@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 15:36:13 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:48:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 
 void	ft_display_menu(t_game *game)
 {
+	unsigned int	*image_data;
+
 	game->pause = 1;
-	unsigned int *image_data = (unsigned int *)game->view.addr;
-	blur_image(image_data, WIDTH, HEIGHT);
+	image_data = (unsigned int *)game->view.addr;
+	blur_image(&game->view, image_data);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->button.id, 350, 100);
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->button.id, 350, \
+		100);
 }
 
 static void	display_game(t_game *game, int size)
