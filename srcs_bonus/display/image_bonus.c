@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:39:15 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/20 22:26:11 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:29:21 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ t_color	blur_image_avg(unsigned int *img_data, t_vec2d i, int width, int height,
 		k.x = -half_kernel;
 		while (k.x <= half_kernel)
 		{
-			pixel = img_data[ft_super_mod_cycle(height, i, k, 0) * width + ft_super_mod_cycle(width, i, k, 1)];
-			set_color(&c, (pixel >> 16) & 0xFF, (pixel >> 8) & 0xFF, pixel & 0xFF);
+			pixel = img_data[ft_super_mod_cycle(height, i, k, 0) * width + \
+				ft_super_mod_cycle(width, i, k, 1)];
+			set_color(&c, (pixel >> 16) & 0xFF, (pixel >> 8) & 0xFF, \
+				pixel & 0xFF);
 			add_color(&sum, c.r, c.g, c.b);
 			++k.x;
 		}
