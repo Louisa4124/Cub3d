@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 23:40:56 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/22 00:53:00 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv)
 	if (err)
 		return (ft_mlx_error(err));
 	ft_init_game(&game);
-	if (load_pause(&game) == 1)
+	if (load_pause(&game) == 1 || load_settings(&game) == 1)
 		return (1);
 	if (parser(argv[1], &game))
 		ft_clean_exit(&game, EXIT_FAILURE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/21 19:48:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/22 01:23:44 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 	int	y;
 	int	j2;
 
-	x = i + RESOLUTION;
-	y = j + RESOLUTION;
+	x = i + game->resolution;
+	y = j + game->resolution;
 	j2 = j;
 	while (i < x && i < game->mlx.win_height)
 	{
@@ -53,6 +53,13 @@ void	ft_display_menu(t_game *game)
 		100);
 }
 
+void	ft_display_settings(t_game *game)
+{
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->img_settings.id, 350, \
+		100);
+    game->settings = 1;
+}
+
 static void	display_game(t_game *game, int size)
 {
 	int		i;
@@ -67,16 +74,16 @@ static void	display_game(t_game *game, int size)
 			if (i > 10 && i < (game->map.y_size * size) + 10 && j > 10 && \
 				j < (game->map.x_size * size) + 10)
 			{
-				j += RESOLUTION;
+				j += game->resolution;
 				continue ;
 			}
 			game->u_rays = ft_rotate_vec_z(ft_rotate_vec_x(game->rays[i][j], \
 				game->angle_x), game->angle_z);
 			game->close_t = 0;
 			ft_resolution(game, i, j, switch_plan_algo(game));
-			j += RESOLUTION;
+			j += game->resolution;
 		}
-		i += RESOLUTION;
+		i += game->resolution;
 	}
 }
 
