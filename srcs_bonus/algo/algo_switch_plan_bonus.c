@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 22:00:21 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 20:10:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	switch_plan_inter_search(t_game *game, int data[4], int found)
 		game->t = (plan[data[1]].a * game->u_rays.x + plan[data[1]].b \
 				* game->u_rays.y + plan[data[1]].c * game->u_rays.z);
 		if (game->t != 0)
-			wit = intersect(game, &plan[data[1]], data[1], data[0], found);
+			wit = intersect(game, &plan[data[1]], data, found);
 		data[1] += data[3];
 	}
 	return (wit);
@@ -32,19 +32,19 @@ static int	switch_plan_inter_search(t_game *game, int data[4], int found)
 
 static void	switch_plan_get_data(t_game *game, int data[4], int axis)
 {
-if (axis == 0)
+	if (axis == 0)
 	{
 		data[0] = axis;
 		data[1] = game->pos.y;
 		data[2] = game->map.y_size;
-		data[3] =  math_sign_float(game->u_rays.y);	
+		data[3] = math_sign_float(game->u_rays.y);
 	}
 	else
 	{
 		data[0] = axis;
 		data[1] = game->pos.x;
 		data[2] = game->map.x_size;
-		data[3] =  math_sign_float(game->u_rays.x);	
+		data[3] = math_sign_float(game->u_rays.x);
 	}
 }
 

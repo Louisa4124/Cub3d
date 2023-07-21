@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/20 16:58:45 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/07/21 20:06:40 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ LST_SRCS_PARSE	=	parser_bonus.c extract_texture_bonus.c extract_map_bonus.c pars
 SRCS_PARSE		=	${addprefix ${DIR_SRCS_PARSE}, ${LST_SRCS_PARSE}}
 
 DIR_SRCS_ALGO	=	srcs_bonus/algo/
-LST_SRCS_ALGO	=	algo_k_plan_bonus.c algo_switch_plan_bonus.c algo_utils_bonus.c 
+LST_SRCS_ALGO	=	algo_switch_plan_bonus.c algo_utils_bonus.c 
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	srcs_bonus/display/

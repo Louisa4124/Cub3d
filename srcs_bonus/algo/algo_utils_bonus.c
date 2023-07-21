@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:24:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 20:09:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_is_wall(t_game *game, int **layout, int u, int v)
 	return (0);
 }
 
-int intersect(t_game *game, t_plan *plan, int u, int v, int wit)
+int	intersect(t_game *game, t_plan *plan, int data[4], int wit)
 {
 	game->t = -(plan->a * game->pos.x + plan->b * \
 		game->pos.y + plan->c * 0.5 + plan->d) / game->t;
@@ -52,11 +52,11 @@ int intersect(t_game *game, t_plan *plan, int u, int v, int wit)
 		|| (int)(game->pos.x + game->point.x) >= game->map.x_size \
 		|| (int)(game->pos.y + game->point.y) >= game->map.y_size)
 		return (-1);
-	if (ft_is_wall(game, game->map.layout, u, v))
+	if (ft_is_wall(game, game->map.layout, data[1], data[0]))
 	{
 		game->close_t = game->t;
-		game->u_plan.x = v;
-		game->u_plan.y = u;
+		game->u_plan.x = data[0];
+		game->u_plan.y = data[1];
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 19:50:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 20:11:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 /*			Algo 				*/
 int		k_plan_algo(t_game *game);
 int		switch_plan_algo(t_game *game);
-int		intersect(t_game *game, t_plan *plan, int u, int v, int wit);
+int		intersect(t_game *game, t_plan *plan, int data[4], int wit);
 
 /*			Color				*/
 int		get_color(t_game *game);
