@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:29:22 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 20:19:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	update_game(t_game *game)
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
-
 			game->u_rays = ft_rotate_vec_z(ft_rotate_vec_x(game->rays[i][j], \
 				game->angle_x), game->angle_z);
 			game->close_t = 0;
@@ -69,4 +68,3 @@ int	update_game(t_game *game)
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	return (0);
 }
-

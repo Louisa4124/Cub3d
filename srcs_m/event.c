@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/19 12:28:51 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/21 20:19:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	event_press(int keycode, t_game *game)
 }
 
 int	event_unpress(int keycode, t_game *game)
-{	
+{
 	if (keycode == KEY_W)
 		game->bit_key ^= BFLAG_W;
 	else if (keycode == KEY_S)

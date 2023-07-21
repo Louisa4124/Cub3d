@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_update.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:44 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/19 12:33:45 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/21 20:17:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	ft_hit_wall(t_game *game, float x, float y)
 	return (0);
 }
 
-void	view_update_pos_vertical(t_game *game, int bitflag, t_vec3d dir, t_vec3d new_pos)
+void	view_update_pos_vertical(t_game *game, int bitflag, t_vec3d dir, \
+	t_vec3d new_pos)
 {
 	if ((bitflag & BFLAG_W) && (bitflag & BFLAG_S))
 		return ;
@@ -51,7 +52,8 @@ void	view_update_pos_vertical(t_game *game, int bitflag, t_vec3d dir, t_vec3d ne
 	}
 }
 
-void	view_update_pos_lateral(t_game *game, int bitflag, t_vec3d dir, t_vec3d new_pos)
+void	view_update_pos_lateral(t_game *game, int bitflag, t_vec3d dir, \
+	t_vec3d new_pos)
 {
 	t_vec3d	z_axis;
 
@@ -83,22 +85,4 @@ void	view_update_pos(t_game *game)
 	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
 	view_update_pos_vertical(game, bitflag, dir, new_pos);
 	view_update_pos_lateral(game, bitflag, dir, new_pos);
-}
-
-float	pi_modulo(float z)
-{
-	if (z >= PI_DOUBLE)
-		z -= PI_DOUBLE;
-	else if (z <= -PI_DOUBLE)
-		z += PI_DOUBLE;
-	return (z);
-}
-
-void	view_update_dir(t_game *game)
-{
-	if (game->bit_key & BFLAG_RIGHT)
-		game->angle_z += ANG_OFFSET_KEY;
-	if (game->bit_key & BFLAG_LEFT)
-		game->angle_z -= ANG_OFFSET_KEY;
-	game->angle_z = pi_modulo(game->angle_z);
 }

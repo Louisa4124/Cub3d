@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/03 21:41:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 20:12:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ int	ft_init_mlx(t_game *game)
 		game->mlx.win_width, game->mlx.win_height, "cub3D");
 	if (!game->mlx.win)
 		return (ft_destroy_mlx(game), MLX_ERR_WINDOW);
-	game->view.id = mlx_new_image(game->mlx.ptr, game->mlx.win_width, game->mlx.win_height);
+	game->view.id = mlx_new_image(game->mlx.ptr, \
+		game->mlx.win_width, game->mlx.win_height);
 	if (!game->view.id)
 		return (ft_destroy_mlx(game), MLX_ERR_IMAGE);
-	game->view.addr = mlx_get_data_addr(game->view.id, &game->view.bpp, &game->view.ll, &game->view.endian);
+	game->view.addr = mlx_get_data_addr(game->view.id, \
+		&game->view.bpp, &game->view.ll, &game->view.endian);
 	if (!game->view.addr)
 		return (ft_destroy_mlx(game), MLX_ERR_DATA);
 	game->view.height = game->mlx.win_height;

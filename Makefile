@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/21 20:06:40 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/07/21 20:20:36 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME_B		=	cub3D_bonus
 DIR_SRCS_M		=	srcs_m/
 LST_SRCS_M		=	algo.c clear.c color.c display.c event.c math.c main.c \
 					parser.c extract_texture.c extract_map.c parser_utils.c \
-					init_game.c init_mlx.c init_struct.c view_update.c debug.c 
+					init_game.c init_mlx.c init_struct.c view_update.c utils.c
 SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
 DIR_SRCS		=	srcs_bonus/
@@ -158,7 +158,7 @@ ${DIR_OBJS}	:
 			@${MKDIR} ${DIR_OBJS}
 			
 nn			:
-			@norminette $(sort ${DIR_SRCS} ${HEADER} )
+			@norminette $(sort ${DIR_SRCS_M} ${DIR_SRCS}  ${HEADER} )
 
 $(LIBFT)	:	FORCE
 			@$(MAKE) -C ${DIR_LIBFT}
