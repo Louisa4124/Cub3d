@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:39:15 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/21 19:59:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:02:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_color	blur_image_avg(t_img *img, unsigned int *img_data, t_vec2d i, \
 {
 	unsigned int	pixel;
 	t_vec2d			k;
-	t_color			c;
 	t_color			avg;
 
 	set_color(&avg, 0, 0, 0);

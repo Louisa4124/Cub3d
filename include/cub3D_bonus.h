@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 20:11:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 22:59:55 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <stdbool.h>
+# include <pthread.h>
 
 # define FOV 60
 # define PI_HALF 1.570796

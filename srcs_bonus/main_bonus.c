@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:35:41 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:42:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 	int		err;
+	pthread_t	pid = 0;
 
 	ft_printf("Bonjour ! Je suis le cub3D de Tilou et j'ai treeees \
 		sommeil.... \nShmimimimimi\n rommpshhhhh\n");
