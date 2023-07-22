@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/21 20:10:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:51:29 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ static int	switch_plan_inter_search(t_game *game, int data[4], int found)
 	t_plan	*plan;
 	int		wit;
 
+	if (data[3] == 0)
+		return (1);
 	wit = 1;
 	plan = game->plan[data[0]];
-	while (data[1] >= 0 && data[1] <= data[2] && wit > 0 && data[3] != 0)
+	while (data[1] >= 0 && data[1] <= data[2] && wit > 0)
 	{
 		game->t = (plan[data[1]].a * game->u_rays.x + plan[data[1]].b \
 				* game->u_rays.y + plan[data[1]].c * game->u_rays.z);

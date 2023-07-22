@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:14:46 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/21 20:04:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/22 15:08:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,19 @@ int	get_color(t_game *game)
 	game->point.y = game->u_rays.y * game->close_t;
 	game->point.z = 0.5 + game->u_rays.z * game->close_t;
 	if (game->u_plan.x == 0 && (game->pos.y + game->point.y) < game->pos.y \
-		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) < \
-		game->map.y_size && (int)(-game->plan[game->u_plan.x][game->u_plan.y].d \
-		- 1) >= 0 && game->map.layout[(int)(-game->plan[game->u_plan.x] \
-		[game->u_plan.y].d - 1)][(int)(game->pos.x + game->point.x)] == 1)
+		&& (game->u_plan.d - 1) < game->map.y_size && (game->u_plan.d - 1) \
+		>= 0 && game->map.layout[game->u_plan.d - 1][(int)(game->pos.x + game->point.x)] == 1)
 		return (get_color_wall(game, 0));
 	else if (game->u_plan.x == 1 && (game->pos.x + game->point.x) < game->pos.x \
-		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d - 1) < \
-		game->map.x_size && (int)(-game->plan[game->u_plan.x][game->u_plan.y].d \
+		&& (game->u_plan.d - 1) < game->map.x_size && (game->u_plan.d \
 		- 1) >= 0 && game->map.layout[(int)(game->pos.y + game->point.y)][(int) \
-		(-game->plan[game->u_plan.x][game->u_plan.y].d - 1)] == 1)
+		(game->u_plan.d - 1)] == 1)
 		return (get_color_wall(game, 1));
 	else if (game->u_plan.x == 0 && (game->pos.y + game->point.y) > game->pos.y \
-		&& (int)(-game->plan[game->u_plan.x][game->u_plan.y].d) < \
-		game->map.y_size && (int)(-game->plan[game->u_plan.x] \
-		[game->u_plan.y].d) >= 0 && game->map.layout[\
-		(int)(-game->plan[game->u_plan.x][game->u_plan.y].d)] \
-		[(int)(game->pos.x + game->point.x)] == 1)
+		&& (game->u_plan.d) < game->map.y_size && \
+		game->u_plan.d >= 0 \
+		&& game->map.layout[(game->u_plan.d)][(int)(game->pos.x + \
+		game->point.x)] == 1)
 		return (get_color_wall(game, 2));
 	else
 		return (get_color_wall(game, 3));

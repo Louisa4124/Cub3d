@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 20:09:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/22 15:02:42 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	intersect(t_game *game, t_plan *plan, int data[4], int wit)
 		game->close_t = game->t;
 		game->u_plan.x = data[0];
 		game->u_plan.y = data[1];
+		game->u_plan.d = (int)-game->plan[data[0]][data[1]].d;
 		return (0);
 	}
 	return (1);

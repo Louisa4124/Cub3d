@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:34:53 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/22 15:00:33 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef struct s_vec2d
 	int		x;
 	int		y;
 }	t_vec2d;
+
+typedef struct s_plan_data
+{
+	int		x;
+	int		y;
+	int		d;
+}	t_plan_data;
 
 typedef struct s_plan
 {
@@ -79,26 +86,40 @@ typedef struct s_game
 {
 	t_img		button;
 	int			pause;
-	int			color;
 	int			bit_key;
 	float		t;
-	float		r_h;
-	float		r_v;
 	float		angle_z;
 	float		angle_x;
 	float		close_t;
-	float		dist;
 	t_map		map;
 	t_mlx		mlx;
 	t_img		view;
 	t_vec3d		point;
 	t_vec3d		pos;
-	t_vec2d		u_plan;
+	t_plan_data	u_plan;	//coord of plan not hte plan itself
 	t_vec3d		u_rays;
 	t_vec3d		**rays;
 	t_plan		*plan[2];
-	t_plan		sky;
 	t_texture	texture;
 }	t_game;
+
+typedef struct s_display
+{
+	t_map		map;
+	t_img		view;
+	t_vec3d		pos;
+	t_vec3d		**rays;
+	t_plan		*plan[2];
+	float		t;
+	float		close_t;
+	t_vec3d		intersec_point;
+	t_vec2d		intersec_plan;	// vec2d -> 2 int should be an array
+	t_vec3d		tmp_rays;
+	t_texture	texture;
+	float		angle_z;
+	float		angle_x;
+}	t_display;
+
+// angle less used
 
 #endif

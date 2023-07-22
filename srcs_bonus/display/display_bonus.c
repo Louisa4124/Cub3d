@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/22 00:01:47 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:24:47 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,7 @@ void	*routine(void *data)
 	t_game	*game;
 
 	game = data;
-	if (game->pause == 0)
-	{
-		dprintf(2, "update launched\n");
-		view_update_pos(game);
-		view_update_dir_key(game);
-		view_update_dir_mouse(game);
-		display_game(game, MINIMAP_SIZE);
-		draw_map(game, MINIMAP_SIZE);
-		ft_printf_fps(1);
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
-			game->view.id, 0, 0);
-	}
-	else
-		dprintf(2, "game is pauesed %d\n", game->pause);
+	display_game(game, MINIMAP_SIZE);
 	return (NULL);
 }
 
@@ -106,14 +93,19 @@ int	update_game(t_game *game)
 {
 	pthread_t	pid;
 
-	dprintf(2, "pause ? %d\n", game->pause);
-	if (pthread_create(&pid, NULL, routine, &game))
+	if (game->pause == 1)
+		return (0);
+	view_update_pos(game);
+	view_update_dir_key(game);
+	view_update_dir_mouse(game);
+	if (pthread_create(&pid, NULL, routine, game))
 		dprintf(2, " ER THR\n");
-	else
-		dprintf(2, "TH CR\n");
+	// display_game(game, MINIMAP_SIZE);
 	if (pthread_join(pid, NULL))
 		dprintf(2, " ER JN\n");
-	else
-		dprintf(2, "SUCCES JN\n");
+	draw_map(game, MINIMAP_SIZE);
+	ft_printf_fps(1);
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
+		game->view.id, 0, 0);
 	return (0);
 }

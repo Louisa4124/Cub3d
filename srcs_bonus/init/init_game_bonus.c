@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/20 15:36:21 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:39:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ static int	rays_create(t_game *game)
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
-			game->rays[i][j].x = ((j - game->mlx.win_width * 0.5) * game->r_h);
+			game->rays[i][j].x = ((j - game->mlx.win_width * 0.5) * 2 * \
+				tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width);
 			game->rays[i][j].y = -1.0;
-			game->rays[i][j].z = ((game->mlx.win_height * 0.5 - i) * game->r_v);
+			game->rays[i][j].z = ((game->mlx.win_height * 0.5 - i) * \
+				tan((FOV * PI_DIV_180) / game->mlx.win_width));
 			++j;
 		}
 		++i;
@@ -81,14 +83,7 @@ void	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
 	game->pause = 0;
-	game->sky.a = 0;
-	game->sky.b = 0;
-	game->sky.c = 1;
-	game->sky.d = -1;
 	game->angle_x = -0.1;
-	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
-	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
-		(game->mlx.win_width * 2)) / game->mlx.win_height;
 	game->plan[0] = NULL;
 	game->plan[1] = NULL;
 	game->rays = NULL;

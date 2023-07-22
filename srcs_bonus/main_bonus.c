@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 23:42:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:41:23 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 	int		err;
-	pthread_t	pid = 0;
 
 	ft_printf("Bonjour ! Je suis le cub3D de Tilou et j'ai treeees \
 		sommeil.... \nShmimimimimi\n rommpshhhhh\n");
@@ -61,11 +60,5 @@ int	main(int argc, char **argv)
 // SO -> 1
 // WE -> 2
 // EA -> 3
-/*
-if (game->point.z < 1 && game->point.z > 0
-		&& (int)(game->pos.x + game->point.x) >= 0 \
-		&& (int)(game->pos.y + game->point.y) >= 0 \
-		&& (int)(game->pos.x + game->point.x) < game->map.x_size \
-		&& (int)(game->pos.y + game->point.y) < game->map.y_size)
-*/
+
 //d = sqrt(2g(z0 - z)) / FPS => gravite que loulou a la flemme d'ajouter
