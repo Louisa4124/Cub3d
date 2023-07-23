@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 23:42:11 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/23 22:30:39 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 # define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.04
 # define RESOLUTION 2
-# define WIDTH 1080
-# define HEIGHT 720
+# define WIDTH 800
+# define HEIGHT 600
 # define MINIMAP_SIZE 10
 # define BLUR 25
 
@@ -124,7 +124,7 @@ void	view_update_dir_key(t_game *game);
 /*			Display			*/
 int		update_game(t_game *game);
 void	ft_printf_fps(int mode);
-void	ft_display_menu(t_game *game);
+void	ft_display_pause(t_game *game);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -154,5 +154,11 @@ void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
+
+/*          a trier pour plus tard pck loulou a la flemme       */
+int	    load_img(t_game *game, int i, char *path);
+int	    get_time(void);
+int	    event_menu(int x, int y, t_game *game);
+
 
 #endif

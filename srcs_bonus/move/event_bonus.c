@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/22 01:29:49 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/23 22:30:18 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,33 @@ int	event_press(int keycode, t_game *game)
 	return (0);
 }
 
+int	event_menu(int x, int y, t_game *game)
+{
+    printf("x = %d\n", x);
+    printf("y = %d\n", y);
+    if ((x > 135 && x < 225) && (y > 230 && y < 250))
+    {
+        printf("oui\n");
+        mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[5].id, 0, 0);
+        return (game->pause = 0, 0);
+    }
+}
+
 int	event_pause(int button, int x, int y, t_game *game)
 {
     (void)button;
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
 		return (-1);
-    if (game->settings == 0)
+    if (game->pause == 2)
+        event_menu(x, y, game);
+    if (game->settings == 0 && game->pause == 1)
     {   
         if ((x > 460 && x < 631) && (y > 322 && y < 376))
-        {
-            game->pause = 0;
-            return (0);
-        }
+            return (game->pause = 0, 0);
         if ((x > 460 && x < 628) && (y > 450 && y < 510))
-        {
-            close_event(game);
-            return (0);
-        }
+            return (close_event(game), 0);
         if ((x > 677 && x < 730) && (y > 528 && y < 573))
-        {
-            ft_display_settings(game);
-            return (0);
-        }
+            return (ft_display_settings(game), 0);
     }
     if (game->settings == 1)
         event_settings(button, x, y, game);
@@ -74,7 +78,7 @@ int	event_settings(int button, int x, int y, t_game *game)
     if ((x > 385 && x < 530) && (y > 519 && y < 570))
     {
         game->settings = 0;
-        ft_display_menu(game);
+        ft_display_pause(game);
         return (0);
     }
     if ((x > 390 && x < 480) && (y > 375 && y < 410))

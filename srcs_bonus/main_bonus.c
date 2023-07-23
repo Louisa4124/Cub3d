@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/22 00:53:00 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/23 22:25:35 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ int	main(int argc, char **argv)
 	ft_init_game(&game);
 	if (load_pause(&game) == 1 || load_settings(&game) == 1)
 		return (1);
+    load_img(&game, 0, "img/animation/1.xpm");
+    load_img(&game, 1, "img/animation/2.xpm");
+    load_img(&game, 2, "img/animation/3.xpm");
+    load_img(&game, 3, "img/animation/4.xpm");
+    load_img(&game, 4, "img/menu/1.xpm");
+    load_img(&game, 5, "img/menu/2.xpm");
+    load_img(&game, 6, "img/menu/3.xpm");
+    load_img(&game, 7, "img/menu/4.xpm");
 	if (parser(argv[1], &game))
 		ft_clean_exit(&game, EXIT_FAILURE);
 	if (ft_init_airplane(&game))

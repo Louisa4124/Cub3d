@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/22 01:22:21 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/23 22:14:51 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_game
 {
 	t_img		button;
     t_img       img_settings;
+    t_img       animation[8];
 	int			pause;
     int         settings;
     int         resolution;
