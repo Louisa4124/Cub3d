@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 11:50:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:54:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_display
 	t_vec3d		intersec_point;
 	t_plan_data	intersec_plan;	// vec2d -> 2 int should be an array
 	t_vec3d		tmp_rays;
-	t_texture	texture;
+	t_texture	*texture;
 }	t_display;
 
 typedef struct s_game
