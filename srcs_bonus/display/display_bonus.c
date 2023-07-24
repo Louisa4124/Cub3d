@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 14:32:34 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:45:49 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,11 @@ void	ft_display_settings(t_game *game)
 {
 	static int  i = 0;
 
-	if (game->ms >= 1)
+	//printf("ms = %f\n", game->ms);
+	if (game->ms >= 0.5)
 	{
 		i++;
-		game->ms -= 1;
+		game->ms -= 0.5;
 	}
 	if (i >= 10)
 		i = 0;
@@ -122,7 +123,7 @@ static void	display_game(t_game *game, int size)
 
 int	update_game(t_game *game)
 {
-    int         time_frame;
+    float	time_frame;
 
     time_frame = 1 / ft_get_fps();
     if (game->pause == 2)
@@ -136,10 +137,11 @@ int	update_game(t_game *game)
 		view_update_dir_mouse(game);
 		display_game(game, MINIMAP_SIZE);
 		draw_map(game, MINIMAP_SIZE);
-		ft_printf_fps(0);
 		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 			game->view.id, 0, 0);
 	}
+	ft_printf_fps(0);
+	//printf("get_fps = %d\n", ft_get_fps());
 	game->ms += time_frame;
 	return (0);
 }
