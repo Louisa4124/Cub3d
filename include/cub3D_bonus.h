@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:34:34 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:56:56 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	ft_display_menu(t_game *game);
 int	event_press(int keycode, t_game *game);
 int	event_unpress(int keycode, t_game *game);
 void	event_mouse(int x, int y, t_game *game);
-int		event_pause(int keycode, t_game *game);
+int		event_pause(int keycode, int x, int y, t_game *game);
 
 /*			Draw			*/
 void	draw_map(t_game *game, int size);

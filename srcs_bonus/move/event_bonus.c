@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 15:36:37 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:58:31 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ int	event_press(int keycode, t_game *game)
 	return (0);
 }
 
-int	event_pause(int keycode, t_game *game)
+int	event_pause(int keycode, int x, int y, t_game *game)
 {
-	int	x;
-	int	y;
+	int	x1;
+	int	y1;
 
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
+	printf("from hook x :%d\ty : %d\n", x, y);
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x1, &y1);
+	printf("from get_pos x :%d\ty : %d\n", x1, y1);
 	// printf("x = %d\n", x);
 	// printf("y = %d\n", y);
 	// if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
