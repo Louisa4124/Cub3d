@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/24 22:14:43 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:47:14 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	ft_init_game(t_game *game)
 	game->bit_key = 0;
 	game->pause = 2;
 	game->ms = 0;
-    game->settings = 0;
     game->resolution = 2;
 	game->sky.a = 0;
 	game->sky.b = 0;
@@ -118,4 +117,8 @@ void	ft_init_img(t_game *game)
     load_img(game, 16, "img/select/2.xpm");
 	load_img(game, 17, "img/select/3.xpm");
 	load_img(game, 18, "img/select/4.xpm");
+    load_img(game, 19, "img/settings/1.xpm");
+    load_img(game, 20, "img/settings/2.xpm");
+	load_img(game, 21, "img/settings/3.xpm");
+	load_img(game, 22, "img/settings/4.xpm");
 }

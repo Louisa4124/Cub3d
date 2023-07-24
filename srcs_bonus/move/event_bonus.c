@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:16:29 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:46:51 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,6 @@ int	event_press(int keycode, t_game *game)
 	return (0);
 }
 
-int	event_menu(int x, int y, t_game *game)
-{
-    if ((x > 510 && x < 580) && (y > 370 && y < 400))
-        return (game->pause = 0, 0);
-	if ((x > 470 && x < 630) && (y > 445 && y < 470))
-	{
-		game->settings = 1;
-		game->pause = 1;
-    	ft_display_settings(game);
-		return (0);
-	}
-	if ((x > 500 && x < 580) && (y > 520 && y < 550))
-    	return (close_event(game), 0);
-}
-
 int	event_pause(int button, int x, int y, t_game *game)
 {
     (void)button;
@@ -63,45 +48,54 @@ int	event_pause(int button, int x, int y, t_game *game)
 		return (-1);
     if (game->pause == 2)
         event_menu(x, y, game);
-    if (game->settings == 0 && game->pause == 3)
+    if (game->pause == 1)
+        event_settings(x, y, game);
+    if (game->pause == 3)
     {   
-        if ((x > 510 && x < 580) && (y > 370 && y < 400))
-            return (game->pause = 0, 0);
-        if ((x > 470 && x < 630) && (y > 445 && y < 470))
-            return (close_event(game), 0);
-        if ((x > 500 && x < 580) && (y > 520 && y < 550))
-            return (ft_display_settings(game), 0);
+        // event pause
     }
-    if (game->settings == 1)
-        event_settings(button, x, y, game);
+    // if (game->settings == 1)
+    //     event_settings(button, x, y, game);
 	return (0);
 }
 
-int	event_settings(int button, int x, int y, t_game *game)
+int	event_settings(int x, int y, t_game *game)
 {
-    (void)button;
-    if ((x > 385 && x < 530) && (y > 519 && y < 570))
-    {
-        game->settings = 0;
-        ft_display_pause(game);
-        return (0);
-    }
-    if ((x > 390 && x < 480) && (y > 375 && y < 410))
+    if ((x > 310 && x < 390) && (y > 400 && y < 425))
     {
         game->resolution = 1;
+        game->pause = 2;
+        ft_display_menu(game);
         return (0);
     }
-    if ((x > 500 && x < 595) && (y > 375 && y < 410))
+    if ((x > 480 && x < 610) && (y > 400 && y < 425))
     {
         game->resolution = 2;
+        game->pause = 2;
+        ft_display_menu(game);
         return (0);
     }
-    if ((x > 620 && x < 715) && (y > 375 && y < 410))
+    if ((x > 715 && x < 780) && (y > 400 && y < 425))
     {
         game->resolution = 3;
+        game->pause = 2;
+        ft_display_menu(game);
         return (0);
     }
     return (0);
+}
+
+int	event_menu(int x, int y, t_game *game)
+{
+    if ((x > 510 && x < 580) && (y > 370 && y < 400))
+        return (game->pause = 0, 0);
+	if ((x > 470 && x < 630) && (y > 445 && y < 470))
+	{
+		game->pause = 1;
+		return (0);
+	}
+	if ((x > 500 && x < 580) && (y > 520 && y < 550))
+    	return (close_event(game), 0);
 }
 
 int	event_unpress(int keycode, t_game *game)

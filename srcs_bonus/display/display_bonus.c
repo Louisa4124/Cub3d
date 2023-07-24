@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:13:29 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:40:16 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,13 @@ void	ft_display_settings(t_game *game)
     if (i >= 15)
         i = 0;
     mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
+    mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[19].id, 179, 101);
+    if ((x > 310 && x < 390) && (y > 400 && y < 425))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[20].id, 179, 101);
+    if ((x > 480 && x < 610) && (y > 400 && y < 425))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[21].id, 179, 101);
+	if ((x > 715 && x < 780) && (y > 400 && y < 425))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[22].id, 179, 101);
 }
 
 static void	display_game(t_game *game, int size)
