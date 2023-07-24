@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 22:44:28 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:58:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	init_data_thread(t_game *game, t_display data[N_THREAD])
 }
 
 
-// TODO: end thread properly, clear sem
+// TODO: end thread properly, clear sem, clear struct
 int	main(int argc, char **argv)
 {
 	t_game		game;
