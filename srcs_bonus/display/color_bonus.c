@@ -6,57 +6,58 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:14:46 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/22 15:08:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:09:02 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	get_color_wall(t_game *game, int wall)
+static int	get_color_wall(t_display *data, int wall)
 {
 	int	x;
 	int	y;
 
 	if (wall % 2 == 1)
-		x = (int)(((game->pos.y + game->point.y) - (int)(game->pos.y + \
-			game->point.y)) * game->texture.wall[wall].width);
+		x = (int)(((data->pos->y + data->tmp_point.y) - (int)(data->pos->y + \
+			data->tmp_point.y)) * data->texture->wall[wall].width);
 	else
-		x = (int)(((game->pos.x + game->point.x) - (int)(game->pos.x + \
-			game->point.x)) * game->texture.wall[wall].width);
-	y = game->texture.wall[wall].height - (int)((game->point.z - \
-		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
-	return (*(unsigned int *)(game->texture.wall[wall].addr + y * \
-		game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8)));
+		x = (int)(((data->pos->x + data->tmp_point.x) - (int)(data->pos->x + \
+			data->tmp_point.x)) * data->texture->wall[wall].width);
+	y = data->texture->wall[wall].height - (int)((data->tmp_point.z - \
+		(int)(data->tmp_point.z)) * data->texture->wall[wall].height) - 1;
+	return (*(unsigned int *)(data->texture->wall[wall].addr + y * \
+		data->texture->wall[wall].ll + x * \
+		(data->texture->wall[wall].bpp / 8)));
 }
 
-int	get_color_ceilling_floor(t_game *game)
+int	get_color_ceilling_floor(t_display *data)
 {
-	if (game->u_rays.z > 0)
-		return (game->texture.ceiling);
+	if (data->tmp_rays.z > 0)
+		return (data->texture->ceiling);
 	else
-		return (game->texture.floor);
+		return (data->texture->floor);
 }
 
-int	get_color(t_game *game)
+int	get_color(t_display *data)
 {
-	game->point.x = game->u_rays.x * game->close_t;
-	game->point.y = game->u_rays.y * game->close_t;
-	game->point.z = 0.5 + game->u_rays.z * game->close_t;
-	if (game->u_plan.x == 0 && (game->pos.y + game->point.y) < game->pos.y \
-		&& (game->u_plan.d - 1) < game->map.y_size && (game->u_plan.d - 1) \
-		>= 0 && game->map.layout[game->u_plan.d - 1][(int)(game->pos.x + game->point.x)] == 1)
-		return (get_color_wall(game, 0));
-	else if (game->u_plan.x == 1 && (game->pos.x + game->point.x) < game->pos.x \
-		&& (game->u_plan.d - 1) < game->map.x_size && (game->u_plan.d \
-		- 1) >= 0 && game->map.layout[(int)(game->pos.y + game->point.y)][(int) \
-		(game->u_plan.d - 1)] == 1)
-		return (get_color_wall(game, 1));
-	else if (game->u_plan.x == 0 && (game->pos.y + game->point.y) > game->pos.y \
-		&& (game->u_plan.d) < game->map.y_size && \
-		game->u_plan.d >= 0 \
-		&& game->map.layout[(game->u_plan.d)][(int)(game->pos.x + \
-		game->point.x)] == 1)
-		return (get_color_wall(game, 2));
+	data->tmp_point.x = data->tmp_rays.x * data->close_t;
+	data->tmp_point.y = data->tmp_rays.y * data->close_t;
+	data->tmp_point.z = 0.5 + data->tmp_rays.z * data->close_t;
+	if (data->tmp_plan.x == 0 && (data->pos->y + data->tmp_point.y) < data->pos->y \
+		&& (data->tmp_plan.d - 1) < data->map->y_size && (data->tmp_plan.d - 1) \
+		>= 0 && data->map->layout[data->tmp_plan.d - 1][(int)(data->pos->x + data->tmp_point.x)] == 1)
+		return (get_color_wall(data, 0));
+	else if (data->tmp_plan.x == 1 && (data->pos->x + data->tmp_point.x) < data->pos->x \
+		&& (data->tmp_plan.d - 1) < data->map->x_size && (data->tmp_plan.d \
+		- 1) >= 0 && data->map->layout[(int)(data->pos->y + data->tmp_point.y)][(int) \
+		(data->tmp_plan.d - 1)] == 1)
+		return (get_color_wall(data, 1));
+	else if (data->tmp_plan.x == 0 && (data->pos->y + data->tmp_point.y) > data->pos->y \
+		&& (data->tmp_plan.d) < data->map->y_size && \
+		data->tmp_plan.d >= 0 \
+		&& data->map->layout[(data->tmp_plan.d)][(int)(data->pos->x + \
+		data->tmp_point.x)] == 1)
+		return (get_color_wall(data, 2));
 	else
-		return (get_color_wall(game, 3));
+		return (get_color_wall(data, 3));
 }

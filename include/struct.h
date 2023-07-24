@@ -6,14 +6,14 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 12:54:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:37:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# define N_THREAD 1
+# define N_THREAD 16
 
 typedef struct s_vec3d
 {
@@ -86,19 +86,24 @@ typedef struct s_mlx
 
 typedef struct s_display
 {
+	int			id;
 	t_map		*map;
 	t_vec3d		*pos;
 	t_vec3d		**rays;
 	t_plan		*plan[2];
-	float		angle_z;
-	float		angle_x;
+	float		*angle_z;
+	float		*angle_x;
+	int			idx_start;
+	int			idx_end[2];
 	t_img		*view;
 	float		t;
 	float		close_t;
-	t_vec3d		intersec_point;
-	t_plan_data	intersec_plan;	// vec2d -> 2 int should be an array
+	t_vec3d		tmp_point;
+	t_plan_data	tmp_plan;	// vec2d -> 2 int should be an array
 	t_vec3d		tmp_rays;
 	t_texture	*texture;
+	sem_t		*sem_thread;
+	sem_t		*sem_main;
 }	t_display;
 
 typedef struct s_game
@@ -106,18 +111,12 @@ typedef struct s_game
 	t_img		button;
 	int			pause;
 	int			bit_key;
-	float		t;
 	float		angle_z;
 	float		angle_x;
-	float		close_t;
-	t_display	data_thread;
 	t_map		map;
 	t_mlx		mlx;
 	t_img		view;
-	t_vec3d		point;
 	t_vec3d		pos;
-	t_plan_data	u_plan;	//coord of plan not hte plan itself
-	t_vec3d		u_rays;
 	t_vec3d		**rays;
 	t_plan		*plan[2];
 	t_texture	texture;
@@ -125,8 +124,6 @@ typedef struct s_game
 	sem_t		sem_main;
 	pthread_t	pid[N_THREAD];
 }	t_game;
-
-
 
 // angle less used
 

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/22 14:39:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:21:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static int	rays_create(t_game *game)
 	int		i;
 	int		j;
 
-	game->rays = malloc(sizeof(t_vec3d *) * game->mlx.win_height + 1);
+	game->rays = malloc(sizeof(t_vec3d *) * game->mlx.win_height);
 	if (!game->rays)
 		return (EXIT_FAILURE);
 	i = 0;
 	while (i < game->mlx.win_height)
 	{
-		game->rays[i] = malloc(sizeof(t_vec3d) * game->mlx.win_width + 1);
+		game->rays[i] = malloc(sizeof(t_vec3d) * game->mlx.win_width);
 		if (!game->rays[i])
 			return (EXIT_FAILURE);
 		j = 0;

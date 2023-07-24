@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 11:48:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:05:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*			Algo 				*/
 int		k_plan_algo(t_game *game);
-int		switch_plan_algo(t_game *game);
-int		intersect(t_game *game, t_plan *plan, int data[4], int wit);
+int		switch_plan_algo(t_display *data_thread);
+int		intersect(t_display *data_thread, t_plan *plan, int data[4], int wit);
 
 /*			Color				*/
-int		get_color(t_game *game);
-int		get_color_ceilling_floor(t_game *game);
+int		get_color(t_display *data_thread);
+int		get_color_ceilling_floor(t_display *data_thread);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
@@ -128,7 +128,7 @@ void	view_update_dir_key(t_game *game);
 int		update_game(t_game *game);
 void	ft_printf_fps(int mode);
 void	ft_display_menu(t_game *game);
-void	display_game(t_game *game, int size);
+void	display_game(t_display *data_thread);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);

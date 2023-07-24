@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 11:52:40 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:44:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,56 @@ int	ft_man(int num)
 
 void	*routine(void *data)
 {
-	t_game	*game;
+	t_display	*data_th;
 
-	game = data;
+	data_th = data;
 	while (1)
 	{
-		sem_wait(&game->sem_thread);
-		display_game(game, MINIMAP_SIZE);
-		sem_post(&game->sem_main);
+		sem_wait(data_th->sem_thread);
+		dprintf(2, "T%d h start draw\n", data_th->id);
+		display_game(data_th);
+		dprintf(2, "T%d end draw\n", data_th->id);
+		sem_post(data_th->sem_main);
 	}
 	return (NULL);
 }
 
+int	init_data_thread(t_game *game, t_display data[N_THREAD])
+{
+	int	i;
+
+	i = 0;
+	while (i < N_THREAD)
+	{
+		data[i].id = i + 1;
+		data[i].map = &game->map;
+		data[i].pos = &game->pos;
+		data[i].rays = game->rays;
+		data[i].plan[0] = game->plan[0];
+		data[i].plan[1] = game->plan[1];
+		data[i].idx_start = i * (game->mlx.win_height / N_THREAD);
+		data[i].idx_end[0] = (i + 1) * (game->mlx.win_height / N_THREAD) - 1;
+		data[i].idx_end[1] = game->mlx.win_width;
+		data[i].angle_x = &game->angle_x;
+		data[i].angle_z = &game->angle_z;
+		data[i].view = &game->view;
+		data[i].texture = &game->texture;
+		data[i].sem_thread = &game->sem_thread;
+		data[i].sem_main = &game->sem_main;
+		printf("idx_start %d\n", data[i].idx_start);
+		printf("idx_endy %d\n", data[i].idx_end[0]);
+		printf("idx_endx %d\n", data[i].idx_end[1]);
+		++i;
+	}
+	return (0);
+}
+
+
+// TODO: end thread properly, clear sem
 int	main(int argc, char **argv)
 {
-	t_game	game;
+	t_game		game;
+	t_display	data_thread[N_THREAD];
 	int		err;
 	int		i;
 
@@ -62,10 +97,12 @@ int	main(int argc, char **argv)
 		dprintf(2, "Error sem_init\n");
 	if (sem_init(&game.sem_main, 0, 0) == -1)
 		dprintf(2, "Error sem_init\n");
+	init_data_thread(&game, data_thread);
+	// exit(1);
 	i = 0;
 	while (i < N_THREAD)
 	{
-		if (pthread_create(&game.pid[i], NULL, routine, &game))
+		if (pthread_create(&game.pid[i], NULL, routine, &data_thread[i]))
 			dprintf(2, " ER THR\n");
 		++i;
 	}
