@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:40:16 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:51:00 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,32 +45,11 @@ void	ft_display_pause(t_game *game)
 {
 	unsigned int	*image_data;
 
-	game->pause = 1;
+	game->pause = 3;
 	image_data = (unsigned int *)game->view.addr;
 	blur_image(&game->view, image_data);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->button.id, 200, \
-		50);
 }
-
-// void	ft_display_menu(t_game *game)
-// {
-//     int i;
-    
-//     while (game->pause == 2)
-//     {
-//         i = 0;
-//         while (i < 4)
-//         {
-//             mlx_clear_window(game->mlx.ptr, game->mlx.win);
-//             printf("oui\n");
-//             mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
-//             mlx_do_sync(game->mlx.ptr);
-//             usleep(1000000);
-//             ++i;
-//         }
-//     }
-// }
 
 void    ft_display_menu(t_game *game)
 {

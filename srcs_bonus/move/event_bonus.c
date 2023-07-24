@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:46:51 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:51:30 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	event_press(int keycode, t_game *game)
 		game->bit_key |= BFLAG_LEFT;
 	else if (keycode == KEY_P && game->pause == 0)
 		ft_display_pause(game);
-	else if (keycode == KEY_P && game->pause == 1)
+	else if (keycode == KEY_P && game->pause == 3)
 		game->pause = 0;
 	return (0);
 }
