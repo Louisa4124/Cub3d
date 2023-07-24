@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:00:25 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:16:29 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	event_menu(int x, int y, t_game *game)
 int	event_pause(int button, int x, int y, t_game *game)
 {
     (void)button;
-    printf("x = %d\n", x);
-    printf("y = %d\n", y);
+    // printf("x = %d\n", x);
+    // printf("y = %d\n", y);
 	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
 		return (-1);
     if (game->pause == 2)

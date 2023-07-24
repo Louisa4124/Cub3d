@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/24 21:49:59 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:14:43 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,18 +118,4 @@ void	ft_init_img(t_game *game)
     load_img(game, 16, "img/select/2.xpm");
 	load_img(game, 17, "img/select/3.xpm");
 	load_img(game, 18, "img/select/4.xpm");
-	// load_img(game, 4, "img/menu/1.xpm");
-	// load_img(game, 5, "img/menu/2.xpm");
-	// load_img(game, 6, "img/menu/3.xpm");
-	// load_img(game, 7, "img/menu/4.xpm");
-	// load_img(game, 8, "img/settings/1.xpm");
-	// load_img(game, 9, "img/settings/2.xpm");
-	// load_img(game, 10, "img/settings/3.xpm");
-	// load_img(game, 11, "img/settings/4.xpm");
-	// load_img(game, 12, "img/settings/5.xpm");
-	// load_img(game, 13, "img/settings/6.xpm");
-	// load_img(game, 14, "img/settings/7.xpm");
-	// load_img(game, 15, "img/settings/8.xpm");
-	// load_img(game, 16, "img/settings/9.xpm");
-	// load_img(game, 17, "img/settings/10.xpm");
 }

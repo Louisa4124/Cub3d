@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 14:36:00 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:15:36 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	main(int argc, char **argv)
 	if (err)
 		return (ft_mlx_error(err));
 	ft_init_game(&game);
-	if (load_pause(&game) == 1 || load_settings(&game) == 1)
-		return (1);
 	ft_init_img(&game);
 	if (parser(argv[1], &game))
 		ft_clean_exit(&game, EXIT_FAILURE);
