@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/24 15:34:00 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:49:59 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,22 +99,37 @@ void	ft_init_game(t_game *game)
 
 void	ft_init_img(t_game *game)
 {
-	load_img(game, 0, "img/animation/1.xpm");
-	load_img(game, 1, "img/animation/2.xpm");
-	load_img(game, 2, "img/animation/3.xpm");
-	load_img(game, 3, "img/animation/4.xpm");
-	load_img(game, 4, "img/menu/1.xpm");
-	load_img(game, 5, "img/menu/2.xpm");
-	load_img(game, 6, "img/menu/3.xpm");
-	load_img(game, 7, "img/menu/4.xpm");
-	load_img(game, 8, "img/settings/1.xpm");
-	load_img(game, 9, "img/settings/2.xpm");
-	load_img(game, 10, "img/settings/3.xpm");
-	load_img(game, 11, "img/settings/4.xpm");
-	load_img(game, 12, "img/settings/5.xpm");
-	load_img(game, 13, "img/settings/6.xpm");
-	load_img(game, 14, "img/settings/7.xpm");
-	load_img(game, 15, "img/settings/8.xpm");
-	load_img(game, 16, "img/settings/9.xpm");
-	load_img(game, 17, "img/settings/10.xpm");
+	load_img(game, 0, "img/anim/1.xpm");
+	load_img(game, 1, "img/anim/2.xpm");
+	load_img(game, 2, "img/anim/3.xpm");
+	load_img(game, 3, "img/anim/4.xpm");
+    load_img(game, 4, "img/anim/5.xpm");
+	load_img(game, 5, "img/anim/6.xpm");
+	load_img(game, 6, "img/anim/7.xpm");
+	load_img(game, 7, "img/anim/8.xpm");
+    load_img(game, 8, "img/anim/9.xpm");
+	load_img(game, 9, "img/anim/10.xpm");
+	load_img(game, 10, "img/anim/11.xpm");
+	load_img(game, 11, "img/anim/12.xpm");
+    load_img(game, 12, "img/anim/13.xpm");
+	load_img(game, 13, "img/anim/14.xpm");
+	load_img(game, 14, "img/anim/15.xpm");
+    load_img(game, 15, "img/select/1.xpm");
+    load_img(game, 16, "img/select/2.xpm");
+	load_img(game, 17, "img/select/3.xpm");
+	load_img(game, 18, "img/select/4.xpm");
+	// load_img(game, 4, "img/menu/1.xpm");
+	// load_img(game, 5, "img/menu/2.xpm");
+	// load_img(game, 6, "img/menu/3.xpm");
+	// load_img(game, 7, "img/menu/4.xpm");
+	// load_img(game, 8, "img/settings/1.xpm");
+	// load_img(game, 9, "img/settings/2.xpm");
+	// load_img(game, 10, "img/settings/3.xpm");
+	// load_img(game, 11, "img/settings/4.xpm");
+	// load_img(game, 12, "img/settings/5.xpm");
+	// load_img(game, 13, "img/settings/6.xpm");
+	// load_img(game, 14, "img/settings/7.xpm");
+	// load_img(game, 15, "img/settings/8.xpm");
+	// load_img(game, 16, "img/settings/9.xpm");
+	// load_img(game, 17, "img/settings/10.xpm");
 }

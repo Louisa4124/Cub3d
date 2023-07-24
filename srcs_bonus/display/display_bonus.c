@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 15:45:49 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:03:00 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,48 @@ void	ft_display_pause(t_game *game)
 		50);
 }
 
+// void	ft_display_menu(t_game *game)
+// {
+//     int i;
+    
+//     while (game->pause == 2)
+//     {
+//         i = 0;
+//         while (i < 4)
+//         {
+//             mlx_clear_window(game->mlx.ptr, game->mlx.win);
+//             printf("oui\n");
+//             mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
+//             mlx_do_sync(game->mlx.ptr);
+//             usleep(1000000);
+//             ++i;
+//         }
+//     }
+// }
+
 void    ft_display_menu(t_game *game)
 {
-    static int  i = 0;
+    static int         i = 0;
     int 		x;
 	int 		y;
 
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-    if ((x > 135 && x < 225) && (y > 230 && y < 250))
-    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[5].id, 0, 0);
-    else if ((x > 95 && x < 260) && (y > 290 && y < 305))
-    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[6].id, 0, 0);
-	else if ((x > 140 && x < 215) && (y > 335 && y < 360))
-    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[7].id, 0, 0);
-	else 
-	{
-		if (game->ms >= 1)
-		{
-			i++;
-			game->ms -= 1;
-		}
-		if (i >= 4)
-			i = 0;
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
-	}
+
+    if (game->ms >= 1)
+    {
+        i++;
+        game->ms -= 1;
+    }
+    if (i >= 15)
+        i = 0;
+    mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
+    mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[15].id, 179, 101);
+    if ((x > 510 && x < 580) && (y > 370 && y < 400))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[16].id, 179, 101);
+    if ((x > 470 && x < 630) && (y > 445 && y < 470))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[17].id, 179, 101);
+	if ((x > 500 && x < 580) && (y > 520 && y < 550))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[18].id, 179, 101);
 }
 
 void	ft_display_settings(t_game *game)
@@ -123,9 +141,6 @@ static void	display_game(t_game *game, int size)
 
 int	update_game(t_game *game)
 {
-    float	time_frame;
-
-    time_frame = 1 / ft_get_fps();
     if (game->pause == 2)
         ft_display_menu(game);
 	if (game->pause == 1)
@@ -141,7 +156,6 @@ int	update_game(t_game *game)
 			game->view.id, 0, 0);
 	}
 	ft_printf_fps(0);
-	//printf("get_fps = %d\n", ft_get_fps());
-	game->ms += time_frame;
+	game->ms += 0.0015;
 	return (0);
 }

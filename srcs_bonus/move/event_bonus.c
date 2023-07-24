@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 14:32:10 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:00:25 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,35 @@ int	event_press(int keycode, t_game *game)
 
 int	event_menu(int x, int y, t_game *game)
 {
-    if ((x > 135 && x < 225) && (y > 230 && y < 250))
+    if ((x > 510 && x < 580) && (y > 370 && y < 400))
         return (game->pause = 0, 0);
-	if ((x > 95 && x < 260) && (y > 290 && y < 305))
+	if ((x > 470 && x < 630) && (y > 445 && y < 470))
 	{
 		game->settings = 1;
 		game->pause = 1;
     	ft_display_settings(game);
 		return (0);
 	}
-	if ((x > 140 && x < 215) && (y > 335 && y < 360))
+	if ((x > 500 && x < 580) && (y > 520 && y < 550))
     	return (close_event(game), 0);
 }
 
 int	event_pause(int button, int x, int y, t_game *game)
 {
     (void)button;
+    printf("x = %d\n", x);
+    printf("y = %d\n", y);
 	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
 		return (-1);
     if (game->pause == 2)
         event_menu(x, y, game);
     if (game->settings == 0 && game->pause == 3)
     {   
-        if ((x > 460 && x < 631) && (y > 322 && y < 376))
+        if ((x > 510 && x < 580) && (y > 370 && y < 400))
             return (game->pause = 0, 0);
-        if ((x > 460 && x < 628) && (y > 450 && y < 510))
+        if ((x > 470 && x < 630) && (y > 445 && y < 470))
             return (close_event(game), 0);
-        if ((x > 677 && x < 730) && (y > 528 && y < 573))
+        if ((x > 500 && x < 580) && (y > 520 && y < 550))
             return (ft_display_settings(game), 0);
     }
     if (game->settings == 1)

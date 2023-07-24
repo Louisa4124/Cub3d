@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 14:35:39 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:32:48 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 # define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.04
 # define RESOLUTION 2
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1080
+# define HEIGHT 720
 # define MINIMAP_SIZE 10
 # define BLUR 25
 
