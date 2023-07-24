@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:03:00 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/24 22:13:29 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,11 @@ void	ft_display_pause(t_game *game)
 
 void    ft_display_menu(t_game *game)
 {
-    static int         i = 0;
+    static int  i = 0;
     int 		x;
 	int 		y;
 
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-
     if (game->ms >= 1)
     {
         i++;
@@ -99,17 +98,19 @@ void    ft_display_menu(t_game *game)
 
 void	ft_display_settings(t_game *game)
 {
-	static int  i = 0;
+    static int  i = 0;
+    int 		x;
+	int 		y;
 
-	//printf("ms = %f\n", game->ms);
-	if (game->ms >= 0.5)
-	{
-		i++;
-		game->ms -= 0.5;
-	}
-	if (i >= 10)
-		i = 0;
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation2[i].id, 0, 0);
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
+    if (game->ms >= 1)
+    {
+        i++;
+        game->ms -= 1;
+    }
+    if (i >= 15)
+        i = 0;
+    mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
 }
 
 static void	display_game(t_game *game, int size)
