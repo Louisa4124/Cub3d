@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:51:38 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:27:40 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,13 @@ typedef struct s_mlx
 typedef struct s_game
 {
 	t_img		button;
+    t_img       img_settings;
+    t_img       animation[8];
+	t_img       animation2[10];
+	float		ms;
 	int			pause;
+    int         settings;
+    int         resolution;
 	int			color;
 	int			bit_key;
 	float		t;

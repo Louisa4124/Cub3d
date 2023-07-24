@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 15:36:13 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:32:34 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 	int	y;
 	int	j2;
 
-	x = i + RESOLUTION;
-	y = j + RESOLUTION;
+	x = i + game->resolution;
+	y = j + game->resolution;
 	j2 = j;
 	while (i < x && i < game->mlx.win_height)
 	{
@@ -41,13 +41,56 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 	}
 }
 
-void	ft_display_menu(t_game *game)
+void	ft_display_pause(t_game *game)
 {
+	unsigned int	*image_data;
+
 	game->pause = 1;
-	unsigned int *image_data = (unsigned int *)game->view.addr;
-	blur_image(image_data, WIDTH, HEIGHT);
+	image_data = (unsigned int *)game->view.addr;
+	blur_image(&game->view, image_data);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->button.id, 350, 100);
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->button.id, 200, \
+		50);
+}
+
+void    ft_display_menu(t_game *game)
+{
+    static int  i = 0;
+    int 		x;
+	int 		y;
+
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
+    if ((x > 135 && x < 225) && (y > 230 && y < 250))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[5].id, 0, 0);
+    else if ((x > 95 && x < 260) && (y > 290 && y < 305))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[6].id, 0, 0);
+	else if ((x > 140 && x < 215) && (y > 335 && y < 360))
+    	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[7].id, 0, 0);
+	else 
+	{
+		if (game->ms >= 1)
+		{
+			i++;
+			game->ms -= 1;
+		}
+		if (i >= 4)
+			i = 0;
+		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
+	}
+}
+
+void	ft_display_settings(t_game *game)
+{
+	static int  i = 0;
+
+	if (game->ms >= 1)
+	{
+		i++;
+		game->ms -= 1;
+	}
+	if (i >= 10)
+		i = 0;
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation2[i].id, 0, 0);
 }
 
 static void	display_game(t_game *game, int size)
@@ -64,21 +107,28 @@ static void	display_game(t_game *game, int size)
 			if (i > 10 && i < (game->map.y_size * size) + 10 && j > 10 && \
 				j < (game->map.x_size * size) + 10)
 			{
-				j += RESOLUTION;
+				j += game->resolution;
 				continue ;
 			}
 			game->u_rays = ft_rotate_vec_z(ft_rotate_vec_x(game->rays[i][j], \
 				game->angle_x), game->angle_z);
 			game->close_t = 0;
 			ft_resolution(game, i, j, switch_plan_algo(game));
-			j += RESOLUTION;
+			j += game->resolution;
 		}
-		i += RESOLUTION;
+		i += game->resolution;
 	}
 }
 
 int	update_game(t_game *game)
 {
+    int         time_frame;
+
+    time_frame = 1 / ft_get_fps();
+    if (game->pause == 2)
+        ft_display_menu(game);
+	if (game->pause == 1)
+		ft_display_settings(game);
 	if (game->pause == 0)
 	{
 		view_update_pos(game);
@@ -90,5 +140,6 @@ int	update_game(t_game *game)
 		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 			game->view.id, 0, 0);
 	}
+	game->ms += time_frame;
 	return (0);
 }

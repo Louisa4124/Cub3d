@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/20 15:36:21 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:36:17 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int	ft_init_airplane(t_game *game)
 void	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
-	game->pause = 0;
+	game->pause = 2;
+	game->ms = 0;
+    game->settings = 0;
+    game->resolution = 2;
 	game->sky.a = 0;
 	game->sky.b = 0;
 	game->sky.c = 1;
@@ -92,4 +95,26 @@ void	ft_init_game(t_game *game)
 	game->plan[0] = NULL;
 	game->plan[1] = NULL;
 	game->rays = NULL;
+}
+
+void	ft_init_img(t_game *game)
+{
+	load_img(game, 0, "img/animation/1.xpm");
+	load_img(game, 1, "img/animation/2.xpm");
+	load_img(game, 2, "img/animation/3.xpm");
+	load_img(game, 3, "img/animation/4.xpm");
+	load_img(game, 4, "img/menu/1.xpm");
+	load_img(game, 5, "img/menu/2.xpm");
+	load_img(game, 6, "img/menu/3.xpm");
+	load_img(game, 7, "img/menu/4.xpm");
+	load_img(game, 8, "img/settings/1.xpm");
+	load_img(game, 9, "img/settings/2.xpm");
+	load_img(game, 10, "img/settings/3.xpm");
+	load_img(game, 11, "img/settings/4.xpm");
+	load_img(game, 12, "img/settings/5.xpm");
+	load_img(game, 13, "img/settings/6.xpm");
+	load_img(game, 14, "img/settings/7.xpm");
+	load_img(game, 15, "img/settings/8.xpm");
+	load_img(game, 16, "img/settings/9.xpm");
+	load_img(game, 17, "img/settings/10.xpm");
 }

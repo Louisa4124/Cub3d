@@ -6,7 +6,7 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/20 15:46:02 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/07/24 09:57:26 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME_B		=	cub3D_bonus
 DIR_SRCS_M		=	srcs_m/
 LST_SRCS_M		=	algo.c clear.c color.c display.c event.c math.c main.c \
 					parser.c extract_texture.c extract_map.c parser_utils.c \
-					init_game.c init_mlx.c init_struct.c view_update.c debug.c 
+					init_game.c init_mlx.c init_struct.c view_update.c utils.c
 SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
 DIR_SRCS		=	srcs_bonus/
@@ -36,7 +36,7 @@ LST_SRCS_PARSE	=	parser_bonus.c extract_texture_bonus.c extract_map_bonus.c pars
 SRCS_PARSE		=	${addprefix ${DIR_SRCS_PARSE}, ${LST_SRCS_PARSE}}
 
 DIR_SRCS_ALGO	=	srcs_bonus/algo/
-LST_SRCS_ALGO	=	algo_k_plan_bonus.c algo_switch_plan_bonus.c algo_utils_bonus.c 
+LST_SRCS_ALGO	=	algo_switch_plan_bonus.c algo_utils_bonus.c 
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	srcs_bonus/display/
@@ -85,7 +85,7 @@ MAKE		=	make -s
 
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-O3 -Wall -Wextra -fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
+CFLAGS		=	-O3 -Wall -Wextra #-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
 FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11
 
@@ -158,7 +158,7 @@ ${DIR_OBJS}	:
 			@${MKDIR} ${DIR_OBJS}
 			
 nn			:
-			@norminette $(sort ${DIR_SRCS} ${HEADER} )
+			@norminette $(sort ${DIR_SRCS_M} ${DIR_SRCS}  ${HEADER} )
 
 $(LIBFT)	:	FORCE
 			@$(MAKE) -C ${DIR_LIBFT}

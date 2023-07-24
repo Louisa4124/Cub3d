@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   fps_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:45:36 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:47:28 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:32:45 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
 
-int	get_time(void)
+unsigned int	get_time(void)
 {
 	static struct timeval	tv;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
+	if (gettimeofday(&tv, NULL) == -1)
+	{
+		ft_putstr_fd("Error in gettime\n", 2);
+		return (-1);
+	}
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	ft_printf_fps(int mode)
+int	ft_printf_fps(int mode)
 {
 	static int	n_frame;
 	static int	time;
@@ -36,4 +40,20 @@ void	ft_printf_fps(int mode)
 		time = get_time();
 		n_frame = 0;
 	}
+	return (n_frame);
+}
+
+int	ft_get_fps(void)
+{
+	static int	n_frame;
+	static int	time;
+
+	if (get_time() - time < 1000)
+		n_frame++;
+	else
+	{
+		time = get_time();
+		n_frame = 0;
+	}
+	return (n_frame);
 }

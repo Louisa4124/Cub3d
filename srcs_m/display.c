@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:29:22 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/22 01:25:27 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_resolution(t_game *game, int i, int j)
 	int	y;
 	int	j2;
 
-	x = i + RESOLUTION;
-	y = j + RESOLUTION;
+	x = i + ;
+	y = j + ;
 	j2 = j;
 	while (i < x && i < game->mlx.win_height)
 	{
@@ -54,7 +54,6 @@ int	update_game(t_game *game)
 		j = 0;
 		while (j < game->mlx.win_width)
 		{
-
 			game->u_rays = ft_rotate_vec_z(ft_rotate_vec_x(game->rays[i][j], \
 				game->angle_x), game->angle_z);
 			game->close_t = 0;
@@ -62,11 +61,10 @@ int	update_game(t_game *game)
 			game->u_plan.y = -7;
 			ft_switch_plan(game);
 			ft_resolution(game, i, j);
-			j += RESOLUTION;
+			j += game->resolution;
 		}
-		i += RESOLUTION;
+		i += game->resolution;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	return (0);
 }
-

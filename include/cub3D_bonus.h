@@ -6,9 +6,10 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/20 15:56:56 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:35:39 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
@@ -36,9 +37,10 @@
 # define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.04
 # define RESOLUTION 2
-# define WIDTH 1080
-# define HEIGHT 720
+# define WIDTH 800
+# define HEIGHT 600
 # define MINIMAP_SIZE 10
+# define BLUR 25
 
 # define KEY_W 119
 # define KEY_A 97
@@ -108,7 +110,7 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 /*			Algo 				*/
 int		k_plan_algo(t_game *game);
 int		switch_plan_algo(t_game *game);
-int		intersect(t_game *game, t_plan *plan, int u, int v, int wit);
+int		intersect(t_game *game, t_plan *plan, int data[4], int wit);
 
 /*			Color				*/
 int		get_color(t_game *game);
@@ -122,18 +124,18 @@ void	view_update_dir_key(t_game *game);
 
 /*			Display			*/
 int		update_game(t_game *game);
-void	ft_printf_fps(int mode);
-void	ft_display_menu(t_game *game);
+int		ft_printf_fps(int mode);
+void	ft_display_pause(t_game *game);
 
 /*			Events 				*/
-int	event_press(int keycode, t_game *game);
-int	event_unpress(int keycode, t_game *game);
+int		event_press(int keycode, t_game *game);
+int		event_unpress(int keycode, t_game *game);
 void	event_mouse(int x, int y, t_game *game);
-int		event_pause(int keycode, int x, int y, t_game *game);
+int		event_pause(int button, int x, int y, t_game *game);
 
 /*			Draw			*/
 void	draw_map(t_game *game, int size);
-void	blur_image(unsigned int *image_data, int width, int height);
+void	blur_image(t_img *img, unsigned int *img_data);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -153,5 +155,13 @@ void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
+
+/*          a trier pour plus tard pck loulou a la flemme       */
+int	    		load_img(t_game *game, int i, char *path);
+unsigned int	get_time(void);
+int	    		event_menu(int x, int y, t_game *game);
+int				ft_get_fps(void);
+void			ft_init_img(t_game *game);
+
 
 #endif

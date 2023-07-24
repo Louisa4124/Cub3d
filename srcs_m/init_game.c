@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/03 21:41:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/21 20:13:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,14 @@ int	ft_init_game(t_game *game)
 	if (plane_create(game))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+t_vec3d	s_vec3d_init(float x, float y, float z)
+{
+	t_vec3d	u;
+
+	u.x = x;
+	u.y = y;
+	u.z = z;
+	return (u);
 }
