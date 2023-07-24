@@ -6,18 +6,22 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:45:36 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:47:28 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:43:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
 
-int	get_time(void)
+unsigned int	get_time(void)
 {
 	static struct timeval	tv;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (int64_t)1000) + (tv.tv_usec / 1000));
+	if (gettimeofday(&tv, NULL) == -1)
+	{
+		ft_putstr_fd("Error in gettime\n", 2);
+		return (-1);
+	}
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
 void	ft_printf_fps(int mode)

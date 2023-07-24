@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 10:30:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:43:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_display_menu(t_game *game)
 		100);
 }
 
-static void	display_game(t_game *game, int size)
+void	display_game(t_game *game, int size)
 {
 	int		i;
 	int		j;
@@ -83,20 +83,24 @@ static void	display_game(t_game *game, int size)
 
 int	update_game(t_game *game)
 {
-
+	int	i;
 
 	if (game->pause == 1)
 		return (0);
-	pthread_mutex_unlock(&game->m_data);
+
 	view_update_pos(game);
 	view_update_dir_key(game);
 	view_update_dir_mouse(game);
-	display_game(game, MINIMAP_SIZE);
-	// if (pthread_create(&pid, NULL, routine, game))
-	// 	dprintf(2, " ER THR\n");
-	// display_game(game, MINIMAP_SIZE);
-	// if (pthread_join(pid, NULL))
-	// 	dprintf(2, " ER JN\n");
+	i = -1;
+	while (++i < N_THREAD)
+		sem_post(&game->sem_thread);
+	// dprintf(2, " waiting for T1 %d\n", i);
+	i = -1;
+	while (++i < N_THREAD)
+		sem_wait(&game->sem_main);
+	// dprintf(2, " T1 locked\n");
+
+
 	draw_map(game, MINIMAP_SIZE);
 	ft_printf_fps(1);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 22:59:55 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:48:58 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../libft/libft.h"
 # include "../mlx-linux/mlx.h"
 # include "math.h"
-# include "struct.h"
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
@@ -25,6 +24,9 @@
 # include <sys/time.h>
 # include <stdbool.h>
 # include <pthread.h>
+# include <semaphore.h>
+# include <stdint.h>
+# include "struct.h"
 
 # define FOV 60
 # define PI_HALF 1.570796
@@ -126,6 +128,7 @@ void	view_update_dir_key(t_game *game);
 int		update_game(t_game *game);
 void	ft_printf_fps(int mode);
 void	ft_display_menu(t_game *game);
+void	display_game(t_game *game, int size);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);

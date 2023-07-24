@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 10:30:09 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:52:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,20 @@ void	*routine(void *data)
 	t_game	*game;
 
 	game = data;
-	pthread_mutex_lock(&game->m_data);
-	dprintf(2, " game data is here pause %d\tmlx %p\n", game->pause, game->mlx.ptr);
-	pthread_mutex_unlock(&game->m_data);
+	while (1)
+	{
+		sem_wait(&game->sem_thread);
+		display_game(game, MINIMAP_SIZE);
+		sem_post(&game->sem_main);
+	}
 	return (NULL);
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	game;
-		pthread_t	pid;
 	int		err;
+	int		i;
 
 	ft_printf("Bonjour ! Je suis le cub3D de Tilou et j'ai treeees \
 		sommeil.... \nShmimimimimi\n rommpshhhhh\n");
@@ -55,9 +58,17 @@ int	main(int argc, char **argv)
 		ft_clean_exit(&game, EXIT_FAILURE);
 	if (ft_init_airplane(&game))
 		ft_clean_exit(&game, EXIT_FAILURE);
-	// pthread_mutex_lock(&game.m_data);
-	// if (pthread_create(&pid, NULL, routine, &game))
-	// 	dprintf(2, " ER THR\n");
+	if (sem_init(&game.sem_thread, 0, 0) == -1)
+		dprintf(2, "Error sem_init\n");
+	if (sem_init(&game.sem_main, 0, 0) == -1)
+		dprintf(2, "Error sem_init\n");
+	i = 0;
+	while (i < N_THREAD)
+	{
+		if (pthread_create(&game.pid[i], NULL, routine, &game))
+			dprintf(2, " ER THR\n");
+		++i;
+	}
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 4, 1L << 2, event_pause, &game);

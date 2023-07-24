@@ -6,12 +6,14 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 10:12:19 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:50:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# define N_THREAD 1
 
 typedef struct s_vec3d
 {
@@ -82,6 +84,23 @@ typedef struct s_mlx
 	int		win_width;
 }	t_mlx;
 
+typedef struct s_display
+{
+	t_map		*map;
+	t_vec3d		*pos;
+	t_vec3d		**rays;
+	t_plan		*plan[2];
+	float		angle_z;
+	float		angle_x;
+	t_img		*view;
+	float		t;
+	float		close_t;
+	t_vec3d		intersec_point;
+	t_plan_data	intersec_plan;	// vec2d -> 2 int should be an array
+	t_vec3d		tmp_rays;
+	t_texture	texture;
+}	t_display;
+
 typedef struct s_game
 {
 	t_img		button;
@@ -91,6 +110,7 @@ typedef struct s_game
 	float		angle_z;
 	float		angle_x;
 	float		close_t;
+	t_display	data_thread;
 	t_map		map;
 	t_mlx		mlx;
 	t_img		view;
@@ -101,25 +121,12 @@ typedef struct s_game
 	t_vec3d		**rays;
 	t_plan		*plan[2];
 	t_texture	texture;
-	pthread_mutex_t	m_data;
+	sem_t		sem_thread;
+	sem_t		sem_main;
+	pthread_t	pid[N_THREAD];
 }	t_game;
 
-typedef struct s_display
-{
-	t_map		map;
-	t_img		view;
-	t_vec3d		pos;
-	t_vec3d		**rays;
-	t_plan		*plan[2];
-	float		t;
-	float		close_t;
-	t_vec3d		intersec_point;
-	t_vec2d		intersec_plan;	// vec2d -> 2 int should be an array
-	t_vec3d		tmp_rays;
-	t_texture	texture;
-	float		angle_z;
-	float		angle_x;
-}	t_display;
+
 
 // angle less used
 
