@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:51:30 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/25 21:16:47 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	event_press(int keycode, t_game *game)
 		game->bit_key |= BFLAG_RIGHT;
 	else if (keycode == KEY_LEFT)
 		game->bit_key |= BFLAG_LEFT;
-	else if (keycode == KEY_P && game->pause == 0)
-		ft_display_pause(game);
+	else if (keycode == KEY_P && game->pause == 0)   
+		ft_blur_pause(game);
 	else if (keycode == KEY_P && game->pause == 3)
 		game->pause = 0;
 	return (0);
@@ -42,8 +42,8 @@ int	event_press(int keycode, t_game *game)
 int	event_pause(int button, int x, int y, t_game *game)
 {
     (void)button;
-    // printf("x = %d\n", x);
-    // printf("y = %d\n", y);
+    printf("x = %d\n", x);
+    printf("y = %d\n", y);
 	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
 		return (-1);
     if (game->pause == 2)
@@ -51,11 +51,7 @@ int	event_pause(int button, int x, int y, t_game *game)
     if (game->pause == 1)
         event_settings(x, y, game);
     if (game->pause == 3)
-    {   
-        // event pause
-    }
-    // if (game->settings == 1)
-    //     event_settings(button, x, y, game);
+        //event pause
 	return (0);
 }
 

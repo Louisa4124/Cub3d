@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:51:00 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/25 21:13:21 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,50 @@ static void	ft_resolution(t_game *game, int i, int j, int color)
 	}
 }
 
-void	ft_display_pause(t_game *game)
+int ft_chacha(t_game *game)
+{
+    static int  i = 23;
+    
+    if (game->ms >= 0.03)
+    {
+        i++;
+        game->ms -= 0.03;
+    }
+    if (i >= 26)
+        i = 23;
+    ft_draw_img(game, game->animation[i], 0, 0);
+}
+
+void	ft_blur_pause(t_game *game)
 {
 	unsigned int	*image_data;
+    int 		x;
+	int 		y;
 
-	game->pause = 3;
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	image_data = (unsigned int *)game->view.addr;
 	blur_image(&game->view, image_data);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+    ft_draw_img(game, game->animation[27], 0, 0);
+    if ((x > 470 && x < 600) && (y > 380 && y < 405))
+    	ft_draw_img(game, game->animation[28], 0, 0);
+    if ((x > 460 && x < 620) && (y > 450 && y < 480))
+    	ft_draw_img(game, game->animation[29], 0, 0);
+	if ((x > 500 && x < 570) && (y > 530 && y < 555))
+    	ft_draw_img(game, game->animation[30], 0, 0);
+    game->pause = 3;
+}
+
+void	ft_display_pause(t_game *game)
+{
+	ft_chacha(game);
+    ft_draw_img(game, game->animation[27], 0, 0);
 }
 
 void    ft_display_menu(t_game *game)
 {
     static int  i = 0;
+    static int  j = 23;
     int 		x;
 	int 		y;
 
@@ -128,6 +159,8 @@ static void	display_game(t_game *game, int size)
 
 int	update_game(t_game *game)
 {
+    if (game->pause == 3)
+        ft_display_pause(game);
     if (game->pause == 2)
         ft_display_menu(game);
 	if (game->pause == 1)

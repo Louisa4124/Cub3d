@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/24 22:47:14 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/25 21:07:32 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,12 @@ void	ft_init_img(t_game *game)
     load_img(game, 20, "img/settings/2.xpm");
 	load_img(game, 21, "img/settings/3.xpm");
 	load_img(game, 22, "img/settings/4.xpm");
+	load_img(game, 23, "img/cat/0.xpm");
+    load_img(game, 24, "img/cat/1.xpm");
+	load_img(game, 25, "img/cat/3.xpm");
+    load_img(game, 26, "img/cat/2.xpm");
+    load_img(game, 27, "img/select/1.2.xpm");
+    load_img(game, 28, "img/select/2.2.xpm");
+	load_img(game, 29, "img/select/3.2.xpm");
+	load_img(game, 30, "img/select/4.2.xpm");
 }

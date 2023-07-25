@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 22:41:01 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/25 20:47:50 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,7 @@ int	    		event_menu(int x, int y, t_game *game);
 int				ft_get_fps(void);
 void			ft_init_img(t_game *game);
 void            ft_display_menu(t_game *game);
+void	        ft_blur_pause(t_game *game);
+void            ft_draw_img(t_game *game, t_img tex, int x, int y);
 
 #endif
