@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:45:36 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 11:43:08 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:21:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,19 @@
 
 unsigned int	get_time(void)
 {
-	static struct timeval	tv;
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) == -1)
+	{
+		ft_putstr_fd("Error in gettime\n", 2);
+		return (-1);
+	}
+	return ((tv.tv_usec / 1000));
+}
+
+static unsigned int	get_time_fps(void)
+{
+	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL) == -1)
 	{
@@ -37,7 +49,7 @@ void	ft_printf_fps(int mode)
 			ft_printf("\r\033[2K%d", n_frame);
 		else
 			ft_printf("%d\n", n_frame);
-		time = get_time();
+		time = get_time_fps();
 		n_frame = 0;
 	}
 }

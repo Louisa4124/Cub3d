@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 22:37:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:56:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_display
 	t_texture	*texture;
 	sem_t		*sem_thread;
 	sem_t		*sem_main;
+	pthread_mutex_t	*m_print;
 }	t_display;
 
 typedef struct s_game
@@ -123,6 +124,7 @@ typedef struct s_game
 	sem_t		sem_thread;
 	sem_t		sem_main;
 	pthread_t	pid[N_THREAD];
+	pthread_mutex_t	m_print;
 }	t_game;
 
 // angle less used

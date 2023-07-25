@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 22:05:27 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:57:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@
 # define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.04
 # define RESOLUTION 2
-# define WIDTH 1080
-# define HEIGHT 720
+# define WIDTH 1920
+# define HEIGHT 1080
 # define MINIMAP_SIZE 10
 # define BLUR 25
+# define SEE_TH 2
 
 # define KEY_W 119
 # define KEY_A 97
@@ -133,7 +134,6 @@ void	display_game(t_display *data_thread);
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
 int		event_unpress(int keycode, t_game *game);
-void	event_mouse(int x, int y, t_game *game);
 int		event_pause(int keycode, t_game *game);
 
 /*			Draw			*/
@@ -158,5 +158,8 @@ void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
+
+unsigned int	get_time(void);
+void	th_print(pthread_mutex_t *m_print, char *str, int id);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 22:41:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:24:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static void	ft_resolution(t_display *data_thread, int i, int j, int color)
 	x = i + RESOLUTION;
 	y = j + RESOLUTION;
 	j2 = j;
-	while (i < x && i <= data_thread->idx_end[0])
+	while (i < x && i < data_thread->idx_end[0])
 	{
 		j = j2;
-		while (j < y && j <= data_thread->idx_end[1])
+		while (j < y && j < data_thread->idx_end[1])
 		{
 			ft_mlx_pixel_put(data_thread->view, j, i, color);
 			++j;
@@ -59,10 +59,10 @@ void	display_game(t_display *data_thread)
 	int		j;
 
 	i = data_thread->idx_start;
-	while (i <= data_thread->idx_end[0])
+	while (i < data_thread->idx_end[0] - SEE_TH)
 	{
 		j = 0;
-		while (j <= data_thread->idx_end[1])
+		while (j < data_thread->idx_end[1])
 		{
 			if (i > 10 && i < (data_thread->map->y_size * MINIMAP_SIZE) + 10 && j > 10 && \
 				j < (data_thread->map->x_size * MINIMAP_SIZE) + 10)
@@ -87,23 +87,23 @@ int	update_game(t_game *game)
 
 	if (game->pause == 1)
 		return (0);
-
 	view_update_pos(game);
 	view_update_dir_key(game);
 	view_update_dir_mouse(game);
+	th_print(&game->m_print, "start launching th", 0);
 	i = -1;
 	while (++i < N_THREAD)
 		sem_post(&game->sem_thread);
-	dprintf(2, " waiting for Th\n");
+	th_print(&game->m_print, "waiting for Th", 0);
 	i = -1;
 	while (++i < N_THREAD)
 		sem_wait(&game->sem_main);
-	dprintf(2, " Th locked\n");
+	th_print(&game->m_print, "Th locked", 0);
 
 
 	draw_map(game, MINIMAP_SIZE);
 	ft_printf_fps(1);
-	sleep(1);
+	// sleep(1);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
 	return (0);

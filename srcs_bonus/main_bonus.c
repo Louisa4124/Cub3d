@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/24 22:58:12 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:16:29 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ int	ft_man(int num)
 	return (0);
 }
 
+void	th_print(pthread_mutex_t *m_print, char *str, int id)
+{
+	pthread_mutex_lock(m_print);
+	dprintf(2, "%u ", get_time());
+	if (id == 0)
+		dprintf(2, "TMAIN : %s\n", str);
+	else
+		dprintf(2, "T%d : %s\n", id, str);
+	pthread_mutex_unlock(m_print);
+}
+
 //LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
 
 void	*routine(void *data)
@@ -32,9 +43,9 @@ void	*routine(void *data)
 	while (1)
 	{
 		sem_wait(data_th->sem_thread);
-		dprintf(2, "T%d h start draw\n", data_th->id);
+		th_print(data_th->m_print, "start draw", data_th->id);
 		display_game(data_th);
-		dprintf(2, "T%d end draw\n", data_th->id);
+		th_print(data_th->m_print, "end draw", data_th->id);
 		sem_post(data_th->sem_main);
 	}
 	return (NULL);
@@ -54,7 +65,7 @@ int	init_data_thread(t_game *game, t_display data[N_THREAD])
 		data[i].plan[0] = game->plan[0];
 		data[i].plan[1] = game->plan[1];
 		data[i].idx_start = i * (game->mlx.win_height / N_THREAD);
-		data[i].idx_end[0] = (i + 1) * (game->mlx.win_height / N_THREAD) - 1;
+		data[i].idx_end[0] = (i + 1) * (game->mlx.win_height / N_THREAD);
 		data[i].idx_end[1] = game->mlx.win_width;
 		data[i].angle_x = &game->angle_x;
 		data[i].angle_z = &game->angle_z;
@@ -62,11 +73,13 @@ int	init_data_thread(t_game *game, t_display data[N_THREAD])
 		data[i].texture = &game->texture;
 		data[i].sem_thread = &game->sem_thread;
 		data[i].sem_main = &game->sem_main;
+		data[i].m_print = &game->m_print;
 		printf("idx_start %d\n", data[i].idx_start);
 		printf("idx_endy %d\n", data[i].idx_end[0]);
-		printf("idx_endx %d\n", data[i].idx_end[1]);
 		++i;
 	}
+	data[--i].idx_end[0] = game->mlx.win_height;
+	printf("idx_endy last %d\n", data[i].idx_end[0]);
 	return (0);
 }
 
@@ -97,6 +110,7 @@ int	main(int argc, char **argv)
 		dprintf(2, "Error sem_init\n");
 	if (sem_init(&game.sem_main, 0, 0) == -1)
 		dprintf(2, "Error sem_init\n");
+	pthread_mutex_init(&game.m_print, NULL);
 	init_data_thread(&game, data_thread);
 	// exit(1);
 	i = 0;
