@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/25 16:57:36 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:51:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 # define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.04
 # define RESOLUTION 2
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1080
+# define HEIGHT 720
 # define MINIMAP_SIZE 10
 # define BLUR 25
 # define SEE_TH 2

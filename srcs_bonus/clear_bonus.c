@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/25 21:44:02 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:48:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	ft_clean_exit(t_game *game, int exit_code)
 
 	change_status(&game->m_lock, &game->lock, 1);
 	// game->lock = 1;
-	i = -1;
-	while (++i < N_THREAD)
-		sem_post(&game->sem_thread);
-	i = -1;
-	while (++i < N_THREAD)
-		pthread_join(game->pid[i], NULL);
+	// i = -1;
+	// while (++i < N_THREAD)
+	// 	sem_post(&game->sem_thread);
+	// i = -1;
+	// while (++i < N_THREAD)
+	// 	pthread_join(game->pid[i], NULL);
 	sem_destroy(&game->sem_thread);
 	sem_destroy(&game->sem_main);
 	pthread_mutex_destroy(&game->m_print);

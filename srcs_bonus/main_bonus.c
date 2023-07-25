@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/25 21:44:36 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:47:00 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,14 +131,15 @@ int	main(int argc, char **argv)
 	pthread_mutex_init(&game.m_lock, NULL);
 	game.lock = 0;
 	init_data_thread(&game, data_thread);
+	game.th = &data_thread;
 	// exit(1);
-	i = 0;
-	while (i < N_THREAD)
-	{
-		if (pthread_create(&game.pid[i], NULL, routine, &data_thread[i]))
-			dprintf(2, " ER THR\n");
-		++i;
-	}
+	// i = 0;
+	// while (i < N_THREAD)
+	// {
+	// 	if (pthread_create(&game.pid[i], NULL, routine, &data_thread[i]))
+	// 		dprintf(2, " ER THR\n");
+	// 	++i;
+	// }
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 4, 1L << 2, event_pause, &game);

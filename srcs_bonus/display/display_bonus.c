@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/25 20:48:56 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:49:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,24 @@ void	display_game(t_display *data_thread)
 }
 
 
+void	*routine_simple(void *data)
+{
+	t_display	*data_th;
+
+	data_th = data;
+	// while (get_status(data_th->m_lock, *data_th->lock) == 0)
+	// {
+		// sem_wait(data_th->sem_thread);
+		// th_print(data_th->m_print, "start draw", data_th->id);
+		display_game(data_th);
+		// th_print(data_th->m_print, "end draw", data_th->id);
+		// sleep(1);
+		// sem_post(data_th->sem_main);
+	// }
+	// th_print(data_th->m_print, "QUIT", data_th->id);
+	return (NULL);
+}
+
 int	update_game(t_game *game)
 {
 	int	i;
@@ -90,15 +108,28 @@ int	update_game(t_game *game)
 	view_update_pos(game);
 	view_update_dir_key(game);
 	view_update_dir_mouse(game);
-	th_print(&game->m_print, "start launching th", 0);
+	// th_print(&game->m_print, "start launching th", 0);
+
+	i = 0;
+	while (i < N_THREAD)
+	{
+		if (pthread_create(&game->pid[i], NULL, routine_simple, &game->th[i]))
+			dprintf(2, " ER THR\n");
+		++i;
+	}
+	// th_print(&game->m_print, "waiting for Th", 0);
 	i = -1;
 	while (++i < N_THREAD)
-		sem_post(&game->sem_thread);
-	th_print(&game->m_print, "waiting for Th", 0);
-	i = -1;
-	while (++i < N_THREAD)
-		sem_wait(&game->sem_main);
-	th_print(&game->m_print, "Th locked\n", 0);
+		pthread_join(game->pid[i], NULL);
+
+
+	// i = -1;
+	// while (++i < N_THREAD)
+	// 	sem_post(&game->sem_thread);
+	// i = -1;
+	// while (++i < N_THREAD)
+	// 	sem_wait(&game->sem_main);
+	// th_print(&game->m_print, "Th locked\n", 0);
 
 
 	draw_map(game, MINIMAP_SIZE);

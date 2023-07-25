@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/25 21:03:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:46:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_game
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_lock;
 	int				lock;
+	t_display	*th;
 }	t_game;
 
 // angle less used
