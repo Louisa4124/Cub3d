@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/25 17:24:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 20:48:56 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	update_game(t_game *game)
 	i = -1;
 	while (++i < N_THREAD)
 		sem_wait(&game->sem_main);
-	th_print(&game->m_print, "Th locked", 0);
+	th_print(&game->m_print, "Th locked\n", 0);
 
 
 	draw_map(game, MINIMAP_SIZE);

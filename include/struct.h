@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/25 16:56:25 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:03:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ typedef struct s_vec2d
 	int		y;
 }	t_vec2d;
 
-typedef struct s_plan_data
+typedef struct s_plan_id
 {
 	int		x;
 	int		y;
 	int		d;
-}	t_plan_data;
+}	t_plan_id;
 
 typedef struct s_plan
 {
@@ -86,25 +86,27 @@ typedef struct s_mlx
 
 typedef struct s_display
 {
-	int			id;
+	float		t;
+	float		close_t;
+	t_vec3d		tmp_point;
+	t_plan_id	tmp_plan;
+	t_vec3d		tmp_rays;
+	int			idx_start;
+	int			idx_end[2];
 	t_map		*map;
 	t_vec3d		*pos;
 	t_vec3d		**rays;
 	t_plan		*plan[2];
 	float		*angle_z;
 	float		*angle_x;
-	int			idx_start;
-	int			idx_end[2];
 	t_img		*view;
-	float		t;
-	float		close_t;
-	t_vec3d		tmp_point;
-	t_plan_data	tmp_plan;	// vec2d -> 2 int should be an array
-	t_vec3d		tmp_rays;
 	t_texture	*texture;
 	sem_t		*sem_thread;
 	sem_t		*sem_main;
+	int			id;
 	pthread_mutex_t	*m_print;
+	pthread_mutex_t	*m_lock;
+	int				*lock;
 }	t_display;
 
 typedef struct s_game
@@ -125,6 +127,8 @@ typedef struct s_game
 	sem_t		sem_main;
 	pthread_t	pid[N_THREAD];
 	pthread_mutex_t	m_print;
+	pthread_mutex_t	m_lock;
+	int				lock;
 }	t_game;
 
 // angle less used
