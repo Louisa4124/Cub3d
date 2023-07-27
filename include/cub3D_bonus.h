@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/25 20:47:50 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/27 13:37:58 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void	debug_print_vec3d(t_vec3d *u, char *name);
 int	    		load_img(t_game *game, int i, char *path);
 unsigned int	get_time(void);
 int	    		event_menu(int x, int y, t_game *game);
+int				event_settings(int x, int y, t_game *game);
 int				ft_get_fps(void);
 void			ft_init_img(t_game *game);
 void            ft_display_menu(t_game *game);
