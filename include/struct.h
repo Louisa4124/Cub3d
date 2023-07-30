@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/25 21:03:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/30 20:51:09 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,25 @@ typedef struct s_game
 	pthread_t	pid[N_THREAD];
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_lock;
+	pthread_mutex_t	m_queue;
+	// int				queue_status;
 	int				lock;
+	t_list		**job_queue;
 }	t_game;
+
+typedef struct s_job
+{
+	int				jib;
+	void			*data;
+	void			(*func)(t_display*);
+}	t_job;
+
+typedef struct s_thread_data
+{
+	pthread_mutex_t	*m_queue;
+	t_list			**queue;
+}	t_thread_data;
+
 
 // angle less used
 

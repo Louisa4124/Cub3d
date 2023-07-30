@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/25 21:44:36 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/30 21:31:32 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,35 @@ int	get_status(pthread_mutex_t *mutex, int status)
 		return (-1);
 	return (status);
 }
+
+
+void	*routine_queue(void *ptr)
+{
+	t_thread_data	*th;
+	t_job		*job;
+	
+	th = ptr;
+	while (1)
+	{
+		pthread_mutex_lock(th->m_queue);
+		if ((*th->queue)->content == NULL)
+		{
+			// dprintf(2, "%d : continue\n", get_time());
+			pthread_mutex_unlock(th->m_queue);
+			// usleep(100);
+			continue;
+		}
+		else
+		{
+			job = (*th->queue)->content;
+			*th->queue = (*th->queue)->next;
+			dprintf(2, "%d : T%d jib : %d\n", get_time(), ((t_display *)job->data)->id, job->jib);
+			pthread_mutex_unlock(th->m_queue);
+		}
+		job->func(job->data);
+	}
+}
+
 
 
 void	*routine(void *data)
@@ -100,14 +129,62 @@ int	init_data_thread(t_game *game, t_display data[N_THREAD])
 	return (0);
 }
 
+t_job	*ft_jobnew(int jib, void *data, void (*func)(t_display *))
+{
+	t_job	*new;
+
+	new = ft_calloc(1, sizeof(t_job));
+	if (!new)
+		return (NULL);
+	new->jib = jib;
+	new->data = data;
+	new->func = func;
+	return (new);
+}
+
+int	init_queue(t_list **head, t_display data[N_THREAD])
+{
+	int		i;
+	t_list	*last;
+
+	i = 0;
+	while (i < N_THREAD)
+	{
+		ft_lstadd_back(head, ft_lstnew(ft_jobnew(i, &data[i], display_game)));
+		++i;
+	}
+	ft_lstadd_back(head, ft_lstnew(NULL));
+	last = ft_lstlast(*head);
+	last->next = *head;
+	*head = last;
+	
+	return (0);
+}
+
+void	print_queue(t_list *lst)
+{
+	lst = lst->next;
+	while (lst->content)
+	{
+		dprintf(2, "jib : %d\tdata addr %p\tfunc addr %p\n", ((t_job *)lst->content)->jib, \
+			((t_job *)lst->content)->data, ((t_job *)lst->content)->func);
+		dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
+		lst = lst->next;
+	}
+	dprintf(2, "content %p\n", lst->content);
+	dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
+}
+
 
 // TODO: end thread properly, clear sem, clear struct
 int	main(int argc, char **argv)
 {
-	t_game		game;
-	t_display	data_thread[N_THREAD];
-	int		err;
-	int		i;
+	t_game			game;
+	t_display		data_display[N_THREAD];
+	t_thread_data	data_thread;
+	t_list			*queue;
+	int				err;
+	int				i;
 
 	ft_printf("Bonjour ! Je suis le cub3D de Tilou et j'ai treeees \
 		sommeil.... \nShmimimimimi\n rommpshhhhh\n");
@@ -129,13 +206,19 @@ int	main(int argc, char **argv)
 		dprintf(2, "Error sem_init\n");
 	pthread_mutex_init(&game.m_print, NULL);
 	pthread_mutex_init(&game.m_lock, NULL);
+	pthread_mutex_init(&game.m_queue, NULL);
 	game.lock = 0;
-	init_data_thread(&game, data_thread);
+	init_data_thread(&game, data_display);
+	game.job_queue = &queue;
+	init_queue(&queue, data_display);
+	data_thread.m_queue = &game.m_queue;
+	data_thread.queue = &queue;
+	print_queue(*data_thread.queue);
 	// exit(1);
 	i = 0;
 	while (i < N_THREAD)
 	{
-		if (pthread_create(&game.pid[i], NULL, routine, &data_thread[i]))
+		if (pthread_create(&game.pid[i], NULL, routine_queue, &data_thread))
 			dprintf(2, " ER THR\n");
 		++i;
 	}
