@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/31 15:14:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:51:09 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,7 @@ static int	rays_create(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_init_airplane(t_game *game)
-{
-	if (rays_create(game))
-		return (EXIT_FAILURE);
-	if (plane_create(game))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-void	ft_init_game(t_game *game)
+int	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
 	game->pause = 2;
@@ -89,39 +80,35 @@ void	ft_init_game(t_game *game)
 	game->plan[0] = NULL;
 	game->plan[1] = NULL;
 	game->rays = NULL;
+	if (rays_create(game))
+		return (EXIT_FAILURE);
+	if (plane_create(game))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-void	ft_init_img(t_game *game)
+void	init_data_thread(t_game *game, t_display data[N_THREAD])
 {
-	load_img(game, 0, "img/anim/1.xpm");
-	load_img(game, 1, "img/anim/2.xpm");
-	load_img(game, 2, "img/anim/3.xpm");
-	load_img(game, 3, "img/anim/4.xpm");
-	load_img(game, 4, "img/anim/5.xpm");
-	load_img(game, 5, "img/anim/6.xpm");
-	load_img(game, 6, "img/anim/7.xpm");
-	load_img(game, 7, "img/anim/8.xpm");
-	load_img(game, 8, "img/anim/9.xpm");
-	load_img(game, 9, "img/anim/10.xpm");
-	load_img(game, 10, "img/anim/11.xpm");
-	load_img(game, 11, "img/anim/12.xpm");
-	load_img(game, 12, "img/anim/13.xpm");
-	load_img(game, 13, "img/anim/14.xpm");
-	load_img(game, 14, "img/anim/15.xpm");
-	load_img(game, 15, "img/select/1.xpm");
-	load_img(game, 16, "img/select/2.xpm");
-	load_img(game, 17, "img/select/3.xpm");
-	load_img(game, 18, "img/select/4.xpm");
-	load_img(game, 19, "img/settings/1.xpm");
-	load_img(game, 20, "img/settings/2.xpm");
-	load_img(game, 21, "img/settings/3.xpm");
-	load_img(game, 22, "img/settings/4.xpm");
-	load_img(game, 23, "img/cat/0.xpm");
-	load_img(game, 24, "img/cat/1.xpm");
-	load_img(game, 25, "img/cat/3.xpm");
-	load_img(game, 26, "img/cat/2.xpm");
-	load_img(game, 27, "img/select/1.2.xpm");
-	load_img(game, 28, "img/select/2.2.xpm");
-	load_img(game, 29, "img/select/3.2.xpm");
-	load_img(game, 30, "img/select/4.2.xpm");
+	int	i;
+
+	i = 0;
+	while (i < N_THREAD)
+	{
+		data[i].id = i + 1;
+		data[i].map = &game->map;
+		data[i].pos = &game->pos;
+		data[i].rays = game->rays;
+		data[i].plan[0] = game->plan[0];
+		data[i].plan[1] = game->plan[1];
+		data[i].idx_start = i * (game->mlx.win_height / N_THREAD);
+		data[i].idx_end[0] = (i + 1) * (game->mlx.win_height / N_THREAD);
+		data[i].idx_end[1] = game->mlx.win_width;
+		data[i].angle_x = &game->angle_x;
+		data[i].angle_z = &game->angle_z;
+		data[i].view = &game->view;
+		data[i].texture = &game->texture;
+		data[i].resolution = &game->resolution;
+		++i;
+	}
+	data[--i].idx_end[0] = game->mlx.win_height;
 }

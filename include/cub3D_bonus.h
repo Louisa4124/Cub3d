@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 15:20:07 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:50:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define G 9.81
 # define DIR_OFFSET 0.1
 # define ANG_OFFSET_KEY 0.05
-# define ANG_OFFSET_MOUSE 0.04
+# define ANG_OFFSET_MOUSE 0.03
 # define RESOLUTION 2
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -83,9 +83,11 @@
 # define MLX_ERR_DATA 4
 
 /*          Initialisation          */
-void	ft_init_game(t_game *game);
+int		ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
 int		ft_init_airplane(t_game *game);
+void	ft_init_img(t_game *game);
+void	init_data_thread(t_game *game, t_display data[N_THREAD]);
 
 t_vec3d	s_vec3d_init(float x, float y, float z);
 void	s_mlx_init(t_mlx *mlx);
@@ -153,6 +155,9 @@ t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
 t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 
+/*			Thread					*/
+int		thread_do(t_game *game, void *(f)(void *));
+
 /*			Debug					*/
 void	debug_print_texture(t_texture *texture);
 void	debug_print_img(t_img *img);
@@ -165,7 +170,7 @@ int		load_img(t_game *game, int i, char *path);
 int		event_menu(int x, int y, t_game *game);
 int		event_settings(int x, int y, t_game *game);
 int		ft_get_fps(void);
-void	ft_init_img(t_game *game);
+
 void	ft_display_menu(t_game *game);
 void	ft_blur_pause(t_game *game);
 void	ft_draw_img(t_game *game, t_img tex, int x, int y);

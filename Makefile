@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/31 15:22:31 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/07/31 15:39:46 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
 DIR_SRCS		=	srcs_bonus/
 LST_SRCS		=	main_bonus.c clear_bonus.c debug_bonus.c \
-					math_bonus.c utils_bonus.c fps_bonus.c 
+					math_bonus.c utils_bonus.c fps_bonus.c thread_bonus.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	srcs_bonus/parsing/
@@ -44,7 +44,7 @@ LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c image_bonus.c image2_
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	srcs_bonus/init/
-LST_SRCS_INIT	=	init_game_bonus.c init_mlx_bonus.c init_struct_bonus.c
+LST_SRCS_INIT	=	init_game_bonus.c init_mlx_bonus.c init_struct_bonus.c init_img_bonus.c
 SRCS_INIT		=	${addprefix ${DIR_SRCS_INIT}, ${LST_SRCS_INIT}}
 
 DIR_SRCS_EVENT	=	srcs_bonus/move/
@@ -111,7 +111,7 @@ fclean	:	clean
 re		:	fclean
 		@${MAKE} all
 
-reb		:	fclean
+reb		:	clean
 		@${MAKE} bonus
 
 
