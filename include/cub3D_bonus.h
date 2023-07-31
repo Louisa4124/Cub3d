@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 15:20:07 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:29:22 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ void	ft_init_img(t_game *game);
 void	ft_display_menu(t_game *game);
 void	ft_blur_pause(t_game *game);
 void	ft_draw_img(t_game *game, t_img tex, int x, int y);
+int		load_menu(t_game *game, int i, char *path);
 
 unsigned int	get_time(void);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/31 15:17:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:49:59 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,21 +108,17 @@ void    ft_display_menu(t_game *game)
 	int			y;
 
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	if (game->ms >= 1)
+	if (game->ms >= 0.025)
 	{
 		i++;
-		game->ms -= 1;
+		game->ms -= 0.025;
 	}
-	if (i >= 15)
+	if (i >= 13)
 		i = 0;
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[15].id, 179, 101);
-	if ((x > 510 && x < 580) && (y > 370 && y < 400))
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[16].id, 179, 101);
-	if ((x > 470 && x < 630) && (y > 445 && y < 470))
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[17].id, 179, 101);
-	if ((x > 500 && x < 580) && (y > 520 && y < 550))
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[18].id, 179, 101);
+	ft_draw_img(game, game->anim[0][i], 0, 0);
+	ft_draw_img(game, game->anim[0][13], 0, 0);
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+	
 }
 
 void	ft_display_settings(t_game *game)

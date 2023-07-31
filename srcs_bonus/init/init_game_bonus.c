@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/31 15:14:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:48:11 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,23 @@ void	ft_init_game(t_game *game)
 
 void	ft_init_img(t_game *game)
 {
+	load_menu(game, 0, "img/start/1.xpm");
+	load_menu(game, 13, "img/start/title.xpm");
+	ft_draw_img(game, game->anim[0][0], 0, 0);
+	ft_draw_img(game, game->anim[0][13], 0, 0);
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+	load_menu(game, 1, "img/start/2.xpm");
+	load_menu(game, 2, "img/start/3.xpm");
+	load_menu(game, 3, "img/start/4.xpm");
+	load_menu(game, 4, "img/start/5.xpm");
+	load_menu(game, 5, "img/start/6.xpm");
+	load_menu(game, 6, "img/start/7.xpm");
+	load_menu(game, 7, "img/start/8.xpm");
+	load_menu(game, 8, "img/start/9.xpm");
+	load_menu(game, 9, "img/start/10.xpm");
+	load_menu(game, 10, "img/start/11.xpm");
+	load_menu(game, 11, "img/start/12.xpm");
+	load_menu(game, 12, "img/start/13.xpm");
 	load_img(game, 0, "img/anim/1.xpm");
 	load_img(game, 1, "img/anim/2.xpm");
 	load_img(game, 2, "img/anim/3.xpm");

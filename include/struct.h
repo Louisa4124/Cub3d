@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 15:24:57 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:39:45 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_game
 {
 	t_img		button;
     t_img       animation[31];
-	t_img       anim[1][13];
+	t_img       anim[1][14];
     t_img       transparent;
 	float		ms;
 	int			pause;
