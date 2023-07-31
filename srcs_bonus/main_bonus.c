@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/30 21:31:32 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:19:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,6 @@ void	*routine_queue(void *ptr)
 	}
 }
 
-
-
-void	*routine(void *data)
-{
-	t_display	*data_th;
-
-	data_th = data;
-	while (get_status(data_th->m_lock, *data_th->lock) == 0)
-	{
-		sem_wait(data_th->sem_thread);
-		th_print(data_th->m_print, "start draw", data_th->id);
-		display_game(data_th);
-		th_print(data_th->m_print, "end draw", data_th->id);
-		// sleep(1);
-		sem_post(data_th->sem_main);
-	}
-	th_print(data_th->m_print, "QUIT", data_th->id);
-	return (NULL);
-}
-
 int	init_data_thread(t_game *game, t_display data[N_THREAD])
 {
 	int	i;
@@ -146,11 +126,18 @@ int	init_queue(t_list **head, t_display data[N_THREAD])
 {
 	int		i;
 	t_list	*last;
+	t_job	*new_job;
+	t_list	*new_node;
 
 	i = 0;
 	while (i < N_THREAD)
 	{
-		ft_lstadd_back(head, ft_lstnew(ft_jobnew(i, &data[i], display_game)));
+		new_job = ft_jobnew(i, &data[i], display_game);
+		dprintf(2, "i is %d\n", i);
+		new_node = ft_lstnew(new_job);
+		dprintf(2, "i is %d\n", i);
+		ft_lstadd_back(head, new_node);
+		dprintf(2, "i is %d\n", i);
 		++i;
 	}
 	ft_lstadd_back(head, ft_lstnew(NULL));
@@ -208,6 +195,7 @@ int	main(int argc, char **argv)
 	pthread_mutex_init(&game.m_lock, NULL);
 	pthread_mutex_init(&game.m_queue, NULL);
 	game.lock = 0;
+	queue = NULL;
 	init_data_thread(&game, data_display);
 	game.job_queue = &queue;
 	init_queue(&queue, data_display);
