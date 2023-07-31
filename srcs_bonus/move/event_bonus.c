@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/27 13:37:20 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/28 14:56:56 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,14 @@ int	event_pause(int button, int x, int y, t_game *game)
 	if (game->pause == 1)
 		event_settings(x, y, game);
 	if (game->pause == 3)
-		return (0); //event pause
+	{
+		if ((x > 470 && x < 600) && (y > 380 && y < 405))
+			return (game->pause = 0, 0);
+		if ((x > 460 && x < 620) && (y > 450 && y < 480))
+			return (0);
+		if ((x > 500 && x < 570) && (y > 530 && y < 555))
+			return (close_event(game), 0);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/31 10:59:44 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/07/31 11:03:11 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,7 +142,7 @@ ${DIR_OBJS}%.o	:	${DIR_SRCS_ALGO}%.c ${HEADER}
 
 ${DIR_OBJS}%.o	:	${DIR_SRCS_DISP}%.c ${HEADER}
 				@printf "$(YELLOW)Making $@...\n$(END)"
-				@${CC} ${CFLAGS} -c $< -o $@/*\/*\
+				@${CC} ${CFLAGS} -c $< -o $@
 
 ${DIR_OBJS}%.o	:	${DIR_SRCS_INIT}%.c ${HEADER}
 				@printf "$(YELLOW)Making $@...\n$(END)"
