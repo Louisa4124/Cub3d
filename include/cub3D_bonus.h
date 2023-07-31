@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/25 21:51:31 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:46:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@
 # define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.04
 # define RESOLUTION 2
-# define WIDTH 1080
-# define HEIGHT 720
+# define WIDTH 1920
+# define HEIGHT 1080
 # define MINIMAP_SIZE 10
 # define BLUR 25
-# define SEE_TH 2
+# define SEE_TH 0
 
 # define KEY_W 119
 # define KEY_A 97
@@ -129,7 +129,7 @@ void	view_update_dir_key(t_game *game);
 int		update_game(t_game *game);
 void	ft_printf_fps(int mode);
 void	ft_display_menu(t_game *game);
-void	display_game(t_display *data_thread);
+void	*display_game(void *ptr);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -138,7 +138,7 @@ int		event_pause(int keycode, t_game *game);
 
 /*			Draw			*/
 void	draw_map(t_game *game, int size);
-void	blur_image(t_img *img, unsigned int *img_data);
+void	*blur_image(void *ptr);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:39:15 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/21 23:02:38 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:45:23 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,25 +69,30 @@ t_color	blur_image_avg(t_img *img, unsigned int *img_data, t_vec2d i, \
 	return (avg);
 }
 
-void	blur_image(t_img *img, unsigned int *img_data)
+void	*blur_image(void *ptr)
 {
-	int		kernel[2];
-	t_vec2d	i;
-	t_color	avg;
+	unsigned int	*img_data;
+	int				kernel[2];
+	t_display		*data;
+	t_vec2d			i;
+	t_color			avg;
 
 	kernel[0] = BLUR * 0.5;
 	kernel[1] = BLUR * BLUR;
-	i.y = 0;
-	while (i.y < img->height) 
+	data = ptr;
+	img_data = (unsigned int *)data->view->addr;
+	i.y = data->idx_start;
+	while (i.y < data->idx_end[0]) 
 	{
 		i.x = 0;
-		while (i.x < img->width) 
+		while (i.x < data->idx_end[1]) 
 		{
-			avg = blur_image_avg(img, img_data, i, kernel);
-			img_data[i.y * img->width + i.x] = \
+			avg = blur_image_avg(data->view, img_data, i, kernel);
+			img_data[i.y * data->view->width + i.x] = \
 				(avg.r << 16) | (avg.g << 8) | avg.b;
 			++i.x;
 		}
 		++i.y;
 	}
+	return (NULL);
 }
