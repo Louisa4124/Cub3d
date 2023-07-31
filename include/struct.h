@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 15:39:45 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:56:41 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_display
 	float		*angle_z;
 	float		*angle_x;
 	t_img		*view;
-	int         *resolution;
+	int			*resolution;
 	t_texture	*texture;
 	int			id;
 }	t_display;
@@ -113,7 +113,7 @@ typedef struct s_game
     t_img       transparent;
 	float		ms;
 	int			pause;
-    int         resolution;
+    int			resolution;
 	int			color;
 	int			bit_key;
 	float		angle_z;
@@ -125,8 +125,6 @@ typedef struct s_game
 	t_vec3d		**rays;
 	t_plan		*plan[2];
 	t_texture	texture;
-	sem_t		sem_thread;
-	sem_t		sem_main;
 	pthread_t	pid[N_THREAD];
 	t_display	*th;
 }	t_game;

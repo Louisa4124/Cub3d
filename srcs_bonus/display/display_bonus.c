@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/31 15:49:59 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:56:00 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,12 @@ int	ft_chacha(t_game *game)
 
 void	ft_blur_pause(t_game *game)
 {
-	// int				x;
-	// int				y;
-
 	game->pause = 3;
-	// thread_do(game, blur_image);
-	int	i = -1;
-	while (++i < N_THREAD)
-		blur_image(&game->th[i]);
+	thread_do(game, blur_image);
+	// int	i = -1;
+	// while (++i < N_THREAD)
+	// 	blur_image(&game->th[i]);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-}
-
-int	thread_do(t_game *game, void *(f)(void *))
-{
-	int	i;
-
-	i = -1;
-	i = -1;
-	while (++i < N_THREAD)
-	{
-		if (pthread_create(&game->pid[i], NULL, f, &game->th[i]))
-			dprintf(2, " ER THR\n");
-	}
-	while (--i >= 0)
-		pthread_join(game->pid[i], NULL);
-	return (0);
 }
 
 void	ft_display_pause(t_game *game)
