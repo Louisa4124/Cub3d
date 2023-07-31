@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/27 13:37:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:20:07 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "../libft/libft.h"
 # include "../mlx-linux/mlx.h"
 # include "math.h"
-# include "struct.h"
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
@@ -25,6 +24,10 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <stdbool.h>
+# include <pthread.h>
+# include <semaphore.h>
+# include <stdint.h>
+# include "struct.h"
 
 # define FOV 60
 # define PI_HALF 1.570796
@@ -37,10 +40,11 @@
 # define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.04
 # define RESOLUTION 2
-# define WIDTH 1080
-# define HEIGHT 720
+# define WIDTH 1920
+# define HEIGHT 1080
 # define MINIMAP_SIZE 10
 # define BLUR 25
+# define SEE_TH 0
 
 # define KEY_W 119
 # define KEY_A 97
@@ -51,8 +55,6 @@
 # define KEY_LEFT 65361
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
-# define SPACE 32
-
 # define KEY_SPACE 32
 # define KEY_ESCAPE 65307
 
@@ -109,12 +111,12 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*			Algo 				*/
 int		k_plan_algo(t_game *game);
-int		switch_plan_algo(t_game *game);
-int		intersect(t_game *game, t_plan *plan, int data[4], int wit);
+int		switch_plan_algo(t_display *data_thread);
+int		intersect(t_display *data_thread, t_plan *plan, int data[4], int wit);
 
 /*			Color				*/
-int		get_color(t_game *game);
-int		get_color_ceilling_floor(t_game *game);
+int		get_color(t_display *data_thread);
+int		get_color_ceilling_floor(t_display *data_thread);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
@@ -124,8 +126,10 @@ void	view_update_dir_key(t_game *game);
 
 /*			Display			*/
 int		update_game(t_game *game);
-int		ft_printf_fps(int mode);
+void	ft_printf_fps(int mode);
 void	ft_display_pause(t_game *game);
+void	ft_display_menu(t_game *game);
+void	*display_game(void *ptr);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -135,7 +139,7 @@ int		event_pause(int button, int x, int y, t_game *game);
 
 /*			Draw			*/
 void	draw_map(t_game *game, int size);
-void	blur_image(t_img *img, unsigned int *img_data);
+void	*blur_image(void *ptr);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -157,14 +161,15 @@ void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
 
 /*          a trier pour plus tard pck loulou a la flemme       */
-int	    		load_img(t_game *game, int i, char *path);
+int		load_img(t_game *game, int i, char *path);
+int		event_menu(int x, int y, t_game *game);
+int		event_settings(int x, int y, t_game *game);
+int		ft_get_fps(void);
+void	ft_init_img(t_game *game);
+void	ft_display_menu(t_game *game);
+void	ft_blur_pause(t_game *game);
+void	ft_draw_img(t_game *game, t_img tex, int x, int y);
+
 unsigned int	get_time(void);
-int	    		event_menu(int x, int y, t_game *game);
-int				event_settings(int x, int y, t_game *game);
-int				ft_get_fps(void);
-void			ft_init_img(t_game *game);
-void            ft_display_menu(t_game *game);
-void	        ft_blur_pause(t_game *game);
-void            ft_draw_img(t_game *game, t_img tex, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/27 13:41:09 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:17:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = (char *) img->addr + (y * img->ll + x * (img->bpp >> 3));
+	dst = img->addr + (y * img->ll + x * (img->bpp >> 3));
 	*(unsigned int *) dst = color;
 }
 
-static void	ft_resolution(t_game *game, int i, int j, int color)
+static void	ft_resolution(t_display *data, int i, int j, int color)
 {
 	int	x;
 	int	y;
 	int	j2;
 
-	x = i + game->resolution;
-	y = j + game->resolution;
+	x = i + *data->resolution;
+	y = j + *data->resolution;
 	j2 = j;
-	while (i < x && i < game->mlx.win_height)
+	while (i < x && i < data->idx_end[0])
 	{
 		j = j2;
-		while (j < y && j < game->mlx.win_width)
+		while (j < y && j < data->idx_end[1])
 		{
-			ft_mlx_pixel_put(&game->view, j, i, color);
+			ft_mlx_pixel_put(data->view, j, i, color);
 			++j;
 		}
 		++i;
@@ -58,15 +58,31 @@ int	ft_chacha(t_game *game)
 
 void	ft_blur_pause(t_game *game)
 {
-	unsigned int	*image_data;
-	int				x;
-	int				y;
+	// int				x;
+	// int				y;
 
 	game->pause = 3;
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	image_data = (unsigned int *)game->view.addr;
-	blur_image(&game->view, image_data);
+	// thread_do(game, blur_image);
+	int	i = -1;
+	while (++i < N_THREAD)
+		blur_image(&game->th[i]);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+}
+
+int	thread_do(t_game *game, void *(f)(void *))
+{
+	int	i;
+
+	i = -1;
+	i = -1;
+	while (++i < N_THREAD)
+	{
+		if (pthread_create(&game->pid[i], NULL, f, &game->th[i]))
+			dprintf(2, " ER THR\n");
+	}
+	while (--i >= 0)
+		pthread_join(game->pid[i], NULL);
+	return (0);
 }
 
 void	ft_display_pause(t_game *game)
@@ -133,31 +149,34 @@ void	ft_display_settings(t_game *game)
 		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[22].id, 179, 101);
 }
 
-static void	display_game(t_game *game, int size)
+void	*display_game(void *ptr)
 {
-	int		i;
-	int		j;
+	t_display	*data;
+	int			i;
+	int			j;
 
-	i = 0;
-	while (i < game->mlx.win_height)
+	data = ptr;
+	i = data->idx_start;
+	while (i < data->idx_end[0] - SEE_TH)
 	{
 		j = 0;
-		while (j < game->mlx.win_width)
+		while (j < data->idx_end[1])
 		{
-			if (i > 10 && i < (game->map.y_size * size) + 10 && j > 10 && \
-				j < (game->map.x_size * size) + 10)
+			if (i > 10 && i < (data->map->y_size * MINIMAP_SIZE) + 10 && \
+				j > 10 && j < (data->map->x_size * MINIMAP_SIZE) + 10)
 			{
-				j += game->resolution;
+				j = (data->map->x_size * MINIMAP_SIZE) + 10;
 				continue ;
 			}
-			game->u_rays = ft_rotate_vec_z(ft_rotate_vec_x(game->rays[i][j], \
-				game->angle_x), game->angle_z);
-			game->close_t = 0;
-			ft_resolution(game, i, j, switch_plan_algo(game));
-			j += game->resolution;
+			data->tmp_rays = ft_rotate_vec_z(ft_rotate_vec_x(data->rays[i][j], \
+				*data->angle_x), *data->angle_z);
+			data->close_t = 0;
+			ft_resolution(data, i, j, switch_plan_algo(data));
+			j += *data->resolution;
 		}
-		i += game->resolution;
+		i += *data->resolution;
 	}
+	return (NULL);
 }
 
 int	update_game(t_game *game)
@@ -173,7 +192,7 @@ int	update_game(t_game *game)
 		view_update_pos(game);
 		view_update_dir_key(game);
 		view_update_dir_mouse(game);
-		display_game(game, MINIMAP_SIZE);
+		thread_do(game, display_game);
 		draw_map(game, MINIMAP_SIZE);
 		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 			game->view.id, 0, 0);

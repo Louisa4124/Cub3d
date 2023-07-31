@@ -6,12 +6,14 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 15:17:42 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:24:57 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# define N_THREAD 16
 
 typedef struct s_vec3d
 {
@@ -32,6 +34,13 @@ typedef struct s_vec2d
 	int		x;
 	int		y;
 }	t_vec2d;
+
+typedef struct s_plan_id
+{
+	int		x;
+	int		y;
+	int		d;
+}	t_plan_id;
 
 typedef struct s_plan
 {
@@ -75,6 +84,27 @@ typedef struct s_mlx
 	int		win_width;
 }	t_mlx;
 
+typedef struct s_display
+{
+	float		t;
+	float		close_t;
+	t_vec3d		tmp_point;
+	t_plan_id	tmp_plan;
+	t_vec3d		tmp_rays;
+	int			idx_start;
+	int			idx_end[2];
+	t_map		*map;
+	t_vec3d		*pos;
+	t_vec3d		**rays;
+	t_plan		*plan[2];
+	float		*angle_z;
+	float		*angle_x;
+	t_img		*view;
+	int         *resolution;
+	t_texture	*texture;
+	int			id;
+}	t_display;
+
 typedef struct s_game
 {
 	t_img		button;
@@ -86,24 +116,21 @@ typedef struct s_game
     int         resolution;
 	int			color;
 	int			bit_key;
-	float		t;
-	float		r_h;
-	float		r_v;
 	float		angle_z;
 	float		angle_x;
-	float		close_t;
-	float		dist;
 	t_map		map;
 	t_mlx		mlx;
 	t_img		view;
-	t_vec3d		point;
 	t_vec3d		pos;
-	t_vec2d		u_plan;
-	t_vec3d		u_rays;
 	t_vec3d		**rays;
 	t_plan		*plan[2];
-	t_plan		sky;
 	t_texture	texture;
+	sem_t		sem_thread;
+	sem_t		sem_main;
+	pthread_t	pid[N_THREAD];
+	t_display	*th;
 }	t_game;
+
+// angle less used
 
 #endif
