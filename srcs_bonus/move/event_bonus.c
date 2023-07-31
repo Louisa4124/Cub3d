@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/28 14:56:56 by louisa           ###   ########.fr       */
+/*   Updated: 2023/07/31 16:18:33 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	event_press(int keycode, t_game *game)
 {
+	//printf("key = %d\n", keycode);
 	if (keycode == 53 || keycode == KEY_ESCAPE)
 		close_event(game);
 	else if (keycode == KEY_W)
@@ -36,6 +37,8 @@ int	event_press(int keycode, t_game *game)
 		ft_blur_pause(game);
 	else if (keycode == KEY_P && game->pause == 3)
 		game->pause = 0;
+	else if (keycode == KEY_ENTER && game->pause == 2)
+		game->pause = 4;
 	return (0);
 }
 
