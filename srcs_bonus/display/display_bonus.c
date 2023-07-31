@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/30 21:17:55 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:25:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,27 @@ void	ft_display_menu(t_game *game)
 		100);
 }
 
-void	display_game(t_display *data_thread)
+void	display_game(t_display *data)
 {
 	int		i;
 	int		j;
 
-	i = data_thread->idx_start;
-	while (i < data_thread->idx_end[0] - SEE_TH)
+	i = data->idx_start;
+	while (i < data->idx_end[0] - SEE_TH)
 	{
 		j = 0;
-		while (j < data_thread->idx_end[1])
+		while (j < data->idx_end[1])
 		{
-			if (i > 10 && i < (data_thread->map->y_size * MINIMAP_SIZE) + 10 && j > 10 && \
-				j < data_thread->map->x_size * MINIMAP_SIZE + 10)
+			if (i > 10 && i < (data->map->y_size * MINIMAP_SIZE) + 10 && j > 10 && \
+				j < data->map->x_size * MINIMAP_SIZE + 10)
 			{
-				j = data_thread->map->x_size * MINIMAP_SIZE + 10;
+				j = data->map->x_size * MINIMAP_SIZE + 10;
 				continue ;
 			}
-			data_thread->tmp_rays = ft_rotate_vec_z(ft_rotate_vec_x(data_thread->rays[i][j], \
-				*data_thread->angle_x), *data_thread->angle_z);
-			data_thread->close_t = 0;
-			ft_resolution(data_thread, i, j, switch_plan_algo(data_thread));
+			data->tmp_rays = ft_rotate_vec_z(ft_rotate_vec_x(data->rays[i][j], \
+				*data->angle_x), *data->angle_z);
+			data->close_t = 0;
+			ft_resolution(data, i, j, switch_plan_algo(data));
 			j += RESOLUTION;
 		}
 		i += RESOLUTION;
@@ -83,7 +83,7 @@ void	display_game(t_display *data_thread)
 
 int	update_game(t_game *game)
 {
-	int	i;
+	// int	i;
 
 	if (game->pause == 1)
 		return (0);

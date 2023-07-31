@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/24 22:21:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:15:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,7 @@ static int	rays_create(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_init_airplane(t_game *game)
-{
-	if (rays_create(game))
-		return (EXIT_FAILURE);
-	if (plane_create(game))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-void	ft_init_game(t_game *game)
+int	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
 	game->pause = 0;
@@ -87,4 +78,40 @@ void	ft_init_game(t_game *game)
 	game->plan[0] = NULL;
 	game->plan[1] = NULL;
 	game->rays = NULL;
+	if (rays_create(game))
+		return (EXIT_FAILURE);
+	if (plane_create(game))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	init_data_thread(t_game *game, t_display data[N_THREAD])
+{
+	int	i;
+
+	i = 0;
+	while (i < N_THREAD)
+	{
+		data[i].id = i + 1;
+		data[i].map = &game->map;
+		data[i].pos = &game->pos;
+		data[i].rays = game->rays;
+		data[i].plan[0] = game->plan[0];
+		data[i].plan[1] = game->plan[1];
+		data[i].idx_start = i * (game->mlx.win_height / N_THREAD);
+		data[i].idx_end[0] = (i + 1) * (game->mlx.win_height / N_THREAD);
+		data[i].idx_end[1] = game->mlx.win_width;
+		data[i].angle_x = &game->angle_x;
+		data[i].angle_z = &game->angle_z;
+		data[i].view = &game->view;
+		data[i].texture = &game->texture;
+		data[i].sem_thread = &game->sem_thread;
+		data[i].sem_main = &game->sem_main;
+		data[i].m_print = &game->m_print;
+		data[i].m_lock = &game->m_lock;
+		data[i].lock = &game->lock;
+		++i;
+	}
+	data[--i].idx_end[0] = game->mlx.win_height;
+	return (0);
 }

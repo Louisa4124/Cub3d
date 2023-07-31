@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 11:19:54 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:24:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,122 +47,6 @@ int	get_status(pthread_mutex_t *mutex, int status)
 	return (status);
 }
 
-
-void	*routine_queue(void *ptr)
-{
-	t_thread_data	*th;
-	t_job		*job;
-	
-	th = ptr;
-	while (1)
-	{
-		pthread_mutex_lock(th->m_queue);
-		if ((*th->queue)->content == NULL)
-		{
-			// dprintf(2, "%d : continue\n", get_time());
-			pthread_mutex_unlock(th->m_queue);
-			// usleep(100);
-			continue;
-		}
-		else
-		{
-			job = (*th->queue)->content;
-			*th->queue = (*th->queue)->next;
-			dprintf(2, "%d : T%d jib : %d\n", get_time(), ((t_display *)job->data)->id, job->jib);
-			pthread_mutex_unlock(th->m_queue);
-		}
-		job->func(job->data);
-	}
-}
-
-int	init_data_thread(t_game *game, t_display data[N_THREAD])
-{
-	int	i;
-
-	i = 0;
-	while (i < N_THREAD)
-	{
-		data[i].id = i + 1;
-		data[i].map = &game->map;
-		data[i].pos = &game->pos;
-		data[i].rays = game->rays;
-		data[i].plan[0] = game->plan[0];
-		data[i].plan[1] = game->plan[1];
-		data[i].idx_start = i * (game->mlx.win_height / N_THREAD);
-		data[i].idx_end[0] = (i + 1) * (game->mlx.win_height / N_THREAD);
-		data[i].idx_end[1] = game->mlx.win_width;
-		data[i].angle_x = &game->angle_x;
-		data[i].angle_z = &game->angle_z;
-		data[i].view = &game->view;
-		data[i].texture = &game->texture;
-		data[i].sem_thread = &game->sem_thread;
-		data[i].sem_main = &game->sem_main;
-		data[i].m_print = &game->m_print;
-		data[i].m_lock = &game->m_lock;
-		data[i].lock = &game->lock;
-		printf("idx_start %d\n", data[i].idx_start);
-		printf("idx_endy %d\n", data[i].idx_end[0]);
-		++i;
-	}
-	data[--i].idx_end[0] = game->mlx.win_height;
-	printf("idx_endy last %d\n", data[i].idx_end[0]);
-	return (0);
-}
-
-t_job	*ft_jobnew(int jib, void *data, void (*func)(t_display *))
-{
-	t_job	*new;
-
-	new = ft_calloc(1, sizeof(t_job));
-	if (!new)
-		return (NULL);
-	new->jib = jib;
-	new->data = data;
-	new->func = func;
-	return (new);
-}
-
-int	init_queue(t_list **head, t_display data[N_THREAD])
-{
-	int		i;
-	t_list	*last;
-	t_job	*new_job;
-	t_list	*new_node;
-
-	i = 0;
-	while (i < N_THREAD)
-	{
-		new_job = ft_jobnew(i, &data[i], display_game);
-		dprintf(2, "i is %d\n", i);
-		new_node = ft_lstnew(new_job);
-		dprintf(2, "i is %d\n", i);
-		ft_lstadd_back(head, new_node);
-		dprintf(2, "i is %d\n", i);
-		++i;
-	}
-	ft_lstadd_back(head, ft_lstnew(NULL));
-	last = ft_lstlast(*head);
-	last->next = *head;
-	*head = last;
-	
-	return (0);
-}
-
-void	print_queue(t_list *lst)
-{
-	lst = lst->next;
-	while (lst->content)
-	{
-		dprintf(2, "jib : %d\tdata addr %p\tfunc addr %p\n", ((t_job *)lst->content)->jib, \
-			((t_job *)lst->content)->data, ((t_job *)lst->content)->func);
-		dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
-		lst = lst->next;
-	}
-	dprintf(2, "content %p\n", lst->content);
-	dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
-}
-
-
 // TODO: end thread properly, clear sem, clear struct
 int	main(int argc, char **argv)
 {
@@ -180,12 +64,11 @@ int	main(int argc, char **argv)
 	err = ft_init_mlx(&game);
 	if (err)
 		return (ft_mlx_error(err));
-	ft_init_game(&game);
 	if (load_pause(&game) == 1)
 		return (1);
 	if (parser(argv[1], &game))
 		ft_clean_exit(&game, EXIT_FAILURE);
-	if (ft_init_airplane(&game))
+	if (ft_init_game(&game))
 		ft_clean_exit(&game, EXIT_FAILURE);
 	if (sem_init(&game.sem_thread, 0, 0) == -1)
 		dprintf(2, "Error sem_init\n");
@@ -201,8 +84,7 @@ int	main(int argc, char **argv)
 	init_queue(&queue, data_display);
 	data_thread.m_queue = &game.m_queue;
 	data_thread.queue = &queue;
-	print_queue(*data_thread.queue);
-	// exit(1);
+	debug_print_queue(*data_thread.queue);
 	i = 0;
 	while (i < N_THREAD)
 	{

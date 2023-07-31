@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/30 15:10:39 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/07/31 16:28:02 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
 DIR_SRCS		=	srcs_bonus/
 LST_SRCS		=	main_bonus.c clear_bonus.c debug_bonus.c \
-					math_bonus.c utils_bonus.c fps_bonus.c 
+					math_bonus.c utils_bonus.c fps_bonus.c thread_bonus.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	srcs_bonus/parsing/
@@ -83,9 +83,9 @@ MKDIR 		=	mkdir -p
 RM			=	rm -rf
 MAKE		=	make -s
 
-#-g3 -fsanitize=thread
+
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-O3 -Wall -Wextra -pthread -fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
+CFLAGS		=	-O3 -Wall -Wextra -pthread -g3 -fsanitize=thread#-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
 FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11
 
@@ -111,7 +111,7 @@ fclean	:	clean
 re		:	fclean
 		@${MAKE} all
 
-reb		:	fclean
+reb		:	clean
 		@${MAKE} bonus
 
 

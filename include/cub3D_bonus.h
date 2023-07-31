@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/30 14:34:28 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:24:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@
 # define MLX_ERR_DATA 4
 
 /*          Initialisation          */
-void	ft_init_game(t_game *game);
+int		ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
-int		ft_init_airplane(t_game *game);
+int		init_data_thread(t_game *game, t_display data[N_THREAD]);
 
 t_vec3d	s_vec3d_init(float x, float y, float z);
 void	s_mlx_init(t_mlx *mlx);
@@ -152,12 +152,19 @@ t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
 t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 
+/*			Thread					*/
+void	*routine_queue(void *ptr);
+int		init_queue(t_list **head, t_display data[N_THREAD]);
+t_job	*ft_jobnew(int jib, void *data, void (*func)(t_display *));
+
+
 /*			Debug					*/
 void	debug_print_texture(t_texture *texture);
 void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
+void	debug_print_queue(t_list *lst);
 
 unsigned int	get_time(void);
 void	th_print(pthread_mutex_t *m_print, char *str, int id);

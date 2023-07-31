@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:33:34 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 14:32:26 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:23:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,19 @@ void	debug_print_vec3d(t_vec3d *u, char *name)
 	dprintf(2, "u.x = % .3f\n", u->x);
 	dprintf(2, "u.y = % .3f\n", u->y);
 	dprintf(2, "u.z = % .3f\n", u->z);
+}
+
+void	debug_print_queue(t_list *lst)
+{
+	if (lst->content == NULL)
+		lst = lst->next;
+	while (lst->content)
+	{
+		dprintf(2, "jib : %d\tdata addr %p\tfunc addr %p\n", ((t_job *)lst->content)->jib, \
+			((t_job *)lst->content)->data, ((t_job *)lst->content)->func);
+		dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
+		lst = lst->next;
+	}
+	dprintf(2, "content %p\n", lst->content);
+	dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
 }
