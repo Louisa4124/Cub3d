@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: louisa <louisa@student.42.fr>              +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/25 19:42:08 by louisa           ###   ########.fr        #
+#    Updated: 2023/07/31 15:22:31 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ MAKE		=	make -s
 
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-O3 -Wall -Wextra #-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
+CFLAGS		=	-O3 -Wall -Wextra -pthread #-g3 -fsanitize=thread  #-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
 FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11
 

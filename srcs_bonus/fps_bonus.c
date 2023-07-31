@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   fps_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:45:36 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/24 14:32:45 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:08:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
+
 
 unsigned int	get_time(void)
 {
@@ -24,7 +25,7 @@ unsigned int	get_time(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-int	ft_printf_fps(int mode)
+void	ft_printf_fps(int mode)
 {
 	static int	n_frame;
 	static int	time;
@@ -40,7 +41,6 @@ int	ft_printf_fps(int mode)
 		time = get_time();
 		n_frame = 0;
 	}
-	return (n_frame);
 }
 
 int	ft_get_fps(void)
