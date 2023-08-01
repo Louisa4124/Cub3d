@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/30 20:51:09 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:19:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ typedef struct s_texture
 	int		ceiling;
 }	t_texture;
 
+typedef struct s_area
+{
+	int	start_x;
+	int	end_x;
+	int	start_y;
+	int	end_y;
+}	t_area;
+
 typedef struct s_map
 {
 	int	**layout;
@@ -86,27 +94,21 @@ typedef struct s_mlx
 
 typedef struct s_display
 {
+	int			did;
+	t_area		area;
 	float		t;
 	float		close_t;
 	t_vec3d		tmp_point;
 	t_plan_id	tmp_plan;
 	t_vec3d		tmp_rays;
-	int			idx_start;
-	int			idx_end[2];
 	t_map		*map;
 	t_vec3d		*pos;
-	t_vec3d		**rays;
 	t_plan		*plan[2];
-	float		*angle_z;
-	float		*angle_x;
 	t_img		*view;
 	t_texture	*texture;
-	sem_t		*sem_thread;
-	sem_t		*sem_main;
-	int			id;
-	pthread_mutex_t	*m_print;
-	pthread_mutex_t	*m_lock;
-	int				*lock;
+	t_vec3d		**rays;
+	float		*angle_z;
+	float		*angle_x;
 }	t_display;
 
 typedef struct s_game
@@ -138,11 +140,14 @@ typedef struct s_job
 {
 	int				jib;
 	void			*data;
-	void			(*func)(t_display*);
+	void			(*func)(void *);
 }	t_job;
 
 typedef struct s_thread_data
 {
+	int				tid;
+	sem_t			*sem_main;
+	sem_t			*sem_thread;
 	pthread_mutex_t	*m_queue;
 	t_list			**queue;
 }	t_thread_data;

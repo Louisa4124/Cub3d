@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 16:24:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:33:22 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 {
 	t_game			game;
 	t_display		data_display[N_THREAD];
-	t_thread_data	data_thread;
+	t_thread_data	data_thread[N_THREAD];
 	t_list			*queue;
 	int				err;
 	int				i;
@@ -77,18 +77,19 @@ int	main(int argc, char **argv)
 	pthread_mutex_init(&game.m_print, NULL);
 	pthread_mutex_init(&game.m_lock, NULL);
 	pthread_mutex_init(&game.m_queue, NULL);
+	sem_init(game.sem_main, 0, 0);
+	sem_init(game.sem_thread, 0, 0);
 	game.lock = 0;
 	queue = NULL;
-	init_data_thread(&game, data_display);
+	init_data_display(&game, data_display);
 	game.job_queue = &queue;
 	init_queue(&queue, data_display);
-	data_thread.m_queue = &game.m_queue;
-	data_thread.queue = &queue;
-	debug_print_queue(*data_thread.queue);
+	init_thread_data(&game, data_thread);
+	debug_print_queue(*data_thread[0].queue);
 	i = 0;
 	while (i < N_THREAD)
 	{
-		if (pthread_create(&game.pid[i], NULL, routine_queue, &data_thread))
+		if (pthread_create(&game.pid[i], NULL, routine_queue, &data_thread[i]))
 			dprintf(2, " ER THR\n");
 		++i;
 	}

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/31 16:26:16 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:32:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,22 @@ int	init_queue(t_list **head, t_display data[N_THREAD])
 	return (0);
 }
 
+void	init_thread_data( t_game *game, t_thread_data data[N_THREAD])
+{
+	int	i;
+
+	i = 0;
+	while (i < N_THREAD)
+	{
+		data[i].tid = i + 1;
+		data[i].sem_main = game->sem_main;
+		data[i].sem_thread = game->sem_thread;
+		data[i].m_queue = &game->m_queue;
+		data[i].queue = game->job_queue;
+		++i;
+	}
+}
+
 void	*routine_queue(void *ptr)
 {
 	t_thread_data	*th;
@@ -60,16 +76,18 @@ void	*routine_queue(void *ptr)
 		{
 			// dprintf(2, "%d : continue\n", get_time());
 			pthread_mutex_unlock(th->m_queue);
-			// usleep(100);
+			sem_wait(th->sem_thread);
 			continue ;
 		}
 		else
 		{
 			job = (*th->queue)->content;
 			*th->queue = (*th->queue)->next;
-			dprintf(2, "%d : T%d jib : %d\n", get_time(), ((t_display *)job->data)->id, job->jib);
+			dprintf(2, "%d : T%d jib : %d\n", get_time(), th->tid, job->jib);
 			pthread_mutex_unlock(th->m_queue);
 		}
 		job->func(job->data);
+		sem_post(th->sem_main);
+		job = NULL;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 16:24:27 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:29:47 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@
 /*          Initialisation          */
 int		ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
-int		init_data_thread(t_game *game, t_display data[N_THREAD]);
+void	init_data_display(t_game *game, t_display data[N_THREAD]);
+void	init_thread_data( t_game *game, t_thread_data data[N_THREAD]);
 
 t_vec3d	s_vec3d_init(float x, float y, float z);
 void	s_mlx_init(t_mlx *mlx);

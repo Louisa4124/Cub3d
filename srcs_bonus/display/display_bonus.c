@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/31 16:25:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:25:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-static void	ft_resolution(t_display *data_thread, int i, int j, int color)
+static void	ft_resolution(t_display *data, int i, int j, int color)
 {
-	int	x;
-	int	y;
-	int	j2;
+	int	max_y;
+	int	max_x;
+	int	j_start;
 
-	x = i + RESOLUTION;
-	y = j + RESOLUTION;
-	j2 = j;
-	while (i < x && i < data_thread->idx_end[0])
+	max_y = i + RESOLUTION;
+	max_x = j + RESOLUTION;
+	j_start = j;
+	while (i < max_y && i < data->area.end_y)
 	{
-		j = j2;
-		while (j < y && j < data_thread->idx_end[1])
+		j = j_start;
+		while (j < max_x && j < data->area.end_x)
 		{
-			ft_mlx_pixel_put(data_thread->view, j, i, color);
+			ft_mlx_pixel_put(data->view, j, i, color);
 			++j;
 		}
 		++i;
@@ -58,11 +58,11 @@ void	display_game(t_display *data)
 	int		i;
 	int		j;
 
-	i = data->idx_start;
-	while (i < data->idx_end[0] - SEE_TH)
+	i = data->area.start_y;
+	while (i < data->area.end_y - SEE_TH)
 	{
-		j = 0;
-		while (j < data->idx_end[1])
+		j = data->area.start_x;
+		while (j < data->area.end_y)
 		{
 			if (i > 10 && i < (data->map->y_size * MINIMAP_SIZE) + 10 && j > 10 && \
 				j < data->map->x_size * MINIMAP_SIZE + 10)
@@ -106,7 +106,9 @@ int	update_game(t_game *game)
 		pthread_mutex_lock(&game->m_queue);
 		if ((*game->job_queue)->content != NULL)
 		{
+			// dprintf(2, "main is at jib %d\n", ((t_job *)(*game->job_queue)->content)->jib);
 			pthread_mutex_unlock(&game->m_queue);
+			usleep(100);
 			continue ;
 		}
 		else
