@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/01 13:19:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:34:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ typedef struct s_game
 	t_vec3d		**rays;
 	t_plan		*plan[2];
 	t_texture	texture;
-	sem_t		sem_thread;
-	sem_t		sem_main;
+	sem_t		*sem_thread;
+	sem_t		*sem_main;
 	pthread_t	pid[N_THREAD];
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_lock;
