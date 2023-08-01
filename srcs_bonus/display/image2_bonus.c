@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 16:34:27 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:57:52 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,28 @@ void    ft_draw_img(t_img *img_dst, t_img tex, int x, int y)
         }
         i++;
     }
+}
+
+t_img resize_image(t_game *game, t_img *source, int new_width, int new_height)
+{
+    t_img new_img;
+
+    new_img.id = mlx_new_image(game->mlx.ptr, new_width, new_height);
+    new_img.addr = mlx_get_data_addr(new_img.id, &new_img.bpp, &new_img.ll, &new_img.endian);
+    new_img.width = new_width;
+    new_img.height = new_height;
+    for (int y = 0; y < new_height; y++)
+    {
+        for (int x = 0; x < new_width; x++)
+        {
+            int src_x = x * source->width / new_width;
+            int src_y = y * source->height / new_height;
+            int src_pixel_index = (src_y * source->ll) + (src_x * (source->bpp / 8));
+            int dst_pixel_index = (y * new_img.ll) + (x * (new_img.bpp / 8));
+
+            for (int byte = 0; byte < (new_img.bpp / 8); byte++)
+                new_img.addr[dst_pixel_index + byte] = source->addr[src_pixel_index + byte];
+        }
+    }
+    return new_img;
 }
