@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 15:54:13 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/01 14:55:35 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,25 @@ int	main(int argc, char **argv)
 		ft_clean_exit(&game, EXIT_FAILURE);
 	if (ft_init_game(&game))
 		ft_clean_exit(&game, EXIT_FAILURE);
+	game.sprite[0].x = 0;
+	game.sprite[0].y = 0;
+	game.sprite[0].img = &game.anim[2][0];
+	game.sprite[0].frame = 8;
+
+	game.sprite[1].x = 0;
+	game.sprite[1].y = 0;
+	game.sprite[1].img = &game.anim[3][0];
+	game.sprite[1].frame = 10;
+	
+	game.sprite[2].x = 0;
+	game.sprite[2].y = 0;
+	game.sprite[2].img = &game.anim[4][0];
+	game.sprite[2].frame = 5;
+
+	game.sprite[3].x = 0;
+	game.sprite[3].y = 0;
+	game.sprite[3].img = &game.anim[2][1];
+	game.sprite[3].frame = 6;
 	ft_init_img(&game);
 	init_data_thread(&game, data_thread);
 	game.th = data_thread;

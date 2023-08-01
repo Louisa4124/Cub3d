@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/31 22:00:47 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/01 14:56:00 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ typedef struct s_plan
 	float	d;
 }	t_plan;
 
+typedef struct s_area
+{
+	int	start_x;
+	int	end_x;
+	int	start_y;
+	int	end_y;
+}	t_area;
+
 typedef struct s_img
 {
 	void	*id;
@@ -60,6 +68,17 @@ typedef struct s_img
 	int		bpp;
 	int		endian;
 }	t_img;
+
+typedef struct s_sprite
+{
+	t_img	*img;
+	int		frame;
+	// int		width_sprite;
+	// int		height_sprite;
+	int		x;
+	int		y;
+}	t_sprite;
+
 
 // wall 0=N 1=S 2=W 3=E
 typedef struct s_texture
@@ -109,7 +128,10 @@ typedef struct s_game
 {
 	t_img		button;
     t_img       animation[31];
-	t_img       anim[4][23];
+	t_img       anim[5][23];
+	t_sprite	sprite[4];
+	int			x;
+	int			y;
     t_img       transparent;
 	float		ms;
 	int			pause;

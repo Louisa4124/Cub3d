@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/31 22:05:14 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/01 14:56:40 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,14 @@ void	ft_init_img(t_game *game)
 	load_menu(game, 1, 2, "img/select/2.xpm");
 	load_menu(game, 1, 3, "img/select/3.xpm");
 	
-	load_menu(game, 2, 0, "img/char1/0.xpm");
-	load_menu(game, 2, 1, "img/char1/1.xpm");
-	load_menu(game, 2, 2, "img/char1/2.xpm");
-	load_menu(game, 2, 3, "img/char1/3.xpm");
-	load_menu(game, 2, 4, "img/char1/4.xpm");
-	load_menu(game, 2, 5, "img/char1/5.xpm");
-	load_menu(game, 2, 6, "img/char1/6.xpm");
-	load_menu(game, 2, 7, "img/char1/7.xpm");
+	load_menu(game, 2, 0, "img/char1/all.xpm");
+	game->anim[2][0] = resize_image(game, &game->anim[2][0], 7);
+	load_menu(game, 2, 1, "img/char1/idle.xpm");
+	game->anim[2][1] = resize_image(game, &game->anim[2][1], 7);
 
-	load_menu(game, 3, 0, "img/char3/0.xpm");
-	load_menu(game, 3, 1, "img/char3/1.xpm");
-	load_menu(game, 3, 2, "img/char3/2.xpm");
-	load_menu(game, 3, 3, "img/char3/3.xpm");
-	load_menu(game, 3, 4, "img/char3/4.xpm");
-	load_menu(game, 3, 5, "img/char3/5.xpm");
-	load_menu(game, 3, 6, "img/char3/6.xpm");
-	load_menu(game, 3, 7, "img/char3/7.xpm");
-
+	load_menu(game, 3, 0, "img/char3/all.xpm");
+	game->anim[3][0] = resize_image(game, &game->anim[3][0], 7);
+	
+	load_menu(game, 4, 0, "img/char2/all.xpm");
+	game->anim[4][0] = resize_image(game, &game->anim[4][0], 7);
 }

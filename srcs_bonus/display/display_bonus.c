@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/01 11:07:39 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/01 14:56:58 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,25 @@ void    ft_display_menu(t_game *game)
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
-void	ft_animation(t_game *game, int x, int tab, int end)
+void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos)
 {
-	static int	i = 0;
+	int			ry;
+	int			rx;
 
+	ry = sprite->img->height / sprite->frame;
+	rx = sprite->img->width;
 	if (game->ms >= 0.05)
 	{
-		i++;
+		sprite->y += ry;
 		game->ms -= 0.05;
 	}
-	if (i >= end)
-		i = 0;
-	ft_draw_img(&game->view, game->anim[tab][i], x, 540);
+	if (sprite->y >= ry * sprite->frame)
+		sprite->y = 0;
+	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, *sprite->img, (t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
+
+// &(t_sprite) {game->anim[2][0], 8, game->x, game->y}
 
 void    ft_display_select_player(t_game *game)
 {
@@ -108,19 +113,25 @@ void    ft_display_select_player(t_game *game)
 	ft_draw_img(&game->view, game->anim[1][0], 0, 0);
 	if ((x > 550 && x < 650) && (y > 650 && y < 920))
 	{
-		ft_animation(game, 340, 2, 7);
+		ft_animation(game, &game->sprite[0], (t_vec2d) {0, 500});
 		ft_draw_img(&game->view, game->anim[1][2], 0, 0);
 		ft_draw_img(&game->view, game->anim[1][3], 0, 0);		
 	}
 	else if ((x > 1320 && x < 1410) && (y > 670 && y < 920))
 	{
-		ft_animation(game, 1100, 3, 7);
+		ft_animation(game, &game->sprite[1], (t_vec2d) {1070, 550});
 		ft_draw_img(&game->view, game->anim[1][1], 0, 0);
 		ft_draw_img(&game->view, game->anim[1][2], 0, 0);		
 	}
+	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
+	{
+		ft_animation(game, &game->sprite[2], (t_vec2d) {850, 600});
+		ft_draw_img(&game->view, game->anim[1][1], 0, 0);
+		ft_draw_img(&game->view, game->anim[1][3], 0, 0);		
+	}
 	else
 	{
-		ft_draw_img(&game->view, game->anim[1][1], 0, 0);
+		ft_animation(game, &game->sprite[3], (t_vec2d) {500, 500});
 		ft_draw_img(&game->view, game->anim[1][2], 0, 0);
 		ft_draw_img(&game->view, game->anim[1][3], 0, 0);
 	}
