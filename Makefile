@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/31 15:56:18 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/08/01 12:27:24 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,7 +111,9 @@ fclean	:	clean
 re		:	fclean
 		@${MAKE} all
 
-reb		:	clean
+reb		:
+		@${RM} ${DIR_OBJS}
+		@${RM} ${NAME_B}
 		@${MAKE} bonus
 
 
