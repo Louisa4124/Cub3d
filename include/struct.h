@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/01 13:34:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 14:55:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCT_H
 
 # define N_THREAD 16
+# define N_JOB 16
 
 typedef struct s_vec3d
 {
@@ -125,22 +126,20 @@ typedef struct s_game
 	t_vec3d		**rays;
 	t_plan		*plan[2];
 	t_texture	texture;
-	sem_t		*sem_thread;
-	sem_t		*sem_main;
+	sem_t		sem_thread;
+	sem_t		sem_main;
 	pthread_t	pid[N_THREAD];
 	pthread_mutex_t	m_print;
-	pthread_mutex_t	m_lock;
 	pthread_mutex_t	m_queue;
-	// int				queue_status;
-	int				lock;
-	t_list		**job_queue;
+	int				queue_status;
+	t_list			**job_queue;
 }	t_game;
 
 typedef struct s_job
 {
 	int				jib;
 	void			*data;
-	void			(*func)(void *);
+	void			(*func)(t_display *);
 }	t_job;
 
 typedef struct s_thread_data
@@ -149,6 +148,7 @@ typedef struct s_thread_data
 	sem_t			*sem_main;
 	sem_t			*sem_thread;
 	pthread_mutex_t	*m_queue;
+	int				*queue_status;
 	t_list			**queue;
 }	t_thread_data;
 

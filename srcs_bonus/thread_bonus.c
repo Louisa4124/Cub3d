@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/01 13:32:28 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 14:51:18 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	init_thread_data( t_game *game, t_thread_data data[N_THREAD])
 	while (i < N_THREAD)
 	{
 		data[i].tid = i + 1;
-		data[i].sem_main = game->sem_main;
-		data[i].sem_thread = game->sem_thread;
+		data[i].sem_main = &game->sem_main;
+		data[i].sem_thread = &game->sem_thread;
 		data[i].m_queue = &game->m_queue;
+		data[i].queue_status = &game->queue_status;
 		data[i].queue = game->job_queue;
 		++i;
 	}
@@ -71,23 +72,28 @@ void	*routine_queue(void *ptr)
 	th = ptr;
 	while (1)
 	{
+		sem_wait(th->sem_thread);
 		pthread_mutex_lock(th->m_queue);
+		if (*th->queue_status == 1)
+		{
+			pthread_mutex_unlock(th->m_queue);
+			break ;
+		}
 		if ((*th->queue)->content == NULL)
 		{
-			// dprintf(2, "%d : continue\n", get_time());
+			dprintf(2, "%d : continue\n", get_time());
 			pthread_mutex_unlock(th->m_queue);
-			sem_wait(th->sem_thread);
 			continue ;
 		}
 		else
 		{
 			job = (*th->queue)->content;
 			*th->queue = (*th->queue)->next;
-			dprintf(2, "%d : T%d jib : %d\n", get_time(), th->tid, job->jib);
+			// dprintf(2, "%d : T%d jib : %d\n", get_time(), th->tid, job->jib);
 			pthread_mutex_unlock(th->m_queue);
 		}
 		job->func(job->data);
 		sem_post(th->sem_main);
-		job = NULL;
 	}
+	// dprintf(2, "T%d QUIT\n", th->tid);
 }

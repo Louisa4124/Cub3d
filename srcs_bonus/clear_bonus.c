@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/25 21:44:02 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 14:50:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	ft_clean_exit(t_game *game, int exit_code)
 {
 	int	i;
 
-	change_status(&game->m_lock, &game->lock, 1);
-	// game->lock = 1;
+	change_status(&game->m_queue, &game->queue_status, 1);
 	i = -1;
 	while (++i < N_THREAD)
 		sem_post(&game->sem_thread);
@@ -65,7 +64,6 @@ void	ft_clean_exit(t_game *game, int exit_code)
 	sem_destroy(&game->sem_thread);
 	sem_destroy(&game->sem_main);
 	pthread_mutex_destroy(&game->m_print);
-	pthread_mutex_destroy(&game->m_lock);
 	ft_destroy_texture(&game->mlx, &game->texture);
 	s_mlx_destroy(game);
 	ft_free2d((void **) game->map.layout, game->map.y_size);

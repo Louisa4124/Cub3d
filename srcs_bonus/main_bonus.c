@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/01 13:33:22 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 14:35:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,15 @@ int	main(int argc, char **argv)
 	if (sem_init(&game.sem_main, 0, 0) == -1)
 		dprintf(2, "Error sem_init\n");
 	pthread_mutex_init(&game.m_print, NULL);
-	pthread_mutex_init(&game.m_lock, NULL);
 	pthread_mutex_init(&game.m_queue, NULL);
-	sem_init(game.sem_main, 0, 0);
-	sem_init(game.sem_thread, 0, 0);
-	game.lock = 0;
+	sem_init(&game.sem_main, 0, 0);
+	sem_init(&game.sem_thread, 0, 0);
 	queue = NULL;
 	init_data_display(&game, data_display);
 	game.job_queue = &queue;
 	init_queue(&queue, data_display);
 	init_thread_data(&game, data_thread);
-	debug_print_queue(*data_thread[0].queue);
+	// debug_print_queue(*data_thread[0].queue);
 	i = 0;
 	while (i < N_THREAD)
 	{

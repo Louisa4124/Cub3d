@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/01 13:25:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 14:46:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	display_game(t_display *data)
 	while (i < data->area.end_y - SEE_TH)
 	{
 		j = data->area.start_x;
-		while (j < data->area.end_y)
+		while (j < data->area.end_x)
 		{
 			if (i > 10 && i < (data->map->y_size * MINIMAP_SIZE) + 10 && j > 10 && \
 				j < data->map->x_size * MINIMAP_SIZE + 10)
@@ -83,46 +83,45 @@ void	display_game(t_display *data)
 
 int	update_game(t_game *game)
 {
-	// int	i;
+	int	i;
 
 	if (game->pause == 1)
 		return (0);
 	view_update_pos(game);
 	view_update_dir_key(game);
 	view_update_dir_mouse(game);
-	th_print(&game->m_print, "start launching th", 0);
+	// th_print(&game->m_print, "start launching th", 0);
 	pthread_mutex_lock(&game->m_queue);
 	(*game->job_queue) = (*game->job_queue)->next;
 	pthread_mutex_unlock(&game->m_queue);
-	// i = -1;
-	// while (++i < N_THREAD)
-	// 	sem_post(&game->sem_thread);
-	th_print(&game->m_print, "waiting for Th", 0);
-	// i = -1;
-	// while (++i < N_THREAD)
-	// 	sem_wait(&game->sem_main);
-	while (1)
-	{
-		pthread_mutex_lock(&game->m_queue);
-		if ((*game->job_queue)->content != NULL)
-		{
-			// dprintf(2, "main is at jib %d\n", ((t_job *)(*game->job_queue)->content)->jib);
-			pthread_mutex_unlock(&game->m_queue);
-			usleep(100);
-			continue ;
-		}
-		else
-		{
-			pthread_mutex_unlock(&game->m_queue);
-			break ;
-		}
-	}
-	th_print(&game->m_print, "Th locked\n", 0);
+	i = -1;
+	while (++i < N_THREAD)
+		sem_post(&game->sem_thread);
+	// th_print(&game->m_print, "waiting for Th", 0);
+	i = -1;
+	while (++i < N_THREAD)
+		sem_wait(&game->sem_main);
+	// while (1)
+	// {
+	// 	pthread_mutex_lock(&game->m_queue);
+	// 	if ((*game->job_queue)->content != NULL)
+	// 	{
+	// 		// dprintf(2, "main is at jib %d\n", ((t_job *)(*game->job_queue)->content)->jib);
+	// 		pthread_mutex_unlock(&game->m_queue);
+	// 		usleep(100);
+	// 		continue ;
+	// 	}
+	// 	else
+	// 	{
+	// 		pthread_mutex_unlock(&game->m_queue);
+	// 		break ;
+	// 	}
+	// }
+	// th_print(&game->m_print, "Th locked\n", 0);
 
 
 	draw_map(game, MINIMAP_SIZE);
 	ft_printf_fps(1);
-	// sleep(1);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
 	return (0);
