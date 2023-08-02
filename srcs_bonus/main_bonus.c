@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/01 14:55:35 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/02 22:34:18 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ int	main(int argc, char **argv)
 	game.sprite[3].y = 0;
 	game.sprite[3].img = &game.anim[2][1];
 	game.sprite[3].frame = 6;
+
+	game.sprite[4].x = 0;
+	game.sprite[4].y = 0;
+	game.sprite[4].img = &game.anim[4][1];
+	game.sprite[4].frame = 6;
+
+	game.sprite[5].x = 0;
+	game.sprite[5].y = 0;
+	game.sprite[5].img = &game.anim[3][1];
+	game.sprite[5].frame = 6;
 	ft_init_img(&game);
 	init_data_thread(&game, data_thread);
 	game.th = data_thread;

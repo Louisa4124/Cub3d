@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/01 14:56:40 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/02 22:33:50 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ void	ft_init_img(t_game *game)
 
 	load_menu(game, 3, 0, "img/char3/all.xpm");
 	game->anim[3][0] = resize_image(game, &game->anim[3][0], 7);
+	load_menu(game, 3, 1, "img/char3/idle.xpm");
+	game->anim[3][1] = resize_image(game, &game->anim[3][1], 7);
 	
 	load_menu(game, 4, 0, "img/char2/all.xpm");
 	game->anim[4][0] = resize_image(game, &game->anim[4][0], 7);
+	load_menu(game, 4, 1, "img/char2/idle.xpm");
+	game->anim[4][1] = resize_image(game, &game->anim[4][1], 7);
 }

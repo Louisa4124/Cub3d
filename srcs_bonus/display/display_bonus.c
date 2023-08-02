@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/01 14:56:58 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/02 22:40:53 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,13 @@ void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos)
 
 	ry = sprite->img->height / sprite->frame;
 	rx = sprite->img->width;
-	if (game->ms >= 0.05)
-	{
+	if (game->ms >= 0.04)
 		sprite->y += ry;
-		game->ms -= 0.05;
-	}
+	//game->ms -= 0.04;
 	if (sprite->y >= ry * sprite->frame)
 		sprite->y = 0;
-	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, *sprite->img, (t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
+	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, *sprite->img, \
+		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
@@ -114,26 +113,34 @@ void    ft_display_select_player(t_game *game)
 	if ((x > 550 && x < 650) && (y > 650 && y < 920))
 	{
 		ft_animation(game, &game->sprite[0], (t_vec2d) {0, 500});
-		ft_draw_img(&game->view, game->anim[1][2], 0, 0);
-		ft_draw_img(&game->view, game->anim[1][3], 0, 0);		
+		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
+		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});	
+		if (game->ms >= 0.04)
+			game->ms -= 0.04;	
 	}
 	else if ((x > 1320 && x < 1410) && (y > 670 && y < 920))
 	{
 		ft_animation(game, &game->sprite[1], (t_vec2d) {1070, 550});
-		ft_draw_img(&game->view, game->anim[1][1], 0, 0);
-		ft_draw_img(&game->view, game->anim[1][2], 0, 0);		
+		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
+		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
+		if (game->ms >= 0.04)
+			game->ms -= 0.04;		
 	}
 	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
 	{
 		ft_animation(game, &game->sprite[2], (t_vec2d) {850, 600});
-		ft_draw_img(&game->view, game->anim[1][1], 0, 0);
-		ft_draw_img(&game->view, game->anim[1][3], 0, 0);		
+		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
+		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
+		if (game->ms >= 0.04)
+			game->ms -= 0.04;
 	}
 	else
 	{
-		ft_animation(game, &game->sprite[3], (t_vec2d) {500, 500});
-		ft_draw_img(&game->view, game->anim[1][2], 0, 0);
-		ft_draw_img(&game->view, game->anim[1][3], 0, 0);
+		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
+		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
+		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
+		if (game->ms >= 0.04)
+			game->ms -= 0.04;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
