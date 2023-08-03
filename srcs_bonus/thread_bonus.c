@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 14:46:20 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:21:17 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ int	init_queue(t_job **head, t_link *link, t_area area[N_CHUNK], t_game *game)
 	i = 0;
 	while (i < N_CHUNK)
 	{
-		new_job = jobnew(i, link, &area[i], display_game);
-		jobadd_back(head, new_job);
+		if (add_job(head, link, &area[i], display_game))
+			return (1);
 		++i;
 	}
-	new_job = jobnew(i, link, &game->minimap_size, draw_map);
-	jobadd_back(head, new_job);
-	new_job = jobnew(-1, NULL, NULL, NULL);
-	jobadd_back(head, new_job);
+	if (add_job(head, link, &game->minimap_size, draw_map))
+		return (1);
+	if (add_job(head, NULL, NULL, NULL))
+		return (1);
 	last = joblast(*head);
+	last->jid = -1;
 	last->next = *head;
 	*head = last;
 	return (0);
