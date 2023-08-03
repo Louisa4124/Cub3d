@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 14:11:57 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:32:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int	main(int argc, char **argv)
 	queue = NULL;
 	init_area_link(&game);
 	game.job_queue = &queue;
-	init_queue(&queue, &game.link, game.area);
+	game.minimap_size = 10;
+	init_queue(&queue, &game.link, game.area, &game);
 	init_thread_data(&game, data_thread);
 	// debug_print_queue(*data_thread[0].queue);
 	i = 0;

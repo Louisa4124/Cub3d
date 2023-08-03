@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 14:18:54 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:29:23 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_display_menu(t_game *game)
 		100);
 }
 
-void	display_game(void *ptr, t_area *area)
+void	display_game(void *ptr, void *area)
 {
 	t_tmp		data;
 	int			i;
@@ -104,7 +104,7 @@ int	update_game(t_game *game)
 	i = -1;
 	while (++i < N_JOB)
 		sem_wait(&game->sem_main);
-	draw_map(&game->link, NULL);
+	// draw_map(&game->link, NULL);
 	ft_printf_fps(1);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);

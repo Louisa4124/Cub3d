@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 14:15:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:32:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	view_update_dir_key(t_game *game);
 int		update_game(t_game *game);
 void	ft_printf_fps(int mode);
 void	ft_display_menu(t_game *game);
-void	display_game(void *ptr, t_area *area);
+void	display_game(void *ptr, void *area);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -138,7 +138,7 @@ int		event_unpress(int keycode, t_game *game);
 int		event_pause(int keycode, t_game *game);
 
 /*			Draw			*/
-void	draw_map(void *ptr, t_area *area);
+void	draw_map(void *ptr, void *area);
 void	blur_image(t_img *img, unsigned int *img_data);
 
 /*			Events 				*/
@@ -156,7 +156,7 @@ int		math_sign_float(float f);
 /*			Thread					*/
 void	*routine_queue(void *ptr);
 int		init_queue(t_list **head, t_link data[N_CHUNK], \
-	t_area area[N_CHUNK]);
+	t_area area[N_CHUNK], t_game *game);
 // t_job	*ft_jobnew(int jib, void *data, void (*func)(void *, t_area *));
 
 

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 14:07:36 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:31:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 # define STRUCT_H
 
 # define N_THREAD 4
-# define N_JOB 16
+# define N_JOB 17
 # define N_CHUNK 16
-
-typedef struct s_vec3d
-{
-	float	x;
-	float	y;
-	float	z;
-}	t_vec3d;
 
 typedef struct s_color
 {
@@ -31,18 +24,18 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
+typedef struct s_vec3d
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_vec3d;
+
 typedef struct s_vec2d
 {
 	int		x;
 	int		y;
 }	t_vec2d;
-
-typedef struct s_plan_id
-{
-	int		x;
-	int		y;
-	int		d;
-}	t_plan_id;
 
 typedef struct s_plan
 {
@@ -51,6 +44,13 @@ typedef struct s_plan
 	float	c;
 	float	d;
 }	t_plan;
+
+typedef struct s_plan_id
+{
+	int		x;
+	int		y;
+	int		d;
+}	t_plan_id;
 
 typedef struct s_img
 {
@@ -131,6 +131,7 @@ typedef struct s_game
 	t_vec3d		**rays;
 	t_plan		*plan[2];
 	t_texture	texture;
+	int			minimap_size;
 	sem_t		sem_thread;
 	sem_t		sem_main;
 	t_link		link;
@@ -146,8 +147,8 @@ typedef struct s_job
 {
 	int				jib;
 	void			*data;
-	t_area			*area;
-	void			(*func)(void *, t_area *);
+	void			*area;
+	void			(*func)(void *, void *);
 }	t_job;
 
 typedef struct s_thread_data

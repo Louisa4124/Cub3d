@@ -6,14 +6,14 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 14:09:32 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:34:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
 
-t_job	*ft_jobnew(int jib, void *data, t_area *area, \
-	void (*func)(void *, t_area *))
+t_job	*ft_jobnew(int jib, void *data, void *area, \
+	void (*func)(void *, void *))
 {
 	t_job	*new;
 
@@ -27,7 +27,9 @@ t_job	*ft_jobnew(int jib, void *data, t_area *area, \
 	return (new);
 }
 
-int	init_queue(t_list **head, t_link *link, t_area area[N_CHUNK])
+
+
+int	init_queue(t_list **head, t_link *link, t_area area[N_CHUNK], t_game *game)
 {
 	int		i;
 	t_list	*last;
@@ -42,6 +44,9 @@ int	init_queue(t_list **head, t_link *link, t_area area[N_CHUNK])
 		ft_lstadd_back(head, new_node);
 		++i;
 	}
+	new_job = ft_jobnew(i, link, &game->minimap_size, draw_map);
+	new_node = ft_lstnew(new_job);
+	ft_lstadd_back(head, new_node);
 	ft_lstadd_back(head, ft_lstnew(NULL));
 	last = ft_lstlast(*head);
 	last->next = *head;
