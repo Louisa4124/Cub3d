@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 13:49:42 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:07:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,8 @@ typedef struct s_mlx
 	int		win_width;
 }	t_mlx;
 
-typedef struct s_tmp
+typedef struct s_link
 {
-	float		t;
-	float		close_t;
-	t_vec3d		tmp_point;
-	t_vec3d		tmp_rays;
-	t_plan_id	tmp_plan;
-	struct s_display	*link;
-	t_area		*area;
-}	t_tmp;
-
-typedef struct s_display
-{
-	int			did;
-	t_area		*area;
-	t_tmp		*tmp;
-	float		t;
-	float		close_t;
-	t_vec3d		tmp_point;
-	t_plan_id	tmp_plan;
-	t_vec3d		tmp_rays;
 	t_map		*map;
 	t_vec3d		*pos;
 	t_plan		*plan[2];
@@ -123,7 +104,18 @@ typedef struct s_display
 	t_vec3d		**rays;
 	float		*angle_z;
 	float		*angle_x;
-}	t_display;
+}	t_link;
+
+typedef struct s_tmp
+{
+	float		t;
+	float		close_t;
+	t_vec3d		tmp_point;
+	t_vec3d		tmp_rays;
+	t_plan_id	tmp_plan;
+	t_link		*link;
+	t_area		*area;
+}	t_tmp;
 
 typedef struct s_game
 {
@@ -141,6 +133,7 @@ typedef struct s_game
 	t_texture	texture;
 	sem_t		sem_thread;
 	sem_t		sem_main;
+	t_link		link;
 	t_area		area[N_CHUNK];
 	pthread_t	pid[N_THREAD];
 	pthread_mutex_t	m_queue;

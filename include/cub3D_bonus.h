@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 13:41:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:15:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@
 /*          Initialisation          */
 int		ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
-void	init_data_display(t_game *game, t_display data[N_THREAD]);
+void	init_area_link(t_game *game);
 void	init_thread_data( t_game *game, t_thread_data data[N_THREAD]);
 
 t_vec3d	s_vec3d_init(float x, float y, float z);
@@ -113,12 +113,12 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*			Algo 				*/
 int		k_plan_algo(t_game *game);
-int		switch_plan_algo(t_display *data_thread);
-int		intersect(t_display *data_thread, t_plan *plan, int data[4], int wit);
+int		switch_plan_algo(t_tmp *data);
+int		intersect(t_tmp *data, t_plan *plan, int l_data[4], int wit);
 
 /*			Color				*/
-int		get_color(t_display *data_thread);
-int		get_color_ceilling_floor(t_display *data_thread);
+int		get_color(t_tmp *data);
+int		get_color_ceilling_floor(t_tmp *data);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
@@ -138,7 +138,7 @@ int		event_unpress(int keycode, t_game *game);
 int		event_pause(int keycode, t_game *game);
 
 /*			Draw			*/
-void	draw_map(t_game *game, int size);
+void	draw_map(void *ptr, t_area *area);
 void	blur_image(t_img *img, unsigned int *img_data);
 
 /*			Events 				*/
@@ -155,7 +155,7 @@ int		math_sign_float(float f);
 
 /*			Thread					*/
 void	*routine_queue(void *ptr);
-int		init_queue(t_list **head, t_display data[N_CHUNK], \
+int		init_queue(t_list **head, t_link data[N_CHUNK], \
 	t_area area[N_CHUNK]);
 // t_job	*ft_jobnew(int jib, void *data, void (*func)(void *, t_area *));
 

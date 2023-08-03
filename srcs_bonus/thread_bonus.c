@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 13:42:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:09:32 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_job	*ft_jobnew(int jib, void *data, t_area *area, \
 	return (new);
 }
 
-int	init_queue(t_list **head, t_display data[N_CHUNK], t_area area[N_CHUNK])
+int	init_queue(t_list **head, t_link *link, t_area area[N_CHUNK])
 {
 	int		i;
 	t_list	*last;
@@ -37,7 +37,7 @@ int	init_queue(t_list **head, t_display data[N_CHUNK], t_area area[N_CHUNK])
 	i = 0;
 	while (i < N_CHUNK)
 	{
-		new_job = ft_jobnew(i, &data[i], &area[i], display_game);
+		new_job = ft_jobnew(i, link, &area[i], display_game);
 		new_node = ft_lstnew(new_job);
 		ft_lstadd_back(head, new_node);
 		++i;

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 13:42:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:11:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	get_status(pthread_mutex_t *mutex, int status)
 int	main(int argc, char **argv)
 {
 	t_game			game;
-	t_display		data_display[N_CHUNK];
 	t_thread_data	data_thread[N_THREAD];
 	t_list			*queue;
 	int				err;
@@ -79,9 +78,9 @@ int	main(int argc, char **argv)
 	sem_init(&game.sem_main, 0, 0);
 	sem_init(&game.sem_thread, 0, 0);
 	queue = NULL;
-	init_data_display(&game, data_display);
+	init_area_link(&game);
 	game.job_queue = &queue;
-	init_queue(&queue, data_display, game.area);
+	init_queue(&queue, &game.link, game.area);
 	init_thread_data(&game, data_thread);
 	// debug_print_queue(*data_thread[0].queue);
 	i = 0;

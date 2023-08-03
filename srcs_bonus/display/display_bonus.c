@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 13:47:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:18:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-static void	ft_resolution(t_display *data, int i, int j, int color)
+static void	ft_resolution(t_tmp *data, int i, int j, int color)
 {
 	int	max_y;
 	int	max_x;
@@ -34,7 +34,7 @@ static void	ft_resolution(t_display *data, int i, int j, int color)
 		j = j_start;
 		while (j < max_x && j < data->area->end_x)
 		{
-			ft_mlx_pixel_put(data->view, j, i, color);
+			ft_mlx_pixel_put(data->link->view, j, i, color);
 			++j;
 		}
 		++i;
@@ -55,30 +55,28 @@ void	ft_display_menu(t_game *game)
 
 void	display_game(void *ptr, t_area *area)
 {
-	t_display	*data;
-	t_tmp		tmp;
+	t_tmp		data;
 	int			i;
 	int			j;
 
-	data = ptr;
-	data->area = area;
-	data->tmp = &tmp;
-	i = data->area->start_y;
-	while (i < data->area->end_y - SEE_TH)
+	data.area = area;
+	data.link = ptr;
+	i = data.area->start_y;
+	while (i < data.area->end_y - SEE_TH)
 	{
-		j = data->area->start_x;
-		while (j < data->area->end_x)
+		j = data.area->start_x;
+		while (j < data.area->end_x)
 		{
-			if (i > 10 && i < (data->map->y_size * MINIMAP_SIZE) + 10 && j > 10 && \
-				j < data->map->x_size * MINIMAP_SIZE + 10)
+			if (i > 10 && i < (data.link->map->y_size * MINIMAP_SIZE) + 10 && j > 10 && \
+				j < data.link->map->x_size * MINIMAP_SIZE + 10)
 			{
-				j = data->map->x_size * MINIMAP_SIZE + 10;
+				j = data.link->map->x_size * MINIMAP_SIZE + 10;
 				continue ;
 			}
-			data->tmp_rays = ft_rotate_vec_z(ft_rotate_vec_x(data->rays[i][j], \
-				*data->angle_x), *data->angle_z);
-			data->close_t = 0;
-			ft_resolution(data, i, j, switch_plan_algo(data));
+			data.tmp_rays = ft_rotate_vec_z(ft_rotate_vec_x(data.link->rays[i][j], \
+				*data.link->angle_x), *data.link->angle_z);
+			data.close_t = 0;
+			ft_resolution(&data, i, j, switch_plan_algo(&data));
 			j += RESOLUTION;
 		}
 		i += RESOLUTION;
@@ -106,7 +104,7 @@ int	update_game(t_game *game)
 	i = -1;
 	while (++i < N_JOB)
 		sem_wait(&game->sem_main);
-	draw_map(game, MINIMAP_SIZE);
+	draw_map(&game->link, NULL);
 	ft_printf_fps(1);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
