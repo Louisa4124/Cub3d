@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/01 13:17:44 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/03 12:34:34 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
 
 /*          a trier pour plus tard pck loulou a la flemme       */
-int		load_img(t_game *game, int i, char *path);
+int		load_img(t_game *game, t_vec2d i, char *path, int s, int nb_frame);
 int		event_menu(int x, int y, t_game *game);
 int		event_settings(int x, int y, t_game *game);
 int		ft_get_fps(void);

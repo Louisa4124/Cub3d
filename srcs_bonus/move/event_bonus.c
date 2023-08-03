@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/31 16:18:33 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:34:09 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	event_pause(int button, int x, int y, t_game *game)
 	printf("y = %d\n", y);
 	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
 		return (-1);
-	if (game->pause == 2)
+	if (game->pause == 5)
 		event_menu(x, y, game);
 	if (game->pause == 1)
 		event_settings(x, y, game);
@@ -93,15 +93,10 @@ int	event_settings(int x, int y, t_game *game)
 
 int	event_menu(int x, int y, t_game *game)
 {
-	if ((x > 510 && x < 580) && (y > 370 && y < 400))
-		return (game->pause = 0, 0);
-	else if ((x > 470 && x < 630) && (y > 445 && y < 470))
-	{
-		game->pause = 1;
-		return (0);
-	}
-	else if ((x > 500 && x < 580) && (y > 520 && y < 550))
-		return (close_event(game), 0);
+	if ((x > 550 && x < 650) && (y > 650 && y < 920)
+		|| (x > 1320 && x < 1410) && (y > 670 && y < 920)
+		|| (x > 950 && x < 1050) && (y > 710 && y < 920))
+		return (game->pause = 6, 0);
 	return (0);
 }
 
