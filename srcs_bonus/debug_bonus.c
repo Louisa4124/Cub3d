@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:33:34 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 14:46:20 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 23:04:58 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,13 @@ void	debug_print_vec3d(t_vec3d *u, char *name)
 	dprintf(2, "u.z = % .3f\n", u->z);
 }
 
-void	debug_print_queue(t_list *lst)
+void	debug_print_queue(t_job *job)
 {
-	if (lst->content == NULL)
-		lst = lst->next;
-	while (lst->content)
+	while (job)
 	{
-		dprintf(2, "jid : %d\tdata addr %p\tfunc addr %p\n", ((t_job *)lst->content)->jid, \
-			((t_job *)lst->content)->data, ((t_job *)lst->content)->func);
-		dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
-		lst = lst->next;
+		dprintf(2, "jid : %d\tdata addr %p\tdata area %p\tfunc addr %p\n", \
+			job->jid, job->data, job->area, job->func);
+		dprintf(2, "current addr : %p\nnext addr : %p\n", job, job->next);
+		job = job->next;
 	}
-	dprintf(2, "content %p\n", lst->content);
-	dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
 }

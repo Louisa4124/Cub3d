@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 13:57:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:44:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	switch_plan_inter_search(t_tmp *data, int l_data[4], int found)
 	plan = data->link->plan[l_data[0]];
 	while (l_data[1] >= 0 && l_data[1] <= l_data[2] && wit > 0)
 	{
-		data->t = (plan[l_data[1]].a * data->tmp_rays.x + \
-			plan[l_data[1]].b * data->tmp_rays.y + plan[l_data[1]].c * \
-			data->tmp_rays.z);
+		data->t = (plan[l_data[1]].a * data->rays.x + \
+			plan[l_data[1]].b * data->rays.y + plan[l_data[1]].c * \
+			data->rays.z);
 		if (data->t != 0)
 			wit = intersect(data, &plan[l_data[1]], l_data, found);
 		l_data[1] += l_data[3];
@@ -40,14 +40,14 @@ static void	switch_plan_get_data(t_tmp *data, int l_data[4], int axis)
 		l_data[0] = axis;
 		l_data[1] = data->link->pos->y;
 		l_data[2] = data->link->map->y_size;
-		l_data[3] = math_sign_float(data->tmp_rays.y);
+		l_data[3] = math_sign_float(data->rays.y);
 	}
 	else
 	{
 		l_data[0] = axis;
 		l_data[1] = data->link->pos->x;
 		l_data[2] = data->link->map->x_size;
-		l_data[3] = math_sign_float(data->tmp_rays.x);
+		l_data[3] = math_sign_float(data->rays.x);
 	}
 }
 

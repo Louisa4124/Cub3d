@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 21:17:43 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 23:04:00 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	s_img_init(t_img *img);
 void	s_texture_init(t_texture *texture);
 
 /*			Clear					*/
-void	s_mlx_destroy(t_game *game);
+void	s_mlx_destroy(t_mlx *mlx);
 void	s_img_destroy(t_mlx *mlx, t_img *img);
 void	ft_clean_exit(t_game *game, int exit_code);
 
@@ -106,8 +106,8 @@ int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
 int		parser_map(t_map *map, t_game *game, int fd);
 
 /*			Mlx functiuns			*/
-int		ft_mlx_error(int errnum);
-void	ft_destroy_mlx(t_game *game);
+int		ft_mlx_error(int errnum, t_mlx *mlx);
+
 int		close_event(t_game *game);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
@@ -138,8 +138,10 @@ int		event_unpress(int keycode, t_game *game);
 int		event_pause(int keycode, t_game *game);
 
 /*			Draw			*/
-void	draw_map(void *ptr, void *area);
+void	display_map(void *ptr, void *area);
 void	blur_image(t_img *img, unsigned int *img_data);
+void	draw_circle(t_img *img, t_vec2d center, int rayon, int color);
+void	draw_square(t_img *img, t_vec2d center, int rayon, int color);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -160,10 +162,6 @@ int		init_queue(t_job **head, t_link *link, \
 // t_job	*ft_jobnew(int jid, void *data, void (*func)(void *, t_area *));
 
 /*			Jobs					*/
-t_job	*jobnew(int jid, void *data, void *area, \
-	void (*func)(void *, void *));
-t_job	*joblast(t_job *current);
-void	jobadd_back(t_job **HEAD, t_job *new);
 int		add_job(t_job **head, void *data, void *area, \
 	void (*func)(void *, void *));
 
@@ -174,7 +172,7 @@ void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
-void	debug_print_queue(t_list *lst);
+void	debug_print_queue(t_job *job);
 
 unsigned int	get_time(void);
 void	th_print(pthread_mutex_t *m_print, char *str, int id);

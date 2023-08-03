@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/03 14:11:35 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:42:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,16 @@ int	ft_init_game(t_game *game)
 	game->plan[0] = NULL;
 	game->plan[1] = NULL;
 	game->rays = NULL;
+	game->minimap_size = 10;
 	if (rays_create(game))
 		return (EXIT_FAILURE);
 	if (plane_create(game))
 		return (EXIT_FAILURE);
+	if (sem_init(&game->sem_thread, 0, 0) == -1)
+		dprintf(2, "Error sem_init\n");
+	if (sem_init(&game->sem_main, 0, 0) == -1)
+		dprintf(2, "Error sem_init\n");
+	pthread_mutex_init(&game->m_queue, NULL);
 	return (EXIT_SUCCESS);
 }
 
@@ -108,4 +114,5 @@ void	init_area_link(t_game *game)
 	game->link.angle_z = &game->angle_z;
 	game->link.view = &game->view;
 	game->link.texture = &game->texture;
+	game->link.mm_size = &game->minimap_size;
 }

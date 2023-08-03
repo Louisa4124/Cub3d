@@ -6,71 +6,61 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/03 21:19:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:21:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-void	draw_square(t_img *img, int size, t_vec2d pos, int color)
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	int	i;
-	int	j;
+	char	*dst;
+
+	dst = img->addr + (y * img->ll + x * (img->bpp >> 3));
+	*(unsigned int *) dst = color;
+}
+
+void	ft_mlx_pixel_put2(t_img *img, int x, int y, int color)
+{
+	((int *)img->addr)[y * (img->ll >> 2) + x] = color;
+}
+
+void	draw_circle(t_img *img, t_vec2d center, int rayon, int color)
+{
+	int	x;
+	int	y;
+
+	y = center.y - rayon;
+	while (y < center.y + rayon)
+	{
+		x = center.x - rayon;
+		while (x < center.x + rayon)
+		{
+			if ((x - center.x) + (y - center.y) == rayon)
+				ft_mlx_pixel_put(img, center.x, center.y, color);
+			++x;
+		}
+		++y;
+	}
+}
+
+void	draw_square(t_img *img, t_vec2d pos, int size, int color)
+{
+	int	max_y;
+	int	max_x;
 	int	tmp;
 
-	i = pos.y + size;
-	j = pos.x + size;
+	max_y = pos.y + size;
+	max_x = pos.x + size;
 	tmp = pos.x;
-	while (pos.y < i)
+	while (pos.y < max_y)
 	{
 		pos.x = tmp;
-		while (pos.x < j)
+		while (pos.x < max_x)
 		{
 			ft_mlx_pixel_put(img, pos.x, pos.y, color);
 			pos.x++;
 		}
 		pos.y++;
-	}
-}
-
-t_vec2d	s_vec2d_init(int x, int y)
-{
-	t_vec2d	u;
-
-	u.x = x;
-	u.y = y;
-	return (u);
-}
-
-void	draw_map(void *ptr, void *area)
-{
-	t_link	*link;
-	t_vec2d	idx;
-	t_vec2d	idx2;
-	int		size;
-
-	link = ptr;
-	size = *(int *) area;
-	idx = (t_vec2d){0, 0};
-	idx2 = (t_vec2d){10, 10};
-	while (idx.x < link->map->x_size)
-	{
-		idx.y = 0;
-		while (idx.y < link->map->y_size)
-		{
-			if (link->map->layout[idx.y][idx.x] == 1)
-				draw_square(link->view, size, idx2, WHITE);
-			else if (link->map->layout[idx.y][idx.x] == 0)
-				draw_square(link->view, size, idx2, BLACK);
-			else if (link->map->layout[idx.y][idx.x] == -1)
-				draw_square(link->view, size, idx2, GREY);
-			if (idx.x == (int)link->pos->x && idx.y == (int)link->pos->y)
-				draw_square(link->view, 5, idx2, RED);
-			idx2.y += size;
-			idx.y++;
-		}
-		idx2.y = 10;
-		idx2.x += size;
-		idx.x++;
 	}
 }

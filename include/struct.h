@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 14:46:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 23:00:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,18 @@ typedef struct s_link
 	t_vec3d		**rays;
 	float		*angle_z;
 	float		*angle_x;
+	int			*mm_size;
 }	t_link;
 
 typedef struct s_tmp
 {
 	float		t;
 	float		close_t;
-	t_vec3d		tmp_point;
-	t_vec3d		tmp_rays;
-	t_plan_id	tmp_plan;
+	t_vec3d		point;
+	t_vec3d		rays;
+	t_plan_id	plan;
+	int			size;
+	t_vec2d		idx;
 	t_link		*link;
 	t_area		*area;
 }	t_tmp;
@@ -140,16 +143,16 @@ typedef struct s_game
 	t_vec3d		**rays;
 	t_plan		*plan[2];
 	t_texture	texture;
-	int			minimap_size;
-	sem_t		sem_thread;
-	sem_t		sem_main;
-	t_link		link;
-	t_area		area[N_CHUNK];
-	pthread_t	pid[N_THREAD];
+	int				minimap_size;
+	sem_t			sem_thread;
+	sem_t			sem_main;
+	t_link			link;
+	t_area			area[N_CHUNK];
+	pthread_t		pid[N_THREAD];
 	pthread_mutex_t	m_queue;
 	int				queue_status;
 	t_job			**queue;
-	pthread_mutex_t	m_print;
+	int				n_thread;
 }	t_game;
 
 
