@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 21:34:25 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 23:06:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_thread_data( t_game *game, t_thread_data data[N_THREAD])
 	}
 }
 
-void	*routine_queue(void *ptr)
+void	*routine(void *ptr)
 {
 	t_thread_data	*th;
 	t_job			*job;

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 23:04:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 23:06:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,7 @@ t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 
 /*			Thread					*/
-void	*routine_queue(void *ptr);
-int		init_queue(t_job **head, t_link *link, \
-	t_area area[N_CHUNK], t_game *game);
-// t_job	*ft_jobnew(int jid, void *data, void (*func)(void *, t_area *));
+void	*routine(void *ptr);
 
 /*			Jobs					*/
 int		add_job(t_job **head, void *data, void *area, \

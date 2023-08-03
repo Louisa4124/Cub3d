@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 23:04:31 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 23:06:17 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	launch_fred(t_game *game, t_thread_data th[N_THREAD])
 	i = 0;
 	while (i < N_THREAD)
 	{
-		if (pthread_create(&game->pid[i], NULL, routine_queue, &th[i]))
+		if (pthread_create(&game->pid[i], NULL, routine, &th[i]))
 		{
 			ft_putstr_fd("Error\nThread creation failed\n", 2);
 			game->n_thread = i;
