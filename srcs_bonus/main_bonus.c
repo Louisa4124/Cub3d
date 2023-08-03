@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 14:32:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:41:09 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 {
 	t_game			game;
 	t_thread_data	data_thread[N_THREAD];
-	t_list			*queue;
+	t_job			*queue;
 	int				err;
 	int				i;
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv)
 	sem_init(&game.sem_thread, 0, 0);
 	queue = NULL;
 	init_area_link(&game);
-	game.job_queue = &queue;
+	game.queue = &queue;
 	game.minimap_size = 10;
 	init_queue(&queue, &game.link, game.area, &game);
 	init_thread_data(&game, data_thread);

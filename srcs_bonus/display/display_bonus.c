@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 14:29:23 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:46:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	update_game(t_game *game)
 	view_update_dir_mouse(game);
 	// th_print(&game->m_print, "start launching th", 0);
 	pthread_mutex_lock(&game->m_queue);
-	(*game->job_queue) = (*game->job_queue)->next;
+	(*game->queue) = (*game->queue)->next;
 	pthread_mutex_unlock(&game->m_queue);
 	i = -1;
 	while (++i < N_JOB)

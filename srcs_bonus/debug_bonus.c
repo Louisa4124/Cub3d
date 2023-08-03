@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:33:34 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/31 16:23:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:46:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	debug_print_queue(t_list *lst)
 		lst = lst->next;
 	while (lst->content)
 	{
-		dprintf(2, "jib : %d\tdata addr %p\tfunc addr %p\n", ((t_job *)lst->content)->jib, \
+		dprintf(2, "jid : %d\tdata addr %p\tfunc addr %p\n", ((t_job *)lst->content)->jid, \
 			((t_job *)lst->content)->data, ((t_job *)lst->content)->func);
 		dprintf(2, "current addr : %p\nnext addr : %p\n", lst, lst->next);
 		lst = lst->next;

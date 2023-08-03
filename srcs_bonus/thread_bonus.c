@@ -6,49 +6,30 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 14:34:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:46:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
 
-t_job	*ft_jobnew(int jib, void *data, void *area, \
-	void (*func)(void *, void *))
-{
-	t_job	*new;
-
-	new = ft_calloc(1, sizeof(t_job));
-	if (!new)
-		return (NULL);
-	new->jib = jib;
-	new->data = data;
-	new->area = area;
-	new->func = func;
-	return (new);
-}
-
-
-
-int	init_queue(t_list **head, t_link *link, t_area area[N_CHUNK], t_game *game)
+int	init_queue(t_job **head, t_link *link, t_area area[N_CHUNK], t_game *game)
 {
 	int		i;
-	t_list	*last;
+	t_job	*last;
 	t_job	*new_job;
-	t_list	*new_node;
 
 	i = 0;
 	while (i < N_CHUNK)
 	{
-		new_job = ft_jobnew(i, link, &area[i], display_game);
-		new_node = ft_lstnew(new_job);
-		ft_lstadd_back(head, new_node);
+		new_job = jobnew(i, link, &area[i], display_game);
+		jobadd_back(head, new_job);
 		++i;
 	}
-	new_job = ft_jobnew(i, link, &game->minimap_size, draw_map);
-	new_node = ft_lstnew(new_job);
-	ft_lstadd_back(head, new_node);
-	ft_lstadd_back(head, ft_lstnew(NULL));
-	last = ft_lstlast(*head);
+	new_job = jobnew(i, link, &game->minimap_size, draw_map);
+	jobadd_back(head, new_job);
+	new_job = jobnew(-1, NULL, NULL, NULL);
+	jobadd_back(head, new_job);
+	last = joblast(*head);
 	last->next = *head;
 	*head = last;
 	return (0);
@@ -66,7 +47,7 @@ void	init_thread_data( t_game *game, t_thread_data data[N_THREAD])
 		data[i].sem_thread = &game->sem_thread;
 		data[i].m_queue = &game->m_queue;
 		data[i].queue_status = &game->queue_status;
-		data[i].queue = game->job_queue;
+		data[i].queue = game->queue;
 		++i;
 	}
 }
@@ -86,7 +67,7 @@ void	*routine_queue(void *ptr)
 			pthread_mutex_unlock(th->m_queue);
 			break ;
 		}
-		if ((*th->queue)->content == NULL)
+		if ((*th->queue)->jid == -1)
 		{
 			dprintf(2, "%u : continue\n", get_time());
 			pthread_mutex_unlock(th->m_queue);
@@ -94,9 +75,9 @@ void	*routine_queue(void *ptr)
 		}
 		else
 		{
-			job = (*th->queue)->content;
+			job = (*th->queue);
 			*th->queue = (*th->queue)->next;
-			// dprintf(2, "%d : T%d jib : %d\n", get_time(), th->tid, job->jib);
+			// dprintf(2, "%d : T%d jid : %d\n", get_time(), th->tid, job->jid);
 			pthread_mutex_unlock(th->m_queue);
 		}
 		job->func(job->data, job->area);

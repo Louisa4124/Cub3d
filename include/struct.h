@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 14:31:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:46:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,15 @@ typedef struct s_tmp
 	t_area		*area;
 }	t_tmp;
 
+typedef struct s_job
+{
+	int				jid;
+	void			*data;
+	void			*area;
+	void			(*func)(void *, void *);
+	struct s_job	*next;
+}	t_job;
+
 typedef struct s_game
 {
 	t_img		button;
@@ -139,17 +148,11 @@ typedef struct s_game
 	pthread_t	pid[N_THREAD];
 	pthread_mutex_t	m_queue;
 	int				queue_status;
-	t_list			**job_queue;
+	t_job			**queue;
 	pthread_mutex_t	m_print;
 }	t_game;
 
-typedef struct s_job
-{
-	int				jib;
-	void			*data;
-	void			*area;
-	void			(*func)(void *, void *);
-}	t_job;
+
 
 typedef struct s_thread_data
 {
@@ -158,7 +161,7 @@ typedef struct s_thread_data
 	sem_t			*sem_thread;
 	pthread_mutex_t	*m_queue;
 	int				*queue_status;
-	t_list			**queue;
+	t_job			**queue;
 }	t_thread_data;
 
 

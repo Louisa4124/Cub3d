@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/08/03 13:28:33 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/08/03 14:36:45 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
 DIR_SRCS		=	srcs_bonus/
 LST_SRCS		=	main_bonus.c clear_bonus.c debug_bonus.c \
-					math_bonus.c utils_bonus.c fps_bonus.c thread_bonus.c
+					math_bonus.c utils_bonus.c fps_bonus.c thread_bonus.c job_bonus.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	srcs_bonus/parsing/

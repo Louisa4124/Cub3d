@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 14:32:27 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:48:02 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define HEIGHT 720
 # define MINIMAP_SIZE 10
 # define BLUR 25
-# define SEE_TH 0
+# define SEE_TH 2
 
 # define KEY_W 119
 # define KEY_A 97
@@ -155,9 +155,15 @@ int		math_sign_float(float f);
 
 /*			Thread					*/
 void	*routine_queue(void *ptr);
-int		init_queue(t_list **head, t_link data[N_CHUNK], \
+int		init_queue(t_job **head, t_link data[N_CHUNK], \
 	t_area area[N_CHUNK], t_game *game);
-// t_job	*ft_jobnew(int jib, void *data, void (*func)(void *, t_area *));
+// t_job	*ft_jobnew(int jid, void *data, void (*func)(void *, t_area *));
+
+/*			Jobs					*/
+t_job	*jobnew(int jid, void *data, void *area, \
+	void (*func)(void *, void *));
+t_job	*joblast(t_job *current);
+void	jobadd_back(t_job **HEAD, t_job *new);
 
 
 /*			Debug					*/
