@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 14:35:57 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:45:37 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	ft_resolution(t_display *data, int i, int j, int color)
 		while (j < y && j < data->idx_end[1])
 		{
 			ft_mlx_pixel_put(data->view, j, i, color);
+			// j += 2;
 			++j;
 		}
 		++i;
@@ -83,11 +84,13 @@ void    ft_display_menu(t_game *game)
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
-void	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos)
+int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos)
 {
-	int			ry;
-	int			rx;
+	int	ry;
+	int	rx;
+	int	count;
 
+	count = 0;
 	ry = sprite->img->height;
 	rx = sprite->img->width / sprite->frame;
 	if (game->ms >= 0.05)
@@ -96,10 +99,14 @@ void	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos)
 		game->ms -= 0.05;
 	}
 	if (sprite->x >= rx * sprite->frame)
+	{
 		sprite->x = 0;
+		++count;
+	}
 	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, *sprite->img, \
 		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
+	return (count);
 }
 
 void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos)
@@ -188,16 +195,22 @@ void    ft_display_fly_menu(t_game *game)
 
 void    ft_display_load(t_game *game)
 {
-	static int x = 22;
+	static int	x = 22;
+	static int	y = 0;
 
-	if (game->ms >= 0.05 && x >= 14)
+	if (game->ms >= 0.05 && x > 14)
 	{
 		x--;
 		game->ms -= 0.05;
 		ft_draw_img(&game->view, game->anim[0][x], 0, 0);
 	}
-	if (x == 14)
-		game->pause = 7;
+	if (x <= 14 && x > 0)
+	{
+		ft_draw_img(&game->view, game->anim[0][14], 0, 0);
+		y += ft_animation_h(game, &game->sprite[6], (t_vec2d) {900, 600});
+	}
+	if (y == 2)
+		game->pause = 0;
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
