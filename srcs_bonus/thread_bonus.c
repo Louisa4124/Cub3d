@@ -6,13 +6,14 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/01 14:51:18 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:42:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
 
-t_job	*ft_jobnew(int jib, void *data, void (*func)(t_display *))
+t_job	*ft_jobnew(int jib, void *data, t_area *area, \
+	void (*func)(void *, t_area *))
 {
 	t_job	*new;
 
@@ -21,11 +22,12 @@ t_job	*ft_jobnew(int jib, void *data, void (*func)(t_display *))
 		return (NULL);
 	new->jib = jib;
 	new->data = data;
+	new->area = area;
 	new->func = func;
 	return (new);
 }
 
-int	init_queue(t_list **head, t_display data[N_THREAD])
+int	init_queue(t_list **head, t_display data[N_CHUNK], t_area area[N_CHUNK])
 {
 	int		i;
 	t_list	*last;
@@ -33,9 +35,9 @@ int	init_queue(t_list **head, t_display data[N_THREAD])
 	t_list	*new_node;
 
 	i = 0;
-	while (i < N_THREAD)
+	while (i < N_CHUNK)
 	{
-		new_job = ft_jobnew(i, &data[i], display_game);
+		new_job = ft_jobnew(i, &data[i], &area[i], display_game);
 		new_node = ft_lstnew(new_job);
 		ft_lstadd_back(head, new_node);
 		++i;
@@ -81,7 +83,7 @@ void	*routine_queue(void *ptr)
 		}
 		if ((*th->queue)->content == NULL)
 		{
-			dprintf(2, "%d : continue\n", get_time());
+			dprintf(2, "%u : continue\n", get_time());
 			pthread_mutex_unlock(th->m_queue);
 			continue ;
 		}
@@ -92,8 +94,9 @@ void	*routine_queue(void *ptr)
 			// dprintf(2, "%d : T%d jib : %d\n", get_time(), th->tid, job->jib);
 			pthread_mutex_unlock(th->m_queue);
 		}
-		job->func(job->data);
+		job->func(job->data, job->area);
 		sem_post(th->sem_main);
 	}
 	// dprintf(2, "T%d QUIT\n", th->tid);
+	return (NULL);
 }

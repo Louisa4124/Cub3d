@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/01 13:56:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:41:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define HEIGHT 720
 # define MINIMAP_SIZE 10
 # define BLUR 25
-# define SEE_TH 2
+# define SEE_TH 0
 
 # define KEY_W 119
 # define KEY_A 97
@@ -130,7 +130,7 @@ void	view_update_dir_key(t_game *game);
 int		update_game(t_game *game);
 void	ft_printf_fps(int mode);
 void	ft_display_menu(t_game *game);
-void	display_game(t_display *data_thread);
+void	display_game(void *ptr, t_area *area);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -155,8 +155,9 @@ int		math_sign_float(float f);
 
 /*			Thread					*/
 void	*routine_queue(void *ptr);
-int		init_queue(t_list **head, t_display data[N_THREAD]);
-t_job	*ft_jobnew(int jib, void *data, void (*func)(t_display *));
+int		init_queue(t_list **head, t_display data[N_CHUNK], \
+	t_area area[N_CHUNK]);
+// t_job	*ft_jobnew(int jib, void *data, void (*func)(void *, t_area *));
 
 
 /*			Debug					*/

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/01 14:46:38 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:47:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static void	ft_resolution(t_display *data, int i, int j, int color)
 	max_y = i + RESOLUTION;
 	max_x = j + RESOLUTION;
 	j_start = j;
-	while (i < max_y && i < data->area.end_y)
+	while (i < max_y && i < data->area->end_y)
 	{
 		j = j_start;
-		while (j < max_x && j < data->area.end_x)
+		while (j < max_x && j < data->area->end_x)
 		{
 			ft_mlx_pixel_put(data->view, j, i, color);
 			++j;
@@ -53,16 +53,21 @@ void	ft_display_menu(t_game *game)
 		100);
 }
 
-void	display_game(t_display *data)
+void	display_game(void *ptr, t_area *area)
 {
-	int		i;
-	int		j;
+	t_display	*data;
+	t_tmp		tmp;
+	int			i;
+	int			j;
 
-	i = data->area.start_y;
-	while (i < data->area.end_y - SEE_TH)
+	data = ptr;
+	data->area = area;
+	data->tmp = &tmp;
+	i = data->area->start_y;
+	while (i < data->area->end_y - SEE_TH)
 	{
-		j = data->area.start_x;
-		while (j < data->area.end_x)
+		j = data->area->start_x;
+		while (j < data->area->end_x)
 		{
 			if (i > 10 && i < (data->map->y_size * MINIMAP_SIZE) + 10 && j > 10 && \
 				j < data->map->x_size * MINIMAP_SIZE + 10)
@@ -95,31 +100,12 @@ int	update_game(t_game *game)
 	(*game->job_queue) = (*game->job_queue)->next;
 	pthread_mutex_unlock(&game->m_queue);
 	i = -1;
-	while (++i < N_THREAD)
+	while (++i < N_JOB)
 		sem_post(&game->sem_thread);
 	// th_print(&game->m_print, "waiting for Th", 0);
 	i = -1;
-	while (++i < N_THREAD)
+	while (++i < N_JOB)
 		sem_wait(&game->sem_main);
-	// while (1)
-	// {
-	// 	pthread_mutex_lock(&game->m_queue);
-	// 	if ((*game->job_queue)->content != NULL)
-	// 	{
-	// 		// dprintf(2, "main is at jib %d\n", ((t_job *)(*game->job_queue)->content)->jib);
-	// 		pthread_mutex_unlock(&game->m_queue);
-	// 		usleep(100);
-	// 		continue ;
-	// 	}
-	// 	else
-	// 	{
-	// 		pthread_mutex_unlock(&game->m_queue);
-	// 		break ;
-	// 	}
-	// }
-	// th_print(&game->m_print, "Th locked\n", 0);
-
-
 	draw_map(game, MINIMAP_SIZE);
 	ft_printf_fps(1);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \

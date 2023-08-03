@@ -6,15 +6,16 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/01 14:55:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:49:42 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# define N_THREAD 16
+# define N_THREAD 4
 # define N_JOB 16
+# define N_CHUNK 16
 
 typedef struct s_vec3d
 {
@@ -93,10 +94,22 @@ typedef struct s_mlx
 	int		win_width;
 }	t_mlx;
 
+typedef struct s_tmp
+{
+	float		t;
+	float		close_t;
+	t_vec3d		tmp_point;
+	t_vec3d		tmp_rays;
+	t_plan_id	tmp_plan;
+	struct s_display	*link;
+	t_area		*area;
+}	t_tmp;
+
 typedef struct s_display
 {
 	int			did;
-	t_area		area;
+	t_area		*area;
+	t_tmp		*tmp;
 	float		t;
 	float		close_t;
 	t_vec3d		tmp_point;
@@ -128,18 +141,20 @@ typedef struct s_game
 	t_texture	texture;
 	sem_t		sem_thread;
 	sem_t		sem_main;
+	t_area		area[N_CHUNK];
 	pthread_t	pid[N_THREAD];
-	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_queue;
 	int				queue_status;
 	t_list			**job_queue;
+	pthread_mutex_t	m_print;
 }	t_game;
 
 typedef struct s_job
 {
 	int				jib;
 	void			*data;
-	void			(*func)(t_display *);
+	t_area			*area;
+	void			(*func)(void *, t_area *);
 }	t_job;
 
 typedef struct s_thread_data
