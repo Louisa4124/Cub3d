@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 12:34:34 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/04 11:26:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,8 @@
 /*          Initialisation          */
 int		ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
-int		ft_init_airplane(t_game *game);
-void	ft_init_img(t_game *game);
-void	init_data_thread(t_game *game, t_display data[N_THREAD]);
+void	init_area_link(t_game *game);
+void	init_thread_data( t_game *game, t_thread_data data[N_THREAD]);
 
 t_vec3d	s_vec3d_init(float x, float y, float z);
 void	s_mlx_init(t_mlx *mlx);
@@ -97,7 +96,7 @@ void	s_img_init(t_img *img);
 void	s_texture_init(t_texture *texture);
 
 /*			Clear					*/
-void	s_mlx_destroy(t_game *game);
+void	s_mlx_destroy(t_mlx *mlx);
 void	s_img_destroy(t_mlx *mlx, t_img *img);
 void	ft_clean_exit(t_game *game, int exit_code);
 
@@ -107,19 +106,19 @@ int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
 int		parser_map(t_map *map, t_game *game, int fd);
 
 /*			Mlx functiuns			*/
-int		ft_mlx_error(int errnum);
-void	ft_destroy_mlx(t_game *game);
+int		ft_mlx_error(int errnum, t_mlx *mlx);
+
 int		close_event(t_game *game);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*			Algo 				*/
 int		k_plan_algo(t_game *game);
-int		switch_plan_algo(t_display *data_thread);
-int		intersect(t_display *data_thread, t_plan *plan, int data[4], int wit);
+int		switch_plan_algo(t_tmp *data);
+int		intersect(t_tmp *data, t_plan *plan, int l_data[4], int wit);
 
 /*			Color				*/
-int		get_color(t_display *data_thread);
-int		get_color_ceilling_floor(t_display *data_thread);
+int		get_color(t_tmp *data);
+int		get_color_ceilling_floor(t_tmp *data);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
@@ -132,7 +131,7 @@ int		update_game(t_game *game);
 void	ft_printf_fps(int mode);
 void	ft_display_pause(t_game *game);
 void	ft_display_menu(t_game *game);
-void	*display_game(void *ptr);
+void	display_game(void *ptr, void *area);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -141,8 +140,11 @@ void	event_mouse(int x, int y, t_game *game);
 int		event_pause(int button, int x, int y, t_game *game);
 
 /*			Draw			*/
-void	draw_map(t_game *game, int size);
 void	*blur_image(void *ptr);
+void	display_map(void *ptr, void *area);
+// void	blur_image(t_img *img, unsigned int *img_data);
+void	draw_circle(t_img *img, t_vec2d center, int rayon, int color);
+void	draw_square(t_img *img, t_vec2d center, int rayon, int color);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -157,7 +159,12 @@ t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 
 /*			Thread					*/
-int		thread_do(t_game *game, void *(f)(void *));
+void	*routine(void *ptr);
+
+/*			Jobs					*/
+int		add_job(t_job **head, void *data, void *area, \
+	void (*func)(void *, void *));
+
 
 /*			Debug					*/
 void	debug_print_texture(t_texture *texture);
@@ -165,6 +172,7 @@ void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
+void	debug_print_queue(t_job *job);
 
 /*          a trier pour plus tard pck loulou a la flemme       */
 int		load_img(t_game *game, t_vec2d i, char *path, int s, int nb_frame);

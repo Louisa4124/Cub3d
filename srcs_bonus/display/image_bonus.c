@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:39:15 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/31 15:14:42 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 11:26:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ t_color	blur_image_avg(t_img *img, unsigned int *img_data, t_vec2d i, \
 	avg.b = avg.b / kernel[1];
 	return (avg);
 }
-
+/*
 void	*blur_image(void *ptr)
 {
 	unsigned int	*img_data;
 	int				kernel[2];
-	t_display		*data;
+	t_game			*data;
 	t_vec2d			i;
 	t_color			avg;
 
@@ -96,3 +96,4 @@ void	*blur_image(void *ptr)
 	}
 	return (NULL);
 }
+*/

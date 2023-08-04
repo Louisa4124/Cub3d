@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/03 21:44:16 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/04 11:50:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,42 +74,50 @@ int	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
 	game->pause = 2;
+	game->queue_status = 0;
 	game->ms = 0;
 	game->player = 0;
 	game->resolution = 2;
-	game->angle_x = -0.1;
+	game->angle_x = 0;
 	game->plan[0] = NULL;
 	game->plan[1] = NULL;
 	game->rays = NULL;
+	game->minimap_size = 10;
 	if (rays_create(game))
 		return (EXIT_FAILURE);
 	if (plane_create(game))
 		return (EXIT_FAILURE);
+	if (sem_init(&game->sem_thread, 0, 0) == -1)
+		dprintf(2, "Error sem_init\n");
+	if (sem_init(&game->sem_main, 0, 0) == -1)
+		dprintf(2, "Error sem_init\n");
+	pthread_mutex_init(&game->m_queue, NULL);
 	return (EXIT_SUCCESS);
 }
 
-void	init_data_thread(t_game *game, t_display data[N_THREAD])
+void	init_area_link(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	while (i < N_THREAD)
+	while (i < N_CHUNK)
 	{
-		data[i].id = i + 1;
-		data[i].map = &game->map;
-		data[i].pos = &game->pos;
-		data[i].rays = game->rays;
-		data[i].plan[0] = game->plan[0];
-		data[i].plan[1] = game->plan[1];
-		data[i].idx_start = i * (game->mlx.win_height / N_THREAD);
-		data[i].idx_end[0] = (i + 1) * (game->mlx.win_height / N_THREAD);
-		data[i].idx_end[1] = game->mlx.win_width;
-		data[i].angle_x = &game->angle_x;
-		data[i].angle_z = &game->angle_z;
-		data[i].view = &game->view;
-		data[i].texture = &game->texture;
-		data[i].resolution = &game->resolution;
+		game->area[i].start_y = i * (game->mlx.win_height / N_CHUNK);
+		game->area[i].end_y = (i + 1) * (game->mlx.win_height / N_CHUNK);
+		game->area[i].start_x = 0;
+		game->area[i].end_x = game->mlx.win_width;
 		++i;
 	}
-	data[--i].idx_end[0] = game->mlx.win_height;
+	game->area[--i].end_y = game->mlx.win_height;
+	game->link.map = &game->map;
+	game->link.pos = &game->pos;
+	game->link.rays = game->rays;
+	game->link.plan[0] = game->plan[0];
+	game->link.plan[1] = game->plan[1];
+	game->link.angle_x = &game->angle_x;
+	game->link.angle_z = &game->angle_z;
+	game->link.view = &game->view;
+	game->link.texture = &game->texture;
+	game->link.mm_size = &game->minimap_size;
+	game->link.resolution = &game->resolution;
 }
