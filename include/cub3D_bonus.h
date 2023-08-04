@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 20:42:03 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 21:44:46 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int		close_event(t_game *game);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*			Algo 				*/
-int		k_plan_algo(t_game *game);
 int		switch_plan_algo(t_tmp *data);
 int		intersect(t_tmp *data, t_plan *plan, int l_data[4], int wit);
 
@@ -170,11 +169,19 @@ void	debug_print_vec3d(t_vec3d *u, char *name);
 void	debug_print_queue(t_job *job);
 
 /*          a trier pour plus tard pck loulou a la flemme       */
-int		load_img(t_game *game, t_vec2d i, char *path);
-void	fill_sprite(t_game *g, t_sprite *sprite, t_vec2d i, int nb_frame);
+int		init_img(t_game *game);
+int		init_sprite(t_game *game);
+void	init_sprite_fill(t_game *game);
+int		load_img(t_mlx *mlx, t_img *img, char *path);
+void	fill_sprite(t_game *g, t_sprite *sprite, int nb_frame);
+void	destroy_sprite(t_mlx *mlx, t_sprite *sprite, int n);
+
+
+
 int		event_menu(int x, int y, t_game *game);
 int		event_settings(int x, int y, t_game *game);
 int		ft_get_fps(void);
+
 
 void	ft_display_menu(t_game *game);
 void	ft_blur_pause(t_game *game);

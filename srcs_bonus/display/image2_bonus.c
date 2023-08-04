@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 20:29:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:48:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ t_img	resize_image(t_game *game, t_img *src, int ratio)
 		{
 			src_pos.x = index.x * src->width / new_img.width;
 			src_pos.y = index.y * src->height / new_img.height;
-			pix_index.x = (src_pos.y * src->ll) + (src_pos.x * (src->bpp / 8));
-			pix_index.y = (index.y * new_img.ll) + (index.x * (new_img.bpp / 8));
+			pix_index.x = (src_pos.y * src->ll) + (src_pos.x * (src->bpp >> 3));
+			pix_index.y = (index.y * new_img.ll) + (index.x * (new_img.bpp >> 3));
 			byte = 0;
-			while (byte < (new_img.bpp / 8))
+			while (byte < (new_img.bpp >> 3))
 				new_img.addr[pix_index.y + byte++] = src->addr[pix_index.x + byte];
 			++index.x;
 		}

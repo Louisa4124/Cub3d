@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 16:38:56 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 21:36:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define N_THREAD 4
 # define N_CHUNK 16
+# define N_SPRITE 10
 
 typedef struct s_color
 {
@@ -72,7 +73,7 @@ typedef struct s_img
 
 typedef struct s_sprite
 {
-	t_img	*img;
+	t_img	img;
 	int		frame;
 	int		x;
 	int		y;
@@ -149,7 +150,8 @@ typedef struct s_game
 	t_img			button;
     t_img       	animation[31];
 	t_img       	anim[5][23];
-	t_sprite		sprite[10];
+	t_img			image[15];
+	t_sprite		sprite[N_SPRITE];
 	int				x;
 	int				y;
     t_img       	transparent;

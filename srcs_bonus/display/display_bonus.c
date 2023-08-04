@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 20:24:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 21:46:19 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ static void	ft_resolution(t_tmp *data, int i, int j, int color)
 void	ft_blur_pause(t_game *game)
 {
 	int		i;
-	t_area	area;
 
 	game->pause = 3;
 	i = 0;
-	area = (t_area){0, game->mlx.win_width, 0, game->mlx.win_height};
 	pthread_mutex_lock(&game->m_queue);
 	while (i < N_CHUNK)
 	{
@@ -50,7 +48,6 @@ void	ft_blur_pause(t_game *game)
 	}
 	pthread_mutex_unlock(&game->m_queue);
 	wait_job(game);
-	// blur_image(&game->view, &area);
 }
 
 void	ft_display_pause(t_game *game)
@@ -249,7 +246,7 @@ int	update_game(t_game *game)
 		view_update_dir_key(game);
 		view_update_dir_mouse(game);
 		send_job(game);
-		wait_job(game);
+		// wait_job(game);
 		if (add_job(game, &game->sprite[3], &pos, fredimation))
 			return (1);
 		wait_job(game);
