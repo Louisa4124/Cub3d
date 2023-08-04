@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 12:27:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:53:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ int	main(int argc, char **argv)
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
 	ft_init_img(&game);
+	game.sprite[3].ms = &game.ms;
+	game.sprite[3].view = &game.view;
+	game.sprite[3].axis = 0;
+	game.sprite[3].rx = game.sprite[3].img->height / game.sprite[3].frame;
+	game.sprite[3].ry = game.sprite[3].img->width;
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 3, 1L << 1, event_unpress, &game);

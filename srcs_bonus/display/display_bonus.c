@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 14:24:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:26:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,8 +260,7 @@ int	update_game(t_game *game)
 }
 
 
-	// th_print(&game->m_print, "start launching th", 0);
-	// th_print(&game->m_print, "waiting for Th", 0);
+
 /*
 void	*mlx_new_fullscreen_window(t_xvar *xvar, int *size_x, int *size_y,
 		char *title)

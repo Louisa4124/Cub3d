@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 14:21:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:49:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define STRUCT_H
 
 # define N_THREAD 4
-# define N_JOB 17
 # define N_CHUNK 16
 
 typedef struct s_color
@@ -79,6 +78,11 @@ typedef struct s_sprite
 	// int		height_sprite;
 	int		x;
 	int		y;
+	int		rx;
+	int		ry;
+	int		axis;
+	float	*ms;
+	t_img	*view;
 }	t_sprite;
 
 

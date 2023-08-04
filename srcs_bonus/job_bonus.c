@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:36:25 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 13:17:57 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:46:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,12 @@ int	wait_job(t_game *game)
 
 int	send_job(t_game *game)
 {
-	int	i;
+	int		i;
+	t_vec2d	pos;
 
-	pthread_mutex_lock(&game->m_queue);
+	// pthread_mutex_lock(&game->m_queue);
 	i = 0;
+	pos = (t_vec2d){1100, 300};
 	while (i < N_CHUNK)
 	{
 		if (add_job(game->queue, &game->link, &game->area[i], display_game))
@@ -107,7 +109,9 @@ int	send_job(t_game *game)
 	}
 	if (add_job(game->queue, &game->link, &game->minimap_size, display_map))
 		return (1);
-	pthread_mutex_unlock(&game->m_queue);
-	game->n_job = N_CHUNK + 1;
+	if (add_job(game->queue, &game->sprite[3], &pos, fredimation))
+		return (1);
+	// pthread_mutex_unlock(&game->m_queue);
+	game->n_job = N_CHUNK + 2;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 13:41:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:38:55 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,6 @@
 # define GREEN 0x77DD77
 # define BLUE 0xA7C7E7
 
-# define NO_ERR 0
-# define MLX_ERR_INIT 1
-# define MLX_ERR_WINDOW 2
-# define MLX_ERR_IMAGE 3
-# define MLX_ERR_DATA 4
-
 /*          Initialisation          */
 int		ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
@@ -132,6 +126,7 @@ void	ft_printf_fps(int mode);
 void	ft_display_pause(t_game *game);
 void	ft_display_menu(t_game *game);
 void	display_game(void *ptr, void *area);
+void	fredimation(void *ptr, void *area);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -142,7 +137,6 @@ int		event_pause(int button, int x, int y, t_game *game);
 /*			Draw			*/
 void	blur_image(void *ptr, void *area);
 void	display_map(void *ptr, void *area);
-// void	blur_image(t_img *img, unsigned int *img_data);
 void	draw_circle(t_img *img, t_vec2d center, int rayon, int color);
 void	draw_square(t_img *img, t_vec2d center, int rayon, int color);
 
