@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 23:06:17 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 11:04:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	launch_fred(t_game *game, t_thread_data th[N_THREAD])
 		}
 		++i;
 	}
+	game->n_thread = i;
 	return (0);
 }
 
