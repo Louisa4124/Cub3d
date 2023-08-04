@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 13:05:09 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 13:41:48 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,9 @@ int		load_menu(t_game *game, int i, int j, char *path);
 
 void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
 t_img	resize_image(t_game *game, t_img *src, int ratio);
+int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed);
+void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
+void	animation_fire(t_game *game);
 
 unsigned int	get_time(void);
 

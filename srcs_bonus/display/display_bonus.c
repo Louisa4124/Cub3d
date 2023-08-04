@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 13:30:40 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 13:43:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,11 @@ void	ft_blur_pause(t_game *game)
 	// game->n_job = N_CHUNK;
 	// wait_job(game);
 	blur_image(&game->view, &area);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
 void	ft_display_pause(t_game *game)
 {
-	int	x;
-	int	y;
 
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	// ft_draw_img(game, game->animation[27], 0, 0);
-	// if ((x > 470 && x < 600) && (y > 380 && y < 405))
-	// 	ft_draw_img(game, game->animation[28], 0, 0);
-	// if ((x > 460 && x < 620) && (y > 450 && y < 480))
-	// 	ft_draw_img(game, game->animation[29], 0, 0);
-	// if ((x > 500 && x < 570) && (y > 530 && y < 555))
-	// 	ft_draw_img(game, game->animation[30], 0, 0);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
 void    ft_display_menu(t_game *game)
@@ -84,48 +72,7 @@ void    ft_display_menu(t_game *game)
 		i = 0;
 	ft_draw_img(&game->view, game->anim[0][i], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][13], 0, 0);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
-
-int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
-{
-	int	ry;
-	int	rx;
-	int	count;
-
-	count = 0;
-	ry = sprite->img->height;
-	rx = sprite->img->width / sprite->frame;
-	if (game->ms >= speed)
-		sprite->x += rx;
-	if (sprite->x >= rx * sprite->frame)
-	{
-		sprite->x = 0;
-		++count;
-	}
-	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, *sprite->img, \
-		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-	return (count);
-}
-
-void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos)
-{
-	int			ry;
-	int			rx;
-
-	ry = sprite->img->height / sprite->frame;
-	rx = sprite->img->width;
-	if (game->ms >= 0.02)
-		sprite->y += ry;
-	if (sprite->y >= ry * sprite->frame)
-		sprite->y = 0;
-	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, *sprite->img, \
-		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-}
-
-// &(t_sprite) {game->anim[2][0], 8, game->x, game->y}
 
 void    ft_display_select_player(t_game *game)
 {
@@ -161,7 +108,6 @@ void    ft_display_select_player(t_game *game)
 	}
 	if (game->ms >= 0.02)
 		game->ms -= 0.02;
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
 void    ft_display_fly_menu(t_game *game)
@@ -184,7 +130,6 @@ void    ft_display_fly_menu(t_game *game)
 	}
 	if (x == 21)
 		game->pause = 5;
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
 void    ft_display_load(t_game *game)
@@ -207,31 +152,11 @@ void    ft_display_load(t_game *game)
 	}
 	if (y == 2)
 		game->pause = 0;
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
 void	ft_display_settings(t_game *game)
 {
-	static int	i = 0;
-	int			x;
-	int			y;
 
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	if (game->ms >= 1)
-	{
-		i++;
-		game->ms -= 1;
-	}
-	if (i >= 15)
-		i = 0;
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[i].id, 0, 0);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[19].id, 179, 101);
-	if ((x > 310 && x < 390) && (y > 400 && y < 425))
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[20].id, 179, 101);
-	if ((x > 480 && x < 610) && (y > 400 && y < 425))
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[21].id, 179, 101);
-	if ((x > 715 && x < 780) && (y > 400 && y < 425))
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->animation[22].id, 179, 101);
 }
 
 void	display_map(void *ptr, void *area)
@@ -268,8 +193,8 @@ static int	is_in_minimap(t_link *link, int i, int *j)
 	int	max;
 
 	max = link->map->x_size * *link->mm_size + 10;
-	if (i > 10 && i < link->map->y_size * *link->mm_size + 10 && *j > 10 \
-		&& *j < max)
+	if (i > 10 && i < link->map->y_size * *link->mm_size + 10 
+		&& *j > 10 && *j < max)
 	{
 		*j = max;
 		return (1);
@@ -324,11 +249,13 @@ int	update_game(t_game *game)
 		view_update_dir_mouse(game);
 		send_job(game);
 		wait_job(game);
-		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
-			game->view.id, 0, 0);
+		animation_fire(game);
 	}
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
+		game->view.id, 0, 0);
+	if (game->pause != 3)
+		game->ms += 0.0015;
 	ft_printf_fps(0);
-	game->ms += 0.0015;
 	return (0);
 }
 
