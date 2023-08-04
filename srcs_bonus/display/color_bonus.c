@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:14:46 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 16:29:42 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/04 23:20:00 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,25 @@ static int	get_color_wall(t_display *data, int wall)
 		(data->texture->wall[wall].bpp / 8)));
 }
 
+// Pour l’axe des x, les parties décimales à prendre sont celles de Ix et Iz.
+// Pour l’axe des y, les parties décimales à prendre sont celles de Iy et Iz.
+
 int	get_color_ceilling_floor(t_display *data)
 {
+	int	x;
+	int	y;
+
 	if (data->tmp_rays.z > 0)
 		return (data->texture->ceiling);
 	else
-		return (data->texture->floor);
+	{
+		x = (int)(((data->pos->y + data->tmp_point.y) - (int)(data->pos->y + \
+			data->tmp_point.y)) * data->texture->wall[2].width);
+		y = data->texture->wall[2].height - (int)((data->tmp_point.z - \
+			(int)(data->tmp_point.z)) * data->texture->wall[2].height) - 1;
+		return (*(unsigned int *)(data->texture->wall[2].addr + y * data->texture->wall[2].ll + x * (data->texture->wall[2].bpp / 8)));
+		//return (data->texture->floor);
+	}
 }
 
 int	get_color(t_display *data)

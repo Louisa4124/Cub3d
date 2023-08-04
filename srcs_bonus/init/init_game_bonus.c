@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/03 21:44:16 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/04 22:30:03 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	rays_create(t_game *game)
 int	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
-	game->pause = 2;
+	game->pause = 0;
 	game->ms = 0;
 	game->player = 0;
 	game->resolution = 2;
