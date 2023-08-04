@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/08/01 12:27:24 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/08/04 13:41:33 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS_M}}
 
 DIR_SRCS		=	srcs_bonus/
 LST_SRCS		=	main_bonus.c clear_bonus.c debug_bonus.c \
-					math_bonus.c utils_bonus.c fps_bonus.c thread_bonus.c
+					math_bonus.c utils_bonus.c fps_bonus.c thread_bonus.c job_bonus.c
 SRCS			=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	srcs_bonus/parsing/
@@ -40,7 +40,8 @@ LST_SRCS_ALGO	=	algo_switch_plan_bonus.c algo_utils_bonus.c
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	srcs_bonus/display/
-LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c image_bonus.c image2_bonus.c pause_bonus.c
+LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c blur_bonus.c image2_bonus.c \
+					pause_bonus.c animation_bonus.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	srcs_bonus/init/
@@ -85,7 +86,7 @@ MAKE		=	make -s
 
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-O3 -Wall -Wextra -pthread #-g3 -fsanitize=thread  #-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
+CFLAGS		=	-O3 -Wall -Wextra -pthread #-g3 -fsanitize=thread#-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
 FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11
 

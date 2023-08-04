@@ -6,67 +6,61 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/07/20 15:32:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:21:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-void	draw_square(t_game *game, int size, t_vec2d pos, int color)
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	int	i;
-	int	j;
-	int	tmp;
+	char	*dst;
 
-	i = pos.y + size;
-	j = pos.x + size;
-	tmp = pos.x;
-	while (pos.y < i)
+	dst = img->addr + (y * img->ll + x * (img->bpp >> 3));
+	*(unsigned int *) dst = color;
+}
+
+void	ft_mlx_pixel_put2(t_img *img, int x, int y, int color)
+{
+	((int *)img->addr)[y * (img->ll >> 2) + x] = color;
+}
+
+void	draw_circle(t_img *img, t_vec2d center, int rayon, int color)
+{
+	int	x;
+	int	y;
+
+	y = center.y - rayon;
+	while (y < center.y + rayon)
 	{
-		pos.x = tmp;
-		while (pos.x < j)
+		x = center.x - rayon;
+		while (x < center.x + rayon)
 		{
-			ft_mlx_pixel_put(&game->view, pos.x, pos.y, color);
-			pos.x++;
+			if ((x - center.x) + (y - center.y) == rayon)
+				ft_mlx_pixel_put(img, center.x, center.y, color);
+			++x;
 		}
-		pos.y++;
+		++y;
 	}
 }
 
-t_vec2d	s_vec2d_init(int x, int y)
+void	draw_square(t_img *img, t_vec2d pos, int size, int color)
 {
-	t_vec2d	u;
+	int	max_y;
+	int	max_x;
+	int	tmp;
 
-	u.x = x;
-	u.y = y;
-	return (u);
-}
-
-void	draw_map(t_game *game, int size)
-{
-	t_vec2d	idx;
-	t_vec2d	idx2;
-
-	idx = s_vec2d_init(0, 0);
-	idx2 = s_vec2d_init(10, 10);
-	while (idx.x < game->map.x_size)
+	max_y = pos.y + size;
+	max_x = pos.x + size;
+	tmp = pos.x;
+	while (pos.y < max_y)
 	{
-		idx.y = 0;
-		while (idx.y < game->map.y_size)
+		pos.x = tmp;
+		while (pos.x < max_x)
 		{
-			if (game->map.layout[idx.y][idx.x] == 1)
-				draw_square(game, size, idx2, WHITE);
-			else if (game->map.layout[idx.y][idx.x] == 0)
-				draw_square(game, size, idx2, BLACK);
-			else if (game->map.layout[idx.y][idx.x] == -1)
-				draw_square(game, size, idx2, GREY);
-			if (idx.x == (int)game->pos.x && idx.y == (int)game->pos.y)
-				draw_square(game, 5, idx2, RED);
-			idx2.y += size;
-			idx.y++;
+			ft_mlx_pixel_put(img, pos.x, pos.y, color);
+			pos.x++;
 		}
-		idx2.y = 10;
-		idx2.x += size;
-		idx.x++;
+		pos.y++;
 	}
 }
