@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 16:49:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:40:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	fredimation(void *ptr, void *area)
 
 	sprite = ptr;
 	pos = area;
-	printf("ry = %d\n", sprite->ry);
-	printf("rx = %d\n", sprite->rx);
+	// printf("ry = %d\n", sprite->ry);
+	// printf("rx = %d\n", sprite->rx);
 	if (sprite->axis == 0)
 	{
 		if (*sprite->ms >= 0.02)

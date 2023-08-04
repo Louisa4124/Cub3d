@@ -6,13 +6,13 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:50:43 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/04 20:29:26 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:45:02 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	load_img(t_game *g, t_vec2d i, char *path, int s, int nb_frame)
+int	load_img(t_game *g, t_vec2d i, char *path)
 {
 	g->anim[i.x][i.y].id = mlx_xpm_file_to_image(g->mlx.ptr, \
 		path, &g->anim[i.x][i.y].width, &g->anim[i.x][i.y].height);
@@ -23,10 +23,24 @@ int	load_img(t_game *g, t_vec2d i, char *path, int s, int nb_frame)
 		&g->anim[i.x][i.y].endian);
 	if (g->anim[i.x][i.y].addr == NULL)
 		return (ft_putstr_fd("Error\nCan't get texture data\n", 2), 1);
-	g->sprite[s].frame = nb_frame;
-	g->sprite[s].img = &g->anim[i.x][i.y];
 	return (0); 
 }
+/*
+int	load_sprite(t_game *g, t_sprite *sprite, t_vec2d i, char *path)
+{
+	sprite->img.id = mlx_xpm_file_to_image(g->mlx.ptr, \
+		path, &g->anim[i.x][i.y].width, &g->anim[i.x][i.y].height);
+	if (g->anim[i.x][i.y].id == NULL)
+		return (ft_putstr_fd("Error\nCan't load texture\n", 2), 1);
+	g->anim[i.x][i.y].addr = mlx_get_data_addr(g->anim[i.x][i.y].id, \
+		&g->anim[i.x][i.y].bpp, &g->anim[i.x][i.y].ll, \
+		&g->anim[i.x][i.y].endian);
+	if (g->anim[i.x][i.y].addr == NULL)
+		return (ft_putstr_fd("Error\nCan't get texture data\n", 2), 1);
+	return (0); 
+}
+*/
+
 
 void	fill_sprite(t_game *g, t_sprite *sprite, t_vec2d i, int nb_frame)
 {
