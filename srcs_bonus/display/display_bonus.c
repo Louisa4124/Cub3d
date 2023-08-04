@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 14:26:36 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:37:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ void	ft_blur_pause(t_game *game)
 	pthread_mutex_lock(&game->m_queue);
 	while (i < N_CHUNK)
 	{
-		if (add_job(game->queue, &game->view, &game->area[i], blur_image))
+		if (add_job(game, &game->view, &game->area[i], blur_image))
 			return ;
 		++i;
 	}
 	pthread_mutex_unlock(&game->m_queue);
-	game->n_job = N_CHUNK;
 	wait_job(game);
 	// blur_image(&game->view, &area);
 }
@@ -230,6 +229,8 @@ void	display_game(void *ptr, void *area)
 
 int	update_game(t_game *game)
 {
+	t_vec2d	pos = (t_vec2d){1100, 300};
+
 	if (game->pause == 6)
 		ft_display_load(game);
 	if (game->pause == 5)
@@ -248,6 +249,9 @@ int	update_game(t_game *game)
 		view_update_dir_key(game);
 		view_update_dir_mouse(game);
 		send_job(game);
+		// wait_job(game);
+		if (add_job(game, &game->sprite[3], &pos, fredimation))
+			return (1);
 		wait_job(game);
 		animation_fire(game);
 	}

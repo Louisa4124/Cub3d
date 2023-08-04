@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 14:49:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:29:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,28 +148,28 @@ typedef struct s_job
 
 typedef struct s_game
 {
-	t_img		button;
-    t_img       animation[31];
-	t_img       anim[5][23];
-	t_sprite	sprite[10];
-	int			x;
-	int			y;
-    t_img       transparent;
-	float		ms;
-	int			pause;
-	int			player;
-    int			resolution;
-	int			color;
-	int			bit_key;
-	float		angle_z;
-	float		angle_x;
-	t_map		map;
-	t_mlx		mlx;
-	t_img		view;
-	t_vec3d		pos;
-	t_vec3d		**rays;
-	t_plan		*plan[2];
-	t_texture	texture;
+	t_img			button;
+    t_img       	animation[31];
+	t_img       	anim[5][23];
+	t_sprite		sprite[10];
+	int				x;
+	int				y;
+    t_img       	transparent;
+	float			ms;
+	int				pause;
+	int				player;
+    int				resolution;
+	int				color;
+	int				bit_key;
+	float			angle_z;
+	float			angle_x;
+	t_map			map;
+	t_mlx			mlx;
+	t_img			view;
+	t_vec3d			pos;
+	t_vec3d			**rays;
+	t_plan			*plan[2];
+	t_texture		texture;
 	int				minimap_size;
 	sem_t			sem_thread;
 	sem_t			sem_main;
@@ -177,8 +177,8 @@ typedef struct s_game
 	t_area			area[N_CHUNK];
 	pthread_t		pid[N_THREAD];
 	pthread_mutex_t	m_queue;
-	int				queue_status;
 	t_job			**queue;
+	int				queue_status;
 	int				n_thread;
 	int				n_job;
 }	t_game;

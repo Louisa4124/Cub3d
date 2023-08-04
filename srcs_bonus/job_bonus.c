@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:36:25 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 14:46:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:36:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	jobadd_back(t_job **HEAD, t_job *new)
 		joblast(*HEAD)->next = new;
 }
 
-int	add_job(t_job **head, void *data, void *area, \
+int	add_job(t_game *game, void *data, void *area, \
 	void (*func)(void *, void *))
 {
 	static int	jid;
@@ -56,11 +56,12 @@ int	add_job(t_job **head, void *data, void *area, \
 	new = jobnew(jid, data, area, func);
 	if (new == NULL)
 		return (1 + jid);
-	jobadd_back(head, new);
+	jobadd_back(game->queue, new);
 	if (jid == INT_MAX)
 		jid = 0;
 	else
 		++jid;
+	++game->n_job;
 	return (0);
 }
 
@@ -96,22 +97,15 @@ int	wait_job(t_game *game)
 int	send_job(t_game *game)
 {
 	int		i;
-	t_vec2d	pos;
 
-	// pthread_mutex_lock(&game->m_queue);
 	i = 0;
-	pos = (t_vec2d){1100, 300};
 	while (i < N_CHUNK)
 	{
-		if (add_job(game->queue, &game->link, &game->area[i], display_game))
+		if (add_job(game, &game->link, &game->area[i], display_game))
 			return (1);
 		++i;
 	}
-	if (add_job(game->queue, &game->link, &game->minimap_size, display_map))
+	if (add_job(game, &game->link, &game->minimap_size, display_map))
 		return (1);
-	if (add_job(game->queue, &game->sprite[3], &pos, fredimation))
-		return (1);
-	// pthread_mutex_unlock(&game->m_queue);
-	game->n_job = N_CHUNK + 2;
 	return (0);
 }

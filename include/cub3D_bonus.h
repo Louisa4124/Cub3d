@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 14:38:55 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:36:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int		math_sign_float(float f);
 void	*routine(void *ptr);
 
 /*			Jobs					*/
-int		add_job(t_job **head, void *data, void *area, \
+int		add_job( t_game *game, void *data, void *area, \
 	void (*func)(void *, void *));
 int		send_job(t_game *game);
 int		wait_job(t_game *game);
@@ -177,7 +177,7 @@ int		ft_get_fps(void);
 
 void	ft_display_menu(t_game *game);
 void	ft_blur_pause(t_game *game);
-void    ft_draw_img(t_img *img_dst, t_img tex, int x, int y);
+void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y);
 int		load_menu(t_game *game, int i, int j, char *path);
 
 void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
