@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:50:43 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/04 17:01:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:29:26 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,8 @@ int	load_img(t_game *g, t_vec2d i, char *path, int s, int nb_frame)
 		&g->anim[i.x][i.y].endian);
 	if (g->anim[i.x][i.y].addr == NULL)
 		return (ft_putstr_fd("Error\nCan't get texture data\n", 2), 1);
-	g->sprite[s].x = 0;
-	g->sprite[s].y = 0;
 	g->sprite[s].frame = nb_frame;
 	g->sprite[s].img = &g->anim[i.x][i.y];
-	g->sprite[s].ms = &g->ms;
-	g->sprite[s].view = &g->view;
-	if (g->sprite[s].img->height > g->sprite[s].img->width)
-	{
-		g->sprite[s].ry = g->sprite[s].img->height / nb_frame;
-		g->sprite[s].rx = g->sprite[s].img->width;
-		g->sprite[s].axis = 0;
-	}
-	else
-	{
-		g->sprite[s].ry = g->sprite[s].img->height;
-		g->sprite[s].rx = g->sprite[s].img->width / g->sprite[s].frame;
-		g->sprite[s].axis = 1;
-	}
 	return (0); 
 }
 

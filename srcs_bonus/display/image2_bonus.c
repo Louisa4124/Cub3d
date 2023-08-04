@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/01 13:33:41 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:29:00 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,92 +16,93 @@
 
 void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area)
 {
-	char    *dst;
-    char    *src;
-    int        i;
-    int        j;
+	char	*dst;
+	char	*src;
+	int		i;
+	int		j;
 
 	pos.x -= area.start_x;
 	pos.y -= area.start_y;
-    i = area.start_y;
-    while (i < area.end_y && i < img_src.height)
-    {
-        j = area.start_x;
-        while (j < area.end_x && j < img_src.width)
-        {
-            if ((pos.x + j) < WIDTH && (pos.x + j) >= 0 
+	i = area.start_y;
+	while (i < area.end_y && i < img_src.height)
+	{
+		j = area.start_x;
+		while (j < area.end_x && j < img_src.width)
+		{
+			if ((pos.x + j) < WIDTH && (pos.x + j) >= 0 
 				&& (pos.y + i) < HEIGHT && (pos.y + i) >= 0)
-            {
-                dst = (img_dst->addr + ((pos.y + i) * img_dst->ll + (pos.x + j) \
-                	*(img_dst->bpp >> 3)));
-                src = (img_src.addr + (i * img_src.ll + j \
-                	*(img_src.bpp >> 3)));
-                if (*(unsigned *)src != 0xff000000)
-                	*(unsigned long *)dst = *(unsigned long *)src;
-            }
-            ++j;
-        }
-        ++i;
-    }
+			{
+				dst = (img_dst->addr + ((pos.y + i) * img_dst->ll + (pos.x + j) \
+					*(img_dst->bpp >> 3)));
+				src = (img_src.addr + (i * img_src.ll + j \
+					*(img_src.bpp >> 3)));
+				if (*(unsigned int *)src != 0xff000000)
+					*(unsigned int *)dst = *(unsigned int *)src;
+			}
+			++j;
+		}
+		++i;
+	}
 }
 
-void    ft_draw_img(t_img *img_dst, t_img tex, int x, int y)
+void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y)
 {
-    char    *dst;
-    char    *src;
-    int        i;
-    int        j;
+	char	*dst;
+	char	*src;
+	int		i;
+	int		j;
 
-    i = 0;
-    while (i < tex.height)
-    {
-        j = 0;
-        while (j < tex.width)
-        {
-            if ((x + j) < WIDTH && (x + j) >= 0 && (y + i) < HEIGHT && (y + i) >= 0)
-            {
-                dst = (img_dst->addr + ((y + i) * img_dst->ll + (x + j)
-                            *(img_dst->bpp >> 3)));
-                src = (tex.addr + (i * tex.ll + j
-                            *(tex.bpp >> 3)));
-                if (*(unsigned *)src != 0xff000000)
-                    *(unsigned long *)dst = *(unsigned long *)src;
-            }
-            ++j;
-        }
-        ++i;
-    }
+	i = 0;
+	while (i < tex.height)
+	{
+		j = 0;
+		while (j < tex.width)
+		{
+			if ((x + j) < WIDTH && (x + j) >= 0 && (y + i) < HEIGHT 
+				&& (y + i) >= 0)
+			{
+				dst = (img_dst->addr + ((y + i) * img_dst->ll + (x + j)
+							*(img_dst->bpp >> 3)));
+				src = (tex.addr + (i * tex.ll + j
+							*(tex.bpp >> 3)));
+				if (*(unsigned int *)src != 0xff000000)
+					*(unsigned int *)dst = *(unsigned int *)src;
+			}
+			++j;
+		}
+		++i;
+	}
 }
 
-t_img resize_image(t_game *game, t_img *src, int ratio)
+t_img	resize_image(t_game *game, t_img *src, int ratio)
 {
-    t_img	new_img;
+	t_img	new_img;
 	t_vec2d	src_pos;
-	t_vec2d index;
+	t_vec2d	index;
 	t_vec2d	pix_index;
 	int		byte;
 
 	index.y = 0;
-    new_img.width = src->width * ratio;
-    new_img.height = src->height * ratio;
-    new_img.id = mlx_new_image(game->mlx.ptr, new_img.width, new_img.height);
-    new_img.addr = mlx_get_data_addr(new_img.id, &new_img.bpp, &new_img.ll, &new_img.endian);
+	new_img.width = src->width * ratio;
+	new_img.height = src->height * ratio;
+	new_img.id = mlx_new_image(game->mlx.ptr, new_img.width, new_img.height);
+	new_img.addr = mlx_get_data_addr(new_img.id, &new_img.bpp, &new_img.ll, &new_img.endian);
 	while (index.y < new_img.height)
-    {
+	{
 		index.x = 0;
 		while (index.x < new_img.width)
-        {
-            src_pos.x = index.x * src->width / new_img.width;
-            src_pos.y = index.y * src->height / new_img.height;
-            pix_index.x = (src_pos.y * src->ll) + (src_pos.x * (src->bpp / 8));
-            pix_index.y = (index.y * new_img.ll) + (index.x * (new_img.bpp / 8));
+		{
+			src_pos.x = index.x * src->width / new_img.width;
+			src_pos.y = index.y * src->height / new_img.height;
+			pix_index.x = (src_pos.y * src->ll) + (src_pos.x * (src->bpp / 8));
+			pix_index.y = (index.y * new_img.ll) + (index.x * (new_img.bpp / 8));
 			byte = 0;
 			while (byte < (new_img.bpp / 8))
-                new_img.addr[pix_index.y + byte++] = src->addr[pix_index.x + byte];
+				new_img.addr[pix_index.y + byte++] = src->addr[pix_index.x + byte];
 			++index.x;
-        }
+		}
 		++index.y;
-    }
+	}
 	mlx_destroy_image(game->mlx.ptr, src->id);
-    return new_img;
+	return (new_img);
 }
