@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 13:43:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:24:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ void	ft_blur_pause(t_game *game)
 	game->pause = 3;
 	i = 0;
 	area = (t_area){0, game->mlx.win_width, 0, game->mlx.win_height};
-	// pthread_mutex_lock(&game->m_queue);
-	// while (i < N_CHUNK)
-	// {
-	// 	if (add_job(game->queue, &game->view, &game->area[i], blur_image))
-	// 		return ;
-	// 	++i;
-	// }
-	// pthread_mutex_unlock(&game->m_queue);
-	// game->n_job = N_CHUNK;
-	// wait_job(game);
-	blur_image(&game->view, &area);
+	pthread_mutex_lock(&game->m_queue);
+	while (i < N_CHUNK)
+	{
+		if (add_job(game->queue, &game->view, &game->area[i], blur_image))
+			return ;
+		++i;
+	}
+	pthread_mutex_unlock(&game->m_queue);
+	game->n_job = N_CHUNK;
+	wait_job(game);
+	// blur_image(&game->view, &area);
 }
 
 void	ft_display_pause(t_game *game)
