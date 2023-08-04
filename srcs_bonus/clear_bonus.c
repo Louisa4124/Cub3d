@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 21:39:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 21:49:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_clean_exit(t_game *game, int exit_code)
 		pthread_join(game->pid[i], NULL);
 	sem_destroy(&game->sem_thread);
 	sem_destroy(&game->sem_main);
+	clear_job(game->queue);
 	destroy_texture(&game->mlx, &game->texture);
 	destroy_sprite(&game->mlx, game->sprite, N_SPRITE);
 	s_mlx_destroy(&game->mlx);

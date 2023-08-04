@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:36:25 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 16:36:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 21:49:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,19 @@ int	add_job(t_game *game, void *data, void *area, \
 	return (0);
 }
 
-void	ft_jobclear(t_list **lst, void (*del)(void *))
+void	clear_job(t_job **job)
 {
-	t_list	*buff;
+	t_job	*buff;
 
-	if (!(*del) || !lst)
+	if (!job)
 		return ;
-	while (*lst)
+	while (*job)
 	{
-		buff = (*lst)->next;
-		ft_lstdelone(*lst, (*del));
-		*lst = buff;
+		buff = (*job)->next;
+		free(*job);
+		*job = buff;
 	}
-	lst = NULL;
+	job = NULL;
 }
 
 int	wait_job(t_game *game)
@@ -94,7 +94,7 @@ int	wait_job(t_game *game)
 	return (0);
 }
 
-int	send_job(t_game *game)
+int	send_frame_job(t_game *game)
 {
 	int		i;
 

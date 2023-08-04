@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 21:44:46 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 21:50:16 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ void	*routine(void *ptr);
 /*			Jobs					*/
 int		add_job( t_game *game, void *data, void *area, \
 	void (*func)(void *, void *));
-int		send_job(t_game *game);
+void	clear_job(t_job **job);
+int		send_frame_job(t_game *game);
 int		wait_job(t_game *game);
 
 /*			Debug					*/
