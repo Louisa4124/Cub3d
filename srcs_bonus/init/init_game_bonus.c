@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/04 11:50:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 12:53:18 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ static int	rays_create(t_game *game)
 int	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
-	game->pause = 2;
+	game->pause = 0;
+	game->n_job = 0;
 	game->queue_status = 0;
 	game->ms = 0;
 	game->player = 0;
@@ -99,16 +100,19 @@ void	init_area_link(t_game *game)
 {
 	int	i;
 
-	i = 0;
-	while (i < N_CHUNK)
+	i = -1;
+	while (++i < N_CHUNK)
 	{
 		game->area[i].start_y = i * (game->mlx.win_height / N_CHUNK);
 		game->area[i].end_y = (i + 1) * (game->mlx.win_height / N_CHUNK);
 		game->area[i].start_x = 0;
 		game->area[i].end_x = game->mlx.win_width;
-		++i;
 	}
 	game->area[--i].end_y = game->mlx.win_height;
+	// game->area[i].start_y = 0;
+	// game->area[i].end_y = game->mlx.win_height;
+	// game->area[i].start_x = 0;
+	// game->area[i].end_x = game->mlx.win_width;
 	game->link.map = &game->map;
 	game->link.pos = &game->pos;
 	game->link.rays = game->rays;

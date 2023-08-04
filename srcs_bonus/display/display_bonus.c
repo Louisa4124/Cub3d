@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 11:50:29 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 13:30:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,23 @@ static void	ft_resolution(t_tmp *data, int i, int j, int color)
 
 void	ft_blur_pause(t_game *game)
 {
+	int		i;
+	t_area	area;
+
 	game->pause = 3;
-	// thread_do(game, blur_image);
-	// int	i = -1;
-	// while (++i < N_THREAD)
-	// 	blur_image(&game->th[i]);
+	i = 0;
+	area = (t_area){0, game->mlx.win_width, 0, game->mlx.win_height};
+	// pthread_mutex_lock(&game->m_queue);
+	// while (i < N_CHUNK)
+	// {
+	// 	if (add_job(game->queue, &game->view, &game->area[i], blur_image))
+	// 		return ;
+	// 	++i;
+	// }
+	// pthread_mutex_unlock(&game->m_queue);
+	// game->n_job = N_CHUNK;
+	// wait_job(game);
+	blur_image(&game->view, &area);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
@@ -291,30 +303,6 @@ void	display_game(void *ptr, void *area)
 	}
 }
 
-int	send_job(t_game *game)
-{
-	int	i;
-
-	pthread_mutex_lock(&game->m_queue);
-	i = 0;
-	while (i < N_CHUNK)
-	{
-		if (add_job(game->queue, &game->link, &game->area[i], display_game))
-			return (1);
-		++i;
-	}
-	if (add_job(game->queue, &game->link, &game->minimap_size, display_map))
-		return (1);
-	pthread_mutex_unlock(&game->m_queue);
-	i = -1;
-	while (++i < N_JOB)
-		sem_post(&game->sem_thread);
-	i = -1;
-	while (++i < N_JOB)
-		sem_wait(&game->sem_main);
-	return (0);
-}
-
 int	update_game(t_game *game)
 {
 	if (game->pause == 6)
@@ -335,10 +323,7 @@ int	update_game(t_game *game)
 		view_update_dir_key(game);
 		view_update_dir_mouse(game);
 		send_job(game);
-		ft_draw_img(&game->view, game->anim[1][2], 1100, 750);
-		ft_animation_h(game, &game->sprite[7], (t_vec2d){1250, 590}, 0.02);
-		if (game->ms >= 0.02)
-			game->ms -= 0.02;
+		wait_job(game);
 		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 			game->view.id, 0, 0);
 	}

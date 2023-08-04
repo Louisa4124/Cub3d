@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 11:12:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 13:23:22 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct s_tmp
 	t_vec2d		idx;
 	t_link		*link;
 	t_area		*area;
+	t_img		*img;
 }	t_tmp;
 
 typedef struct s_job
@@ -143,28 +144,28 @@ typedef struct s_job
 
 typedef struct s_game
 {
-	t_img		button;
-    t_img       animation[31];
-	t_img       anim[5][23];
-	t_sprite	sprite[7];
-	int			player;
-	int			x;
-	int			y;
-    t_img       transparent;
-	float		ms;
-	int			pause;
-    int			resolution;
-	int			color;
-	int			bit_key;
-	float		angle_z;
-	float		angle_x;
-	t_map		map;
-	t_mlx		mlx;
-	t_img		view;
-	t_vec3d		pos;
-	t_vec3d		**rays;
-	t_plan		*plan[2];
-	t_texture	texture;
+	t_img			button;
+    t_img			animation[31];
+	t_img			anim[5][23];
+	t_sprite		sprite[7];
+	int				player;
+	int				x;
+	int				y;
+    t_img			transparent;
+	float			ms;
+	int				pause;
+    int				resolution;
+	int				color;
+	int				bit_key;
+	float			angle_z;
+	float			angle_x;
+	t_map			map;
+	t_mlx			mlx;
+	t_img			view;
+	t_vec3d			pos;
+	t_vec3d			**rays;
+	t_plan			*plan[2];
+	t_texture		texture;
 	int				minimap_size;
 	sem_t			sem_thread;
 	sem_t			sem_main;
@@ -175,6 +176,7 @@ typedef struct s_game
 	int				queue_status;
 	t_job			**queue;
 	int				n_thread;
+	int				n_job;
 }	t_game;
 
 

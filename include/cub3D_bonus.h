@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 11:26:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 13:05:09 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	event_mouse(int x, int y, t_game *game);
 int		event_pause(int button, int x, int y, t_game *game);
 
 /*			Draw			*/
-void	*blur_image(void *ptr);
+void	blur_image(void *ptr, void *area);
 void	display_map(void *ptr, void *area);
 // void	blur_image(t_img *img, unsigned int *img_data);
 void	draw_circle(t_img *img, t_vec2d center, int rayon, int color);
@@ -164,7 +164,8 @@ void	*routine(void *ptr);
 /*			Jobs					*/
 int		add_job(t_job **head, void *data, void *area, \
 	void (*func)(void *, void *));
-
+int		send_job(t_game *game);
+int		wait_job(t_game *game);
 
 /*			Debug					*/
 void	debug_print_texture(t_texture *texture);
