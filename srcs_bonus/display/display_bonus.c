@@ -3,21 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 16:45:37 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:45:42 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
-{
-	char	*dst;
+// void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
+// {
+// 	char	*dst;
 
-	dst = img->addr + (y * img->ll + x * (img->bpp >> 3));
-	*(unsigned int *) dst = color;
+// 	dst = img->addr + (y * img->ll + x * (img->bpp >> 3));
+// 	*(unsigned int *) dst = color;
+// }
+
+inline void    ft_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+    ((int *)img->addr)[y * (img->ll >> 2) + x] = color;
 }
 
 static void	ft_resolution(t_display *data, int i, int j, int color)
@@ -84,7 +89,7 @@ void    ft_display_menu(t_game *game)
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
-int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos)
+int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
 {
 	int	ry;
 	int	rx;
@@ -93,11 +98,8 @@ int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos)
 	count = 0;
 	ry = sprite->img->height;
 	rx = sprite->img->width / sprite->frame;
-	if (game->ms >= 0.05)
-	{
+	if (game->ms >= speed)
 		sprite->x += rx;
-		game->ms -= 0.05;
-	}
 	if (sprite->x >= rx * sprite->frame)
 	{
 		sprite->x = 0;
@@ -139,34 +141,28 @@ void    ft_display_select_player(t_game *game)
 	{
 		ft_animation(game, &game->sprite[0], (t_vec2d) {0, 500});
 		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
-		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});	
-		if (game->ms >= 0.02)
-			game->ms -= 0.02;	
+		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
 	}
 	else if ((x > 1320 && x < 1410) && (y > 670 && y < 920))
 	{
 		ft_animation(game, &game->sprite[1], (t_vec2d) {1070, 550});
 		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
-		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
-		if (game->ms >= 0.02)
-			game->ms -= 0.02;		
+		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});	
 	}
 	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
 	{
 		ft_animation(game, &game->sprite[2], (t_vec2d) {850, 600});
 		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
 		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
-		if (game->ms >= 0.02)
-			game->ms -= 0.02;
 	}
 	else
 	{
 		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
 		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
 		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
-		if (game->ms >= 0.02)
-			game->ms -= 0.02;
 	}
+	if (game->ms >= 0.02)
+		game->ms -= 0.02;
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 }
 
@@ -207,7 +203,9 @@ void    ft_display_load(t_game *game)
 	if (x <= 14 && x > 0)
 	{
 		ft_draw_img(&game->view, game->anim[0][14], 0, 0);
-		y += ft_animation_h(game, &game->sprite[6], (t_vec2d) {900, 600});
+		y += ft_animation_h(game, &game->sprite[6], (t_vec2d) {900, 600}, 0.05);
+		if (game->ms >= 0.05)
+			game->ms -= 0.05;
 	}
 	if (y == 2)
 		game->pause = 0;
@@ -270,11 +268,6 @@ void	*display_game(void *ptr)
 
 int	update_game(t_game *game)
 {
-	if (game->pause == 7)
-	{
-		ft_draw_img(&game->view, game->anim[0][14], 0, 0);
-		ft_animation_h(game, &game->sprite[6], (t_vec2d) {900, 600});
-	}
 	if (game->pause == 6)
 		ft_display_load(game);
 	if (game->pause == 5)
@@ -294,6 +287,10 @@ int	update_game(t_game *game)
 		view_update_dir_mouse(game);
 		thread_do(game, display_game);
 		draw_map(game, MINIMAP_SIZE);
+		ft_draw_img(&game->view, game->anim[1][2], 1100, 750);
+		ft_animation_h(game, &game->sprite[7], (t_vec2d) {1250, 590}, 0.02);
+		if (game->ms >= 0.02)
+			game->ms -= 0.02;
 		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 			game->view.id, 0, 0);
 	}

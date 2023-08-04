@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 16:45:09 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:42:44 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_init_img(t_game *game)
 
 	load_img(game, (t_vec2d) {1, 1}, "img/load/1.xpm", 6, 6);
 	game->anim[1][1] = resize_image(game, &game->anim[1][1], 4);	
+	load_img(game, (t_vec2d) {1, 2}, "img/torch.xpm", 8, 1);
+	game->anim[1][2] = resize_image(game, &game->anim[1][2], 5);	
 
 	load_img(game, (t_vec2d) {2, 0}, "img/char1/all.xpm", 0, 8);
 	game->anim[2][0] = resize_image(game, &game->anim[2][0], 7);
@@ -60,4 +62,6 @@ void	ft_init_img(t_game *game)
 	game->anim[4][0] = resize_image(game, &game->anim[4][0], 7);
 	load_img(game, (t_vec2d) {4, 1}, "img/char2/idle.xpm", 4, 6);
 	game->anim[4][1] = resize_image(game, &game->anim[4][1], 7);
+	load_img(game, (t_vec2d) {4, 2}, "img/char2/fire.xpm", 7, 8);
+	game->anim[4][2] = resize_image(game, &game->anim[4][2], 8);
 }

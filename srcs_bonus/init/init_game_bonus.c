@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/03 17:01:54 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:44:16 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	ft_init_game(t_game *game)
 	game->bit_key = 0;
 	game->pause = 2;
 	game->ms = 0;
+	game->player = 0;
 	game->resolution = 2;
 	game->angle_x = -0.1;
 	game->plan[0] = NULL;
