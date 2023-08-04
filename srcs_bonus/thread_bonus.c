@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 14:54:40 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:49:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,25 @@ void	fredimation(void *ptr, void *area)
 {
 	t_sprite	*sprite;
 	t_vec2d		*pos;
-	int			ry;
-	int			rx;
 
 	sprite = ptr;
 	pos = area;
-	ry = sprite->img->height / sprite->frame;
-	rx = sprite->img->width;
+	printf("ry = %d\n", sprite->ry);
+	printf("rx = %d\n", sprite->rx);
 	if (sprite->axis == 0)
 	{
 		if (*sprite->ms >= 0.02)
-			sprite->y += ry;
-		if (sprite->y >= ry * sprite->frame)
+			sprite->y += sprite->ry;
+		if (sprite->y >= sprite->ry * sprite->frame)
 			sprite->y = 0;
 	}
 	else
 	{
 		if (*sprite->ms >= 0.02)
-			sprite->x += rx;
-		if (sprite->x >= rx * sprite->frame)
+			sprite->x += sprite->rx;
+		if (sprite->x >= sprite->rx * sprite->frame)
 			sprite->x = 0;
 	}
 	draw_on(sprite->view, (t_vec2d){pos->x, pos->y}, *sprite->img, \
-		(t_area){sprite->x, sprite->x + rx, sprite->y, sprite->y + ry});
+		(t_area){sprite->x, sprite->x + sprite->rx, sprite->y, sprite->y + sprite->ry});
 }

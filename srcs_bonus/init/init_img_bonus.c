@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 12:38:41 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/04 17:01:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,16 @@ void	ft_init_img(t_game *game)
 
 	load_menu(game, 1, 0, "img/select/0.xpm");
 
-	load_img(game, (t_vec2d) {1, 1}, "img/load/1.xpm", 6, 6);
-	game->anim[1][1] = resize_image(game, &game->anim[1][1], 4);	
+	load_img(game, (t_vec2d){1, 1}, "img/load/1.xpm", 6, 6);
+	game->anim[1][1] = resize_image(game, &game->anim[1][1], 4);
 	load_img(game, (t_vec2d) {1, 2}, "img/torch.xpm", 8, 1);
-	game->anim[1][2] = resize_image(game, &game->anim[1][2], 5);	
+	game->anim[1][2] = resize_image(game, &game->anim[1][2], 5);
 
 	load_img(game, (t_vec2d) {2, 0}, "img/char1/all.xpm", 0, 8);
 	game->anim[2][0] = resize_image(game, &game->anim[2][0], 7);
 	load_img(game, (t_vec2d) {2, 1}, "img/char1/idle.xpm", 3, 6);
 	game->anim[2][1] = resize_image(game, &game->anim[2][1], 7);
+	fill_sprite(game, &game->sprite[3], (t_vec2d){1, 1}, 3);
 	load_img(game, (t_vec2d) {2, 2}, "img/char1/fire.xpm", 8, 8);
 	game->anim[2][2] = resize_image(game, &game->anim[2][2], 8);
 

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 16:36:27 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 17:01:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void	debug_print_queue(t_job *job);
 
 /*          a trier pour plus tard pck loulou a la flemme       */
 int		load_img(t_game *game, t_vec2d i, char *path, int s, int nb_frame);
+void	fill_sprite(t_game *g, t_sprite *sprite, t_vec2d i, int nb_frame);
 int		event_menu(int x, int y, t_game *game);
 int		event_settings(int x, int y, t_game *game);
 int		ft_get_fps(void);

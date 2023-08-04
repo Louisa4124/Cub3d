@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 16:29:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:38:56 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ typedef struct s_sprite
 {
 	t_img	*img;
 	int		frame;
-	// int		width_sprite;
-	// int		height_sprite;
 	int		x;
 	int		y;
 	int		rx;

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/04 14:44:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:39:48 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_init_game(t_game *game)
 	game->n_job = 0;
 	game->queue_status = 0;
 	game->ms = 0;
-	game->player = 0;
+	game->player = 1;
 	game->resolution = 2;
 	game->angle_x = 0;
 	game->plan[0] = NULL;
