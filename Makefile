@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/08/04 12:24:24 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/08/04 13:00:40 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ LST_SRCS_ALGO	=	algo_switch_plan_bonus.c algo_utils_bonus.c
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	srcs_bonus/display/
-LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c image_bonus.c image2_bonus.c pause_bonus.c
+LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c image_bonus.c image2_bonus.c \
+					pause_bonus.c animation_bonus.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	srcs_bonus/init/
