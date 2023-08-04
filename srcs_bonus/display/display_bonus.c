@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 11:50:29 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 12:39:37 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,6 +315,27 @@ int	send_job(t_game *game)
 	return (0);
 }
 
+void	animation_fire(t_game *game)
+{
+	if (game->player == 1)
+	{
+		ft_draw_img(&game->view, game->anim[1][2], 1100, 750);
+		ft_animation_h(game, &game->sprite[8], (t_vec2d){1250, 590}, 0.02);
+	}
+	else if (game->player == 2)
+	{
+		ft_draw_img(&game->view, game->anim[1][2], 1100, 750);
+		ft_animation_h(game, &game->sprite[7], (t_vec2d){1250, 590}, 0.02);
+	}
+	else if (game->player == 3)
+	{
+		ft_draw_img(&game->view, game->anim[1][2], 1100, 750);
+		ft_animation_h(game, &game->sprite[9], (t_vec2d){1250, 590}, 0.02);
+	}
+	if (game->ms >= 0.02)
+		game->ms -= 0.02;
+}
+
 int	update_game(t_game *game)
 {
 	if (game->pause == 6)
@@ -335,10 +356,7 @@ int	update_game(t_game *game)
 		view_update_dir_key(game);
 		view_update_dir_mouse(game);
 		send_job(game);
-		ft_draw_img(&game->view, game->anim[1][2], 1100, 750);
-		ft_animation_h(game, &game->sprite[7], (t_vec2d){1250, 590}, 0.02);
-		if (game->ms >= 0.02)
-			game->ms -= 0.02;
+		animation_fire(game);
 		mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 			game->view.id, 0, 0);
 	}

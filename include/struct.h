@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 11:12:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 12:38:46 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,13 +146,13 @@ typedef struct s_game
 	t_img		button;
     t_img       animation[31];
 	t_img       anim[5][23];
-	t_sprite	sprite[7];
-	int			player;
+	t_sprite	sprite[10];
 	int			x;
 	int			y;
     t_img       transparent;
 	float		ms;
 	int			pause;
+	int			player;
     int			resolution;
 	int			color;
 	int			bit_key;

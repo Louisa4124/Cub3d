@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 21:07:18 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/04 12:42:13 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,21 @@ int	event_settings(int x, int y, t_game *game)
 
 int	event_menu(int x, int y, t_game *game)
 {
-	if (((x > 550 && x < 650) && (y > 650 && y < 920))
-		|| ((x > 1320 && x < 1410) && (y > 670 && y < 920))
-		|| ((x > 950 && x < 1050) && (y > 710 && y < 920)))
-		return (game->pause = 6, 0);
+	if ((x > 550 && x < 650) && (y > 650 && y < 920))
+	{
+		game->player = 1;
+		game->pause = 6;
+	}
+	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
+	{
+		game->player = 2;
+		game->pause = 6;\
+	}
+	else if ((x > 1320 && x < 1410) && (y > 670 && y < 920))
+	{
+		game->player = 3;
+		game->pause = 6;
+	}
 	return (0);
 }
 
