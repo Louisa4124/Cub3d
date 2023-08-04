@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 21:50:16 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 22:20:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int		rgb_to_hexa(int r, int g, int b);
 void	view_update_pos(t_game *game);
 void	view_update_dir_mouse(t_game *game);
 void	view_update_dir_key(t_game *game);
+void	view_move(t_game *game);
 
 /*			Display			*/
 int		update_game(t_game *game);

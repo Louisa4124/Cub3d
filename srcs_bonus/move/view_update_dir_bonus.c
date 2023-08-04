@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_update_dir_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:05:38 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 15:55:46 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/04 22:36:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ void	view_update_dir_key(t_game *game)
 	if (game->bit_key & BFLAG_DOWN && game->angle_x < 0.5)
 		game->angle_x += ANG_OFFSET_KEY;
 	game->angle_z = pi_modulo(game->angle_z);
+}
+
+void	view_move(t_game *game)
+{
+	static int	x_last;
+	int			x;
+	int			y;
+
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
+	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
+		return ;
+	if (x == x_last)
+		return ;
+	game->angle_z += (x - x_last) * 0.004;
+	x_last = x;
+
 }
 
 void	view_update_dir_mouse(t_game *game)

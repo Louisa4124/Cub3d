@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 21:50:16 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 22:20:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,8 @@ int	update_game(t_game *game)
 	{
 		view_update_pos(game);
 		view_update_dir_key(game);
-		view_update_dir_mouse(game);
+		// view_update_dir_mouse(game);
+		view_move(game);
 		send_frame_job(game);
 		// wait_job(game);
 		if (add_job(game, &game->sprite[3], &pos, fredimation))
