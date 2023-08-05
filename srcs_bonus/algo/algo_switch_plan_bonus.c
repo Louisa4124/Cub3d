@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_switch_plan_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 21:44:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:35:12 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ int	switch_plan_algo(t_tmp *data)
 	wit_x = switch_plan_inter_search(data, l_data, wit_y);
 	if (wit_y == 0 || wit_x == 0)
 		return (get_color(data));
+	else if (data->rays.z > 0)
+		return (data->link->texture->ceiling);
+		// get_color_ceiling(data);
 	else
-		return (get_color_ceilling_floor(data));
+		return (get_color_floor(data));
 }

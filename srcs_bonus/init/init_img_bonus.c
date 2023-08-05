@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 21:39:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:40:16 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	init_img(t_game *game)
 	load_menu(game, 0, 22, "img/start/21.xpm");
 
 	load_menu(game, 1, 0, "img/select/0.xpm");
-
 
 	load_menu(game, 1, 2, "img/torch.xpm");
 	game->anim[1][2] = resize_image(game, &game->anim[1][2], 5);

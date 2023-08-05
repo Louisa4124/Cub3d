@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/08/04 23:24:29 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/05 13:33:40 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,38 @@ static int	get_color_wall(t_tmp *data, int wall)
 		(data->link->texture->wall[wall].bpp / 8)));
 }
 
-// Pour l’axe des x, les parties décimales à prendre sont celles de Ix et Iz.
-// Pour l’axe des y, les parties décimales à prendre sont celles de Iy et Iz.
-
-// int	get_color_ceilling_floor(t_tmp *data)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	if (data->tmp_rays.z > 0)
-// 		return (data->texture->ceiling);
-// 	else
-// 	{
-// 		x = (int)(((data->pos->y + data->tmp_point.y) - (int)(data->pos->y + \
-// 			data->tmp_point.y)) * data->texture->wall[2].width);
-// 		y = data->texture->wall[2].height - (int)((data->tmp_point.z - \
-// 			(int)(data->tmp_point.z)) * data->texture->wall[2].height) - 1;
-// 		return (*(unsigned int *)(data->texture->wall[2].addr + y * data->texture->wall[2].ll + x * (data->texture->wall[2].bpp / 8)));
-// 		//return (data->texture->floor);
-// 	}
-// }
-
-int	get_color_ceilling_floor(t_tmp *data)
+int	get_color_floor(t_tmp *data)
 {
-	if (data->rays.z > 0)
-		return (data->link->texture->ceiling);
-	else
-		return (data->link->texture->floor);
+	int	x;
+	int	y;
+	float result_x;
+	float result_y;
+	float	t;
+
+	t = -data->link->pos->z / data->rays.z;
+	result_x = data->link->pos->x + (data->rays.x * t);
+	result_y = data->link->pos->y + (data->rays.y * t);
+	x = (int)(((result_x) - (int)(result_x)) * data->link->texture->wall[2].width);
+	y = (int)(((result_y) - (int)(result_y)) * data->link->texture->wall[2].height);
+	return (*(unsigned int *)(data->link->texture->wall[2].addr + y * \
+		data->link->texture->wall[2].ll + x * (data->link->texture->wall[2].bpp / 8)));
+}
+
+int	get_color_ceiling(t_tmp *data)
+{
+	int	x;
+	int	y;
+	float result_x;
+	float result_y;
+	float	t;
+
+	t = (1 - data->link->pos->z) / data->rays.z;
+	result_x = data->link->pos->x + (data->rays.x * t);
+	result_y = data->link->pos->y + (data->rays.y * t);
+	x = (int)(((result_x) - (int)(result_x)) * data->link->texture->wall[2].width);
+	y = (int)(((result_y) - (int)(result_y)) * data->link->texture->wall[2].height);
+	return (*(unsigned int *)(data->link->texture->wall[2].addr + y * \
+		data->link->texture->wall[2].ll + x * (data->link->texture->wall[2].bpp / 8)));
 }
 
 int	get_color(t_tmp *data)
