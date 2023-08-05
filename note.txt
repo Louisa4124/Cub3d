@@ -52,3 +52,6 @@ typedef struct s_game
 	int				queue_status;
 	int				n_thread;
 }	t_game;
+
+credit :
+grass from 256x256 pixel textures pack 2 by FlakDeau on itch.io
