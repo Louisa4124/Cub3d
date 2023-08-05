@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 21:18:42 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 22:28:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 	while (*path && ft_isspace(*path))
 		++path;
 	if (*path == '\0')
-		return (ft_putstr_fd("Error\nCan't find texture\n", 2), 1);
+		return (ft_putstr_fd("Error\nCan't find path to texture\n", 2), 1);
 	i = 0;
-	while (path[i] && path[i] != '\n')
+	while (path[i] && ft_isspace(path[i]) == 0)
 		++i;
 	path[i] = '\0';
 	img->id = mlx_xpm_file_to_image(mlx->ptr, path, &img->width, &img->height);
@@ -40,11 +40,13 @@ static int	extract_color(int *color, char *line)
 
 	while (*line && ft_isspace(*line))
 		++line;
-	i = 0;
-	while (i < 3)
+	if (!*line)
+		return (ft_putstr_fd("Error\nColor missing\n", 2), 1);
+	i = -1;
+	while (++i < 3)
 	{
 		if (ft_isdigit(*line))
-			rgb[i] = ft_atoi(line) & 251;//WTF
+			rgb[i] = ft_atoi(line) & 255;
 		else
 			break ;
 		if (rgb[i] < 0)
@@ -53,7 +55,6 @@ static int	extract_color(int *color, char *line)
 			++line;
 		if (*line == ',')
 			++line;
-		++i;
 	}
 	if (i < 3)
 		return (ft_putstr_fd("Error\nWrong rgb color\n", 2), 1);
