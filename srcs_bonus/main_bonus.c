@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 19:10:23 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:17:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	sizegame(t_game *game)
 	dprintf(2, "sizeof(game->pid) is %lu\n", sizeof(game->pid));
 	dprintf(2, "sizeof(game->m_queue) is %lu\n", sizeof(game->m_queue));
 	dprintf(2, "sizeof(game->queue) is %lu\n", sizeof(game->queue));
-	exit(0);
 }
 
 //LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
@@ -77,20 +76,20 @@ int	main(int argc, char **argv)
 		return (ft_man(argc));
 	ft_bzero(&game, sizeof(game));
 	if (ft_init_mlx(&game))
-		return (1);
+		return (EXIT_FAILURE);
 	if (parser(argv[1], &game))
 		ft_clean_exit(&game, EXIT_FAILURE);
 	if (ft_init_game(&game))
 		ft_clean_exit(&game, EXIT_FAILURE);
+	if (init_sprite(&game))
+		ft_clean_exit(&game, EXIT_FAILURE);
+	init_img(&game);
+	init_sprite_fill(&game);
 	init_area_link(&game);
 	queue = NULL;
 	game.queue = &queue;
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
-	init_img(&game);
-	if (init_sprite(&game))
-		ft_clean_exit(&game, EXIT_FAILURE);
-	init_sprite_fill(&game);
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 3, 1L << 1, event_unpress, &game);

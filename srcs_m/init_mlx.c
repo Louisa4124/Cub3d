@@ -6,17 +6,18 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 14:29:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:21:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-int	ft_mlx_error(int errnum)
+int	ft_mlx_error(int errnum, t_mlx *mlx)
 {
 	if (errnum == 0)
 		return (EXIT_SUCCESS);
-	else if (errnum == 1)
+	s_mlx_destroy(mlx);
+	if (errnum == 1)
 		ft_putstr_fd("Error\nMlx init fail\n", 2);
 	else if (errnum == 2)
 		ft_putstr_fd("Error\nNew window fail\n", 2);
@@ -29,36 +30,24 @@ int	ft_mlx_error(int errnum)
 
 int	ft_init_mlx(t_game *game)
 {
-	s_mlx_init(&game->mlx);
 	game->mlx.ptr = mlx_init();
 	if (!game->mlx.ptr)
-		return (1);
+		return (ft_mlx_error(1, NULL));
 	game->mlx.win_width = WIDTH;
 	game->mlx.win_height = HEIGHT;
 	game->mlx.win = mlx_new_window(game->mlx.ptr, \
 		game->mlx.win_width, game->mlx.win_height, "cub3D");
 	if (!game->mlx.win)
-		return (ft_destroy_mlx(game), 2);
+		return (ft_mlx_error(2, &game->mlx));
 	game->view.id = mlx_new_image(game->mlx.ptr, \
 		game->mlx.win_width, game->mlx.win_height);
 	if (!game->view.id)
-		return (ft_destroy_mlx(game), 3);
+		return (ft_mlx_error(3, &game->mlx));
 	game->view.addr = mlx_get_data_addr(game->view.id, \
 		&game->view.bpp, &game->view.ll, &game->view.endian);
 	if (!game->view.addr)
-		return (ft_destroy_mlx(game), 4);
+		return (ft_mlx_error(4, &game->mlx));
 	game->view.height = game->mlx.win_height;
 	game->view.width = game->mlx.win_width;
 	return (0);
-}
-
-void	ft_destroy_mlx(t_game *game)
-{
-	if (game->mlx.win)
-		mlx_destroy_window(game->mlx.ptr, game->mlx.win);
-	if (game->mlx.ptr)
-	{
-		mlx_destroy_display(game->mlx.ptr);
-		free(game->mlx.ptr);
-	}
 }
