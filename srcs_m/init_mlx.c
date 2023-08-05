@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 19:21:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 20:32:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	ft_init_mlx(t_game *game)
 	game->view.addr = mlx_get_data_addr(game->view.id, \
 		&game->view.bpp, &game->view.ll, &game->view.endian);
 	if (!game->view.addr)
+	{
+		s_img_destroy(&game->mlx, &game->view);
 		return (ft_mlx_error(4, &game->mlx));
+	}
 	game->view.height = game->mlx.win_height;
 	game->view.width = game->mlx.win_width;
 	return (0);

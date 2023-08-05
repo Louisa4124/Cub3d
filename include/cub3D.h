@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 19:25:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 20:03:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,13 @@ typedef struct s_plan
 	float	d;
 }	t_plan;
 
+typedef struct s_plan_id
+{
+	int		x;
+	int		y;
+	int		d;
+}	t_plan_id;
+
 typedef struct s_img
 {
 	void	*id;
@@ -105,28 +112,24 @@ typedef struct s_mlx
 
 typedef struct s_game
 {
-	t_img			button;
-	int				x;
-	int				y;
+	t_texture		texture;
+	t_img			view;
+	t_mlx			mlx;
+	t_map			map;
+	t_plan			*plan[2];
 	t_vec3d			point;
 	t_vec3d			u_rays;
-	t_vec2d			u_plan;
-	int				color;
+	t_vec3d			pos;
+	t_vec3d			**rays;
+	t_plan_id		u_plan;
 	float			t;
 	float			close_t;
 	int				bit_key;
-	float			r_v;
-	float			r_h;
 	float			angle_z;
 	float			angle_x;
 	float			angle_offset;
-	t_map			map;
-	t_mlx			mlx;
-	t_img			view;
-	t_vec3d			pos;
-	t_vec3d			**rays;
-	t_plan			*plan[2];
-	t_texture		texture;
+	float			r_v;
+	float			r_h;
 }	t_game;
 
 /*			Initialisation			*/
@@ -144,11 +147,11 @@ int		event_unpress(int keycode, t_game *game);
 int		close_event(t_game *game);
 
 /*			Algo 				*/
-void	ft_switch_plan(t_game *game);
+int		switch_plan_algo(t_game *data);
 
 /*			Color				*/
-void	get_color(t_game *game);
-void	get_color_ceiling_floor(t_game *game);
+int		get_color(t_game *game);
+int		get_color_ceiling_floor(t_game *game);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
@@ -164,7 +167,6 @@ t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
-t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 
 /*			Clear					*/
@@ -178,6 +180,5 @@ void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
-void	ft_printf_fps(void);
 
 #endif

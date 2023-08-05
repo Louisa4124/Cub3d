@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 13:48:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:53:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void	ft_resolution(t_game *game, int i, int j)
+void	ft_resolution(t_game *game, int i, int j, int color)
 {
 	int	x;
 	int	y;
@@ -34,7 +34,7 @@ void	ft_resolution(t_game *game, int i, int j)
 		j = j2;
 		while (j < y && j < game->mlx.win_width)
 		{
-			ft_mlx_pixel_put(&game->view, j, i, game->color);
+			ft_mlx_pixel_put(&game->view, j, i, color);
 			++j;
 		}
 		++i;
@@ -59,8 +59,7 @@ int	update_game(t_game *game)
 			game->close_t = 0;
 			game->u_plan.x = 3;
 			game->u_plan.y = -7;
-			ft_switch_plan(game);
-			ft_resolution(game, i, j);
+			ft_resolution(game, i, j, switch_plan_algo(game));
 			j += RESOLUTION;
 		}
 		i += RESOLUTION;

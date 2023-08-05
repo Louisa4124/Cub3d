@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:26:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 20:25:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_len_max(t_list *lst);
 int	extract_map_line_tab(t_map *map, int y, int x);
-int	extract_map_error(t_list **lst, int **layout, int size, char *errstr);
+int	extract_map_error(t_list **lst, char *errstr);
 
 static int	extract_lst(t_list **lst, char *line)
 {
@@ -41,8 +41,8 @@ static int	extract_lst(t_list **lst, char *line)
 
 static void	extract_map_get_start(t_game *game, char c, int x, int y)
 {
-	game->pos.x = x + 1;
-	game->pos.y = y + 1;
+	game->pos.x = x + 0.5;
+	game->pos.y = y + 0.5;
 	game->pos.z = 0.5;
 	game->map.layout[y][x] = 0;
 	if (c == 'N')
@@ -90,7 +90,7 @@ static int	extract_map(t_map *map, t_game *game, t_list **lst)
 	map->y_size = ft_lstsize(*lst);
 	map->layout = ft_calloc(map->y_size, sizeof(void *));
 	if (!map->layout)
-		extract_map_error(lst, map->layout, 0, "Error\nMalloc failed\n");
+		return (extract_map_error(lst, "Error\nMalloc failed\n"));
 	map->x_size = ft_len_max(*lst) - 1;
 	y = 0;
 	current = *lst;
@@ -98,10 +98,9 @@ static int	extract_map(t_map *map, t_game *game, t_list **lst)
 	{
 		map->layout[y] = ft_calloc(map->x_size, sizeof(int));
 		if (map->layout[y] == NULL)
-			extract_map_error(lst, map->layout, y, "Error\nMalloc failed\n");
+			return (extract_map_error(lst, "Error\nMalloc failed\n"));
 		if (extract_map_line(map, game, (char *)current->content, y))
-			extract_map_error(lst, map->layout, y, \
-				"Error\nUnexpected char in map\n");
+			return (extract_map_error(lst, "Error\nUnexpected char in map\n"));
 		current = current->next;
 		++y;
 	}
@@ -128,7 +127,7 @@ int	parser_map(t_map *map, t_game *game, int fd)
 		wit = extract_lst(&lst, line);
 	}
 	if (wit == 2)
-		return (1);
+		return (ft_free_secure(line), 1);
 	if (extract_map(map, game, &lst))
 		return (1);
 	ft_lstclear(&lst, free);
