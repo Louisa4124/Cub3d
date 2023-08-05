@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 13:41:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:34:09 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int		intersect(t_tmp *data, t_plan *plan, int l_data[4], int wit);
 
 /*			Color				*/
 int		get_color(t_tmp *data);
-int		get_color_ceilling_floor(t_tmp *data);
+int		get_color_floor(t_tmp *data);
+int		get_color_ceiling(t_tmp *data);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
