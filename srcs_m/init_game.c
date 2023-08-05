@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 13:49:51 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:57:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ int	ft_init_game(t_game *game)
 {
 	game->color = 0;
 	game->bit_key = 0;
+	game->sky.a = 0;
+	game->sky.b = 0;
+	game->sky.c = 1;
+	game->sky.d = -1;
 	game->angle_x = -0.1;
 	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
 	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
