@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 12:59:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 23:11:49 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,21 +101,18 @@ int	event_settings(int x, int y, t_game *game)
 
 int	event_menu(int x, int y, t_game *game)
 {
-	if ((x > 550 && x < 650) && (y > 650 && y < 920))
-	{
-		game->player = 1;
-		game->pause = 6;
-	}
-	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
-	{
+	if (((x > 1500 && x < 1530) && (y > 640 && y < 675)) && game->player == 1)
 		game->player = 2;
-		game->pause = 6;\
-	}
-	else if ((x > 1320 && x < 1410) && (y > 670 && y < 920))
-	{
+	else if (((x > 1500 && x < 1530) && (y > 640 && y < 675)) && game->player == 2)
 		game->player = 3;
-		game->pause = 6;
-	}
+	else if (((x > 1500 && x < 1530) && (y > 640 && y < 675)) && game->player == 3)
+		game->player = 1;
+	else if (((x > 1235 && x < 1260) && (y > 640 && y < 675)) && game->player == 3)
+		game->player = 2;
+	else if (((x > 1235 && x < 1260) && (y > 640 && y < 675)) && game->player == 2)
+		game->player = 1;
+	else if (((x > 1235 && x < 1260) && (y > 640 && y < 675)) && game->player == 1)
+		game->player = 3;
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 15:16:24 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:44:29 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define N_THREAD 4
 # define N_CHUNK 16
-# define N_SPRITE 10
+# define N_SPRITE 11
 
 typedef struct s_color
 {

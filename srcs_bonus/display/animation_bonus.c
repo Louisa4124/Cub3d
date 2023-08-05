@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 12:59:18 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/04 20:56:11 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:07:15 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,27 @@ int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
 	if (sprite->x >= rx * sprite->frame)
 	{
 		sprite->x = 0;
+		++count;
+	}
+	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, sprite->img, \
+		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
+	return (count);
+}
+
+int	ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
+{
+	int	ry;
+	int	rx;
+	int	count;
+
+	count = 0;
+	ry = sprite->img.height / sprite->frame;
+	rx = sprite->img.width;
+	if (game->ms >= speed)
+		sprite->y += ry;
+	if (sprite->y >= ry * sprite->frame)
+	{
+		sprite->y = 0;
 		++count;
 	}
 	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, sprite->img, \

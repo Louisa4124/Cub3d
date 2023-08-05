@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 14:58:56 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:07:00 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ t_img	resize_image(t_game *game, t_img *src, int ratio);
 int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed);
 void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
 void	animation_fire(t_game *game);
+int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, float speed);
 
 unsigned int	get_time(void);
 
