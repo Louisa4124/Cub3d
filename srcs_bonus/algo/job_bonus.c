@@ -6,11 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:36:25 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 21:49:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/06 00:21:50 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D_bonus.h"
+#include "../../include/cub3D_bonus.h"
 
 t_job	*jobnew(int jid, void *data, void *area, \
 	void (*func)(void *, void *))

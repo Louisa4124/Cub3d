@@ -6,11 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 13:07:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/06 00:21:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D_bonus.h"
+#include "../../include/cub3D_bonus.h"
 
 void	init_thread_data( t_game *game, t_thread_data data[N_THREAD])
 {
