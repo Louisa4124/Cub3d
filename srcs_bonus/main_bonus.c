@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 18:44:07 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:10:23 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,3 +115,4 @@ int	main(int argc, char **argv)
 // EA -> 3
 
 //d = sqrt(2g(z0 - z)) / FPS => gravite que loulou a la flemme d'ajouter
+// wall 0=N 1=S 2=W 3=E

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 15:21:14 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:56:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,22 @@ void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area)
 
 	pos.x -= area.start_x;
 	pos.y -= area.start_y;
-	i = area.start_y;
-	while (i < area.end_y && i < img_src.height)
+	i = area.start_y - 1;
+	while (++i < area.end_y && i < img_src.height)
 	{
-		j = area.start_x;
-		while (j < area.end_x && j < img_src.width)
+		j = area.start_x - 1;
+		while (++j < area.end_x && j < img_src.width)
 		{
 			if ((pos.x + j) < WIDTH && (pos.x + j) >= 0 
 				&& (pos.y + i) < HEIGHT && (pos.y + i) >= 0)
 			{
 				dst = (img_dst->addr + ((pos.y + i) * img_dst->ll + (pos.x + j) \
 					*(img_dst->bpp >> 3)));
-				src = (img_src.addr + (i * img_src.ll + j \
-					*(img_src.bpp >> 3)));
+				src = (img_src.addr + (i * img_src.ll + j *(img_src.bpp >> 3)));
 				if (*(unsigned int *)src != 0xff000000)
 					*(unsigned int *)dst = *(unsigned int *)src;
 			}
-			++j;
 		}
-		++i;
 	}
 }
 

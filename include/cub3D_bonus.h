@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 14:58:56 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:10:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
@@ -76,33 +75,27 @@
 # define GREEN 0x77DD77
 # define BLUE 0xA7C7E7
 
-/*          Initialisation          */
+/*			Initialisation			*/
 int		ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
 void	init_area_link(t_game *game);
 void	init_thread_data( t_game *game, t_thread_data data[N_THREAD]);
-
-t_vec3d	s_vec3d_init(float x, float y, float z);
-void	s_mlx_init(t_mlx *mlx);
-void	s_map_init(t_map *map);
-void	s_img_init(t_img *img);
-void	s_texture_init(t_texture *texture);
+int		load_img(t_mlx *mlx, t_img *img, char *path);
+int		init_img(t_game *game);
+void	fill_sprite(t_game *g, t_sprite *sprite, int nb_frame);
+void	init_sprite_fill(t_game *game);
+int		init_sprite(t_game *game);
 
 /*			Clear					*/
 void	s_mlx_destroy(t_mlx *mlx);
 void	s_img_destroy(t_mlx *mlx, t_img *img);
+void	s_destroy_sprite_tab(t_mlx *mlx, t_sprite *sprite, int n);
 void	ft_clean_exit(t_game *game, int exit_code);
 
 /*			Parsing					*/
 int		parser(char *pathname, t_game *game);
 int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
 int		parser_map(t_map *map, t_game *game, int fd);
-
-/*			Mlx functiuns			*/
-int		ft_mlx_error(int errnum, t_mlx *mlx);
-
-int		close_event(t_game *game);
-void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*			Algo 				*/
 int		switch_plan_algo(t_tmp *data);
@@ -114,13 +107,13 @@ int		get_color_floor(t_tmp *data);
 int		get_color_ceiling(t_tmp *data);
 int		rgb_to_hexa(int r, int g, int b);
 
-/*			Move		*/
+/*			Move			*/
 void	view_update_pos(t_game *game);
 void	view_update_dir_mouse(t_game *game);
 void	view_update_dir_key(t_game *game);
 void	view_move(t_game *game);
 
-/*			Display			*/
+/*			Display				*/
 int		update_game(t_game *game);
 void	ft_printf_fps(int mode);
 void	ft_display_pause(t_game *game);
@@ -134,14 +127,16 @@ int		event_unpress(int keycode, t_game *game);
 int		event_mouse(int x, int y, t_game *game);
 int		event_mouse_reset(t_game *game);
 int		event_pause(int button, int x, int y, t_game *game);
+int		close_event(t_game *game);
 
-/*			Draw			*/
+/*			Draw				*/
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	blur_image(void *ptr, void *area);
 void	display_map(void *ptr, void *area);
 void	draw_circle(t_img *img, t_vec2d center, int rayon, int color);
 void	draw_square(t_img *img, t_vec2d center, int rayon, int color);
 
-/*          Math utils              */
+/*			Math utils			*/
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
@@ -149,17 +144,17 @@ t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
 t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 
-/*			Thread					*/
+/*			Thread				*/
 void	*routine(void *ptr);
 
-/*			Jobs					*/
+/*			Jobs				*/
 int		add_job( t_game *game, void *data, void *area, \
 	void (*func)(void *, void *));
 void	clear_job(t_job **job);
 int		send_frame_job(t_game *game);
 int		wait_job(t_game *game);
 
-/*			Debug					*/
+/*			Debug				*/
 void	debug_print_texture(t_texture *texture);
 void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
@@ -168,19 +163,9 @@ void	debug_print_vec3d(t_vec3d *u, char *name);
 void	debug_print_queue(t_job *job);
 
 /*          a trier pour plus tard pck loulou a la flemme       */
-int		init_img(t_game *game);
-int		init_sprite(t_game *game);
-void	init_sprite_fill(t_game *game);
-int		load_img(t_mlx *mlx, t_img *img, char *path);
-void	fill_sprite(t_game *g, t_sprite *sprite, int nb_frame);
-void	destroy_sprite(t_mlx *mlx, t_sprite *sprite, int n);
-
-
-
 int		event_menu(int x, int y, t_game *game);
 int		event_settings(int x, int y, t_game *game);
 int		ft_get_fps(void);
-
 
 void	ft_display_menu(t_game *game);
 void	ft_blur_pause(t_game *game);
@@ -189,10 +174,9 @@ int		load_menu(t_game *game, int i, int j, char *path);
 
 void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
 t_img	resize_image(t_game *game, t_img *src, int ratio);
-int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed);
+int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, \
+	float speed);
 void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
 void	animation_fire(t_game *game);
-
-unsigned int	get_time(void);
 
 #endif

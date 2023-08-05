@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 18:43:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:10:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,11 @@ typedef struct s_sprite
 	t_img	*view;
 }	t_sprite;
 
-
-// wall 0=N 1=S 2=W 3=E
 typedef struct s_texture
 {
 	t_img	wall[4];
 	t_img	w_floor;
-	t_img	w_ceilling;
+	t_img	w_ceiling;
 	int		floor;
 	int		ceiling;
 }	t_texture;
@@ -180,8 +178,6 @@ typedef struct s_game
 	int				n_thread;
 }	t_game;
 
-
-
 typedef struct s_thread_data
 {
 	int				tid;
@@ -191,8 +187,5 @@ typedef struct s_thread_data
 	int				*queue_status;
 	t_job			**queue;
 }	t_thread_data;
-
-
-// angle less used
 
 #endif

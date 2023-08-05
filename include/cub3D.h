@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 13:50:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:53:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void	ft_switch_plan(t_game *game);
 
 /*			Color				*/
 void	get_color(t_game *game);
-void	get_color_ceilling_floor(t_game *game);
+void	get_color_ceiling_floor(t_game *game);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 20:19:03 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:53:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_switch_plan(t_game *game)
 			if (game->t != 0)
 				intersect(game, u, v);
 			else
-				get_color_ceilling_floor(game);
+				get_color_ceiling_floor(game);
 		}
 		++v;
 	}

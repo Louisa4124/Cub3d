@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 18:50:25 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:53:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,36 @@ int	get_color_floor(t_tmp *data)
 {
 	int		x;
 	int		y;
-	float	result_x;
-	float	result_y;
+	float	res_x;
+	float	res_y;
 	float	t;
 
 	t = -data->link->pos->z / data->rays.z;
-	result_x = data->link->pos->x + (data->rays.x * t);
-	result_y = data->link->pos->y + (data->rays.y * t);
-	x = (int)(((result_x) - (int)(result_x)) * data->link->texture->w_floor.width);
-	y = (int)(((result_y) - (int)(result_y)) * data->link->texture->w_floor.height);
+	res_x = data->link->pos->x + (data->rays.x * t);
+	res_y = data->link->pos->y + (data->rays.y * t);
+	x = (int)(((res_x) - (int)(res_x)) * data->link->texture->w_floor.width);
+	y = (int)(((res_y) - (int)(res_y)) * data->link->texture->w_floor.height);
 	return (*(unsigned int *)(data->link->texture->w_floor.addr + y * \
-		data->link->texture->w_floor.ll + x * (data->link->texture->w_floor.bpp >> 3)));
+		data->link->texture->w_floor.ll + \
+		x * (data->link->texture->w_floor.bpp >> 3)));
 }
 
 int	get_color_ceiling(t_tmp *data)
 {
 	int		x;
 	int		y;
-	float	result_x;
-	float	result_y;
+	float	res_x;
+	float	res_y;
 	float	t;
 
 	t = (1 - data->link->pos->z) / data->rays.z;
-	result_x = data->link->pos->x + (data->rays.x * t);
-	result_y = data->link->pos->y + (data->rays.y * t);
-	x = (int)(((result_x) - (int)(result_x)) * data->link->texture->w_ceilling.width);
-	y = (int)(((result_y) - (int)(result_y)) * data->link->texture->w_ceilling.height);
-	return (*(unsigned int *)(data->link->texture->w_ceilling.addr + y * \
-		data->link->texture->w_ceilling.ll + x * (data->link->texture->w_ceilling.bpp >> 3)));
+	res_x = data->link->pos->x + (data->rays.x * t);
+	res_y = data->link->pos->y + (data->rays.y * t);
+	x = (int)(((res_x) - (int)(res_x)) * data->link->texture->w_ceiling.width);
+	y = (int)(((res_y) - (int)(res_y)) * data->link->texture->w_ceiling.height);
+	return (*(unsigned int *)(data->link->texture->w_ceiling.addr + y * \
+		data->link->texture->w_ceiling.ll + \
+		x * (data->link->texture->w_ceiling.bpp >> 3)));
 }
 
 int	get_color(t_tmp *data)
