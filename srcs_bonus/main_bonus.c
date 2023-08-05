@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 19:17:11 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:43:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	main(int argc, char **argv)
 	if (init_sprite(&game))
 		ft_clean_exit(&game, EXIT_FAILURE);
 	init_img(&game);
-	init_sprite_fill(&game);
 	init_area_link(&game);
 	queue = NULL;
 	game.queue = &queue;

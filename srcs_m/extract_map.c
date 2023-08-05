@@ -6,15 +6,15 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 20:25:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:21:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
 int	ft_len_max(t_list *lst);
+int	is_start(char c);
 int	extract_map_line_tab(t_map *map, int y, int x);
-int	extract_map_error(t_list **lst, char *errstr);
 
 static int	extract_lst(t_list **lst, char *line)
 {
@@ -39,8 +39,10 @@ static int	extract_lst(t_list **lst, char *line)
 	return (0);
 }
 
-static void	extract_map_get_start(t_game *game, char c, int x, int y)
+static int	extract_map_get_start(t_game *game, char c, int x, int y)
 {
+	if (game->pos.z != -1)
+		return (1);
 	game->pos.x = x + 0.5;
 	game->pos.y = y + 0.5;
 	game->pos.z = 0.5;
@@ -50,9 +52,10 @@ static void	extract_map_get_start(t_game *game, char c, int x, int y)
 	else if (c == 'S')
 		game->angle_z = PI;
 	else if (c == 'W')
-		game->angle_z = PI_HALF;
-	else if (c == 'E')
 		game->angle_z = PI_3_QUARTER;
+	else if (c == 'E')
+		game->angle_z = PI_HALF;
+	return (0);
 }
 
 static int	extract_map_line(t_map *map, t_game *game, char *line, int y)
@@ -70,9 +73,11 @@ static int	extract_map_line(t_map *map, t_game *game, char *line, int y)
 			map->layout[y][x] = -1;
 		else if (line[x] == '\t')
 			extract_map_line_tab(map, y, x);
-		else if (line[x] == 'N' || line[x] == 'S' || line[x] == 'E' \
-			|| line[x] == 'W')
-			extract_map_get_start(game, line[x], x, y);
+		else if (is_start(line[x]))
+		{
+			if (extract_map_get_start(game, line[x], x, y))
+				return (ft_putstr_fd("Error\nToo much starting pos\n", 2), 1);
+		}
 		else
 			return (ft_putstr_fd("Error\nUnexpected char in map\n", 2), 1);
 		++x;
@@ -90,7 +95,7 @@ static int	extract_map(t_map *map, t_game *game, t_list **lst)
 	map->y_size = ft_lstsize(*lst);
 	map->layout = ft_calloc(map->y_size, sizeof(void *));
 	if (!map->layout)
-		return (extract_map_error(lst, "Error\nMalloc failed\n"));
+		return (ft_putstr_fd("Error\nMalloc failed\n", 2), 1);
 	map->x_size = ft_len_max(*lst) - 1;
 	y = 0;
 	current = *lst;
@@ -98,12 +103,14 @@ static int	extract_map(t_map *map, t_game *game, t_list **lst)
 	{
 		map->layout[y] = ft_calloc(map->x_size, sizeof(int));
 		if (map->layout[y] == NULL)
-			return (extract_map_error(lst, "Error\nMalloc failed\n"));
+			return (ft_putstr_fd("Error\nMalloc failed\n", 2), 1);
 		if (extract_map_line(map, game, (char *)current->content, y))
-			return (extract_map_error(lst, "Error\nUnexpected char in map\n"));
+			return (1);
 		current = current->next;
 		++y;
 	}
+	if (game->pos.z == -1)
+		return (ft_putstr_fd("Error\nNo starting pos in map\n", 2), 1);
 	return (0);
 }
 
@@ -115,6 +122,7 @@ int	parser_map(t_map *map, t_game *game, int fd)
 
 	wit = 0;
 	lst = NULL;
+	game->pos.z = -1;
 	while (wit == 0)
 	{
 		if (get_next_line(fd, &line))
@@ -128,8 +136,7 @@ int	parser_map(t_map *map, t_game *game, int fd)
 	}
 	if (wit == 2)
 		return (ft_free_secure(line), 1);
-	if (extract_map(map, game, &lst))
-		return (1);
+	wit = extract_map(map, game, &lst);
 	ft_lstclear(&lst, free);
-	return (0);
+	return (wit);
 }

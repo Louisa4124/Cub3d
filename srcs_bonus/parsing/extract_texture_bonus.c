@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_texture_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 11:05:19 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:18:42 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	extract_color(int *color, char *line)
 	while (i < 3)
 	{
 		if (ft_isdigit(*line))
-			rgb[i] = ft_atoi(line) & 251;
+			rgb[i] = ft_atoi(line) & 251;//WTF
 		else
 			break ;
 		if (rgb[i] < 0)

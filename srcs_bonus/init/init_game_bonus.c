@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 18:38:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:35:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static int	plane_create(t_game *game)
 {
 	int	i;
 
-	game->plan[0] = malloc(sizeof(t_plan) * (game->map.y_size + 1));
-	game->plan[1] = malloc(sizeof(t_plan) * (game->map.x_size + 1));
+	game->plan[0] = ft_calloc((game->map.y_size + 1), sizeof(t_plan));
+	game->plan[1] = ft_calloc((game->map.x_size + 1), sizeof(t_plan));
 	if (!game->plan[0] || !game->plan[1])
 		return (EXIT_FAILURE);
 	i = 0;
@@ -46,13 +46,13 @@ static int	rays_create(t_game *game)
 	int		i;
 	int		j;
 
-	game->rays = malloc(sizeof(t_vec3d *) * game->mlx.win_height);
+	game->rays = ft_calloc(game->mlx.win_height, sizeof(t_vec3d *));
 	if (!game->rays)
 		return (EXIT_FAILURE);
 	i = 0;
 	while (i < game->mlx.win_height)
 	{
-		game->rays[i] = malloc(sizeof(t_vec3d) * game->mlx.win_width);
+		game->rays[i] = ft_calloc(game->mlx.win_width, sizeof(t_vec3d));
 		if (!game->rays[i])
 			return (EXIT_FAILURE);
 		j = 0;
@@ -72,29 +72,21 @@ static int	rays_create(t_game *game)
 
 int	ft_init_game(t_game *game)
 {
-	game->bit_key = 0;
 	game->pause = 2;
-	game->n_job = 0;
-	game->queue_status = 0;
-	game->ms = 0;
 	game->player = 1;
 	game->angle_offset = ANG_OFFSET_MOUSE;
 	game->mouse = (t_vec2d){game->mlx.win_width >> 1, \
 		game->mlx.win_height >> 1};
 	game->resolution = 2;
-	game->angle_x = 0;
-	game->plan[0] = NULL;
-	game->plan[1] = NULL;
-	game->rays = NULL;
 	game->minimap_size = 10;
 	if (rays_create(game) || plane_create(game))
-		return (EXIT_FAILURE);
+		return (ft_putstr_fd("Error\nMalloc failed\n", 2), EXIT_FAILURE);
 	if (sem_init(&game->sem_thread, 0, 0) == -1)
-		return (EXIT_FAILURE);
+		return (ft_putstr_fd("Error\nSem_init failed\n", 2), EXIT_FAILURE);
 	if (sem_init(&game->sem_main, 0, 0) == -1)
-		return (EXIT_FAILURE);
+		return (ft_putstr_fd("Error\nSem_init failed\n", 2), EXIT_FAILURE);
 	if (pthread_mutex_init(&game->m_queue, NULL))
-		return (EXIT_FAILURE);
+		return (ft_putstr_fd("Error\nMutex_init failed\n", 2), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 

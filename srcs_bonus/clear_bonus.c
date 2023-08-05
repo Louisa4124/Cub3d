@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 19:06:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:26:26 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	s_mlx_destroy(t_mlx *mlx)
 {
+	if (mlx == NULL)
+		return ;
 	if (mlx->win)
 		mlx_destroy_window(mlx->ptr, mlx->win);
 	if (mlx->ptr)
@@ -21,6 +23,8 @@ void	s_mlx_destroy(t_mlx *mlx)
 		mlx_destroy_display(mlx->ptr);
 		free(mlx->ptr);
 	}
+	mlx->win = NULL;
+	mlx->ptr = NULL;
 }
 
 void	s_img_destroy(t_mlx *mlx, t_img *img)

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 18:53:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:43:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	init_img(t_game *game)
 	return (0);
 }
 
-void	init_sprite_fill(t_game *game)
+void	fill_all_sprite(t_game *game)
 {
 	fill_sprite(game, &game->sprite[0], 8);
 	fill_sprite(game, &game->sprite[1], 10);
@@ -65,29 +65,48 @@ void	init_sprite_fill(t_game *game)
 	fill_sprite(game, &game->sprite[9], 8);
 }
 
-int	init_sprite(t_game *game)
+int	resize_all_sprite(t_game *game)
+{
+	int	err;
+
+	err = 0;
+	game->sprite[0].img = resize_image(game, &game->sprite[0].img, 7);
+	game->sprite[1].img = resize_image(game, &game->sprite[1].img, 7);
+	game->sprite[2].img = resize_image(game, &game->sprite[2].img, 7);
+	game->sprite[3].img = resize_image(game, &game->sprite[3].img, 7);
+	game->sprite[4].img = resize_image(game, &game->sprite[4].img, 7);
+	game->sprite[5].img = resize_image(game, &game->sprite[5].img, 7);
+	game->sprite[6].img = resize_image(game, &game->sprite[6].img, 4);
+	game->sprite[7].img = resize_image(game, &game->sprite[7].img, 8);
+	game->sprite[8].img = resize_image(game, &game->sprite[8].img, 8);
+	game->sprite[9].img = resize_image(game, &game->sprite[9].img, 8);
+	return (err);
+}
+
+int	load_all_sprite(t_game *game)
 {
 	int	err;
 
 	err = load_img(&game->mlx, &game->sprite[0].img, "img/char1/all.xpm");
-	game->sprite[0].img = resize_image(game, &game->sprite[0].img, 7);
 	err += load_img(&game->mlx, &game->sprite[1].img, "img/char3/all.xpm");
-	game->sprite[1].img = resize_image(game, &game->sprite[1].img, 7);
 	err += load_img(&game->mlx, &game->sprite[2].img, "img/char2/all.xpm");
-	game->sprite[2].img = resize_image(game, &game->sprite[2].img, 7);
 	err += load_img(&game->mlx, &game->sprite[3].img, "img/char1/idle.xpm");
-	game->sprite[3].img = resize_image(game, &game->sprite[3].img, 7);
 	err += load_img(&game->mlx, &game->sprite[4].img, "img/char2/idle.xpm");
-	game->sprite[4].img = resize_image(game, &game->sprite[4].img, 7);
 	err += load_img(&game->mlx, &game->sprite[5].img, "img/char3/idle.xpm");
-	game->sprite[5].img = resize_image(game, &game->sprite[5].img, 7);
 	err += load_img(&game->mlx, &game->sprite[6].img, "img/load/1.xpm");
-	game->sprite[6].img = resize_image(game, &game->sprite[6].img, 4);
 	err += load_img(&game->mlx, &game->sprite[7].img, "img/char2/fire.xpm");
-	game->sprite[7].img = resize_image(game, &game->sprite[7].img, 8);
 	err += load_img(&game->mlx, &game->sprite[8].img, "img/char1/fire.xpm");
-	game->sprite[8].img = resize_image(game, &game->sprite[8].img, 8);
 	err += load_img(&game->mlx, &game->sprite[9].img, "img/char3/fire.xpm");
-	game->sprite[9].img = resize_image(game, &game->sprite[9].img, 8);
+
 	return (err);
+}
+
+int	init_sprite(t_game *game)
+{
+	if (load_all_sprite(game))
+		return (EXIT_FAILURE);
+	if (resize_all_sprite(game))
+		return (EXIT_FAILURE);
+	fill_all_sprite(game);
+	return (EXIT_SUCCESS);
 }

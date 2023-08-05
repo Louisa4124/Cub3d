@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 19:10:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:03:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 # define HEIGHT 1080
 # define MINIMAP_SIZE 10
 # define BLUR 25
-# define SEE_TH 0
 
 # define KEY_W 119
 # define KEY_A 97
