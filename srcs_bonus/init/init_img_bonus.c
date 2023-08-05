@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 18:39:31 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:50:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,3 @@ int	init_sprite(t_game *game)
 	game->sprite[9].img = resize_image(game, &game->sprite[9].img, 8);
 	return (err);
 }
-
-

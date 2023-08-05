@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 18:42:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:49:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,27 @@ void	ft_player_animation(t_game *game, int x, int y)
 {
 	if ((x > 550 && x < 650) && (y > 650 && y < 920))
 	{
-		ft_animation(game, &game->sprite[0], (t_vec2d) {0, 500});
-		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
-		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
+		ft_animation(game, &game->sprite[0], (t_vec2d){0, 500});
+		ft_animation(game, &game->sprite[4], (t_vec2d){900, 645});
+		ft_animation(game, &game->sprite[5], (t_vec2d){1250, 590});
 	}
 	else if ((x > 1320 && x < 1410) && (y > 670 && y < 920))
 	{
-		ft_animation(game, &game->sprite[1], (t_vec2d) {1070, 550});
-		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
-		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
+		ft_animation(game, &game->sprite[1], (t_vec2d){1070, 550});
+		ft_animation(game, &game->sprite[3], (t_vec2d){450, 500});
+		ft_animation(game, &game->sprite[4], (t_vec2d){900, 645});
 	}
 	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
 	{
-		ft_animation(game, &game->sprite[2], (t_vec2d) {850, 600});
-		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
-		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
+		ft_animation(game, &game->sprite[2], (t_vec2d){850, 600});
+		ft_animation(game, &game->sprite[3], (t_vec2d){450, 500});
+		ft_animation(game, &game->sprite[5], (t_vec2d){1250, 590});
 	}
 	else
 	{
-		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
-		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
-		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
+		ft_animation(game, &game->sprite[3], (t_vec2d){450, 500});
+		ft_animation(game, &game->sprite[4], (t_vec2d){900, 645});
+		ft_animation(game, &game->sprite[5], (t_vec2d){1250, 590});
 	}
 }
 
