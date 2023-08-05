@@ -19,3 +19,36 @@ sizeof(game->area) is 256
 sizeof(game->pid) is 32
 sizeof(game->m_queue) is 40
 sizeof(game->queue) is 8
+
+typedef struct s_game
+{
+	t_img			anim[5][23];
+	t_sprite		sprite[N_SPRITE];
+	t_area			area[N_CHUNK];
+	t_texture		texture;
+	t_link			link;
+	t_img			view;
+	pthread_mutex_t	m_queue;
+	pthread_t		pid[N_THREAD];
+	sem_t			sem_thread;
+	sem_t			sem_main;
+	t_mlx			mlx;
+	t_map			map;
+	t_plan			*plan[2];
+	t_vec3d			pos;
+	t_vec3d			**rays;
+	t_vec2d			mouse;
+	t_job			**queue;
+	int				pause;
+	int				player;
+	int				resolution;
+	int				bit_key;
+	float			ms;
+	float			angle_z;
+	float			angle_x;
+	float			angle_offset;
+	int				n_job;
+	int				minimap_size;
+	int				queue_status;
+	int				n_thread;
+}	t_game;
