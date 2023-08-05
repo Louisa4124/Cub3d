@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 11:50:03 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:52:16 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	s_img_destroy(t_mlx *mlx, t_img *img)
 	img->addr = NULL;
 }
 
-void	ft_destroy_texture(t_mlx *mlx, t_texture *texture)
+void	destroy_texture(t_mlx *mlx, t_texture *texture)
 {
 	s_img_destroy(mlx, &texture->wall[0]);
 	s_img_destroy(mlx, &texture->wall[1]);
@@ -49,6 +49,22 @@ int	change_status(pthread_mutex_t *mutex, int *status, int new_status)
 	return (0);
 }
 
+void	destroy_sprite(t_mlx *mlx, t_sprite *sprite, int n)
+{
+	int	i;
+
+	i = -1;
+	while (++i < n)
+	{
+		if (sprite[i].img.id)
+		{
+			mlx_destroy_image(mlx->ptr, sprite[i].img.id);
+			sprite[i].img.id = NULL;
+			sprite[i].img.addr = NULL;
+		}
+	}
+}
+
 void	ft_clean_exit(t_game *game, int exit_code)
 {
 	int	i;
@@ -62,7 +78,10 @@ void	ft_clean_exit(t_game *game, int exit_code)
 		pthread_join(game->pid[i], NULL);
 	sem_destroy(&game->sem_thread);
 	sem_destroy(&game->sem_main);
-	ft_destroy_texture(&game->mlx, &game->texture);
+	clear_job(game->queue);
+	destroy_texture(&game->mlx, &game->texture);
+	destroy_sprite(&game->mlx, game->sprite, N_SPRITE);
+	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 	s_mlx_destroy(&game->mlx);
 	ft_free2d((void **) game->map.layout, game->map.y_size);
 	ft_free_secure(game->plan[0]);

@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 13:29:09 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:38:20 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define STRUCT_H
 
 # define N_THREAD 4
-# define N_JOB 17
 # define N_CHUNK 16
+# define N_SPRITE 10
 
 typedef struct s_color
 {
@@ -73,12 +73,15 @@ typedef struct s_img
 
 typedef struct s_sprite
 {
-	t_img	*img;
+	t_img	img;
 	int		frame;
-	// int		width_sprite;
-	// int		height_sprite;
 	int		x;
 	int		y;
+	int		rx;
+	int		ry;
+	int		axis;
+	float	*ms;
+	t_img	*view;
 }	t_sprite;
 
 
@@ -144,28 +147,31 @@ typedef struct s_job
 
 typedef struct s_game
 {
-	t_img		button;
-    t_img       animation[31];
-	t_img       anim[5][23];
-	t_sprite	sprite[11];
-	int			x;
-	int			y;
-    t_img       transparent;
-	float		ms;
-	int			pause;
-	int			player;
-    int			resolution;
-	int			color;
-	int			bit_key;
-	float		angle_z;
-	float		angle_x;
-	t_map		map;
-	t_mlx		mlx;
-	t_img		view;
-	t_vec3d		pos;
-	t_vec3d		**rays;
-	t_plan		*plan[2];
-	t_texture	texture;
+	t_img			button;
+    t_img       	animation[31];
+	t_img       	anim[5][23];
+	t_img			image[15];
+	t_sprite		sprite[N_SPRITE];
+	int				x;
+	int				y;
+	t_vec2d			mouse;
+    t_img       	transparent;
+	float			ms;
+	int				pause;
+	int				player;
+    int				resolution;
+	int				color;
+	int				bit_key;
+	float			angle_z;
+	float			angle_x;
+	float			angle_offset;
+	t_map			map;
+	t_mlx			mlx;
+	t_img			view;
+	t_vec3d			pos;
+	t_vec3d			**rays;
+	t_plan			*plan[2];
+	t_texture		texture;
 	int				minimap_size;
 	sem_t			sem_thread;
 	sem_t			sem_main;
@@ -173,8 +179,8 @@ typedef struct s_game
 	t_area			area[N_CHUNK];
 	pthread_t		pid[N_THREAD];
 	pthread_mutex_t	m_queue;
-	int				queue_status;
 	t_job			**queue;
+	int				queue_status;
 	int				n_thread;
 	int				n_job;
 }	t_game;

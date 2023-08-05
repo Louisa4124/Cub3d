@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/04 23:22:25 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/05 13:04:43 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ int	ft_init_game(t_game *game)
 	game->n_job = 0;
 	game->queue_status = 0;
 	game->ms = 0;
-	game->player = 0;
+	game->player = 1;
+	game->angle_offset = ANG_OFFSET_MOUSE;
+	game->mouse = (t_vec2d){game->mlx.win_width >> 1, \
+		game->mlx.win_height >> 1};
 	game->resolution = 2;
 	game->angle_x = 0;
 	game->plan[0] = NULL;
@@ -89,10 +92,11 @@ int	ft_init_game(t_game *game)
 	if (plane_create(game))
 		return (EXIT_FAILURE);
 	if (sem_init(&game->sem_thread, 0, 0) == -1)
-		dprintf(2, "Error sem_init\n");
+		return (EXIT_FAILURE);
 	if (sem_init(&game->sem_main, 0, 0) == -1)
-		dprintf(2, "Error sem_init\n");
-	pthread_mutex_init(&game->m_queue, NULL);
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&game->m_queue, NULL))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 

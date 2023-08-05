@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 13:18:29 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:07:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,30 @@ void	*routine(void *ptr)
 		sem_post(th->sem_main);
 	}
 	return (NULL);
+}
+
+void	fredimation(void *ptr, void *area)
+{
+	t_sprite	*sprite;
+	t_vec2d		*pos;
+
+	sprite = ptr;
+	pos = area;
+	if (sprite->axis == 0)
+	{
+		if (*sprite->ms >= 0.02)
+			sprite->y += sprite->ry;
+		if (sprite->y >= sprite->ry * sprite->frame)
+			sprite->y = 0;
+	}
+	else
+	{
+		if (*sprite->ms >= 0.02)
+			sprite->x += sprite->rx;
+		if (sprite->x >= sprite->rx * sprite->frame)
+			sprite->x = 0;
+	}
+	draw_on(sprite->view, (t_vec2d){pos->x, pos->y}, sprite->img, \
+		(t_area){sprite->x, sprite->x + sprite->rx, sprite->y, \
+		sprite->y + sprite->ry});
 }

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 14:24:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:08:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,18 @@ static void	ft_resolution(t_tmp *data, int i, int j, int color)
 void	ft_blur_pause(t_game *game)
 {
 	int		i;
-	t_area	area;
 
 	game->pause = 3;
 	i = 0;
-	area = (t_area){0, game->mlx.win_width, 0, game->mlx.win_height};
 	pthread_mutex_lock(&game->m_queue);
 	while (i < N_CHUNK)
 	{
-		if (add_job(game->queue, &game->view, &game->area[i], blur_image))
+		if (add_job(game, &game->view, &game->area[i], blur_image))
 			return ;
 		++i;
 	}
 	pthread_mutex_unlock(&game->m_queue);
-	game->n_job = N_CHUNK;
 	wait_job(game);
-	// blur_image(&game->view, &area);
 }
 
 void	ft_display_pause(t_game *game)
@@ -129,7 +125,10 @@ void    ft_display_fly_menu(t_game *game)
 		ft_draw_img(&game->view, game->anim[0][x], 0, 0);
 	}
 	if (x == 21)
+	{
 		game->pause = 5;
+		mlx_mouse_show(game->mlx.ptr, game->mlx.win);
+	}
 }
 
 void    ft_display_load(t_game *game)
@@ -137,6 +136,8 @@ void    ft_display_load(t_game *game)
 	static int	x = 22;
 	static int	y = 0;
 
+	if (y == 0)
+		mlx_mouse_hide(game->mlx.ptr, game->mlx.win);
 	if (game->ms >= 0.05 && x > 14)
 	{
 		x--;
@@ -151,7 +152,11 @@ void    ft_display_load(t_game *game)
 			game->ms -= 0.05;
 	}
 	if (y == 2)
+	{
 		game->pause = 0;
+		mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
+		game->mlx.win_height >> 1);
+	}
 }
 
 void	ft_display_settings(t_game *game)
@@ -230,6 +235,9 @@ void	display_game(void *ptr, void *area)
 
 int	update_game(t_game *game)
 {
+	t_vec2d	pos = (t_vec2d){1100, 300};
+	t_vec2d	pos2 = (t_vec2d){1250, 590};
+
 	if (game->pause == 6)
 		ft_display_load(game);
 	if (game->pause == 5)
@@ -246,13 +254,19 @@ int	update_game(t_game *game)
 	{
 		view_update_pos(game);
 		view_update_dir_key(game);
-		view_update_dir_mouse(game);
-		send_job(game);
+		send_frame_job(game);
+		wait_job(game);
+		if (add_job(game, &game->sprite[3], &pos, fredimation))
+			return (1);
+		// if (add_job(game, &game->sprite[7], &pos2, fredimation))
+		// 	return (1);
 		wait_job(game);
 		animation_fire(game);
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
+	if (game->ms >= 0.02)
+		game->ms -= 0.02;
 	if (game->pause != 3)
 		game->ms += 0.0015;
 	ft_printf_fps(0);
@@ -260,8 +274,7 @@ int	update_game(t_game *game)
 }
 
 
-	// th_print(&game->m_print, "start launching th", 0);
-	// th_print(&game->m_print, "waiting for Th", 0);
+
 /*
 void	*mlx_new_fullscreen_window(t_xvar *xvar, int *size_x, int *size_y,
 		char *title)

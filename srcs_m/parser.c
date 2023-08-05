@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/03 21:41:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:28:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ int	parser(char *pathname, t_game *game)
 	close(fd);
 	if (check_map(&game->map))
 		return (4);
-	return (NO_ERR);
+	return (0);
 }
