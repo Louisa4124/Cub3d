@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 22:20:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:48:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define G 9.81
 # define DIR_OFFSET 0.1
 # define ANG_OFFSET_KEY 0.05
-# define ANG_OFFSET_MOUSE 0.03
+# define ANG_OFFSET_MOUSE 0.003
 # define RESOLUTION 2
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -131,7 +131,8 @@ void	fredimation(void *ptr, void *area);
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
 int		event_unpress(int keycode, t_game *game);
-void	event_mouse(int x, int y, t_game *game);
+int		event_mouse(int x, int y, t_game *game);
+int		event_mouse_reset(t_game *game);
 int		event_pause(int button, int x, int y, t_game *game);
 
 /*			Draw			*/
@@ -139,10 +140,6 @@ void	blur_image(void *ptr, void *area);
 void	display_map(void *ptr, void *area);
 void	draw_circle(t_img *img, t_vec2d center, int rayon, int color);
 void	draw_square(t_img *img, t_vec2d center, int rayon, int color);
-
-/*			Events 				*/
-int		event_press(int keycode, t_game *game);
-int		event_unpress(int keycode, t_game *game);
 
 /*          Math utils              */
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);

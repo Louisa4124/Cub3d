@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 21:36:31 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:47:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef struct s_game
 	t_sprite		sprite[N_SPRITE];
 	int				x;
 	int				y;
+	t_vec2d			mouse;
     t_img       	transparent;
 	float			ms;
 	int				pause;
@@ -163,6 +164,7 @@ typedef struct s_game
 	int				bit_key;
 	float			angle_z;
 	float			angle_x;
+	float			angle_offset;
 	t_map			map;
 	t_mlx			mlx;
 	t_img			view;

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:05:38 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 22:36:08 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:50:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,41 @@ void	view_update_dir_key(t_game *game)
 	game->angle_z = pi_modulo(game->angle_z);
 }
 
-void	view_move(t_game *game)
+int	event_mouse(int x, int y, t_game *game)
 {
-	static int	x_last;
-	int			x;
-	int			y;
+	float		tmp;
 
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
-		return ;
-	if (x == x_last)
-		return ;
-	game->angle_z += (x - x_last) * 0.004;
-	x_last = x;
-
+	if (game->pause != 0)
+		return (0);
+	if (x <= 0 || y <= 0 || x >= game->mlx.win_width - 1 || y >= game->mlx.win_height - 1)
+	{
+		mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
+		game->mlx.win_height >> 1);
+		game->mouse.y = game->mlx.win_height >> 1;
+		game->mouse.x = game->mlx.win_width >> 1;
+		return (1);
+	}
+	if (x == game->mouse.x && y == game->mouse.y)
+		return (1);
+	game->angle_z = pi_modulo(game->angle_z + (x - game->mouse.x) * 0.004);
+	game->mouse.x = x;
+	tmp = pi_modulo(game->angle_x + (y - game->mouse.y) * 0.004);
+	if (tmp < -0.5)
+		tmp = -0.5;
+	if (tmp > 0.5)
+		tmp = 0.5;
+	game->angle_x = tmp;
+	game->mouse.y = y;
+	return (0);
 }
 
-void	view_update_dir_mouse(t_game *game)
+int	event_mouse_reset(t_game *game)
 {
-	float	tmp;
-	int		mid;
-	int		x;
-	int		y;
-
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
-		return ;
-	mid = game->mlx.win_width >> 1;
-	x = (x - mid) >> 8;
-	game->angle_z += ANG_OFFSET_MOUSE * x;
-	game->angle_z = pi_modulo(game->angle_z);
-	mid = game->mlx.win_height >> 1;
-	y = (y - mid) >> 8;
-	tmp = game->angle_x + ANG_OFFSET_MOUSE * y;
-	if (tmp < -0.5 || tmp > 0.5)
-		return ;
-	game->angle_x = tmp;
+	if (game->pause != 0)
+		return (0);
+	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
+		game->mlx.win_height >> 1);
+	game->mouse.y = game->mlx.win_height >> 1;
+	game->mouse.x = game->mlx.win_width >> 1;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 22:20:38 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:58:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,10 @@ void    ft_display_fly_menu(t_game *game)
 		ft_draw_img(&game->view, game->anim[0][x], 0, 0);
 	}
 	if (x == 21)
+	{
 		game->pause = 5;
+		mlx_mouse_show(game->mlx.ptr, game->mlx.win);
+	}
 }
 
 void    ft_display_load(t_game *game)
@@ -133,6 +136,8 @@ void    ft_display_load(t_game *game)
 	static int	x = 22;
 	static int	y = 0;
 
+	if (y == 0)
+		mlx_mouse_hide(game->mlx.ptr, game->mlx.win);
 	if (game->ms >= 0.05 && x > 14)
 	{
 		x--;
@@ -147,7 +152,11 @@ void    ft_display_load(t_game *game)
 			game->ms -= 0.05;
 	}
 	if (y == 2)
+	{
 		game->pause = 0;
+		mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
+		game->mlx.win_height >> 1);
+	}
 }
 
 void	ft_display_settings(t_game *game)
@@ -244,8 +253,6 @@ int	update_game(t_game *game)
 	{
 		view_update_pos(game);
 		view_update_dir_key(game);
-		// view_update_dir_mouse(game);
-		view_move(game);
 		send_frame_job(game);
 		// wait_job(game);
 		if (add_job(game, &game->sprite[3], &pos, fredimation))

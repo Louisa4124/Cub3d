@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 12:42:13 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:59:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,17 @@ int	event_press(int keycode, t_game *game)
 	else if (keycode == KEY_LEFT)
 		game->bit_key |= BFLAG_LEFT;
 	else if (keycode == KEY_P && game->pause == 0)
+	{
+		mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 		ft_blur_pause(game);
+	}
 	else if (keycode == KEY_P && game->pause == 3)
+	{
+		mlx_mouse_hide(game->mlx.ptr, game->mlx.win);
+		mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
+		game->mlx.win_height >> 1);
 		game->pause = 0;
+	}
 	else if (keycode == KEY_ENTER && game->pause == 2)
 		game->pause = 4;
 	return (0);

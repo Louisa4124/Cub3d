@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 21:42:36 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:54:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,12 @@ int	main(int argc, char **argv)
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 3, 1L << 1, event_unpress, &game);
 	mlx_hook(game.mlx.win, 4, 1L << 2, event_pause, &game);
+	mlx_hook(game.mlx.win, 6, 1L << 6, event_mouse, &game);
+	mlx_hook(game.mlx.win, 8, 1L << 5, event_mouse_reset, &game);
 	mlx_hook(game.mlx.win, 17, 0L, close_event, &game);
+	mlx_mouse_hide(game.mlx.ptr, game.mlx.win);
+	mlx_mouse_move(game.mlx.ptr, game.mlx.win, game.mlx.win_width >> 1, \
+		game.mlx.win_height >> 1);
 	mlx_loop(game.mlx.ptr);
 	ft_clean_exit(&game, EXIT_FAILURE);
 	return (0);
