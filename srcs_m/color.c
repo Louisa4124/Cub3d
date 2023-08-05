@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:14:46 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/21 20:16:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:50:46 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	get_color_wall(t_game *game, int wall)
 	y = game->texture.wall[wall].height - (int)((game->point.z - \
 		(int)(game->point.z)) * game->texture.wall[wall].height) - 1;
 	game->color = *(unsigned int *)(game->texture.wall[wall].addr + y * \
-		game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp / 8));
+		game->texture.wall[wall].ll + x * (game->texture.wall[wall].bpp >> 3));
 }
 
 void	get_color_ceilling_floor(t_game *game)

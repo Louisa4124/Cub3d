@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 13:41:23 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:58:56 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 # include "../libft/libft.h"
 # include "../mlx-linux/mlx.h"
-# include "math.h"
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 13:38:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 14:01:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ typedef struct s_sprite
 typedef struct s_texture
 {
 	t_img	wall[4];
+	t_img	w_floor;
+	t_img	w_ceilling;
 	int		floor;
 	int		ceiling;
 }	t_texture;

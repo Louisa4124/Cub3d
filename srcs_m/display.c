@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/22 01:25:27 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/05 13:48:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_resolution(t_game *game, int i, int j)
 	int	y;
 	int	j2;
 
-	x = i + ;
-	y = j + ;
+	x = i + RESOLUTION;
+	y = j + RESOLUTION;
 	j2 = j;
 	while (i < x && i < game->mlx.win_height)
 	{
@@ -61,9 +61,9 @@ int	update_game(t_game *game)
 			game->u_plan.y = -7;
 			ft_switch_plan(game);
 			ft_resolution(game, i, j);
-			j += game->resolution;
+			j += RESOLUTION;
 		}
-		i += game->resolution;
+		i += RESOLUTION;
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
 	return (0);
