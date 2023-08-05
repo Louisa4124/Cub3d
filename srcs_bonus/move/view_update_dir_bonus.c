@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:05:38 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 12:50:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:09:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ int	event_mouse(int x, int y, t_game *game)
 {
 	float		tmp;
 
-	if (game->pause != 0)
+	if (game->pause != 0 || (x == game->mouse.x && y == game->mouse.y))
 		return (0);
-	if (x <= 0 || y <= 0 || x >= game->mlx.win_width - 1 || y >= game->mlx.win_height - 1)
+	if (x <= 0 || y <= 0 || x >= game->mlx.win_width - 1 
+		|| y >= game->mlx.win_height - 1)
 	{
 		mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
 		game->mlx.win_height >> 1);
@@ -48,14 +49,12 @@ int	event_mouse(int x, int y, t_game *game)
 		game->mouse.x = game->mlx.win_width >> 1;
 		return (1);
 	}
-	if (x == game->mouse.x && y == game->mouse.y)
-		return (1);
 	game->angle_z = pi_modulo(game->angle_z + (x - game->mouse.x) * 0.004);
 	game->mouse.x = x;
 	tmp = pi_modulo(game->angle_x + (y - game->mouse.y) * 0.004);
 	if (tmp < -0.5)
 		tmp = -0.5;
-	if (tmp > 0.5)
+	else if (tmp > 0.5)
 		tmp = 0.5;
 	game->angle_x = tmp;
 	game->mouse.y = y;

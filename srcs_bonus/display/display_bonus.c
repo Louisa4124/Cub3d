@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 12:58:57 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:08:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ void	display_game(void *ptr, void *area)
 int	update_game(t_game *game)
 {
 	t_vec2d	pos = (t_vec2d){1100, 300};
+	t_vec2d	pos2 = (t_vec2d){1250, 590};
 
 	if (game->pause == 6)
 		ft_display_load(game);
@@ -254,14 +255,18 @@ int	update_game(t_game *game)
 		view_update_pos(game);
 		view_update_dir_key(game);
 		send_frame_job(game);
-		// wait_job(game);
+		wait_job(game);
 		if (add_job(game, &game->sprite[3], &pos, fredimation))
 			return (1);
+		// if (add_job(game, &game->sprite[7], &pos2, fredimation))
+		// 	return (1);
 		wait_job(game);
 		animation_fire(game);
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
+	if (game->ms >= 0.02)
+		game->ms -= 0.02;
 	if (game->pause != 3)
 		game->ms += 0.0015;
 	ft_printf_fps(0);

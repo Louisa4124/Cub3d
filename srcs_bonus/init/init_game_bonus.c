@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 12:57:32 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:04:43 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	rays_create(t_game *game)
 int	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
-	game->pause = 2;
+	game->pause = 0;
 	game->n_job = 0;
 	game->queue_status = 0;
 	game->ms = 0;
@@ -92,10 +92,11 @@ int	ft_init_game(t_game *game)
 	if (plane_create(game))
 		return (EXIT_FAILURE);
 	if (sem_init(&game->sem_thread, 0, 0) == -1)
-		dprintf(2, "Error sem_init\n");
+		return (EXIT_FAILURE);
 	if (sem_init(&game->sem_main, 0, 0) == -1)
-		dprintf(2, "Error sem_init\n");
-	pthread_mutex_init(&game->m_queue, NULL);
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&game->m_queue, NULL))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
