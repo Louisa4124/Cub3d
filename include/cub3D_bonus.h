@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 21:03:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 23:18:22 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,5 +177,6 @@ int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, \
 	float speed);
 void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
 void	animation_fire(t_game *game);
+int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, float speed);
 
 #endif
