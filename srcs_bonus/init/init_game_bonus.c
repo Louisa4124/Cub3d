@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 15:00:41 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:38:58 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ int	ft_init_game(t_game *game)
 	game->plan[1] = NULL;
 	game->rays = NULL;
 	game->minimap_size = 10;
-	if (rays_create(game))
-		return (EXIT_FAILURE);
-	if (plane_create(game))
+	if (rays_create(game) || plane_create(game))
 		return (EXIT_FAILURE);
 	if (sem_init(&game->sem_thread, 0, 0) == -1)
 		return (EXIT_FAILURE);
@@ -113,10 +111,6 @@ void	init_area_link(t_game *game)
 		game->area[i].end_x = game->mlx.win_width;
 	}
 	game->area[--i].end_y = game->mlx.win_height;
-	// game->area[i].start_y = 0;
-	// game->area[i].end_y = game->mlx.win_height;
-	// game->area[i].start_x = 0;
-	// game->area[i].end_x = game->mlx.win_width;
 	game->link.map = &game->map;
 	game->link.pos = &game->pos;
 	game->link.rays = game->rays;

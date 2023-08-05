@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 15:18:59 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:42:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_blur_pause(t_game *game)
 {
 	int		i;
 
-	game->pause = 3;
+
 	i = 0;
 	pthread_mutex_lock(&game->m_queue);
 	while (i < N_CHUNK)
@@ -55,7 +55,7 @@ void	ft_display_pause(t_game *game)
 
 }
 
-void    ft_display_menu(t_game *game)
+void	ft_display_menu(t_game *game)
 {
 	static int	i = 0;
 
@@ -82,7 +82,7 @@ void	ft_player_animation(t_game *game, int x, int y)
 	{
 		ft_animation(game, &game->sprite[1], (t_vec2d) {1070, 550});
 		ft_animation(game, &game->sprite[3], (t_vec2d) {450, 500});
-		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});	
+		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
 	}
 	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
 	{
@@ -98,7 +98,7 @@ void	ft_player_animation(t_game *game, int x, int y)
 	}
 }
 
-void    ft_display_select_player(t_game *game)
+void	ft_display_select_player(t_game *game)
 {
 	int	x;
 	int	y;
@@ -111,7 +111,7 @@ void    ft_display_select_player(t_game *game)
 		game->ms -= 0.02;
 }
 
-void    ft_display_fly_menu(t_game *game)
+void	ft_display_fly_menu(t_game *game)
 {
 	static int y = 0;
 	static int x = 14;
@@ -136,7 +136,7 @@ void    ft_display_fly_menu(t_game *game)
 	}
 }
 
-void    ft_display_load(t_game *game)
+void	ft_display_load(t_game *game)
 {
 	static int	x = 22;
 	static int	y = 0;

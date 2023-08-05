@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 13:41:54 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:44:07 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,9 @@ int	launch_fred(t_game *game, t_thread_data th[N_THREAD])
 
 void	sizegame(t_game *game)
 {
-	dprintf(2, "sizeof(game->button) is %lu\n", sizeof(game->button));
-	dprintf(2, "sizeof(game->animation) is %lu\n", sizeof(game->animation));
 	dprintf(2, "sizeof(game->anim) is %lu\n", sizeof(game->anim));
-	dprintf(2, "sizeof(game->image) is %lu\n", sizeof(game->image));
 	dprintf(2, "sizeof(game->sprite) is %lu\n", sizeof(game->sprite));
 	dprintf(2, "sizeof(game->mouse) is %lu\n", sizeof(game->mouse));
-	dprintf(2, "sizeof(game->transparent) is %lu\n", sizeof(game->transparent));
 	dprintf(2, "sizeof(game->ms) is %lu\n", sizeof(game->ms));
 	dprintf(2, "sizeof(game->pause) is %lu\n", sizeof(game->pause));
 	dprintf(2, "sizeof(game->map) is %lu\n", sizeof(game->map));

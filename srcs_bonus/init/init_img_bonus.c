@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 18:36:46 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:39:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	init_img(t_game *game)
 {
-	load_menu(game, 0,  0, "img/start/1.xpm");
+	load_menu(game, 0, 0, "img/start/1.xpm");
 	load_menu(game, 0, 13, "img/start/title.xpm");
 	ft_draw_img(&game->view, game->anim[0][0], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][13], 0, 0);

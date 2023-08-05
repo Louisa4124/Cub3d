@@ -6,15 +6,29 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 12:59:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:42:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
+void	pause_in(t_game *game)
+{
+	game->pause = 3;
+	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
+	ft_blur_pause(game);
+}
+
+void	pause_off(t_game *game)
+{
+	mlx_mouse_hide(game->mlx.ptr, game->mlx.win);
+	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
+		game->mlx.win_height >> 1);
+	game->pause = 0;
+}
+
 int	event_press(int keycode, t_game *game)
 {
-	//printf("key = %d\n", keycode);
 	if (keycode == 53 || keycode == KEY_ESCAPE)
 		close_event(game);
 	else if (keycode == KEY_W)
@@ -34,17 +48,9 @@ int	event_press(int keycode, t_game *game)
 	else if (keycode == KEY_LEFT)
 		game->bit_key |= BFLAG_LEFT;
 	else if (keycode == KEY_P && game->pause == 0)
-	{
-		mlx_mouse_show(game->mlx.ptr, game->mlx.win);
-		ft_blur_pause(game);
-	}
+		pause_in(game);
 	else if (keycode == KEY_P && game->pause == 3)
-	{
-		mlx_mouse_hide(game->mlx.ptr, game->mlx.win);
-		mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
-		game->mlx.win_height >> 1);
-		game->pause = 0;
-	}
+		pause_off(game);
 	else if (keycode == KEY_ENTER && game->pause == 2)
 		game->pause = 4;
 	return (0);
@@ -109,7 +115,7 @@ int	event_menu(int x, int y, t_game *game)
 	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
 	{
 		game->player = 2;
-		game->pause = 6;\
+		game->pause = 6;
 	}
 	else if ((x > 1320 && x < 1410) && (y > 670 && y < 920))
 	{
