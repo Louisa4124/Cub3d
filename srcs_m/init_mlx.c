@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 20:12:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:29:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	ft_mlx_error(int errnum)
 {
-	if (errnum == NO_ERR)
+	if (errnum == 0)
 		return (EXIT_SUCCESS);
-	else if (errnum == MLX_ERR_INIT)
+	else if (errnum == 1)
 		ft_putstr_fd("Error\nMlx init fail\n", 2);
-	else if (errnum == MLX_ERR_WINDOW)
+	else if (errnum == 2)
 		ft_putstr_fd("Error\nNew window fail\n", 2);
-	else if (errnum == MLX_ERR_IMAGE)
+	else if (errnum == 3)
 		ft_putstr_fd("Error\nNew image fail\n", 2);
 	else if (errnum == 4)
 		ft_putstr_fd("Error\nGet data from image fail\n", 2);
@@ -32,24 +32,24 @@ int	ft_init_mlx(t_game *game)
 	s_mlx_init(&game->mlx);
 	game->mlx.ptr = mlx_init();
 	if (!game->mlx.ptr)
-		return (MLX_ERR_INIT);
+		return (1);
 	game->mlx.win_width = WIDTH;
 	game->mlx.win_height = HEIGHT;
 	game->mlx.win = mlx_new_window(game->mlx.ptr, \
 		game->mlx.win_width, game->mlx.win_height, "cub3D");
 	if (!game->mlx.win)
-		return (ft_destroy_mlx(game), MLX_ERR_WINDOW);
+		return (ft_destroy_mlx(game), 2);
 	game->view.id = mlx_new_image(game->mlx.ptr, \
 		game->mlx.win_width, game->mlx.win_height);
 	if (!game->view.id)
-		return (ft_destroy_mlx(game), MLX_ERR_IMAGE);
+		return (ft_destroy_mlx(game), 3);
 	game->view.addr = mlx_get_data_addr(game->view.id, \
 		&game->view.bpp, &game->view.ll, &game->view.endian);
 	if (!game->view.addr)
-		return (ft_destroy_mlx(game), MLX_ERR_DATA);
+		return (ft_destroy_mlx(game), 4);
 	game->view.height = game->mlx.win_height;
 	game->view.width = game->mlx.win_width;
-	return (NO_ERR);
+	return (0);
 }
 
 void	ft_destroy_mlx(t_game *game)

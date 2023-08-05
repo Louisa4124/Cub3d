@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 12:27:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 21:42:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char **argv)
 		sommeil.... \nShmimimimimi\n rommpshhhhh\n");
 	if (argc != 2)
 		return (ft_man(argc));
+	ft_bzero(&game, sizeof(game));
 	if (ft_init_mlx(&game))
 		return (1);
 	if (parser(argv[1], &game))
@@ -64,7 +65,10 @@ int	main(int argc, char **argv)
 	game.queue = &queue;
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
-	ft_init_img(&game);
+	init_img(&game);
+	if (init_sprite(&game))
+		ft_clean_exit(&game, EXIT_FAILURE);
+	init_sprite_fill(&game);
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 3, 1L << 1, event_unpress, &game);

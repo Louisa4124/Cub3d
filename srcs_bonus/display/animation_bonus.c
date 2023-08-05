@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 12:59:18 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/04 13:13:27 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:56:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
 	int	count;
 
 	count = 0;
-	ry = sprite->img->height;
-	rx = sprite->img->width / sprite->frame;
+	ry = sprite->img.height;
+	rx = sprite->img.width / sprite->frame;
 	if (game->ms >= speed)
 		sprite->x += rx;
 	if (sprite->x >= rx * sprite->frame)
@@ -28,7 +28,7 @@ int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
 		sprite->x = 0;
 		++count;
 	}
-	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, *sprite->img, \
+	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, sprite->img, \
 		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
 	return (count);
 }
@@ -38,13 +38,13 @@ void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos)
 	int			ry;
 	int			rx;
 
-	ry = sprite->img->height / sprite->frame;
-	rx = sprite->img->width;
+	ry = sprite->img.height / sprite->frame;
+	rx = sprite->img.width;
 	if (game->ms >= 0.02)
 		sprite->y += ry;
 	if (sprite->y >= ry * sprite->frame)
 		sprite->y = 0;
-	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, *sprite->img, \
+	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, sprite->img, \
 		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
 }
 

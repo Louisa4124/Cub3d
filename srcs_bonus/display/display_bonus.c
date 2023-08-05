@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 14:24:10 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/04 22:20:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,18 @@ static void	ft_resolution(t_tmp *data, int i, int j, int color)
 void	ft_blur_pause(t_game *game)
 {
 	int		i;
-	t_area	area;
 
 	game->pause = 3;
 	i = 0;
-	area = (t_area){0, game->mlx.win_width, 0, game->mlx.win_height};
 	pthread_mutex_lock(&game->m_queue);
 	while (i < N_CHUNK)
 	{
-		if (add_job(game->queue, &game->view, &game->area[i], blur_image))
+		if (add_job(game, &game->view, &game->area[i], blur_image))
 			return ;
 		++i;
 	}
 	pthread_mutex_unlock(&game->m_queue);
-	game->n_job = N_CHUNK;
 	wait_job(game);
-	// blur_image(&game->view, &area);
 }
 
 void	ft_display_pause(t_game *game)
@@ -230,6 +226,8 @@ void	display_game(void *ptr, void *area)
 
 int	update_game(t_game *game)
 {
+	t_vec2d	pos = (t_vec2d){1100, 300};
+
 	if (game->pause == 6)
 		ft_display_load(game);
 	if (game->pause == 5)
@@ -246,8 +244,12 @@ int	update_game(t_game *game)
 	{
 		view_update_pos(game);
 		view_update_dir_key(game);
-		view_update_dir_mouse(game);
-		send_job(game);
+		// view_update_dir_mouse(game);
+		view_move(game);
+		send_frame_job(game);
+		// wait_job(game);
+		if (add_job(game, &game->sprite[3], &pos, fredimation))
+			return (1);
 		wait_job(game);
 		animation_fire(game);
 	}
@@ -260,8 +262,7 @@ int	update_game(t_game *game)
 }
 
 
-	// th_print(&game->m_print, "start launching th", 0);
-	// th_print(&game->m_print, "waiting for Th", 0);
+
 /*
 void	*mlx_new_fullscreen_window(t_xvar *xvar, int *size_x, int *size_y,
 		char *title)
