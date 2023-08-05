@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/08/05 13:44:18 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/08/05 21:08:24 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,9 +84,9 @@ MKDIR 		=	mkdir -p
 RM			=	rm -rf
 MAKE		=	make -s
 
-
+#-g3 -fsanitize=thread#
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-O3 -Wall -Wextra -pthread #-g3 -fsanitize=thread#-fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
+CFLAGS		=	-O3 -Wall -Wextra -pthread -fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined -g3
 FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11
 
@@ -161,7 +161,7 @@ ${DIR_OBJS}	:
 			@${MKDIR} ${DIR_OBJS}
 			
 nn			:
-			@norminette $(sort ${DIR_SRCS_M} ${DIR_SRCS}  ${HEADER} )
+			@norminette $(sort ${DIR_SRCS_M} ${DIR_SRCS} ${HEADER_M} ${HEADER} )
 
 $(LIBFT)	:	FORCE
 			@$(MAKE) -C ${DIR_LIBFT}

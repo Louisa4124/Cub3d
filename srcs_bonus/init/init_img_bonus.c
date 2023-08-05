@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 22:42:34 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/05 23:19:21 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	init_img(t_game *game)
 	load_menu(game, 1, 2, "img/torch.xpm");
 	game->anim[1][2] = resize_image(game, &game->anim[1][2], 5);
 	load_img(&game->mlx, &game->texture.w_floor, "img/grass2.xpm");
-	load_img(&game->mlx, &game->texture.w_ceilling, "img/floor.xpm");
+	load_img(&game->mlx, &game->texture.w_ceiling, "img/floor.xpm");
 
 	return (0);
 }
 
-void	init_sprite_fill(t_game *game)
+void	fill_all_sprite(t_game *game)
 {
 	fill_sprite(game, &game->sprite[0], 8);
 	fill_sprite(game, &game->sprite[1], 10);
@@ -53,29 +53,20 @@ void	init_sprite_fill(t_game *game)
 	fill_sprite(game, &game->sprite[10], 19);
 }
 
-int	init_sprite(t_game *game)
+int	resize_all_sprite(t_game *game)
 {
 	int	err;
 
-	err = load_img(&game->mlx, &game->sprite[0].img, "img/char1/all.xpm");
+	err = 0;
 	game->sprite[0].img = resize_image(game, &game->sprite[0].img, 7);
-	err += load_img(&game->mlx, &game->sprite[1].img, "img/char3/all.xpm");
 	game->sprite[1].img = resize_image(game, &game->sprite[1].img, 7);
-	err += load_img(&game->mlx, &game->sprite[2].img, "img/char2/all.xpm");
 	game->sprite[2].img = resize_image(game, &game->sprite[2].img, 7);
-	err += load_img(&game->mlx, &game->sprite[3].img, "img/char1/idle.xpm");
 	game->sprite[3].img = resize_image(game, &game->sprite[3].img, 7);
-	err += load_img(&game->mlx, &game->sprite[4].img, "img/char2/idle.xpm");
 	game->sprite[4].img = resize_image(game, &game->sprite[4].img, 7);
-	err += load_img(&game->mlx, &game->sprite[5].img, "img/char3/idle.xpm");
 	game->sprite[5].img = resize_image(game, &game->sprite[5].img, 7);
-	err += load_img(&game->mlx, &game->sprite[6].img, "img/load/1.xpm");
 	game->sprite[6].img = resize_image(game, &game->sprite[6].img, 4);
-	err += load_img(&game->mlx, &game->sprite[7].img, "img/char2/fire.xpm");
 	game->sprite[7].img = resize_image(game, &game->sprite[7].img, 8);
-	err += load_img(&game->mlx, &game->sprite[8].img, "img/char1/fire.xpm");
 	game->sprite[8].img = resize_image(game, &game->sprite[8].img, 8);
-	err += load_img(&game->mlx, &game->sprite[9].img, "img/char3/fire.xpm");
 	game->sprite[9].img = resize_image(game, &game->sprite[9].img, 8);
 
 	err += load_img(&game->mlx, &game->sprite[10].img, "img/menu/text.xpm");
@@ -83,4 +74,30 @@ int	init_sprite(t_game *game)
 	return (err);
 }
 
+int	load_all_sprite(t_game *game)
+{
+	int	err;
 
+	err = load_img(&game->mlx, &game->sprite[0].img, "img/char1/all.xpm");
+	err += load_img(&game->mlx, &game->sprite[1].img, "img/char3/all.xpm");
+	err += load_img(&game->mlx, &game->sprite[2].img, "img/char2/all.xpm");
+	err += load_img(&game->mlx, &game->sprite[3].img, "img/char1/idle.xpm");
+	err += load_img(&game->mlx, &game->sprite[4].img, "img/char2/idle.xpm");
+	err += load_img(&game->mlx, &game->sprite[5].img, "img/char3/idle.xpm");
+	err += load_img(&game->mlx, &game->sprite[6].img, "img/load/1.xpm");
+	err += load_img(&game->mlx, &game->sprite[7].img, "img/char2/fire.xpm");
+	err += load_img(&game->mlx, &game->sprite[8].img, "img/char1/fire.xpm");
+	err += load_img(&game->mlx, &game->sprite[9].img, "img/char3/fire.xpm");
+
+	return (err);
+}
+
+int	init_sprite(t_game *game)
+{
+	if (load_all_sprite(game))
+		return (EXIT_FAILURE);
+	if (resize_all_sprite(game))
+		return (EXIT_FAILURE);
+	fill_all_sprite(game);
+	return (EXIT_SUCCESS);
+}

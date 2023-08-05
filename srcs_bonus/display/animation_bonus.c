@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 12:59:18 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 21:07:15 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/05 23:18:17 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
 		sprite->x = 0;
 		++count;
 	}
-	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, sprite->img, \
-		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
+	draw_on(&game->view, (t_vec2d){pos.x, pos.y}, sprite->img, \
+		(t_area){sprite->x, sprite->x + rx, sprite->y, sprite->y + ry});
 	return (count);
 }
 
@@ -65,8 +65,8 @@ void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos)
 		sprite->y += ry;
 	if (sprite->y >= ry * sprite->frame)
 		sprite->y = 0;
-	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, sprite->img, \
-		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
+	draw_on(&game->view, (t_vec2d){pos.x, pos.y}, sprite->img, \
+		(t_area){sprite->x, sprite->x + rx, sprite->y, sprite->y + ry});
 }
 
 void	animation_fire(t_game *game)

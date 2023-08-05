@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 14:33:11 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 22:02:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	ft_len_max(t_list *lst);
 int	is_start(char c);
-int	extract_map_line_tab(t_map *map, int y, int x);
-int	extract_map_error(t_list **lst, int **layout, int size, char *errstr);
 
 static int	extract_lst(t_list **lst, char *line)
 {
@@ -72,8 +70,6 @@ static int	extract_map_line(t_map *map, t_game *game, char *line, int y)
 			map->layout[y][x] = 1;
 		else if (line[x] == ' ')
 			map->layout[y][x] = -1;
-		else if (line[x] == '\t')
-			extract_map_line_tab(map, y, x);
 		else if (is_start(line[x]))
 		{
 			if (extract_map_get_start(game, line[x], x, y))
@@ -96,7 +92,7 @@ static int	extract_map(t_map *map, t_game *game, t_list **lst)
 	map->y_size = ft_lstsize(*lst);
 	map->layout = ft_calloc(map->y_size, sizeof(void *));
 	if (!map->layout)
-		return (extract_map_error(lst, map->layout, 0, "Error\nMalloc failed\n"));
+		return (ft_putstr_fd("Error\nMalloc failed\n", 2), 1);
 	map->x_size = ft_len_max(*lst) - 1;
 	y = 0;
 	current = *lst;
@@ -136,7 +132,7 @@ int	parser_map(t_map *map, t_game *game, int fd)
 		wit = extract_lst(&lst, line);
 	}
 	if (wit == 2)
-		return (1);
+		return (ft_free_secure(line), 1);
 	wit = extract_map(map, game, &lst);
 	ft_lstclear(&lst, free);
 	return (wit);

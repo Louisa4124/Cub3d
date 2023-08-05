@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/07/21 20:20:04 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 20:30:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,14 @@ int	ft_man(int num)
 int	main(int argc, char **argv)
 {
 	t_game	game;
-	int		err;
 
 	ft_printf("Bonjour ! Je suis le cub3D de Tilou et j'ai treeees \
 		sommeil.... \nShmimimimimi\n rommpshhhhh\n");
 	if (argc != 2)
 		return (ft_man(argc));
-	err = ft_init_mlx(&game);
-	if (err)
-		return (ft_mlx_error(err));
+	ft_bzero(&game, sizeof(game));
+	if (ft_init_mlx(&game))
+		return (EXIT_FAILURE);
 	if (parser(argv[1], &game))
 		ft_clean_exit(&game, EXIT_FAILURE);
 	if (ft_init_game(&game))

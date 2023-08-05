@@ -6,12 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:45:36 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 11:14:23 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:01:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
-
 
 unsigned int	get_time(void)
 {

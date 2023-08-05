@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 23:10:20 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/05 23:18:40 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_blur_pause(t_game *game)
 {
 	int		i;
 
-	game->pause = 3;
 	i = 0;
 	pthread_mutex_lock(&game->m_queue);
 	while (i < N_CHUNK)
@@ -52,10 +51,11 @@ void	ft_blur_pause(t_game *game)
 
 void	ft_display_pause(t_game *game)
 {
-
+	(void)game;
+	return ;
 }
 
-void    ft_display_menu(t_game *game)
+void	ft_display_menu(t_game *game)
 {
 	ft_draw_img(&game->view, game->anim[0][0], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][1], 0, 0);
@@ -94,7 +94,7 @@ void	ft_player_animation(t_game *game, int x, int y)
 	}
 }
 
-void    ft_display_select_player(t_game *game)
+void	ft_display_select_player(t_game *game)
 {
 	int	x;
 	int	y;
@@ -136,7 +136,7 @@ void    ft_display_select_menu(t_game *game)
 	}
 }
 
-void    ft_display_fly_menu(t_game *game)
+void	ft_display_fly_menu(t_game *game)
 {
 	static int y = 0;
 	static int x = 0;
@@ -154,7 +154,7 @@ void    ft_display_fly_menu(t_game *game)
 	ft_display_select_menu(game);
 }
 
-void    ft_display_load(t_game *game)
+void	ft_display_load(t_game *game)
 {
 	static int	x = 22;
 	static int	y = 0;
@@ -184,7 +184,8 @@ void    ft_display_load(t_game *game)
 
 void	ft_display_settings(t_game *game)
 {
-
+	(void)game;
+	return ;
 }
 
 void	display_map(void *ptr, void *area)
@@ -258,9 +259,6 @@ void	display_game(void *ptr, void *area)
 
 int	update_game(t_game *game)
 {
-	t_vec2d	pos = (t_vec2d){1100, 300};
-	t_vec2d	pos2 = (t_vec2d){1250, 590};
-
 	if (game->pause == 6)
 		ft_display_load(game);
 	if (game->pause == 5)
@@ -290,26 +288,3 @@ int	update_game(t_game *game)
 	ft_printf_fps(0);
 	return (0);
 }
-
-
-
-/*
-void	*mlx_new_fullscreen_window(t_xvar *xvar, int *size_x, int *size_y,
-		char *title)
-{
-	t_win_list				*new_win;
-	XSetWindowAttributes	xswa;
-
-	if (!(new_win = malloc(sizeof(*new_win))))
-		return ((void *)0);
-	xswa = get_default_attributes(xvar);
-	xswa.override_redirect = 1;
-	mlx_get_screen_size(xvar, size_x, size_y);
-	new_win->window = XCreateWindow(xvar->display, xvar->root, 0, 0, *size_x,
-			*size_y, 0, CopyFromParent, InputOutput, xvar->visual,
-			CWEventMask | CWBackPixel | CWBorderPixel | CWColormap | CWOverrideRedirect,
-			&xswa);
-	return (set_configs(xvar, new_win, *size_x, *size_y, title));
-}
-*/
-

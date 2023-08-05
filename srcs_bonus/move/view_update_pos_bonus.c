@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:44 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/07/20 12:08:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:08:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	view_update_pos_lateral(t_game *game, int flag, t_vec3d dir, \
 
 	if ((flag & BFLAG_A) && (flag & BFLAG_D))
 		return ;
-	z_axis = s_vec3d_init(0, 0, 1);
+	z_axis = (t_vec3d){0, 0, 1};
 	if (flag & BFLAG_A)
 	{
 		new_pos = math_vec_op(new_pos, math_vec_op(dir, z_axis, '^'), '+');
@@ -82,7 +82,7 @@ void	view_update_pos(t_game *game)
 
 	bitflag = game->bit_key;
 	new_pos = game->pos;
-	dir = ft_rotate_vec_z(s_vec3d_init(0, -DIR_OFFSET, 0), game->angle_z);
+	dir = ft_rotate_vec_z((t_vec3d){0, -DIR_OFFSET, 0}, game->angle_z);
 	view_update_pos_vertical(game, bitflag, dir, new_pos);
 	view_update_pos_lateral(game, bitflag, dir, new_pos);
 }

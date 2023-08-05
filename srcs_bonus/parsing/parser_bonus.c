@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/04 14:28:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 22:02:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	parser(char *pathname, t_game *game)
 {
 	int		fd;
 
-	s_map_init(&game->map);
-	s_texture_init(&game->texture);
 	if (check_name(pathname))
 		return (parser_error(1));
 	fd = open(pathname, O_RDONLY);

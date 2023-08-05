@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 13:50:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 20:03:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,6 @@
 # define BFLAG_LEFT 0b00100000
 # define BFLAG_RIGHT 0b100000000
 
-# define NO_ERR 0
-# define MLX_ERR_INIT 1
-# define MLX_ERR_WINDOW 2
-# define MLX_ERR_IMAGE 3
-# define MLX_ERR_DATA 4
-
 typedef struct s_vec3d
 {
 	float	x;
@@ -75,6 +69,13 @@ typedef struct s_plan
 	float	c;
 	float	d;
 }	t_plan;
+
+typedef struct s_plan_id
+{
+	int		x;
+	int		y;
+	int		d;
+}	t_plan_id;
 
 typedef struct s_img
 {
@@ -111,49 +112,34 @@ typedef struct s_mlx
 
 typedef struct s_game
 {
-	t_img			button;
-	int				x;
-	int				y;
+	t_texture		texture;
+	t_img			view;
+	t_mlx			mlx;
+	t_map			map;
+	t_plan			*plan[2];
 	t_vec3d			point;
 	t_vec3d			u_rays;
-	t_vec2d			u_plan;
-	int				color;
+	t_vec3d			pos;
+	t_vec3d			**rays;
+	t_plan_id		u_plan;
 	float			t;
 	float			close_t;
 	int				bit_key;
-	float			r_v;
-	float			r_h;
 	float			angle_z;
 	float			angle_x;
 	float			angle_offset;
-	t_map			map;
-	t_mlx			mlx;
-	t_img			view;
-	t_vec3d			pos;
-	t_vec3d			**rays;
-	t_plan			*plan[2];
-	t_texture		texture;
+	float			r_v;
+	float			r_h;
 }	t_game;
-
 
 /*			Initialisation			*/
 int		ft_init_mlx(t_game *game);
 int		ft_init_game(t_game *game);
-t_vec3d	s_vec3d_init(float x, float y, float z);
-void	s_mlx_init(t_mlx *mlx);
-void	s_map_init(t_map *map);
-void	s_img_init(t_img *img);
-void	s_texture_init(t_texture *texture);
 
 /*			Parsing					*/
 int		parser(char *pathname, t_game *game);
 int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
 int		parser_map(t_map *map, t_game *game, int fd);
-
-/*			Mlx functiuns			*/
-int		ft_mlx_error(int errnum);
-void	ft_destroy_mlx(t_game *game);
-void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -161,11 +147,11 @@ int		event_unpress(int keycode, t_game *game);
 int		close_event(t_game *game);
 
 /*			Algo 				*/
-void	ft_switch_plan(t_game *game);
+int		switch_plan_algo(t_game *data);
 
 /*			Color				*/
-void	get_color(t_game *game);
-void	get_color_ceilling_floor(t_game *game);
+int		get_color(t_game *game);
+int		get_color_ceiling_floor(t_game *game);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
@@ -174,19 +160,17 @@ void	view_update_dir(t_game *game);
 
 /*			Display			*/
 int		update_game(t_game *game);
-void	display_pause(t_game *game);
-
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /*			Math utils			*/
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_y(t_vec3d v, float rad);
 t_vec3d	ft_rotate_vec_z(t_vec3d v, float rad);
 t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
-t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 
 /*			Clear					*/
-void	s_mlx_destroy(t_game *game);
+void	s_mlx_destroy(t_mlx *mlx);
 void	s_img_destroy(t_mlx *mlx, t_img *img);
 void	ft_clean_exit(t_game *game, int exit_code);
 
@@ -196,6 +180,5 @@ void	debug_print_img(t_img *img);
 void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
-void	ft_printf_fps(void);
 
 #endif
