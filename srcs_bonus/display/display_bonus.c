@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 23:18:40 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/06 00:01:37 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	ft_display_menu(t_game *game)
 	ft_draw_img(&game->view, game->anim[0][1], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][2], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][3], 0, 0);
-	ft_animation_v(game, &game->sprite[10], (t_vec2d) {670, 970}, 0.025);
-	if (game->ms >= 0.025)
-		game->ms -= 0.025;
+	ft_animation_v(game, &game->sprite[10], (t_vec2d) {670, 970}, 0.02);
+	if (game->ms >= 0.02)
+		game->ms -= 0.02;
 }
 
 void	ft_player_animation(t_game *game, int x, int y)
@@ -102,12 +102,22 @@ void	ft_display_select_player(t_game *game)
 	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	ft_draw_img(&game->view, game->anim[0][4], 0, 0);
+	if ((x > 1500 && x < 1530) && (y > 640 && y < 675))
+		ft_draw_img(&game->view, game->anim[0][9], 0, 0);
+	else if ((x > 1235 && x < 1260) && (y > 640 && y < 675))
+		ft_draw_img(&game->view, game->anim[0][8], 0, 0);
+	else if ((x > 300 && x < 490) && (y > 550 && y < 590))
+		ft_draw_img(&game->view, game->anim[0][10], 0, 0);
+	else if ((x > 330 && x < 470) && (y > 650 && y < 680))
+		ft_draw_img(&game->view, game->anim[0][11], 0, 0);
+	else if ((x > 360 && x < 430) && (y > 745 && y < 780))
+		ft_draw_img(&game->view, game->anim[0][12], 0, 0);
 	if (game->player == 1)
 		ft_animation_v(game, &game->sprite[3], (t_vec2d) {1230, 370}, 0.08);
 	else if (game->player == 2)
-		ft_animation_v(game, &game->sprite[4], (t_vec2d) {1270, 530}, 0.08);
+		ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
 	else if (game->player == 3)
-		ft_animation_v(game, &game->sprite[5], (t_vec2d) {1270, 470}, 0.08);
+		ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
 	if (game->ms >= 0.08)
 		game->ms -= 0.08;
 }
@@ -118,12 +128,12 @@ void    ft_display_select_menu(t_game *game)
 	static int	x = 1100;
 	static int	z = 1100;
 
-	if (game->ms >= 0.015 && y < 0)
+	if (game->ms >= 0.01 && y < 0)
 	{
 		x -= 20;
 		y += 20;
 		z -= 20;
-		game->ms -= 0.015;
+		game->ms -= 0.01;
 		ft_draw_img(&game->view, game->anim[0][0], 0, 0);
 		ft_draw_img(&game->view, game->anim[0][6], 0, y);
 		ft_draw_img(&game->view, game->anim[0][5], 0, x);
@@ -141,17 +151,18 @@ void	ft_display_fly_menu(t_game *game)
 	static int y = 0;
 	static int x = 0;
 
-	if (game->ms >= 0.002 && y >= -1800)
+	if (game->ms >= 0.001 && y >= -1800)
 	{
 		y -= 7;
 		x += 10;
-		game->ms -= 0.002;
+		game->ms -= 0.001;
 		ft_draw_img(&game->view, game->anim[0][0], 0, 0);
 		ft_draw_img(&game->view, game->anim[0][1], y, 0);
 		ft_draw_img(&game->view, game->anim[0][2], x, 0);
 		ft_draw_img(&game->view, game->anim[0][3], 0, y);
 	}
-	ft_display_select_menu(game);
+	if (y < -1800)
+		ft_display_select_menu(game);
 }
 
 void	ft_display_load(t_game *game)

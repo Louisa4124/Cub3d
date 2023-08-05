@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 23:19:21 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/05 23:52:50 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	init_img(t_game *game)
 	load_menu(game, 0, 5, "img/select/clouds.xpm");
 	load_menu(game, 0, 6, "img/select/sky.xpm");
 	load_menu(game, 0, 7, "img/select/select.xpm");
+	load_menu(game, 0, 8, "img/select/left.xpm");
+	load_menu(game, 0, 9, "img/select/right.xpm");
+	load_menu(game, 0, 10, "img/select/start.xpm");
+	load_menu(game, 0, 11, "img/select/settings.xpm");
+	load_menu(game, 0, 12, "img/select/exit.xpm");
 
 	load_menu(game, 1, 0, "img/select/0.xpm");
 
