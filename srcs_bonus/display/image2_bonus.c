@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 20:48:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 15:21:14 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ t_img	resize_image(t_game *game, t_img *src, int ratio)
 			pix_index.y = (index.y * new_img.ll) + (index.x * (new_img.bpp >> 3));
 			byte = 0;
 			while (byte < (new_img.bpp >> 3))
-				new_img.addr[pix_index.y + byte++] = src->addr[pix_index.x + byte];
+			{
+				new_img.addr[pix_index.y + byte] = src->addr[pix_index.x + byte];
+				++byte;
+			}
 			++index.x;
 		}
 		++index.y;

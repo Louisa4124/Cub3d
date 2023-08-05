@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 14:04:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 15:18:59 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,8 @@ void    ft_display_menu(t_game *game)
 	ft_draw_img(&game->view, game->anim[0][13], 0, 0);
 }
 
-void    ft_display_select_player(t_game *game)
+void	ft_player_animation(t_game *game, int x, int y)
 {
-	int	x;
-	int	y;
-
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	ft_draw_img(&game->view, game->anim[0][14], 0, 0);
-	ft_draw_img(&game->view, game->anim[1][0], 0, 0);
 	if ((x > 550 && x < 650) && (y > 650 && y < 920))
 	{
 		ft_animation(game, &game->sprite[0], (t_vec2d) {0, 500});
@@ -102,6 +96,17 @@ void    ft_display_select_player(t_game *game)
 		ft_animation(game, &game->sprite[4], (t_vec2d) {900, 645});
 		ft_animation(game, &game->sprite[5], (t_vec2d) {1250, 590});
 	}
+}
+
+void    ft_display_select_player(t_game *game)
+{
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
+	ft_draw_img(&game->view, game->anim[0][14], 0, 0);
+	ft_draw_img(&game->view, game->anim[1][0], 0, 0);
+	ft_player_animation(game, x, y);
 	if (game->ms >= 0.02)
 		game->ms -= 0.02;
 }
@@ -260,8 +265,8 @@ int	update_game(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
-	if (game->ms >= 0.02)
-		game->ms -= 0.02;
+	// if (game->ms >= 0.02)
+	// 	game->ms -= 0.02;
 	if (game->pause != 3)
 		game->ms += 0.0015;
 	ft_printf_fps(0);

@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 14:13:07 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/05 15:00:41 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	rays_create(t_game *game)
 int	ft_init_game(t_game *game)
 {
 	game->bit_key = 0;
-	game->pause = 0;
+	game->pause = 2;
 	game->n_job = 0;
 	game->queue_status = 0;
 	game->ms = 0;
