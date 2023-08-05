@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 12:54:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:41:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,32 @@ int	launch_fred(t_game *game, t_thread_data th[N_THREAD])
 	}
 	game->n_thread = i;
 	return (0);
+}
+
+void	sizegame(t_game *game)
+{
+	dprintf(2, "sizeof(game->button) is %lu\n", sizeof(game->button));
+	dprintf(2, "sizeof(game->animation) is %lu\n", sizeof(game->animation));
+	dprintf(2, "sizeof(game->anim) is %lu\n", sizeof(game->anim));
+	dprintf(2, "sizeof(game->image) is %lu\n", sizeof(game->image));
+	dprintf(2, "sizeof(game->sprite) is %lu\n", sizeof(game->sprite));
+	dprintf(2, "sizeof(game->mouse) is %lu\n", sizeof(game->mouse));
+	dprintf(2, "sizeof(game->transparent) is %lu\n", sizeof(game->transparent));
+	dprintf(2, "sizeof(game->ms) is %lu\n", sizeof(game->ms));
+	dprintf(2, "sizeof(game->pause) is %lu\n", sizeof(game->pause));
+	dprintf(2, "sizeof(game->map) is %lu\n", sizeof(game->map));
+	dprintf(2, "sizeof(game->mlx) is %lu\n", sizeof(game->mlx));
+	dprintf(2, "sizeof(game->pos) is %lu\n", sizeof(game->pos));
+	dprintf(2, "sizeof(game->rays) is %lu\n", sizeof(game->rays));
+	dprintf(2, "sizeof(game->plan) is %lu\n", sizeof(game->plan));
+	dprintf(2, "sizeof(game->texture) is %lu\n", sizeof(game->texture));
+	dprintf(2, "sizeof(game->sem_thread) is %lu\n", sizeof(game->sem_thread));
+	dprintf(2, "sizeof(game->link) is %lu\n", sizeof(game->link));
+	dprintf(2, "sizeof(game->area) is %lu\n", sizeof(game->area));
+	dprintf(2, "sizeof(game->pid) is %lu\n", sizeof(game->pid));
+	dprintf(2, "sizeof(game->m_queue) is %lu\n", sizeof(game->m_queue));
+	dprintf(2, "sizeof(game->queue) is %lu\n", sizeof(game->queue));
+	exit(0);
 }
 
 //LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!

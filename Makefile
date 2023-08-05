@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/08/04 22:25:59 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/08/05 13:44:18 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ OBJS		=	${patsubst ${DIR_SRCS}%.c, ${DIR_OBJS}%.o, ${SRCS}} \
 
 #	==============================	HEADERS	==============================	#
 DIR_HEADER	=	include/
-LST_HDR_M	=	${NAME}.h struct.h
+LST_HDR_M	=	${NAME}.h
 HEADER_M	=	${addprefix ${DIR_HEADER}, ${LST_HDR_M}}
 LST_HDR		=	${NAME_B}.h struct.h
 HEADER		=	${addprefix ${DIR_HEADER}, ${LST_HDR}}

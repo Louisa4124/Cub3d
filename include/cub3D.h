@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/04 14:29:25 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:50:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "../libft/libft.h"
 # include "../mlx-linux/mlx.h"
-# include "math.h"
-# include "struct.h"
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
@@ -56,6 +54,87 @@
 # define MLX_ERR_WINDOW 2
 # define MLX_ERR_IMAGE 3
 # define MLX_ERR_DATA 4
+
+typedef struct s_vec3d
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_vec3d;
+
+typedef struct s_vec2d
+{
+	int		x;
+	int		y;
+}	t_vec2d;
+
+typedef struct s_plan
+{
+	float	a;
+	float	b;
+	float	c;
+	float	d;
+}	t_plan;
+
+typedef struct s_img
+{
+	void	*id;
+	char	*addr;
+	int		height;
+	int		width;
+	int		ll;
+	int		bpp;
+	int		endian;
+}	t_img;
+
+typedef struct s_texture
+{
+	t_img	wall[4];
+	int		floor;
+	int		ceiling;
+}	t_texture;
+
+typedef struct s_map
+{
+	int	**layout;
+	int	x_size;
+	int	y_size;
+}	t_map;
+
+typedef struct s_mlx
+{
+	void	*ptr;
+	void	*win;
+	int		win_height;
+	int		win_width;
+}	t_mlx;
+
+typedef struct s_game
+{
+	t_img			button;
+	int				x;
+	int				y;
+	t_vec3d			point;
+	t_vec3d			u_rays;
+	t_vec2d			u_plan;
+	int				color;
+	float			t;
+	float			close_t;
+	int				bit_key;
+	float			r_v;
+	float			r_h;
+	float			angle_z;
+	float			angle_x;
+	float			angle_offset;
+	t_map			map;
+	t_mlx			mlx;
+	t_img			view;
+	t_vec3d			pos;
+	t_vec3d			**rays;
+	t_plan			*plan[2];
+	t_texture		texture;
+}	t_game;
+
 
 /*			Initialisation			*/
 int		ft_init_mlx(t_game *game);
