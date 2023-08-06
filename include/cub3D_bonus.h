@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 23:18:22 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/06 17:12:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int		get_color(t_tmp *data);
 int		get_color_floor(t_tmp *data);
 int		get_color_ceiling(t_tmp *data);
 int		rgb_to_hexa(int r, int g, int b);
+int		darken_color(int color, float d_ratio, float intensity);
 
 /*			Move			*/
 void	view_update_pos(t_game *game);
