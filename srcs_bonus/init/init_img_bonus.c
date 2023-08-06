@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 23:52:50 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/06 17:04:14 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int	init_img(t_game *game)
 	load_menu(game, 0, 10, "img/select/start.xpm");
 	load_menu(game, 0, 11, "img/select/settings.xpm");
 	load_menu(game, 0, 12, "img/select/exit.xpm");
+	load_menu(game, 0, 13, "img/select/transition.xpm");
+	
+	load_menu(game, 0, 14, "img/settings/menu.xpm");
 
 	load_menu(game, 1, 0, "img/select/0.xpm");
 
@@ -56,6 +59,12 @@ void	fill_all_sprite(t_game *game)
 	fill_sprite(game, &game->sprite[8], 8);
 	fill_sprite(game, &game->sprite[9], 8);
 	fill_sprite(game, &game->sprite[10], 19);
+	fill_sprite(game, &game->sprite[11], 10);
+	fill_sprite(game, &game->sprite[12], 8);
+	fill_sprite(game, &game->sprite[13], 5);
+	fill_sprite(game, &game->sprite[14], 13);
+	fill_sprite(game, &game->sprite[15], 8);
+	fill_sprite(game, &game->sprite[16], 1);
 }
 
 int	resize_all_sprite(t_game *game)
@@ -73,8 +82,12 @@ int	resize_all_sprite(t_game *game)
 	game->sprite[7].img = resize_image(game, &game->sprite[7].img, 8);
 	game->sprite[8].img = resize_image(game, &game->sprite[8].img, 8);
 	game->sprite[9].img = resize_image(game, &game->sprite[9].img, 8);
-
-	err += load_img(&game->mlx, &game->sprite[10].img, "img/menu/text.xpm");
+	game->sprite[11].img = resize_image(game, &game->sprite[11].img, 3);
+	game->sprite[12].img = resize_image(game, &game->sprite[12].img, 3);
+	game->sprite[13].img = resize_image(game, &game->sprite[13].img, 3);
+	game->sprite[14].img = resize_image(game, &game->sprite[14].img, 3);
+	game->sprite[15].img = resize_image(game, &game->sprite[15].img, 3);
+	game->sprite[16].img = resize_image(game, &game->sprite[16].img, 3);
 	
 	return (err);
 }
@@ -93,6 +106,13 @@ int	load_all_sprite(t_game *game)
 	err += load_img(&game->mlx, &game->sprite[7].img, "img/char2/fire.xpm");
 	err += load_img(&game->mlx, &game->sprite[8].img, "img/char1/fire.xpm");
 	err += load_img(&game->mlx, &game->sprite[9].img, "img/char3/fire.xpm");
+	err += load_img(&game->mlx, &game->sprite[10].img, "img/menu/text.xpm");
+	err += load_img(&game->mlx, &game->sprite[11].img, "img/cat/idle.xpm");
+	err += load_img(&game->mlx, &game->sprite[12].img, "img/cat/laying.xpm");
+	err += load_img(&game->mlx, &game->sprite[13].img, "img/cat/licking.xpm");
+	err += load_img(&game->mlx, &game->sprite[14].img, "img/cat/stretch.xpm");
+	err += load_img(&game->mlx, &game->sprite[15].img, "img/cat/walk.xpm");
+	err += load_img(&game->mlx, &game->sprite[16].img, "img/cat/sleep.xpm");
 
 	return (err);
 }

@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 12:59:18 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 23:18:17 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/06 15:55:20 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
 {
+	int	count;
 	int	ry;
 	int	rx;
-	int	count;
 
 	count = 0;
 	ry = sprite->img.height;
 	rx = sprite->img.width / sprite->frame;
 	if (game->ms >= speed)
 		sprite->x += rx;
-	if (sprite->x >= rx * sprite->frame)
+	if (sprite->x >= rx * sprite->frame - 1)
 	{
 		sprite->x = 0;
 		++count;

@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 23:18:27 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/06 15:54:58 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define N_THREAD 4
 # define N_CHUNK 16
-# define N_SPRITE 11
+# define N_SPRITE 17
 
 typedef struct s_color
 {

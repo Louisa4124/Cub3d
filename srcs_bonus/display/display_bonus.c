@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/06 00:01:37 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/06 17:17:26 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,32 +66,27 @@ void	ft_display_menu(t_game *game)
 		game->ms -= 0.02;
 }
 
-void	ft_player_animation(t_game *game, int x, int y)
+void	ft_display_cat(t_game *game)
 {
-	if ((x > 550 && x < 650) && (y > 650 && y < 920))
+	static int	x = 20;
+	static int	count = 0;
+
+	if (count < 1)
+		count += ft_animation_h(game, &game->sprite[11], (t_vec2d) {x, 985}, 0.08);
+	else if (count < 4)
 	{
-		ft_animation_v(game, &game->sprite[0], (t_vec2d) {0, 500}, 0.04); 
-		ft_animation_v(game, &game->sprite[4], (t_vec2d) {900, 645}, 0.04);
-		ft_animation_v(game, &game->sprite[5], (t_vec2d) {1250, 590}, 0.04);
+		if (game->ms >= 0.05 && game->pause == 5)
+			++x;
+		count += ft_animation_h(game, &game->sprite[15], (t_vec2d) {x, 985}, 0.08);
 	}
-	else if ((x > 1320 && x < 1410) && (y > 670 && y < 920))
-	{
-		ft_animation_v(game, &game->sprite[1], (t_vec2d) {1070, 550}, 0.04);
-		ft_animation_v(game, &game->sprite[3], (t_vec2d) {450, 500}, 0.04);
-		ft_animation_v(game, &game->sprite[4], (t_vec2d) {900, 645}, 0.04);	
-	}
-	else if ((x > 950 && x < 1050) && (y > 710 && y < 920))
-	{
-		ft_animation_v(game, &game->sprite[2], (t_vec2d) {850, 600}, 0.04);
-		ft_animation_v(game, &game->sprite[3], (t_vec2d) {450, 500}, 0.04);
-		ft_animation_v(game, &game->sprite[5], (t_vec2d) {1250, 590}, 0.04);
-	}
+	else if (count < 5)
+		count += ft_animation_h(game, &game->sprite[11], (t_vec2d) {x, 985}, 0.08);
+	else if (count < 6)
+		count += ft_animation_h(game, &game->sprite[14], (t_vec2d) {x, 985}, 0.08);
+	else if (count < 7)
+		count += ft_animation_h(game, &game->sprite[12], (t_vec2d) {x, 985}, 0.08);
 	else
-	{
-		ft_animation_v(game, &game->sprite[3], (t_vec2d) {450, 500}, 0.04);
-		ft_animation_v(game, &game->sprite[4], (t_vec2d) {900, 645}, 0.04);
-		ft_animation_v(game, &game->sprite[5], (t_vec2d) {1250, 590}, 0.04);
-	}
+		ft_draw_img(&game->view, game->sprite[16].img, x, 985);
 }
 
 void	ft_display_select_player(t_game *game)
@@ -118,6 +113,7 @@ void	ft_display_select_player(t_game *game)
 		ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
 	else if (game->player == 3)
 		ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
+	ft_display_cat(game);
 	if (game->ms >= 0.08)
 		game->ms -= 0.08;
 }
@@ -128,12 +124,12 @@ void    ft_display_select_menu(t_game *game)
 	static int	x = 1100;
 	static int	z = 1100;
 
-	if (game->ms >= 0.01 && y < 0)
+	if (game->ms >= 0.003 && y < 0)
 	{
-		x -= 20;
-		y += 20;
-		z -= 20;
-		game->ms -= 0.01;
+		x -= 10;
+		y += 10;
+		z -= 10;
+		game->ms -= 0.003;
 		ft_draw_img(&game->view, game->anim[0][0], 0, 0);
 		ft_draw_img(&game->view, game->anim[0][6], 0, y);
 		ft_draw_img(&game->view, game->anim[0][5], 0, x);
@@ -163,6 +159,50 @@ void	ft_display_fly_menu(t_game *game)
 	}
 	if (y < -1800)
 		ft_display_select_menu(game);
+}
+
+void	ft_display_settings_menu(t_game *game)
+{
+	static int x = WIDTH;
+
+	ft_draw_img(&game->view, game->anim[0][4], 0, 0);
+	if (x > 0)
+	{
+		if (game->player == 1)
+			ft_animation_v(game, &game->sprite[3], (t_vec2d) {1230, 370}, 0.08);
+		else if (game->player == 2)
+			ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
+		else if (game->player == 3)
+			ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
+		ft_display_cat(game);
+	}
+	if (game->ms >= 0.001 && x >= -WIDTH)
+		x -= 15;
+	if (x <= 0)
+		ft_draw_img(&game->view, game->anim[0][14], 0, 0);
+	ft_draw_img(&game->view, game->anim[0][13], x, 0);
+}
+
+void	ft_display_launch_game(t_game *game)
+{
+	static int x = WIDTH;
+
+	ft_draw_img(&game->view, game->anim[0][4], 0, 0);
+	if (x > 0)
+	{
+		if (game->player == 1)
+			ft_animation_v(game, &game->sprite[3], (t_vec2d) {1230, 370}, 0.08);
+		else if (game->player == 2)
+			ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
+		else if (game->player == 3)
+			ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
+		ft_display_cat(game);
+	}
+	if (game->ms >= 0.001 && x >= -WIDTH)
+		x -= 15;
+	if (x <= 0)
+		game->pause = 0;
+	ft_draw_img(&game->view, game->anim[0][13], x, 0);
 }
 
 void	ft_display_load(t_game *game)
@@ -268,16 +308,27 @@ void	display_game(void *ptr, void *area)
 	}
 }
 
+void	ft_transition(t_game *game)
+{
+	static int x = 0;
+
+	if (game->ms >= 0.001 && x >= -WIDTH)
+		x -= 40;
+	ft_draw_img(&game->view, game->anim[0][13], x, 0);
+}
+
 int	update_game(t_game *game)
 {
+	if (game->pause == 7)
+		ft_display_launch_game(game);
 	if (game->pause == 6)
 		ft_display_load(game);
 	if (game->pause == 5)
 		ft_display_select_player(game);
 	if (game->pause == 4)
 		ft_display_fly_menu(game);
-	// if (game->pause == 3)
-	// 	ft_display_pause(game);
+	if (game->pause == 3)
+		ft_display_settings_menu(game);
 	if (game->pause == 2)
 		ft_display_menu(game);
 	if (game->pause == 1)
@@ -289,11 +340,10 @@ int	update_game(t_game *game)
 		send_frame_job(game);
 		wait_job(game);
 		animation_fire(game);
+		ft_transition(game);
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
-	// if (game->ms >= 0.02)
-	// 	game->ms -= 0.02;
 	if (game->pause != 3)
 		game->ms += 0.0015;
 	ft_printf_fps(0);
