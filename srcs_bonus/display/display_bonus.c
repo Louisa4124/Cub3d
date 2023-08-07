@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/07 17:52:10 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/07 21:35:44 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ void	ft_blur_pause(t_game *game)
 	wait_job(game);
 }
 
-void	ft_display_pause(t_game *game)
-{
-	(void)game;
-	return ;
-}
 
 void	ft_display_menu(t_game *game)
 {
@@ -99,30 +94,25 @@ void	ft_change_cursor(t_game *game, int x, int y)
 void	ft_display_select_player(t_game *game, int x, int y)
 {
 	if ((x > 1500 && x < 1530) && (y > 640 && y < 675))
-	{
 		ft_draw_img(&game->view, game->anim[0][9], 0, 0);
-		ft_change_cursor(game, x, y);
-	}
 	else if ((x > 1235 && x < 1260) && (y > 640 && y < 675))
-	{
 		ft_draw_img(&game->view, game->anim[0][8], 0, 0);
-		ft_change_cursor(game, x, y);		
-	}
 	else if ((x > 300 && x < 490) && (y > 550 && y < 590))
-	{
 		ft_draw_img(&game->view, game->anim[0][10], 0, 0);
-		ft_change_cursor(game, x, y);
-	}
 	else if ((x > 330 && x < 470) && (y > 650 && y < 680))
-	{
 		ft_draw_img(&game->view, game->anim[0][11], 0, 0);
-		ft_change_cursor(game, x, y);
-	}
 	else if ((x > 360 && x < 430) && (y > 745 && y < 780))
-	{
 		ft_draw_img(&game->view, game->anim[0][12], 0, 0);
+	if ((x > 1500 && x < 1530) && (y > 640 && y < 675))
 		ft_change_cursor(game, x, y);
-	}
+	else if ((x > 1235 && x < 1260) && (y > 640 && y < 675))
+		ft_change_cursor(game, x, y);
+	else if ((x > 300 && x < 490) && (y > 550 && y < 590))
+		ft_change_cursor(game, x, y);
+	else if ((x > 330 && x < 470) && (y > 650 && y < 680))
+		ft_change_cursor(game, x, y);
+	else if ((x > 360 && x < 430) && (y > 745 && y < 780))
+		ft_change_cursor(game, x, y);
 	else
 		mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 }
@@ -190,9 +180,32 @@ void	ft_display_fly_menu(t_game *game)
 		ft_display_players(game);
 }
 
+void	ft_settings_mouse(t_game * game, int x, int y)
+{
+	if ((x > 1170 && x < 1200) && (y > 500 && y < 520))
+		ft_change_cursor(game, x, y);
+	else if ((x > 1015 && x < 1045) && (y > 500 && y < 520))
+		ft_change_cursor(game, x, y);
+	else if ((x > 1170 && x < 1200) && (y > 620 && y < 650))
+		ft_change_cursor(game, x, y);
+	else if ((x > 1015 && x < 1045) && (y > 620 && y < 650)) 
+		ft_change_cursor(game, x, y);
+	else if ((x > 1015 && x < 1045) && (y > 760 && y < 780))
+		ft_change_cursor(game, x, y);
+	else if ((x > 1170 && x < 1200) && (y > 760 && y < 780))
+		ft_change_cursor(game, x, y);
+	else if (((x > 50 && x < 280) && (y > 1000 && y < 1050)))
+		ft_change_cursor(game, x, y);
+	else
+		mlx_mouse_show(game->mlx.ptr, game->mlx.win);
+}
+
 void	ft_select_settings(t_game *game)
 {
-	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	ft_draw_img(&game->view, game->anim[0][14], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][15], 0, 0);
 	if (game->resolution == 1)
@@ -201,20 +214,19 @@ void	ft_select_settings(t_game *game)
 		ft_draw_img(&game->view, game->anim[0][17], 150, -30);
 	else if (game->resolution == 4)
 		ft_draw_img(&game->view, game->anim[0][18], 150, -30);
-
 	if (game->angle_offset >= 0.000 && game->angle_offset < 0.002)
 		ft_draw_img(&game->view, game->anim[0][18], 150, 100);
 	else if (game->angle_offset >= 0.002 && game->angle_offset < 0.004)
 		ft_draw_img(&game->view, game->anim[0][17], 150, 100);
 	else if (game->angle_offset >= 0.004)
 		ft_draw_img(&game->view, game->anim[0][16], 150, 100);
-
 	if (*game->link.light >= 0 && *game->link.light < 1)
 		ft_draw_img(&game->view, game->anim[0][16], 150, 230);
 	else if (*game->link.light >= 1 && *game->link.light < 1.5)
 		ft_draw_img(&game->view, game->anim[0][17], 150, 230);
 	else if (*game->link.light >= 1.4)
 		ft_draw_img(&game->view, game->anim[0][18], 150, 230);
+	ft_settings_mouse(game, x, y);
 }
 
 void	ft_display_settings_menu(t_game *game)
@@ -240,7 +252,12 @@ void	ft_display_settings_menu(t_game *game)
 		ft_draw_img(&game->view, game->anim[0][15], 0, 0);
 	}
 	ft_draw_img(&game->view, game->anim[0][13], x, 0);
-	ft_select_settings(game);
+	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
+	if (x <= - WIDTH)
+	{
+		game->pause = 1;
+		x = WIDTH;
+	}
 }
 
 void	ft_display_launch_game(t_game *game)
@@ -263,12 +280,6 @@ void	ft_display_launch_game(t_game *game)
 	if (x <= 0)
 		game->pause = 0;
 	ft_draw_img(&game->view, game->anim[0][13], x, 0);
-}
-
-void	ft_display_settings(t_game *game)
-{
-	(void)game;
-	return ;
 }
 
 void	display_map(void *ptr, void *area)
@@ -364,7 +375,7 @@ int	update_game(t_game *game)
 	if (game->pause == 2)
 		ft_display_menu(game);
 	if (game->pause == 1)
-		ft_display_settings(game);
+		ft_select_settings(game);
 	if (game->pause == 0)
 	{
 		view_update_pos(game);

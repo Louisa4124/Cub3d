@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/07 17:57:08 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/07 21:23:00 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	event_pause(int button, int x, int y, t_game *game)
 		return (-1);
 	if (game->pause == 5)
 		event_menu(x, y, game);
-	if (game->pause == 3)
+	if (game->pause == 1)
 	{
 		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)))
-			return(game->pause = 0, 0);
+			return(game->pause = 5, 0);
 		event_settings(x, y, game);
 	}
 	return (0);
