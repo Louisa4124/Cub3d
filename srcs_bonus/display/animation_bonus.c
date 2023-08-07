@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 12:59:18 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/06 15:55:20 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/07 21:39:36 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,27 @@ void	animation_fire(t_game *game)
 	}
 	if (game->ms >= 0.02)
 		game->ms -= 0.02;
+}
+
+void	ft_animation_cat(t_game *game)
+{
+	static int	x = 20;
+	static int	count = 0;
+
+	if (count < 1)
+		count += ft_animation_h(game, &game->sprite[11], (t_vec2d) {x, 985}, 0.08);
+	else if (count < 4)
+	{
+		if (game->ms >= 0.05 && game->pause == 5)
+			++x;
+		count += ft_animation_h(game, &game->sprite[15], (t_vec2d) {x, 985}, 0.08);
+	}
+	else if (count < 5)
+		count += ft_animation_h(game, &game->sprite[11], (t_vec2d) {x, 985}, 0.08);
+	else if (count < 6)
+		count += ft_animation_h(game, &game->sprite[14], (t_vec2d) {x, 985}, 0.08);
+	else if (count < 7)
+		count += ft_animation_h(game, &game->sprite[12], (t_vec2d) {x, 985}, 0.08);
+	else
+		ft_draw_img(&game->view, game->sprite[16].img, x, 985);
 }
