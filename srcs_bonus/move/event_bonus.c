@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/06 17:13:46 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/07 17:57:08 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,43 +65,55 @@ int	event_pause(int button, int x, int y, t_game *game)
 		return (-1);
 	if (game->pause == 5)
 		event_menu(x, y, game);
-	if (game->pause == 1)
-		event_settings(x, y, game);
 	if (game->pause == 3)
 	{
-		if ((x > 470 && x < 600) && (y > 380 && y < 405))
-			return (game->pause = 0, 0);
-		if ((x > 460 && x < 620) && (y > 450 && y < 480))
-			return (0);
-		if ((x > 500 && x < 570) && (y > 530 && y < 555))
-			return (close_event(game), 0);
+		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)))
+			return(game->pause = 0, 0);
+		event_settings(x, y, game);
 	}
 	return (0);
 }
 
 int	event_settings(int x, int y, t_game *game)
 {
-	if ((x > 310 && x < 390) && (y > 400 && y < 425))
-	{
-		game->resolution = 1;
-		game->pause = 2;
-		ft_display_menu(game);
-		return (0);
-	}
-	if ((x > 480 && x < 610) && (y > 400 && y < 425))
-	{
+	if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 1)
 		game->resolution = 2;
-		game->pause = 2;
-		ft_display_menu(game);
-		return (0);
-	}
-	if ((x > 715 && x < 780) && (y > 400 && y < 425))
-	{
-		game->resolution = 3;
-		game->pause = 2;
-		ft_display_menu(game);
-		return (0);
-	}
+	else if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 2)
+		game->resolution = 4;
+	else if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 4)
+		game->resolution = 1;
+	else if (((x > 1015 && x < 1045) && (y > 500 && y < 520)) && game->resolution == 1)
+		game->resolution = 4;
+	else if (((x > 1015 && x < 1045) && (y > 500 && y < 520)) && game->resolution == 2)
+		game->resolution = 1;
+	else if (((x > 1015 && x < 1045) && (y > 500 && y < 520)) && game->resolution == 4)
+		game->resolution = 2;
+	
+	else if (((x > 1170 && x < 1200) && (y > 620 && y < 650)) && (game->angle_offset >= 0 && game->angle_offset < 0.002))
+		game->angle_offset = 0.005;
+	else if (((x > 1170 && x < 1200) && (y > 620 && y < 650)) && (game->angle_offset >= 0.002 && game->angle_offset < 0.004)) 
+		game->angle_offset = 0.001;
+	else if (((x > 1170 && x < 1200) && (y > 620 && y < 650)) && game->angle_offset >= 0.004)
+		game->angle_offset = 0.003;
+	else if (((x > 1015 && x < 1045) && (y > 620 && y < 650)) && (game->angle_offset >= 0 && game->angle_offset < 0.002))
+		game->angle_offset = 0.003;
+	else if (((x > 1015 && x < 1045) && (y > 620 && y < 650)) && (game->angle_offset >= 0.002 && game->angle_offset < 0.004))
+		game->angle_offset = 0.005;
+	else if (((x > 1015 && x < 1045) && (y > 620 && y < 650)) && game->angle_offset >= 0.004)
+		game->angle_offset = 0.001;
+
+	else if (((x > 1170 && x < 1200) && (y > 760 && y < 780)) && *game->link.light >= 0 && *game->link.light < 1)
+		*game->link.light = 1;
+	else if (((x > 1170 && x < 1200) && (y > 760 && y < 780)) && *game->link.light >= 1 && *game->link.light < 1.4)
+		*game->link.light = 1.5;
+	else if (((x > 1170 && x < 1200) && (y > 760 && y < 780)) && *game->link.light >= 1.4)
+		*game->link.light = 0.5;
+	else if (((x > 1015 && x < 1045) && (y > 760 && y < 780)) && *game->link.light >= 0 && *game->link.light < 1)
+		*game->link.light = 1.5;
+	else if (((x > 1015 && x < 1045) && (y > 760 && y < 780)) && *game->link.light >= 1 && *game->link.light < 1.4)
+		*game->link.light = 0.5;
+	else if (((x > 1015 && x < 1045) && (y > 760 && y < 780)) && *game->link.light >= 1.4)
+		*game->link.light = 1;
 	return (0);
 }
 

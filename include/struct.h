@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/06 15:54:58 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/07 17:51:57 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_link
 	float		*angle_z;
 	float		*angle_x;
 	int			*mm_size;
+	float			*light;
 }	t_link;
 
 typedef struct s_tmp
@@ -164,6 +165,7 @@ typedef struct s_game
 	t_vec3d			**rays;
 	t_vec2d			mouse;
 	t_job			**queue;
+	float			light;
 	int				pause;
 	int				player;
 	int				resolution;
@@ -172,6 +174,7 @@ typedef struct s_game
 	float			angle_z;
 	float			angle_x;
 	float			angle_offset;
+	float			sensitivity;
 	int				n_job;
 	int				minimap_size;
 	int				queue_status;

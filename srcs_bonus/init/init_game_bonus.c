@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/06 16:06:14 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/07 17:51:42 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,15 @@ static int	rays_create(t_game *game)
 
 int	ft_init_game(t_game *game)
 {
-	game->pause = 2;
+	game->pause = 3;
 	game->player = 1;
 	game->angle_offset = ANG_OFFSET_MOUSE;
 	game->mouse = (t_vec2d){game->mlx.win_width >> 1, \
 		game->mlx.win_height >> 1};
 	game->resolution = 2;
+	game->light = 1;
 	game->minimap_size = 10;
+	game->sensitivity = 0.5;
 	if (rays_create(game) || plane_create(game))
 		return (ft_putstr_fd("Error\nMalloc failed\n", 2), EXIT_FAILURE);
 	if (sem_init(&game->sem_thread, 0, 0) == -1)
@@ -114,4 +116,5 @@ void	init_area_link(t_game *game)
 	game->link.texture = &game->texture;
 	game->link.mm_size = &game->minimap_size;
 	game->link.resolution = &game->resolution;
+	game->link.light = &game->light;
 }

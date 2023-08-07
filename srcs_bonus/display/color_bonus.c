@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 18:53:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:51:08 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	get_color_floor(t_tmp *data)
 	float	res_y;
 	float	t;
 
+	data->close_t = -0.5 / (data->rays.z);
 	t = -data->link->pos->z / data->rays.z;
 	res_x = data->link->pos->x + (data->rays.x * t);
 	res_y = data->link->pos->y + (data->rays.y * t);
@@ -56,6 +57,7 @@ int	get_color_ceiling(t_tmp *data)
 	float	res_y;
 	float	t;
 
+	data->close_t = 0.5 / data->rays.z;
 	t = (1 - data->link->pos->z) / data->rays.z;
 	res_x = data->link->pos->x + (data->rays.x * t);
 	res_y = data->link->pos->y + (data->rays.y * t);

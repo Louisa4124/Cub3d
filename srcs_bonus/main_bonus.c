@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 22:24:31 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/06 20:26:27 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int argc, char **argv)
 	mlx_hook(game.mlx.win, 6, 1L << 6, event_mouse, &game);
 	mlx_hook(game.mlx.win, 8, 1L << 5, event_mouse_reset, &game);
 	mlx_hook(game.mlx.win, 17, 0L, close_event, &game);
-	mlx_mouse_hide(game.mlx.ptr, game.mlx.win);
+	//mlx_mouse_hide(game.mlx.ptr, game.mlx.win);
 	mlx_mouse_move(game.mlx.ptr, game.mlx.win, game.mlx.win_width >> 1, \
 		game.mlx.win_height >> 1);
 	mlx_loop(game.mlx.ptr);

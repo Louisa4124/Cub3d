@@ -6,7 +6,7 @@
 /*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/06 17:04:14 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/06 21:29:19 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,19 @@ int	init_img(t_game *game)
 	load_menu(game, 0, 12, "img/select/exit.xpm");
 	load_menu(game, 0, 13, "img/select/transition.xpm");
 	
-	load_menu(game, 0, 14, "img/settings/menu.xpm");
+	load_menu(game, 0, 14, "img/settings/background.xpm");
+	load_menu(game, 0, 15, "img/settings/all.xpm");
+	load_menu(game, 0, 16, "img/settings/high.xpm");
+	load_menu(game, 0, 17, "img/settings/medium.xpm");
+	load_menu(game, 0, 18, "img/settings/low.xpm");
 
 	load_menu(game, 1, 0, "img/select/0.xpm");
+	load_menu(game, 1, 1, "img/cursor.xpm");
 
 	load_menu(game, 1, 2, "img/torch.xpm");
 	game->anim[1][2] = resize_image(game, &game->anim[1][2], 5);
 	load_img(&game->mlx, &game->texture.w_floor, "img/grass2.xpm");
-	load_img(&game->mlx, &game->texture.w_ceiling, "img/floor.xpm");
+	load_img(&game->mlx, &game->texture.w_ceiling, "img/sky.xpm");
 
 	return (0);
 }
