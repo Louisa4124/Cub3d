@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 12:33:55 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:44:26 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ typedef struct s_igs
 typedef struct s_texture
 {
 	t_img	wall[4];
-	t_img	w_floor;
-	t_img	w_ceiling;
+	t_img	t_floor;
+	// t_img	t_ceiling;
 	int		floor;
 	int		ceiling;
 }	t_texture;

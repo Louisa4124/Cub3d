@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 12:54:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:04:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_resolution(t_tmp *data, int i, int j, int color)
 	max_y = i + *data->link->resolution;
 	max_x = j + *data->link->resolution;
 	j_start = j;
-	color = darken_color(color, data->close_t, *data->link->light);
+	// color = darken_color(color, data->close_t, *data->link->light);
 	while (i < max_y && i < data->area->end_y)
 	{
 		j = j_start;

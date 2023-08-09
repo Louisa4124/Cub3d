@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 12:51:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:03:42 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	main(int argc, char **argv)
 	init_area_link(&game);
 	queue = NULL;
 	game.queue = &queue;
-	init_igs(&game, game.igs);
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);

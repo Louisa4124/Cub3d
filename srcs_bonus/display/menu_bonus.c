@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:43:27 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/07 21:46:03 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 14:05:46 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_display_fly_menu(t_game *game)
 
 void	ft_display_launch_game(t_game *game)
 {
-	static int x = WIDTH;
+	static int	x = WIDTH;
 
 	ft_draw_img(&game->view, game->anim[0][4], 0, 0);
 	if (x > 0)
@@ -105,6 +105,9 @@ void	ft_display_launch_game(t_game *game)
 	if (game->ms >= 0.001 && x >= -WIDTH)
 		x -= 15;
 	if (x <= 0)
+	{
+		init_igs(game, game->igs);
 		game->pause = 0;
+	}
 	ft_draw_img(&game->view, game->anim[0][13], x, 0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_in_game_sprite_bonus.c                        :+:      :+:    :+:   */
+/*   init_igs_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 12:39:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 12:41:36 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:29:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,20 @@ static t_vec3d	find_pos_igs(t_map map, t_igs *igs)
 
 void	init_igs(t_game *game, t_igs *igs)
 {
+	int	p;
+
 	if (N_IGS <= 0)
 		return ;
+	p = game->player % 3;
 	igs[0].pos = find_pos_igs(game->map, igs);
-	igs[0].sp = &game->sprite[3];
-	dprintf(2, "pos igs rand %f %f\n", igs[0].pos.x, igs[0].pos.y);
-	if (N_IGS <= 1)
-		return ;
 	igs[1].pos = find_pos_igs(game->map, igs);
-	igs[1].sp = &game->sprite[4];
+	igs[0].sp = &game->sprite[3 + p];
+	if (p == 1)
+		igs[1].sp = &game->sprite[5];
+	else if (p == 2)
+		igs[1].sp = &game->sprite[3];
+	else if (p == 0)
+		igs[1].sp = &game->sprite[4];
+	dprintf(2, "pos igs rand %f %f\n", igs[0].pos.x, igs[0].pos.y);
 	dprintf(2, "pos igs rand %f %f\n", igs[1].pos.x, igs[1].pos.y);
 }

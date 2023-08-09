@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 13:00:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:02:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 int	search_sprite(t_tmp *data, int *color)
 {
-	int	s;
-	int	i;
+	t_igs	*igs;
+	int		s;
+	int		i;
 
 	i = 0;
 	s = 1;
+	igs = data->link->igs;
 	while (i < N_IGS && s)
 	{
-		s = intersprite(data, &data->link->igs[i], *data->link->pos, color);
+		if (igs[i].sp)
+			s = intersprite(data, &igs[i], *data->link->pos, color);
 		++i;
 	}
 	return (s);
@@ -85,6 +88,6 @@ int	switch_plan_algo(t_tmp *data)
 	else if (s != 0 && data->rays.z > 0)
 		color = data->link->texture->ceiling;
 	else if (s != 0)
-		color = get_color_floor(data);
+		color = get_color_floor(data, data->link->texture->t_floor);
 	return (color);
 }

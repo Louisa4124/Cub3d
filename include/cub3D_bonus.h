@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 12:47:46 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:38:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		search_sprite(t_tmp *data, int *color);
 
 /*			Color				*/
 int		get_color(t_tmp *data);
-int		get_color_floor(t_tmp *data);
+int		get_color_floor(t_tmp *data, t_img floor);
 int		get_color_ceiling(t_tmp *data);
 int		get_color_sprite(t_igs *igs, t_vec3d point);
 

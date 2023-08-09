@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/06 21:29:19 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 13:44:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	init_img(t_game *game)
 
 	load_menu(game, 1, 2, "img/torch.xpm");
 	game->anim[1][2] = resize_image(game, &game->anim[1][2], 5);
-	load_img(&game->mlx, &game->texture.w_floor, "img/grass2.xpm");
-	load_img(&game->mlx, &game->texture.w_ceiling, "img/sky.xpm");
+	load_img(&game->mlx, &game->texture.t_floor, "img/grass2.xpm");
+	// load_img(&game->mlx, &game->texture.t_ceiling, "img/sky.xpm");
 
 	return (0);
 }

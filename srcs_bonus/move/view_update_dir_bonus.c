@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_update_dir_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:05:38 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/07 17:30:15 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 13:18:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	view_update_dir_key(t_game *game)
 
 int	event_mouse(int x, int y, t_game *game)
 {
-	float		tmp;
+	float	tmp;
 
 	if (game->pause != 0 || (x == game->mouse.x && y == game->mouse.y))
 		return (0);
