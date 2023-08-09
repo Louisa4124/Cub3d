@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/07 21:10:19 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:20:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,5 @@ void	init_area_link(t_game *game)
 	game->link.mm_size = &game->minimap_size;
 	game->link.resolution = &game->resolution;
 	game->link.light = &game->light;
+	game->link.igs = game->igs;
 }

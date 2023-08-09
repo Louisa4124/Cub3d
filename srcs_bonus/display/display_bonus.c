@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/07 21:46:07 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:54:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_change_cursor(t_game *game, int x, int y)
 	ft_draw_img(&game->view, game->anim[1][1], x, y);
 }
 
-void    ft_display_players(t_game *game)
+void	ft_display_players(t_game *game)
 {
 	static int	y = -1100;
 	static int	x = 1100;
@@ -128,6 +128,7 @@ void	display_game(void *ptr, void *area)
 
 	data.area = area;
 	data.link = ptr;
+	update_igs_plane(data.link->igs, *data.link->pos);
 	i = data.area->start_y;
 	while (i < data.area->end_y)
 	{
@@ -148,7 +149,7 @@ void	display_game(void *ptr, void *area)
 
 void	ft_transition(t_game *game)
 {
-	static int x = 0;
+	static int	x = 0;
 
 	if (game->ms >= 0.001 && x >= -WIDTH)
 		x -= 40;
@@ -182,6 +183,7 @@ int	update_game(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
+	update_igs_time(game->igs);
 	if (game->pause != 3)
 		game->ms += 0.0015;
 	ft_printf_fps(0);

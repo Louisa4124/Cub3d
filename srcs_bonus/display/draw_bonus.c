@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/03 22:21:38 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:34:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 void	ft_mlx_pixel_put2(t_img *img, int x, int y, int color)
 {
 	((int *)img->addr)[y * (img->ll >> 2) + x] = color;
+}
+
+int	extract_pixel(t_img img, int x, int y)
+{
+	return (*(int *)(img.addr + y * img.ll + x * (img.bpp >> 3)));
 }
 
 void	draw_circle(t_img *img, t_vec2d center, int rayon, int color)

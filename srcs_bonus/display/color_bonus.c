@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   color_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/06 19:51:08 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:54:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
+
+static void	update_anim(t_igs *igs)
+{
+	if (igs->ms >= 0.02)
+	{
+		igs->ms -= 0.02;
+		igs->sp->y += igs->sp->ry;
+	}
+	if (igs->sp->y >= igs->sp->ry * igs->sp->frame)
+		igs->sp->y = 0;
+}
+
+int	get_color_sprite(t_igs *igs, t_vec3d point)
+{
+	t_vec3d	u;
+	t_vec3d	w;
+	float	n;
+	float	r;
+
+	u = (t_vec3d){point.x - igs->pos.x, point.y - igs->pos.y, 0};
+	w = (t_vec3d){igs->plan.b, -igs->plan.a, 0};
+	n = 1 / sqrt((w.x * w.x) + (w.y * w.y));
+	r = 0.5 + (u.x * w.x * n + u.y * w.y * n);
+	if (r < 0 || r >= 1)
+		return (-1);
+	update_anim(igs);
+	return (extract_pixel(igs->sp->img, r * igs->sp->img.width, \
+		(1 - point.z - (int) point.z) * igs->sp->ry + igs->sp->y));
+}
 
 static int	get_color_wall(t_tmp *data, int wall)
 {

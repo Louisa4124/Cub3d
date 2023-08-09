@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: louisa <louisa@student.42.fr>              +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/08/07 21:46:26 by louisa           ###   ########.fr        #
+#    Updated: 2023/08/09 12:45:32 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,11 +35,11 @@ SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	display/
 LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c blur_bonus.c image2_bonus.c \
-					animation_bonus.c settings_bonus.c menu_bonus.c
+					animation_bonus.c settings_bonus.c menu_bonus.c update_igs_bonus.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	init/
-LST_SRCS_INIT	=	init_game_bonus.c init_mlx_bonus.c init_struct_bonus.c load_bonus.c init_img_bonus.c
+LST_SRCS_INIT	=	init_game_bonus.c init_mlx_bonus.c init_struct_bonus.c init_igs_bonus.c load_bonus.c init_img_bonus.c
 SRCS_INIT		=	${addprefix ${DIR_SRCS_INIT}, ${LST_SRCS_INIT}}
 
 DIR_SRCS_EVENT	=	move/

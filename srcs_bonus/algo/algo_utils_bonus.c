@@ -6,11 +6,45 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/03 22:39:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:35:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
+
+int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
+{
+	t_vec3d	point;
+	t_vec3d	dif;
+	float	t;
+	float	d;
+
+	t = igs->plan.a * data->rays.x + igs->plan.b * data->rays.y;
+	if (t == 0)
+		return (1);
+	t = -(igs->plan.a * pos.x + igs->plan.b * pos.y + igs->plan.d) / t;
+	if (t <= 0)
+		return (1);
+	point.x = pos.x + data->rays.x * t;
+	point.y = pos.y + data->rays.y * t;
+	point.z = 0.5 + data->rays.z * t;
+	if (point.z >= 1 || point.z < 0)
+		return (1);
+// // bloquer ici tout les intersection trop eloigne du centre du sprite
+	// dif = math_vec_op(point, igs->pos, '-');
+	// d = sqrt(dif.x * dif.x + dif.y * dif.y + dif.z * dif.z);
+	// if (d > igs->sp->img.width)
+	// {
+	// 	dprintf(2, "out by x\n");
+	// 	return (1);
+	// }
+
+	*color = get_color_sprite(igs, point);
+	if ((*color >> 24))
+		return (1);
+	data->close_t = t;
+	return (0);
+}
 
 static int	ft_is_wall(t_tmp *data, int **layout, int u, int v)
 {

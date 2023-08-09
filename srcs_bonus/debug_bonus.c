@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:33:34 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/03 23:04:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:33:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,21 @@ void	debug_print_queue(t_job *job)
 			job->jid, job->data, job->area, job->func);
 		dprintf(2, "current addr : %p\nnext addr : %p\n", job, job->next);
 		job = job->next;
+	}
+}
+
+void	debug_print_igs(t_igs *igs)
+{
+	int	i;
+
+	i = -1;
+	while (++i < N_IGS)
+	{
+		dprintf(2, "sp %p\n", igs[i].sp);
+		dprintf(2, "pos (%f, %f, %f)\n", igs[i].pos.x, igs[i].pos.y, igs[i].pos.z);
+		dprintf(2, "plan (%f, %f, %f, %f)\n", igs[i].plan.a, igs[i].plan.b, \
+			igs[i].plan.c, igs[i].plan.d);
+		dprintf(2, "distance %f\n", igs[i].t);
+		dprintf(2, "time %f\n", igs[i].ms);
 	}
 }

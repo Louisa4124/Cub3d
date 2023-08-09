@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   algo_switch_plan_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/06 19:44:35 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 13:00:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
+
+int	search_sprite(t_tmp *data, int *color)
+{
+	int	s;
+	int	i;
+
+	i = 0;
+	s = 1;
+	while (i < N_IGS && s)
+	{
+		s = intersprite(data, &data->link->igs[i], *data->link->pos, color);
+		++i;
+	}
+	return (s);
+}
 
 static int	switch_plan_inter_search(t_tmp *data, int l_data[4], int found)
 {
@@ -53,19 +68,23 @@ static void	switch_plan_get_data(t_tmp *data, int l_data[4], int axis)
 
 int	switch_plan_algo(t_tmp *data)
 {
+	int	l_data[4];
 	int	wit_y;
 	int	wit_x;
-	int	l_data[4];
+	int	s;
+	int	color;
 
+	s = 1;
+	s = search_sprite(data, &color);
 	switch_plan_get_data(data, l_data, 0);
-	wit_y = switch_plan_inter_search(data, l_data, 1);
+	wit_y = switch_plan_inter_search(data, l_data, s);
 	switch_plan_get_data(data, l_data, 1);
 	wit_x = switch_plan_inter_search(data, l_data, wit_y);
 	if (wit_y == 0 || wit_x == 0)
-		return (get_color(data));
-	else if (data->rays.z > 0)
-		return (data->link->texture->ceiling);
-		// get_color_ceiling(data);
-	else
-		return (get_color_floor(data));
+		color = get_color(data);
+	else if (s != 0 && data->rays.z > 0)
+		color = data->link->texture->ceiling;
+	else if (s != 0)
+		color = get_color_floor(data);
+	return (color);
 }

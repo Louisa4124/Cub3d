@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/07 21:45:44 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:47:46 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int		init_img(t_game *game);
 void	fill_sprite(t_game *g, t_sprite *sprite, int nb_frame);
 void	init_sprite_fill(t_game *game);
 int		init_sprite(t_game *game);
+void	init_igs(t_game *game, t_igs *igs);
 
 /*			Clear					*/
 void	s_mlx_destroy(t_mlx *mlx);
@@ -99,11 +100,15 @@ int		parser_map(t_map *map, t_game *game, int fd);
 /*			Algo 				*/
 int		switch_plan_algo(t_tmp *data);
 int		intersect(t_tmp *data, t_plan *plan, int l_data[4], int wit);
+int		intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color);
+int		search_sprite(t_tmp *data, int *color);
 
 /*			Color				*/
 int		get_color(t_tmp *data);
 int		get_color_floor(t_tmp *data);
 int		get_color_ceiling(t_tmp *data);
+int		get_color_sprite(t_igs *igs, t_vec3d point);
+
 int		rgb_to_hexa(int r, int g, int b);
 int		darken_color(int color, float d_ratio, float intensity);
 
@@ -120,6 +125,8 @@ void	ft_display_pause(t_game *game);
 void	ft_display_menu(t_game *game);
 void	display_game(void *ptr, void *area);
 void	fredimation(void *ptr, void *area);
+void	update_igs_time(t_igs *igs);
+void	update_igs_plane(t_igs *igs, t_vec3d player);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -131,6 +138,7 @@ int		close_event(t_game *game);
 
 /*			Draw				*/
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+int		extract_pixel(t_img img, int x, int y);
 void	blur_image(void *ptr, void *area);
 void	display_map(void *ptr, void *area);
 void	draw_circle(t_img *img, t_vec2d center, int rayon, int color);
@@ -144,15 +152,13 @@ t_vec3d	math_vec_op(t_vec3d u, t_vec3d v, char op);
 t_vec3d	math_vec_k_prod(t_vec3d u, float k);
 int		math_sign_float(float f);
 
-/*			Thread				*/
+/*			Thread & Jobs				*/
 void	*routine(void *ptr);
-
-/*			Jobs				*/
 int		add_job( t_game *game, void *data, void *area, \
 	void (*func)(void *, void *));
 void	clear_job(t_job **job);
-int		send_frame_job(t_game *game);
 int		wait_job(t_game *game);
+int		send_frame_job(t_game *game);
 
 /*			Debug				*/
 void	debug_print_texture(t_texture *texture);
@@ -161,6 +167,7 @@ void	debug_print_mlx(t_mlx *mlx);
 void	debug_print_map(t_map *map);
 void	debug_print_vec3d(t_vec3d *u, char *name);
 void	debug_print_queue(t_job *job);
+void	debug_print_igs(t_igs *igs);
 
 /*          a trier pour plus tard pck loulou a la flemme       */
 int		event_menu(int x, int y, t_game *game);
@@ -191,5 +198,18 @@ void	ft_display_select_player(t_game *game, int x, int y);
 void    ft_display_players(t_game *game);
 void	ft_display_fly_menu(t_game *game);
 void	ft_display_launch_game(t_game *game);
+
+
+
+int	ft_randuint(int min, int max, int *n);
+
+
+
+
+
+
+
+
+
 
 #endif

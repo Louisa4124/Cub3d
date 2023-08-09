@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/07 17:51:57 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/09 12:33:55 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # define N_THREAD 4
 # define N_CHUNK 16
 # define N_SPRITE 17
+# define N_IGS 2
+
+typedef void	(*t_job_func)(void *, void *);
 
 typedef struct s_color
 {
@@ -84,6 +87,15 @@ typedef struct s_sprite
 	t_img	*view;
 }	t_sprite;
 
+typedef struct s_igs
+{
+	t_sprite	*sp;
+	t_plan		plan;
+	t_vec3d		pos;
+	float		t;
+	float		ms;
+}	t_igs;
+
 typedef struct s_texture
 {
 	t_img	wall[4];
@@ -120,7 +132,8 @@ typedef struct s_link
 	float		*angle_z;
 	float		*angle_x;
 	int			*mm_size;
-	float			*light;
+	t_igs		*igs;
+	float		*light;
 }	t_link;
 
 typedef struct s_tmp
@@ -156,6 +169,7 @@ typedef struct s_game
 	t_img			view;
 	pthread_mutex_t	m_queue;
 	pthread_t		pid[N_THREAD];
+	t_igs			igs[N_IGS];
 	sem_t			sem_thread;
 	sem_t			sem_main;
 	t_mlx			mlx;
