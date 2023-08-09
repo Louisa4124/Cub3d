@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 15:09:33 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:41:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	display_game(void *ptr, void *area)
 
 	data.area = area;
 	data.link = ptr;
-	update_igs_plane(data.link->igs, *data.link->pos);
+	// update_igs_plane(data.link->igs, *data.link->pos);
 	i = data.area->start_y;
 	while (i < data.area->end_y)
 	{
@@ -176,6 +176,7 @@ int	update_game(t_game *game)
 	{
 		view_update_pos(game);
 		view_update_dir_key(game);
+		update_igs_plane(game->igs, game->pos);
 		send_frame_job(game);
 		wait_job(game);
 		animation_fire(game);

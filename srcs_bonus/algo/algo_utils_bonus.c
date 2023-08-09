@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 12:35:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:31:53 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
 	// 	dprintf(2, "out by x\n");
 	// 	return (1);
 	// }
-
 	*color = get_color_sprite(igs, point);
 	if ((*color >> 24))
 		return (1);
@@ -46,52 +45,82 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
 	return (0);
 }
 
-static int	ft_is_wall(t_tmp *data, int **layout, int u, int v)
+static int	ft_is_wall2(t_tmp *data, int **layout, int v, int d)
 {
-	int	d;
 	int	sumx;
 	int	sumy;
 
-	d = -data->link->plan[v][u].d;
 	sumx = data->link->pos->x + data->point.x;
 	sumy = data->link->pos->y + data->point.y;
-	if ((data->close_t == 0 \
-		|| data->t < data->close_t) && ((v == 0 \
-		&& sumy < data->link->pos->y && d < data->link->map->y_size \
-		&& (d - 1) >= 0 && layout[d - 1][sumx] == 1) \
-		|| (v == 1 && sumx < data->link->pos->x && (d - 1) < data->link->map-> \
-		x_size && (d - 1) >= 0 && layout[sumy][d - 1] == 1) \
-		|| (v == 0 && sumy > data->link->pos->y && d < data->link->map->y_size \
-		&& d >= 0 && layout[d][sumx] == 1) \
-		|| (v == 1 && sumx > data->link->pos->x && d < data->link->map->x_size \
-		&& d >= 0 && layout[sumy][d] == 1)))
-		return (1);
+	if (data->close_t == 0 || data->t < data->close_t) 
+	{
+		if (v == 0)
+		{
+			if (sumy < data->link->pos->y && (d - 1) < data->link->map->y_size && (d - 1) >= 0 && layout[d - 1][sumx] == 1)
+				return (1);
+			if (sumy > data->link->pos->y && d < data->link->map->y_size && d >= 0 && layout[d][sumx] == 1)
+				return (1);
+		}
+		if (v == 1)
+		{
+			if (sumx < data->link->pos->x && (d - 1) < data->link->map->x_size && (d - 1) >= 0 && layout[sumy][d - 1] == 1)
+				return (1);
+			if (sumx > data->link->pos->x && d < data->link->map->x_size && d >= 0 && layout[sumy][d] == 1)
+				return (1);
+		}
+	}
 	return (0);
 }
 
-int	intersect(t_tmp *data, t_plan *plan, int l_data[4], int wit)
+static int	ft_is_wall(t_tmp *data, int **layout, int v, int d)
 {
-	data->t = -(plan->a * data->link->pos->x + plan->b * \
-		data->link->pos->y + plan->c * 0.5 + plan->d) / data->t;
-	if (wit == 0 && data->t > data->close_t)
-		return (-1);
-	if (data->t <= 0)
-		return (1);
+	int	sumx;
+	int	sumy;
+
+	sumx = data->link->pos->x + data->point.x;
+	sumy = data->link->pos->y + data->point.y;
+	if (data->close_t == 0 || data->t < data->close_t) 
+	{
+		if (v == 0 && d < data->link->map->y_size)
+		{
+			if ((sumy < data->link->pos->y && (d - 1) >= 0 \
+				&& layout[d - 1][sumx] == 1)
+				|| (sumy > data->link->pos->y && d >= 0 
+				&& layout[d][sumx] == 1))
+				return (1);
+		}
+		else
+		{
+			if ((sumx < data->link->pos->x && (d - 1) >= 0 \
+				&& layout[sumy][d - 1] == 1)
+				|| (sumx > data->link->pos->x 
+				&& d >= 0 && layout[sumy][d] == 1))
+				return (1);
+		}
+	}
+	return (0);
+}
+
+int	intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2])
+{
+	t_map	*map;
+
+	map = data->link->map;
 	data->point.x = data->rays.x * data->t;
 	data->point.y = data->rays.y * data->t;
 	data->point.z = 0.5 + data->rays.z * data->t;
 	if (data->point.z >= 1 || data->point.z <= 0 \
-		|| (int)(data->link->pos->x + data->point.x) < 0 \
-		|| (int)(data->link->pos->y + data->point.y) < 0 \
-		|| (int)(data->link->pos->x + data->point.x) >= data->link->map->x_size \
-		|| (int)(data->link->pos->y + data->point.y) >= data->link->map->y_size)
+		|| (int)(pos.x + data->point.x) < 0 \
+		|| (int)(pos.y + data->point.y) < 0 \
+		|| (int)(pos.x + data->point.x) >= map->x_size \
+		|| (int)(pos.y + data->point.y) >= map->y_size)
 		return (-1);
-	if (ft_is_wall(data, data->link->map->layout, l_data[1], l_data[0]))
+	if (ft_is_wall(data, map->layout, coord[0], -plan.d))
 	{
 		data->close_t = data->t;
-		data->plan.x = l_data[0];
-		data->plan.y = l_data[1];
-		data->plan.d = (int)-data->link->plan[l_data[0]][l_data[1]].d;
+		data->plan.x = coord[0];
+		data->plan.y = coord[1];
+		data->plan.d = (int)-plan.d;
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:45:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	get_color_wall(t_tmp *data, int wall)
 			pos->x + data->point.x)) * data->link->texture->wall[wall].width);
 	y = data->link->texture->wall[wall].height - (int)((data->point.z - \
 		(int)(data->point.z)) * data->link->texture->wall[wall].height) - 1;
+	return (extract_pixel(data->link->texture->wall[wall], x, y));
 	return (*(unsigned int *)(data->link->texture->wall[wall].addr + y * \
 		data->link->texture->wall[wall].ll + x * \
 		(data->link->texture->wall[wall].bpp >> 3)));
@@ -61,21 +62,20 @@ static int	get_color_wall(t_tmp *data, int wall)
 
 int	get_color_floor(t_tmp *data, t_img floor)
 {
-	int		x;
-	int		y;
 	float	res_x;
 	float	res_y;
 	float	t;
+	int		offset;
 
 	t = -0.5 / (data->rays.z);
 	data->close_t = t;
 	res_x = data->link->pos->x + (data->rays.x * t);
 	res_y = data->link->pos->y + (data->rays.y * t);
-	x = (int)(((res_x) - (int)(res_x)) * floor.width);
-	y = (int)(((res_y) - (int)(res_y)) * floor.height);
-	if (y * floor.ll + x * (floor.bpp >> 3) < 0)
-		return (0);
-	return (*(int *)(floor.addr + y * floor.ll + x * (floor.bpp >> 3)));
+	offset = ((int)(((res_y) - (int)(res_y)) * floor.height)) * floor.ll \
+		+ ((int)(((res_x) - (int)(res_x)) * floor.width)) * (floor.bpp >> 3);
+	if (offset < 0)
+		offset = -offset;
+	return (*(int *)(floor.addr + offset));
 }
 
 

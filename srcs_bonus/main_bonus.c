@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 15:50:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:47:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	debug(t_game *game)
 	if (DEBUG == 0)
 		return ;
 	game->pause = 0;
-	game->resolution = 6;
+	// game->resolution = 5;
 }
 	// dprintf(2, "pos igs rand %f %f\n", game->igs[0].pos.x, game->igs[0].pos.y);
 	// dprintf(2, "pos igs rand %f %f\n", game->igs[1].pos.x, game->igs[1].pos.y);
@@ -54,6 +54,7 @@ void	debug(t_game *game)
 
 //LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
 // TODO: end thread properly, clear sem, clear struct
+// igs witch are squashed ??
 // calculer pout chaque plan a * pos.x + b * pos.y + c * pos.z -d au debut  de chaque frame
 int	main(int argc, char **argv)
 {

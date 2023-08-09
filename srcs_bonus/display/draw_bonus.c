@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/09 13:28:23 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:02:19 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ void	ft_mlx_pixel_put2(t_img *img, int x, int y, int color)
 
 int	extract_pixel(t_img img, int x, int y)
 {
-	return (*(int *)(img.addr + y * img.ll + x * (img.bpp >> 3)));
+	int	offset;
+
+	offset = y * img.ll + x * (img.bpp >> 3);
+	if (offset < 0)
+		offset = -offset;
+	return (*(int *)(img.addr + offset));
 }
 
 int	extract_pixel2(t_img img, int x, int y)

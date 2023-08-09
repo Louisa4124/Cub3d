@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:34:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	init_thread_data( t_game *game, t_thread_data data[N_THREAD]);
 int		load_img(t_mlx *mlx, t_img *img, char *path);
 int		init_img(t_game *game);
 void	fill_sprite(t_game *g, t_sprite *sprite, int nb_frame);
-void	init_sprite_fill(t_game *game);
 int		init_sprite(t_game *game);
 void	init_igs(t_game *game, t_igs *igs);
 
@@ -100,7 +99,7 @@ int		parser_map(t_map *map, t_game *game, int fd);
 
 /*			Algo 				*/
 int		switch_plan_algo(t_tmp *data);
-int		intersect(t_tmp *data, t_plan *plan, int l_data[4], int wit);
+int		intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2]);
 int		intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color);
 int		search_sprite(t_tmp *data, int *color);
 
