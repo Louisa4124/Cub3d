@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 13:04:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:09:33 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,6 @@ int	update_game(t_game *game)
 	update_igs_time(game->igs);
 	if (game->pause != 3)
 		game->ms += 0.0015;
-	ft_printf_fps(0);
+	ft_printf_fps(DEBUG);
 	return (0);
 }

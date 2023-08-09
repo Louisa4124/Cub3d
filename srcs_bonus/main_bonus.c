@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 14:03:42 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:50:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,16 @@ int	launch_fred(t_game *game, t_thread_data th[N_THREAD])
 	return (0);
 }
 
-void	sizegame(t_game *game)
+void	debug(t_game *game)
 {
-	dprintf(2, "sizeof(game->anim) is %lu\n", sizeof(game->anim));
-	dprintf(2, "sizeof(game->sprite) is %lu\n", sizeof(game->sprite));
-	dprintf(2, "sizeof(game->mouse) is %lu\n", sizeof(game->mouse));
-	dprintf(2, "sizeof(game->ms) is %lu\n", sizeof(game->ms));
-	dprintf(2, "sizeof(game->pause) is %lu\n", sizeof(game->pause));
-	dprintf(2, "sizeof(game->map) is %lu\n", sizeof(game->map));
-	dprintf(2, "sizeof(game->mlx) is %lu\n", sizeof(game->mlx));
-	dprintf(2, "sizeof(game->pos) is %lu\n", sizeof(game->pos));
-	dprintf(2, "sizeof(game->rays) is %lu\n", sizeof(game->rays));
-	dprintf(2, "sizeof(game->plan) is %lu\n", sizeof(game->plan));
-	dprintf(2, "sizeof(game->texture) is %lu\n", sizeof(game->texture));
-	dprintf(2, "sizeof(game->sem_thread) is %lu\n", sizeof(game->sem_thread));
-	dprintf(2, "sizeof(game->link) is %lu\n", sizeof(game->link));
-	dprintf(2, "sizeof(game->area) is %lu\n", sizeof(game->area));
-	dprintf(2, "sizeof(game->pid) is %lu\n", sizeof(game->pid));
-	dprintf(2, "sizeof(game->m_queue) is %lu\n", sizeof(game->m_queue));
-	dprintf(2, "sizeof(game->queue) is %lu\n", sizeof(game->queue));
+	if (DEBUG == 0)
+		return ;
+	game->pause = 0;
+	game->resolution = 6;
 }
+	// dprintf(2, "pos igs rand %f %f\n", game->igs[0].pos.x, game->igs[0].pos.y);
+	// dprintf(2, "pos igs rand %f %f\n", game->igs[1].pos.x, game->igs[1].pos.y);
+
 
 //LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
 // TODO: end thread properly, clear sem, clear struct
@@ -90,6 +80,7 @@ int	main(int argc, char **argv)
 	game.queue = &queue;
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
+	debug(&game);
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 3, 1L << 1, event_unpress, &game);

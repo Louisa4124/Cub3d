@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 13:46:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:32:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	get_color_floor(t_tmp *data, t_img floor)
 	res_y = data->link->pos->y + (data->rays.y * t);
 	x = (int)(((res_x) - (int)(res_x)) * floor.width);
 	y = (int)(((res_y) - (int)(res_y)) * floor.height);
+	if (y * floor.ll + x * (floor.bpp >> 3) < 0)
+		return (0);
 	return (*(int *)(floor.addr + y * floor.ll + x * (floor.bpp >> 3)));
 }
 

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/09 14:15:57 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:02:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_init_game(t_game *game)
 	game->angle_offset = ANG_OFFSET_MOUSE;
 	game->mouse = (t_vec2d){game->mlx.win_width >> 1, \
 		game->mlx.win_height >> 1};
-	game->resolution = 5;
+	game->resolution = 3;
 	game->light = 1;
 	game->minimap_size = 10;
 	game->sensitivity = 0.5;

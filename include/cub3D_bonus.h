@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 13:38:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:32:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@
 # define PI_DIV_180 0.01745329251
 # define G 9.81
 # define DIR_OFFSET 0.1
-# define ANG_OFFSET_KEY 0.01
+# define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.003
 # define RESOLUTION 2
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MINIMAP_SIZE 10
 # define BLUR 25
+# define DEBUG	0
 
 # define KEY_W 119
 # define KEY_A 97
