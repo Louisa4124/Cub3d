@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 19:31:53 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:35:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
 	return (0);
 }
 
+// here jsut in case
 static int	ft_is_wall2(t_tmp *data, int **layout, int v, int d)
 {
 	int	sumx;

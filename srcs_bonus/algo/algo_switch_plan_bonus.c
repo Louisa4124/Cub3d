@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 19:07:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:45:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	switch_plan_algo(t_tmp *data)
 	wit_x = switch_plan_inter_search_x(data, idx, \
 		math_sign_float(data->rays.x), wit_y);
 	if (wit_y == 0 || wit_x == 0)
-		color = get_color(data);
+		color = get_color(data, data->link->map, data->link->pos);
 	else if (s != 0 && data->rays.z > 0)
 		color = data->link->texture->ceiling;
 	else if (s != 0)

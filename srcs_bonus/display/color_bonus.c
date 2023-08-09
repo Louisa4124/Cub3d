@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 18:45:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:49:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 static void	update_anim(t_igs *igs)
 {
-	if (igs->ms >= 0.02)
-	{
-		igs->ms -= 0.02;
-		igs->sp->y += igs->sp->ry;
-	}
-	if (igs->sp->y >= igs->sp->ry * igs->sp->frame)
-		igs->sp->y = 0;
+
 }
 
 int	get_color_sprite(t_igs *igs, t_vec3d point)
@@ -36,28 +30,31 @@ int	get_color_sprite(t_igs *igs, t_vec3d point)
 	r = 0.5 + (u.x * w.x * n + u.y * w.y * n);
 	if (r < 0 || r >= 1)
 		return (-1);
-	update_anim(igs);
+	if (igs->ms >= 0.02)
+	{
+		igs->ms -= 0.02;
+		igs->sp->y += igs->sp->ry;
+	}
+	if (igs->sp->y >= igs->sp->ry * igs->sp->frame)
+		igs->sp->y = 0;
 	return (extract_pixel(igs->sp->img, r * igs->sp->img.width, \
 		(1 - point.z - (int) point.z) * igs->sp->ry + igs->sp->y));
 }
 
-static int	get_color_wall(t_tmp *data, int wall)
+static int	get_color_wall(t_tmp *data, t_img wall, float pos, int n)
 {
 	int	x;
 	int	y;
 
-	if (wall % 2 == 1)
-		x = (int)(((data->link->pos->y + data->point.y) - (int)(data->link-> \
-			pos->y + data->point.y)) * data->link->texture->wall[wall].width);
+	if (n)
+		x = (int)(((pos + data->point.y) \
+			- (int)(pos + data->point.y)) * wall.width);
 	else
-		x = (int)(((data->link->pos->x + data->point.x) - (int)(data->link-> \
-			pos->x + data->point.x)) * data->link->texture->wall[wall].width);
-	y = data->link->texture->wall[wall].height - (int)((data->point.z - \
-		(int)(data->point.z)) * data->link->texture->wall[wall].height) - 1;
-	return (extract_pixel(data->link->texture->wall[wall], x, y));
-	return (*(unsigned int *)(data->link->texture->wall[wall].addr + y * \
-		data->link->texture->wall[wall].ll + x * \
-		(data->link->texture->wall[wall].bpp >> 3)));
+		x = (int)(((pos + data->point.x) \
+			- (int)(pos + data->point.x)) * wall.width);
+	y = wall.height - (int)((data->point.z \
+		- (int)(data->point.z)) * wall.height) - 1;
+	return (extract_pixel(wall, x, y));
 }
 
 int	get_color_floor(t_tmp *data, t_img floor)
@@ -78,27 +75,26 @@ int	get_color_floor(t_tmp *data, t_img floor)
 	return (*(int *)(floor.addr + offset));
 }
 
-
-int	get_color(t_tmp *data)
+int	get_color(t_tmp *data, t_map *map, t_vec3d *pos)
 {
 	data->point.x = data->rays.x * data->close_t;
 	data->point.y = data->rays.y * data->close_t;
 	data->point.z = 0.5 + data->rays.z * data->close_t;
-	if (data->plan.x == 0 && (data->link->pos->y + data->point.y) < data-> \
-		link->pos->y && (data->plan.d - 1) < data->link->map->y_size && \
-		(data->plan.d - 1) >= 0 && data->link->map->layout[data->plan.d - 1] \
-		[(int)(data->link->pos->x + data->point.x)] == 1)
-		return (get_color_wall(data, 0));
-	else if (data->plan.x == 1 && (data->link->pos->x + data->point.x) < \
-		data->link->pos->x && (data->plan.d - 1) < data->link->map->x_size && \
-		(data->plan.d - 1) >= 0 && data->link->map->layout[(int)(data->link-> \
+	if (data->plan.x == 0 && (pos->y + data->point.y) < data-> \
+		link->pos->y && (data->plan.d - 1) < map->y_size && \
+		(data->plan.d - 1) >= 0 && map->layout[data->plan.d - 1] \
+		[(int)(pos->x + data->point.x)] == 1)
+		return (get_color_wall(data, data->link->texture->wall[0], pos->x, 0));
+	else if (data->plan.x == 1 && (pos->x + data->point.x) < \
+		pos->x && (data->plan.d - 1) < map->x_size && \
+		(data->plan.d - 1) >= 0 && map->layout[(int)(data->link-> \
 		pos->y + data->point.y)][(int)(data->plan.d - 1)] == 1)
-		return (get_color_wall(data, 1));
-	else if (data->plan.x == 0 && (data->link->pos->y + data->point.y) > \
-		data->link->pos->y && (data->plan.d) < data->link->map->y_size && \
-		data->plan.d >= 0 && data->link->map->layout[(data->plan.d)][(int) \
-		(data->link->pos->x + data->point.x)] == 1)
-		return (get_color_wall(data, 2));
+		return (get_color_wall(data, data->link->texture->wall[1], pos->y, 1));
+	else if (data->plan.x == 0 && (pos->y + data->point.y) > \
+		pos->y && (data->plan.d) < map->y_size && \
+		data->plan.d >= 0 && map->layout[(data->plan.d)][(int) \
+		(pos->x + data->point.x)] == 1)
+		return (get_color_wall(data, data->link->texture->wall[2], pos->x, 0));
 	else
-		return (get_color_wall(data, 3));
+		return (get_color_wall(data, data->link->texture->wall[3], pos->y, 1));
 }
