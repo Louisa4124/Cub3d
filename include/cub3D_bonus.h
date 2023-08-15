@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 19:50:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:31:20 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int		search_sprite(t_tmp *data, int *color);
 /*			Color				*/
 int		get_color(t_tmp *data, t_map *map, t_vec3d *pos);
 int		get_color_floor(t_tmp *data, t_img floor);
-int		get_color_ceiling(t_tmp *data);
 int		get_color_sprite(t_igs *igs, t_vec3d point);
 
 int		rgb_to_hexa(int r, int g, int b);
@@ -198,6 +197,8 @@ void	ft_display_select_player(t_game *game, int x, int y);
 void    ft_display_players(t_game *game);
 void	ft_display_fly_menu(t_game *game);
 void	ft_display_launch_game(t_game *game);
+
+int		get_color_ceiling(t_tmp *data , t_img ceiling);
 
 
 

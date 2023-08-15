@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_switch_plan_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 19:45:28 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:39:16 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	switch_plan_algo(t_tmp *data)
 		color = get_color(data, data->link->map, data->link->pos);
 	else if (s != 0 && data->rays.z > 0)
 		color = data->link->texture->ceiling;
+		// color = get_color_ceiling(data, data->link->texture->t_ceiling);
 	else if (s != 0)
 		color = get_color_floor(data, data->link->texture->t_floor);
 	return (color);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/07 21:23:00 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/15 17:13:00 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	pause_in(t_game *game)
 {
-	game->pause = 3;
 	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 	ft_blur_pause(game);
+	game->blur = game->view;
+	// printf("height = %d\n", game->blur.height);
+	// printf("width = %d\n", game->blur.width);
+	game->pause = 6;
 }
 
 void	pause_off(t_game *game)
@@ -49,7 +52,7 @@ int	event_press(int keycode, t_game *game)
 		game->bit_key |= BFLAG_LEFT;
 	else if (keycode == KEY_P && game->pause == 0)
 		pause_in(game);
-	else if (keycode == KEY_P && game->pause == 3)
+	else if (keycode == KEY_P && game->pause == 6)
 		pause_off(game);
 	else if (keycode == KEY_ENTER && game->pause == 2)
 		game->pause = 4;

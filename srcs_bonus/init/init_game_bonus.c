@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/09 15:02:12 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:36:40 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ static int	rays_create(t_game *game)
 
 int	ft_init_game(t_game *game)
 {
-	game->pause = 2;
+	game->pause = 0;
 	game->player = 1;
 	game->angle_offset = ANG_OFFSET_MOUSE;
 	game->mouse = (t_vec2d){game->mlx.win_width >> 1, \
 		game->mlx.win_height >> 1};
 	game->resolution = 3;
-	game->light = 1;
+	game->light = 1.5;
 	game->minimap_size = 10;
 	game->sensitivity = 0.5;
 	if (rays_create(game) || plane_create(game))

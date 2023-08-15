@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 14:55:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:00:02 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_texture
 {
 	t_img	wall[4];
 	t_img	t_floor;
-	// t_img	t_ceiling;
+	t_img	t_ceiling;
 	int		floor;
 	int		ceiling;
 }	t_texture;
@@ -167,6 +167,7 @@ typedef struct s_game
 	t_texture		texture;
 	t_link			link;
 	t_img			view;
+	t_img			blur;
 	pthread_mutex_t	m_queue;
 	pthread_t		pid[N_THREAD];
 	t_igs			igs[N_IGS];

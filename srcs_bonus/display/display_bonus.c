@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 17:41:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:36:56 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_resolution(t_tmp *data, int i, int j, int color)
 	max_y = i + *data->link->resolution;
 	max_x = j + *data->link->resolution;
 	j_start = j;
-	// color = darken_color(color, data->close_t, *data->link->light);
+	color = darken_color(color, data->close_t, *data->link->light);
 	while (i < max_y && i < data->area->end_y)
 	{
 		j = j_start;
@@ -128,7 +128,6 @@ void	display_game(void *ptr, void *area)
 
 	data.area = area;
 	data.link = ptr;
-	// update_igs_plane(data.link->igs, *data.link->pos);
 	i = data.area->start_y;
 	while (i < data.area->end_y)
 	{
@@ -147,6 +146,35 @@ void	display_game(void *ptr, void *area)
 	}
 }
 
+void	ft_display_settings(t_game *game)
+{
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
+	ft_draw_img(&game->blur, game->blur, 0, 0);
+	ft_draw_img(&game->blur, game->anim[0][15], 0, 0);
+	if (game->resolution == 3)
+		ft_draw_img(&game->blur, game->anim[0][16], 150, -30);
+	else if (game->resolution == 2)
+		ft_draw_img(&game->blur, game->anim[0][17], 150, -30);
+	else if (game->resolution == 4)
+		ft_draw_img(&game->blur, game->anim[0][18], 150, -30);
+	if (game->angle_offset >= 0.000 && game->angle_offset < 0.002)
+		ft_draw_img(&game->blur, game->anim[0][18], 150, 100);
+	else if (game->angle_offset >= 0.002 && game->angle_offset < 0.004)
+		ft_draw_img(&game->blur, game->anim[0][17], 150, 100);
+	else if (game->angle_offset >= 0.004)
+		ft_draw_img(&game->blur, game->anim[0][16], 150, 100);
+	if (*game->link.light >= 0 && *game->link.light < 1)
+		ft_draw_img(&game->blur, game->anim[0][16], 150, 230);
+	else if (*game->link.light >= 1 && *game->link.light < 1.5)
+		ft_draw_img(&game->blur, game->anim[0][17], 150, 230);
+	else if (*game->link.light >= 1.4)
+		ft_draw_img(&game->blur, game->anim[0][18], 150, 230);
+	ft_settings_mouse(game, x, y);
+}
+
 void	ft_transition(t_game *game)
 {
 	static int	x = 0;
@@ -160,8 +188,8 @@ int	update_game(t_game *game)
 {
 	if (game->pause == 7)
 		ft_display_launch_game(game);
-	// if (game->pause == 6)
-	// 	ft_display_load(game);
+	if (game->pause == 6)
+		ft_display_settings(game);
 	if (game->pause == 5)
 		ft_display_select_menu(game);
 	if (game->pause == 4)
@@ -185,7 +213,7 @@ int	update_game(t_game *game)
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
 	update_igs_time(game->igs);
-	if (game->pause != 3)
+	if (game->pause != 6 && game->pause != 3)
 		game->ms += 0.0015;
 	ft_printf_fps(DEBUG);
 	return (0);

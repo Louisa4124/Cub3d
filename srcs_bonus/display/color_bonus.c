@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 19:49:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:30:39 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,25 @@ int	get_color_floor(t_tmp *data, t_img floor)
 	if (offset < 0)
 		offset = -offset;
 	return (*(int *)(floor.addr + offset));
+}
+
+int	get_color_ceiling(t_tmp *data , t_img ceiling)
+{
+	int		x;
+	int		y;
+	float	res_x;
+	float	res_y;
+	float	t;
+
+	data->close_t = 0.5 / data->rays.z;
+	t = (1 - data->link->pos->z) / data->rays.z;
+	res_x = data->link->pos->x + (data->rays.x * t);
+	res_y = data->link->pos->y + (data->rays.y * t);
+	x = (int)(((res_x) - (int)(res_x)) * ceiling.width);
+	y = (int)(((res_y) - (int)(res_y)) * ceiling.height);
+	return (*(unsigned int *)(ceiling.addr + y * \
+		ceiling.ll + \
+		x * (ceiling.bpp >> 3)));
 }
 
 int	get_color(t_tmp *data, t_map *map, t_vec3d *pos)

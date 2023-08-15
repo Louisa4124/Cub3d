@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   settings_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:40:03 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/07 21:41:16 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/15 16:54:11 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_select_settings(t_game *game)
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	ft_draw_img(&game->view, game->anim[0][14], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][15], 0, 0);
-	if (game->resolution == 1)
+	if (game->resolution == 3)
 		ft_draw_img(&game->view, game->anim[0][16], 150, -30);
 	else if (game->resolution == 2)
 		ft_draw_img(&game->view, game->anim[0][17], 150, -30);
