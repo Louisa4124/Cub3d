@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:43:27 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/16 14:02:08 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:39:31 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_display_select_menu(t_game *game)
 		ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
 	else if (game->player == 3)
 		ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
-	ft_animation_cat(game);
+	ft_animation_cat(game, 0.05);
 	if (game->ms >= 0.08)
 		game->ms -= 0.08;
 }
@@ -70,18 +70,18 @@ void	ft_display_select_player(t_game *game, int x, int y)
 
 void	ft_display_fly_menu(t_game *game)
 {
-	static int y = 0;
-	static int x = 0;
+	static float y = 0;
+	static float x = 0;
 
 	if (game->ms >= 0.0001 && y >= -1800)
 	{
-		y -= 10;
-		x += 13;
+		y = y - (game->ms * game->ms) * 1800;
+		x = x + (game->ms * game->ms) * 1800;
 		game->ms -= 0.0001;
-		ft_draw_img(&game->view, game->anim[0][0], 0, 0);
-		ft_draw_img(&game->view, game->anim[0][1], y, 0);
-		ft_draw_img(&game->view, game->anim[0][2], x, 0);
-		ft_draw_img(&game->view, game->anim[0][3], 0, y);
+		ft_draw_img_vel(&game->view, game->anim[0][0], 0, 0);
+		ft_draw_img_vel(&game->view, game->anim[0][1], y, 0);
+		ft_draw_img_vel(&game->view, game->anim[0][2], x, 0);
+		ft_draw_img_vel(&game->view, game->anim[0][3], 0, y);
 	}
 	if (y < -1800)
 		ft_display_players(game);
@@ -89,25 +89,25 @@ void	ft_display_fly_menu(t_game *game)
 
 void	ft_display_launch_game(t_game *game)
 {
-	static int	x = WIDTH;
+	static float	x = WIDTH;
 
 	ft_draw_img(&game->view, game->anim[0][4], 0, 0);
 	if (x > 0)
 	{
 		if (game->player == 1)
-			ft_animation_v(game, &game->sprite[3], (t_vec2d) {1230, 370}, 0.08);
+			ft_animation_v(game, &game->sprite[3], (t_vec2d) {1230, 370}, 0.8);
 		else if (game->player == 2)
-			ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
+			ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.8);
 		else if (game->player == 3)
-			ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
-		ft_animation_cat(game);
+			ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.8);
+		ft_animation_cat(game, 1);
 	}
 	if (game->ms >= 0.001 && x >= -WIDTH)
-		x -= 15;
+		x = x - (game->ms * game->ms) * WIDTH;
 	if (x <= 0)
 	{
 		init_igs(game, game->igs);
 		game->pause = 0;
 	}
-	ft_draw_img(&game->view, game->anim[0][13], x, 0);
+	ft_draw_img_vel(&game->view, game->anim[0][13], x, 0);
 }

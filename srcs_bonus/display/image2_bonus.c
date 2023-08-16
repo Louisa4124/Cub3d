@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 18:56:08 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:12:21 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,35 @@ void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y)
 		}
 		++i;
 	}
+}
+
+void ft_draw_img_vel(t_img *img_dst, t_img tex, float x, float y)
+{
+    char *dst;
+    char *src;
+    int i;
+    int j;
+
+    i = 0;
+    while (i < tex.height)
+    {
+        j = 0;
+        while (j < tex.width)
+        {
+            int destX = (int)(x + j);
+            int destY = (int)(y + i);
+
+            if (destX < WIDTH && destX >= 0 && destY < HEIGHT && destY >= 0)
+            {
+                dst = (img_dst->addr + (destY * img_dst->ll + destX * (img_dst->bpp >> 3)));
+                src = (tex.addr + (i * tex.ll + j * (tex.bpp >> 3)));
+                if (*(unsigned int *)src != 0xff000000)
+                    *(unsigned int *)dst = *(unsigned int *)src;
+            }
+            ++j;
+        }
+        ++i;
+    }
 }
 
 t_img	resize_image(t_game *game, t_img *src, int ratio)

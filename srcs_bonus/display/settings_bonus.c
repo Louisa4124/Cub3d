@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:40:03 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/15 16:54:11 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:37:54 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_display_settings_menu(t_game *game)
 			ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
 		else if (game->player == 3)
 			ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
-		ft_animation_cat(game);
+		ft_animation_cat(game, 0.05);
 	}
 	if (game->ms >= 0.001 && x >= -WIDTH)
 		x -= 15;

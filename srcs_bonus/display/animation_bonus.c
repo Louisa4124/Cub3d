@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 12:59:18 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/07 21:39:36 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/16 16:37:38 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	animation_fire(t_game *game)
 		game->ms -= 0.02;
 }
 
-void	ft_animation_cat(t_game *game)
+void	ft_animation_cat(t_game *game, float speed)
 {
 	static int	x = 20;
 	static int	count = 0;
@@ -99,7 +99,7 @@ void	ft_animation_cat(t_game *game)
 		count += ft_animation_h(game, &game->sprite[11], (t_vec2d) {x, 985}, 0.08);
 	else if (count < 4)
 	{
-		if (game->ms >= 0.05 && game->pause == 5)
+		if (game->ms >= speed && game->pause == 5)
 			++x;
 		count += ft_animation_h(game, &game->sprite[15], (t_vec2d) {x, 985}, 0.08);
 	}

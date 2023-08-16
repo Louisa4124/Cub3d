@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/16 14:00:13 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:40:51 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,22 @@ void	ft_change_cursor(t_game *game, int x, int y)
 
 void	ft_display_players(t_game *game)
 {
-	static int	y = -1100;
-	static int	x = 1100;
-	static int	z = 1100;
+	static float	y = -1100;
+	static float	x = 1100;
+	static float	z = 1100;
 
 	if (game->ms >= 0.003 && y < 0)
 	{
-		x -= 10;
-		y += 10;
-		z -= 10;
+		x = x - (game->ms * game->ms) * 1250;
+		y = y + (game->ms * game->ms) * 1250;
+		z = z - (game->ms * game->ms) * 1250;
 		game->ms -= 0.003;
-		ft_draw_img(&game->view, game->anim[0][0], 0, 0);
-		ft_draw_img(&game->view, game->anim[0][6], 0, y);
-		ft_draw_img(&game->view, game->anim[0][5], 0, x);
-		ft_draw_img(&game->view, game->anim[0][7], z, 0);
+		ft_draw_img_vel(&game->view, game->anim[0][0], 0, 0);
+		ft_draw_img_vel(&game->view, game->anim[0][6], 0, y);
+		ft_draw_img_vel(&game->view, game->anim[0][5], 0, x);
+		ft_draw_img_vel(&game->view, game->anim[0][7], z, 0);
 	}
-	if (y == 0)
+	if ((int)y >= 0)
 		game->pause = 5;
 }
 
@@ -177,11 +177,12 @@ void	ft_display_settings(t_game *game)
 
 void	ft_transition(t_game *game)
 {
-	static int	x = 0;
+	static float	x = 0;
 
 	if (game->ms >= 0.001 && x >= -WIDTH)
 		x -= 40;
-	ft_draw_img(&game->view, game->anim[0][13], x, 0);
+		// x = x - (game->ms * game->ms) * WIDTH;
+	ft_draw_img_vel(&game->view, game->anim[0][13], x, 0);
 }
 
 int	update_game(t_game *game)

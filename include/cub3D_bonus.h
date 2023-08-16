@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/15 16:31:20 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:36:51 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ int		ft_get_fps(void);
 void	ft_display_menu(t_game *game);
 void	ft_blur_pause(t_game *game);
 void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y);
+void	ft_draw_img_vel(t_img *img_dst, t_img tex, float x, float y);
 int		load_menu(t_game *game, int i, int j, char *path);
 
 void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
@@ -185,7 +186,7 @@ int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, \
 void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
 void	animation_fire(t_game *game);
 int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, float speed);
-void	ft_animation_cat(t_game *game);
+void	ft_animation_cat(t_game *game, float speed);
 void	ft_settings_mouse(t_game * game, int x, int y);
 void	ft_select_settings(t_game *game);
 void	ft_display_settings_menu(t_game *game);
