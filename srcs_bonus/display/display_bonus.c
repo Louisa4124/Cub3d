@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/15 17:36:56 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:49:54 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,26 +152,26 @@ void	ft_display_settings(t_game *game)
 	int	y;
 
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	ft_draw_img(&game->blur, game->blur, 0, 0);
-	ft_draw_img(&game->blur, game->anim[0][15], 0, 0);
-	if (game->resolution == 3)
-		ft_draw_img(&game->blur, game->anim[0][16], 150, -30);
-	else if (game->resolution == 2)
-		ft_draw_img(&game->blur, game->anim[0][17], 150, -30);
-	else if (game->resolution == 4)
-		ft_draw_img(&game->blur, game->anim[0][18], 150, -30);
+	ft_draw_img(&game->view, game->blur, 0, 0);
+	ft_draw_img(&game->view, game->anim[0][15], 0, 0);\
+	if (game->resolution == 2)
+		ft_draw_img(&game->view, game->anim[0][16], 150, -30);
+	else if (game->resolution == 3)
+		ft_draw_img(&game->view, game->anim[0][17], 150, -30);
+	else if (game->resolution == 5)
+		ft_draw_img(&game->view, game->anim[0][18], 150, -30);
 	if (game->angle_offset >= 0.000 && game->angle_offset < 0.002)
-		ft_draw_img(&game->blur, game->anim[0][18], 150, 100);
+		ft_draw_img(&game->view, game->anim[0][18], 150, 100);
 	else if (game->angle_offset >= 0.002 && game->angle_offset < 0.004)
-		ft_draw_img(&game->blur, game->anim[0][17], 150, 100);
+		ft_draw_img(&game->view, game->anim[0][17], 150, 100);
 	else if (game->angle_offset >= 0.004)
-		ft_draw_img(&game->blur, game->anim[0][16], 150, 100);
+		ft_draw_img(&game->view, game->anim[0][16], 150, 100);
 	if (*game->link.light >= 0 && *game->link.light < 1)
-		ft_draw_img(&game->blur, game->anim[0][16], 150, 230);
+		ft_draw_img(&game->view, game->anim[0][16], 150, 230);
 	else if (*game->link.light >= 1 && *game->link.light < 1.5)
-		ft_draw_img(&game->blur, game->anim[0][17], 150, 230);
+		ft_draw_img(&game->view, game->anim[0][17], 150, 230);
 	else if (*game->link.light >= 1.4)
-		ft_draw_img(&game->blur, game->anim[0][18], 150, 230);
+		ft_draw_img(&game->view, game->anim[0][18], 150, 230);
 	ft_settings_mouse(game, x, y);
 }
 
@@ -212,6 +212,7 @@ int	update_game(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
+	// sleep(1);
 	update_igs_time(game->igs);
 	if (game->pause != 6 && game->pause != 3)
 		game->ms += 0.0015;

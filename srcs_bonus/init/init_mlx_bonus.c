@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 21:27:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:09:09 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ int	ft_init_mlx(t_game *game)
 		game->mlx.win_width, game->mlx.win_height);
 	if (!game->view.id)
 		return (ft_mlx_error(3, &game->mlx));
+	game->blur.id = mlx_new_image(game->mlx.ptr, \
+		game->mlx.win_width, game->mlx.win_height);
+	if (!game->blur.id)
+		return (ft_mlx_error(3, &game->mlx));
+	game->blur.addr = mlx_get_data_addr(game->blur.id, \
+		&game->blur.bpp, &game->blur.ll, &game->blur.endian);
+	if (!game->blur.addr)
+	{
+		s_img_destroy(&game->mlx, &game->view);
+		return (ft_mlx_error(4, &game->mlx));
+	}
 	game->view.addr = mlx_get_data_addr(game->view.id, \
 		&game->view.bpp, &game->view.ll, &game->view.endian);
 	if (!game->view.addr)

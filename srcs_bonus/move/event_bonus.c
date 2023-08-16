@@ -6,19 +6,33 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/15 17:13:00 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:50:54 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
+
+char *ft_imgcpy(char *data, int size)
+{
+	char *dup;
+	int i;
+
+	i = 0;
+	dup = malloc(sizeof(char) * size + 1);
+	while (i < size)
+	{
+		dup[i] = data[i];
+		i++;
+	}
+	return (dup);
+}
 
 void	pause_in(t_game *game)
 {
 	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 	ft_blur_pause(game);
 	game->blur = game->view;
-	// printf("height = %d\n", game->blur.height);
-	// printf("width = %d\n", game->blur.width);
+	game->blur.addr = ft_imgcpy(game->view.addr, game->view.height * game->view.width * 4);
 	game->pause = 6;
 }
 
@@ -62,13 +76,11 @@ int	event_press(int keycode, t_game *game)
 int	event_pause(int button, int x, int y, t_game *game)
 {
 	(void)button;
-	printf("x = %d\n", x);
-	printf("y = %d\n", y);
 	if (x < 0 || y < 0 || x > game->mlx.win_width || y > game->mlx.win_height)
 		return (-1);
 	if (game->pause == 5)
 		event_menu(x, y, game);
-	if (game->pause == 1)
+	if (game->pause == 1 || game->pause == 6)
 	{
 		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)))
 			return(game->pause = 5, 0);
@@ -79,18 +91,18 @@ int	event_pause(int button, int x, int y, t_game *game)
 
 int	event_settings(int x, int y, t_game *game)
 {
-	if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 1)
+	if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 2)
+		game->resolution = 3;
+	else if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 3)
+		game->resolution = 5;
+	else if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 5)
 		game->resolution = 2;
-	else if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 2)
-		game->resolution = 4;
-	else if (((x > 1170 && x < 1200) && (y > 500 && y < 520)) && game->resolution == 4)
-		game->resolution = 1;
-	else if (((x > 1015 && x < 1045) && (y > 500 && y < 520)) && game->resolution == 1)
-		game->resolution = 4;
 	else if (((x > 1015 && x < 1045) && (y > 500 && y < 520)) && game->resolution == 2)
-		game->resolution = 1;
-	else if (((x > 1015 && x < 1045) && (y > 500 && y < 520)) && game->resolution == 4)
+		game->resolution = 5;
+	else if (((x > 1015 && x < 1045) && (y > 500 && y < 520)) && game->resolution == 3)
 		game->resolution = 2;
+	else if (((x > 1015 && x < 1045) && (y > 500 && y < 520)) && game->resolution == 5)
+		game->resolution = 3;
 	
 	else if (((x > 1170 && x < 1200) && (y > 620 && y < 650)) && (game->angle_offset >= 0 && game->angle_offset < 0.002))
 		game->angle_offset = 0.005;
