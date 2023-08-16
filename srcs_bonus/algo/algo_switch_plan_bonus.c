@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_switch_plan_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/15 16:39:16 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:46:04 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	switch_plan_inter_search_y(t_tmp *data, int idx[2], \
 		if (data->t != 0)
 		{
 			data->t = -(plan[idx[0]].b * data->link->pos->y \
-				+ plan[idx[0]].c * 0.5 + plan[idx[0]].d) / data->t;
+				+ plan[idx[0]].c * data->link->pos->z + plan[idx[0]].d) / data->t; // 0.5CHG
 			if (found == 0 && data->t > data->close_t)
 				return (-1);
 			if (data->t > 0)
@@ -76,7 +76,7 @@ static int	switch_plan_inter_search_x(t_tmp *data, int idx[2], \
 		if (data->t != 0)
 		{
 			data->t = -(plan[idx[0]].a * data->link->pos->x \
-				+ plan[idx[0]].c * 0.5 + plan[idx[0]].d) / data->t;
+				+ plan[idx[0]].c * data->link->pos->z + plan[idx[0]].d) / data->t;	// 0.5CHG
 			if (found == 0 && data->t > data->close_t)
 				return (-1);
 			if (data->t > 0)

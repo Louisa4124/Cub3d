@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/16 15:22:56 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:51:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
 		return (1);
 	point.x = pos.x + data->rays.x * t;
 	point.y = pos.y + data->rays.y * t;
-	point.z = 0.5 + data->rays.z * t;
+	point.z = pos.z + data->rays.z * t;	// 0.5CHG
 	if (point.z >= 1 || point.z < 0)
 		return (1);
 // // bloquer ici tout les intersection trop eloigne du centre du sprite
@@ -109,7 +109,7 @@ int	intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2])
 	map = data->link->map;
 	data->point.x = data->rays.x * data->t;
 	data->point.y = data->rays.y * data->t;
-	data->point.z = 0.5 + data->rays.z * data->t;
+	data->point.z = pos.z + data->rays.z * data->t;	// 0.5CHG
 	if (data->point.z >= 1 || data->point.z <= 0 \
 		|| (int)(pos.x + data->point.x) < 0 \
 		|| (int)(pos.y + data->point.y) < 0 \
