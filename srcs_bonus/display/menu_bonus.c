@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:43:27 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/09 14:05:46 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:02:08 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	ft_display_fly_menu(t_game *game)
 	static int y = 0;
 	static int x = 0;
 
-	if (game->ms >= 0.001 && y >= -1800)
+	if (game->ms >= 0.0001 && y >= -1800)
 	{
-		y -= 7;
-		x += 10;
-		game->ms -= 0.001;
+		y -= 10;
+		x += 13;
+		game->ms -= 0.0001;
 		ft_draw_img(&game->view, game->anim[0][0], 0, 0);
 		ft_draw_img(&game->view, game->anim[0][1], y, 0);
 		ft_draw_img(&game->view, game->anim[0][2], x, 0);

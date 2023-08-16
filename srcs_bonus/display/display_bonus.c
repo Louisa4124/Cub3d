@@ -6,7 +6,7 @@
 /*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/16 13:49:54 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:00:13 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,6 @@ int	update_game(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
-	// sleep(1);
 	update_igs_time(game->igs);
 	if (game->pause != 6 && game->pause != 3)
 		game->ms += 0.0015;
