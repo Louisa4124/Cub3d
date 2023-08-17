@@ -84,8 +84,10 @@ int	event_pause(int button, int x, int y, t_game *game)
 		event_menu(x, y, game);
 	if (game->pause == 1 || game->pause == 6)
 	{
-		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)))
+		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)) && game->pause == 1)
 			return(game->pause = 5, 0);
+		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)) && game->pause == 6)
+			return(game->pause = 0, 0);
 		event_settings(x, y, game);
 	}
 	return (0);
