@@ -12,6 +12,9 @@
 
 #include "../../include/cub3D_bonus.h"
 
+// les ratios à utiliser seront r pour la
+// largeur de la texture et la partie décimale de Iz pour sa hauteur.
+
 int	get_color_sprite(t_igs *igs, t_vec3d point)
 {
 	t_vec3d	u;

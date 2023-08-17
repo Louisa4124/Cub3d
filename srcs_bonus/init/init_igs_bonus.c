@@ -45,17 +45,17 @@ void	init_igs(t_game *game, t_igs *igs)
 	igs[1].pos = find_pos_igs(game->map);
 	if (game->player == 1)
 	{
-		igs[0].sp = &game->sprite[4];
-		igs[1].sp = &game->sprite[5];
+		igs[0].sp = &game->sprite[2];
+		igs[1].sp = &game->sprite[1];
 	}
 	else if (game->player == 2)
 	{
-		igs[0].sp = &game->sprite[3];
-		igs[1].sp = &game->sprite[5];
+		igs[0].sp = &game->sprite[0];
+		igs[1].sp = &game->sprite[1];
 	}
 	else if (game->player == 3)
 	{
-		igs[0].sp = &game->sprite[3];
-		igs[1].sp = &game->sprite[4];
+		igs[0].sp = &game->sprite[0];
+		igs[1].sp = &game->sprite[2];
 	}
 }

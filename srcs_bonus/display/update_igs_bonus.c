@@ -57,10 +57,3 @@ void	update_igs_plane(t_igs *igs, t_vec3d player)
 	// debug_print_igs(igs);
 	// dprintf(2, "END\n");
 }
-
-
-
-
-
-
-

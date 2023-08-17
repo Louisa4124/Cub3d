@@ -78,6 +78,7 @@ int	main(int argc, char **argv)
 		ft_clean_exit(&game, EXIT_FAILURE);
 	init_img(&game);
 	init_area_link(&game);
+	init_igs(&game, game.igs); // a enlever d'ici
 	queue = NULL;
 	game.queue = &queue;
 	init_thread_data(&game, data_thread);
