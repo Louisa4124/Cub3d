@@ -181,7 +181,7 @@ void	ft_transition(t_game *game)
 
 	if (game->ms >= 0.001 && x >= -WIDTH)
 		x -= 40;
-		// x = x - (game->ms * game->ms) * WIDTH;
+	// x = x - (game->ms * game->ms) * WIDTH;
 	ft_draw_img_vel(&game->view, game->anim[0][13], x, 0);
 }
 
@@ -210,6 +210,20 @@ int	update_game(t_game *game)
 		wait_job(game);
 		animation_fire(game);
 		ft_transition(game);
+		if (game->jump == 1)
+		{
+			if (game->pos.z < 0.8)
+				game->pos.z += (sqrt(2 * G * 0.2)) / 80 ;
+			else
+				game->jump = 2;
+		}
+		if (game->jump == 2)
+		{
+			if (game->pos.z > 0.5)
+				game->pos.z -= (sqrt(2 * G * 0.2)) / 70;
+			else
+				game->jump = 0;
+		}
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);

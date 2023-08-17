@@ -181,6 +181,7 @@ typedef struct s_game
 	t_vec2d			mouse;
 	t_job			**queue;
 	float			light;
+	int				jump;
 	int				pause;
 	int				player;
 	int				resolution;

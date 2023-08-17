@@ -64,6 +64,8 @@ int	event_press(int keycode, t_game *game)
 		game->bit_key |= BFLAG_RIGHT;
 	else if (keycode == KEY_LEFT)
 		game->bit_key |= BFLAG_LEFT;
+	else if (keycode == KEY_SPACE)
+		game->jump = 1;
 	else if (keycode == KEY_P && game->pause == 0)
 		pause_in(game);
 	else if (keycode == KEY_P && game->pause == 6)
