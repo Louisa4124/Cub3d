@@ -15,7 +15,7 @@
 
 # define N_THREAD 4
 # define N_CHUNK 16
-# define N_SPRITE 17
+# define N_SPRITE 20
 # define N_IGS 2
 
 typedef void	(*t_job_func)(void *, void *);

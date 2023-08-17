@@ -238,3 +238,6 @@ int	update_game(t_game *game)
 	ft_printf_fps(DEBUG);
 	return (0);
 }
+
+
+// 6 26

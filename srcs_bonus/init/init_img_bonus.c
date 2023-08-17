@@ -118,6 +118,7 @@ int	load_all_sprite(t_game *game)
 	err += load_img(&game->mlx, &game->sprite[14].img, "img/cat/stretch.xpm");
 	err += load_img(&game->mlx, &game->sprite[15].img, "img/cat/walk.xpm");
 	err += load_img(&game->mlx, &game->sprite[16].img, "img/cat/sleep.xpm");
+	err += load_img(&game->mlx, &game->sprite[17].img, "img/door.xpm");
 
 	return (err);
 }
