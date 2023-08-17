@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/13 19:55:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:50:11 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int argc, char **argv)
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
 	debug(&game);
+	game.map.layout[5][25] = 2;
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 3, 1L << 1, event_unpress, &game);

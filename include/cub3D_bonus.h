@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/16 16:36:51 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:35:05 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ void	ft_display_fly_menu(t_game *game);
 void	ft_display_launch_game(t_game *game);
 
 int		get_color_ceiling(t_tmp *data , t_img ceiling);
+int		get_color_door(t_tmp *data, t_map *map, t_vec3d *pos);
 
 
 

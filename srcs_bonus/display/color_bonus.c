@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/16 19:50:27 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:50:02 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,30 @@ int	get_color_ceiling(t_tmp *data , t_img ceiling)
 	return (*(unsigned int *)(ceiling.addr + y * \
 		ceiling.ll + \
 		x * (ceiling.bpp >> 3)));
+}
+
+int	get_color_door(t_tmp *data, t_map *map, t_vec3d *pos)
+{
+	data->point.x = data->rays.x * data->close_t;
+	data->point.y = data->rays.y * data->close_t;
+	data->point.z = pos->z + data->rays.z * data->close_t;
+	if (data->plan.x == 0 && (pos->y + data->point.y) < data-> \
+		link->pos->y && (data->plan.d - 1) < map->y_size && \
+		(data->plan.d - 1) >= 0 && map->layout[data->plan.d - 1] \
+		[(int)(pos->x + data->point.x)] == 2)
+		return (get_color_wall(data, data->link->texture->t_door, pos->x, 0));
+	else if (data->plan.x == 1 && (pos->x + data->point.x) < \
+		pos->x && (data->plan.d - 1) < map->x_size && \
+		(data->plan.d - 1) >= 0 && map->layout[(int)(data->link-> \
+		pos->y + data->point.y)][(int)(data->plan.d - 1)] == 2) // !
+		return (get_color_wall(data, data->link->texture->t_door, pos->y, 1));
+	else if (data->plan.x == 0 && (pos->y + data->point.y) > \
+		pos->y && (data->plan.d) < map->y_size && \
+		data->plan.d >= 0 && map->layout[(data->plan.d)][(int) \
+		(pos->x + data->point.x)] == 2)
+		return (get_color_wall(data, data->link->texture->t_door, pos->x, 0));
+	else
+		return (get_color_wall(data, data->link->texture->t_door, pos->y, 1)); // !
 }
 
 int	get_color(t_tmp *data, t_map *map, t_vec3d *pos)

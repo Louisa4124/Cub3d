@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/16 16:40:51 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:00:51 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ int	update_game(t_game *game)
 		send_frame_job(game);
 		wait_job(game);
 		animation_fire(game);
-		ft_transition(game);
+		// ft_transition(game);
 		ft_jump(game);
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/16 13:52:52 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:24:18 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	rays_create(t_game *game)
 
 int	ft_init_game(t_game *game)
 {
-	game->pause = 2;
+	game->pause = 0;
 	game->player = 1;
 	game->jump = 0;
 	game->angle_offset = ANG_OFFSET_MOUSE;

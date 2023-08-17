@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/15 17:00:02 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:34:04 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ typedef struct s_igs
 
 typedef struct s_texture
 {
-	t_img	wall[4];
+	t_img	wall[5];
 	t_img	t_floor;
 	t_img	t_ceiling;
+	t_img	t_door;
 	int		floor;
 	int		ceiling;
 }	t_texture;
