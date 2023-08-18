@@ -72,6 +72,12 @@ int	event_press(int keycode, t_game *game)
 		pause_off(game);
 	else if (keycode == KEY_ENTER && game->pause == 2)
 		game->pause = 4;
+	else if (keycode == KEY_E)
+		if ((game->pos.x > DOOR_Y - 2 && game->pos.y > DOOR_X - 2)
+			&& (game->pos.x > DOOR_Y - 2 && game->pos.y < DOOR_X + 3)
+			&& (game->pos.x < DOOR_Y + 3 && game->pos.y > DOOR_X - 2)
+			&& (game->pos.x < DOOR_Y + 3 && game->pos.y < DOOR_X + 3))
+				game->map.layout[5][25] = 0;
 	return (0);
 }
 

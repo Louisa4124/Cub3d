@@ -43,12 +43,15 @@
 # define MINIMAP_SIZE 10
 # define BLUR 25
 # define DEBUG	0
+# define DOOR_X 5
+# define DOOR_Y 25
 
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_P 112
+# define KEY_E 101
 # define KEY_UP 65362
 # define KEY_LEFT 65361
 # define KEY_DOWN 65364

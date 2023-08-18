@@ -85,6 +85,7 @@ int	main(int argc, char **argv)
 	launch_fred(&game, data_thread);
 	debug(&game);
 	game.map.layout[5][25] = 2;
+	game.map.layout[DOOR_X][DOOR_Y] = 2;
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
 	mlx_hook(game.mlx.win, 3, 1L << 1, event_unpress, &game);

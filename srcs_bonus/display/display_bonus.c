@@ -227,7 +227,7 @@ int	update_game(t_game *game)
 		send_frame_job(game);
 		wait_job(game);
 		animation_fire(game);
-		// ft_transition(game);
+		ft_transition(game);
 		ft_jump(game);
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
@@ -238,6 +238,3 @@ int	update_game(t_game *game)
 	ft_printf_fps(DEBUG);
 	return (0);
 }
-
-
-// 6 26
