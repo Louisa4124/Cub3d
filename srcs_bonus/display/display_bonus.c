@@ -229,6 +229,12 @@ int	update_game(t_game *game)
 		animation_fire(game);
 		ft_transition(game);
 		ft_jump(game);
+		if ((game->pos.x > DOOR_Y - 2 && game->pos.y > DOOR_X - 2)
+		&& (game->pos.x > DOOR_Y - 2 && game->pos.y < DOOR_X + 3)
+		&& (game->pos.x < DOOR_Y + 3 && game->pos.y > DOOR_X - 2)
+		&& (game->pos.x < DOOR_Y + 3 && game->pos.y < DOOR_X + 3)
+		&& game->map.layout[DOOR_X][DOOR_Y] == 2)
+			ft_animation_v(game, &game->sprite[18], (t_vec2d) {670, 970}, 0.02);
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);

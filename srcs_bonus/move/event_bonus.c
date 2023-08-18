@@ -77,7 +77,7 @@ int	event_press(int keycode, t_game *game)
 			&& (game->pos.x > DOOR_Y - 2 && game->pos.y < DOOR_X + 3)
 			&& (game->pos.x < DOOR_Y + 3 && game->pos.y > DOOR_X - 2)
 			&& (game->pos.x < DOOR_Y + 3 && game->pos.y < DOOR_X + 3))
-				game->map.layout[5][25] = 0;
+				game->map.layout[DOOR_X][DOOR_Y] = 0;
 	return (0);
 }
 

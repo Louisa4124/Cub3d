@@ -71,6 +71,7 @@ void	fill_all_sprite(t_game *game)
 	fill_sprite(game, &game->sprite[14], 13);
 	fill_sprite(game, &game->sprite[15], 8);
 	fill_sprite(game, &game->sprite[16], 1);
+	fill_sprite(game, &game->sprite[18], 19);
 }
 
 int	resize_all_sprite(t_game *game)
@@ -120,6 +121,7 @@ int	load_all_sprite(t_game *game)
 	err += load_img(&game->mlx, &game->sprite[15].img, "img/cat/walk.xpm");
 	err += load_img(&game->mlx, &game->sprite[16].img, "img/cat/sleep.xpm");
 	err += load_img(&game->mlx, &game->sprite[17].img, "img/door.xpm");
+	err += load_img(&game->mlx, &game->sprite[18].img, "img/text.xpm");
 
 	return (err);
 }

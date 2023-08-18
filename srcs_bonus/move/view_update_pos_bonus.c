@@ -18,7 +18,7 @@ int	ft_in_wall(t_map *map, int x, int y)
 		return (0);
 	if (x < 0 || y < 0)
 		return (0);
-	if (map->layout[y][x] == 1)
+	if (map->layout[y][x] == 1 || map->layout[y][x] == 2)
 		return (1);
 	return (0);
 }
