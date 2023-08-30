@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/17 21:40:40 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/30 21:45:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,37 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
 	return (0);
 }
 
-static int	ft_is_wall(t_tmp *data, int **layout, int v, int d)
+int	get_color3(t_tmp *data, t_img wall, float pos, int n)
 {
-	int	sumx;
-	int	sumy;
+	int	x;
+	int	y;
 
-	sumx = data->link->pos->x + data->point.x;
-	sumy = data->link->pos->y + data->point.y;
-	if (data->close_t == 0 || data->t < data->close_t) 
-	{
-		if (v == 0 && d < data->link->map->y_size)
-		{
-			if ((sumy < data->link->pos->y && (d - 1) >= 0 \
-				&& layout[d - 1][sumx] == 1)
-				|| (sumy > data->link->pos->y && d >= 0 
-				&& layout[d][sumx] == 1))
-				return (1);
-		}
-		else
-		{
-			if ((sumx < data->link->pos->x && (d - 1) >= 0 \
-				&& layout[sumy][d - 1] == 1)
-				|| (sumx > data->link->pos->x 
-				&& d >= 0 && layout[sumy][d] == 1))
-				return (1);
-		}
-	}
-	return (0);
+	if (n)
+		x = (int)(((pos + data->point.y) \
+			- (int)(pos + data->point.y)) * wall.width);
+	else
+		x = (int)(((pos + data->point.x) \
+			- (int)(pos + data->point.x)) * wall.width);
+	y = wall.height - (int)((data->point.z \
+		- (int)(data->point.z)) * wall.height) - 1;
+	return (extract_pixel(wall, x, y));
+}
+
+int	get_color_door2(t_door *door, t_vec3d point)
+{
+	t_vec3d	u;
+	t_vec3d	w;
+	float	n;
+	float	r;
+
+	u = (t_vec3d){point.x - door->pos.x, point.y - door->pos.y, 0};
+	w = (t_vec3d){door->plan.b, -door->plan.a, 0};
+	n = 1 / sqrt((w.x * w.x) + (w.y * w.y));
+	r = 0.5 + (u.x * w.x * n + u.y * w.y * n);
+	if (r < 0 || r >= 1)
+		return (-1);
+	return (extract_pixel(door->img, r * door->img.width, \
+		(1 - point.z - (int) point.z) * door->img.width));
 }
 
 static int	ft_is_door(t_tmp *data, int **layout, int v, int d)
@@ -103,6 +107,72 @@ static int	ft_is_door(t_tmp *data, int **layout, int v, int d)
 	return (0);
 }
 
+int	interdoor(t_tmp *data, t_door *door, t_vec3d pos, int *color)
+{
+	t_vec3d	point;
+	float	t;
+	float	tmp;
+	float	e;
+
+	t = door->plan.a * data->rays.x + door->plan.b * data->rays.y;
+	if (t == 0)
+		return (1);
+	t = -(door->plan.a * pos.x + door->plan.b + pos.y + door->plan.d) / t;
+	if (t < 0)
+		return (1);
+	point.x = pos.x + data->rays.x * t;
+	point.y = pos.y + data->rays.y * t;
+	point.z = pos.z + data->rays.z * t;	// 0.5CHG
+	if (point.z >= 1 || point.z < 0)
+		return (1);
+	// tmp = point.x - door->pos.x;
+	// if (tmp < 0)
+	// 	tmp = - tmp;
+	// e = 20;
+	// if (tmp > e)
+	// 	return (1);
+	// dprintf(2, " tmp is %f\n", tmp);
+	// dprintf(2, "door pos x %f y %f\nintr pos x %f y %f\n", door->pos.x, door->pos.y, point.x, point.y);
+	// if (door->pos.x - point.x < 0)
+	// 	return (1);
+	*color = get_color_door2(door, point);
+	if ((*color >> 24))
+		return (1);
+	data->close_t = t;
+
+	return (0);
+}
+
+static int	ft_is_wall(t_tmp *data, int **layout, int v, int d)
+{
+	int	sumx;
+	int	sumy;
+
+	sumx = data->link->pos->x + data->point.x;
+	sumy = data->link->pos->y + data->point.y;
+	if (data->close_t == 0 || data->t < data->close_t) 
+	{
+		if (v == 0 && d < data->link->map->y_size)
+		{
+			if ((sumy < data->link->pos->y && (d - 1) >= 0 \
+				&& layout[d - 1][sumx] == 1)
+				|| (sumy > data->link->pos->y && d >= 0 
+				&& layout[d][sumx] == 1))
+				return (1);
+		}
+		else
+		{
+			if ((sumx < data->link->pos->x && (d - 1) >= 0 \
+				&& layout[sumy][d - 1] == 1)
+				|| (sumx > data->link->pos->x 
+				&& d >= 0 && layout[sumy][d] == 1))
+				return (1);
+		}
+	}
+	return (0);
+}
+
+
 int	intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2])
 {
 	t_map	*map;
@@ -125,14 +195,14 @@ int	intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2])
 		data->plan.d = (int)-plan.d;
 		return (0);
 	}
-	if (ft_is_door(data, map->layout, coord[0], -plan.d))
-	{
-		data->close_t = data->t;
-		data->plan.x = coord[0];
-		data->plan.y = coord[1];
-		data->plan.d = (int)-plan.d;
-		return (-2);
-	}
+	// if (ft_is_door(data, map->layout, coord[0], -plan.d))
+	// {
+	// 	data->close_t = data->t;
+	// 	data->plan.x = coord[0];
+	// 	data->plan.y = coord[1];
+	// 	data->plan.d = (int)-plan.d;
+	// 	return (-2);
+	// }
 	return (1);
 }
 

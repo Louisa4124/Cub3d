@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/16 13:50:54 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:49:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,16 @@ int	event_press(int keycode, t_game *game)
 	else if (keycode == KEY_ENTER && game->pause == 2)
 		game->pause = 4;
 	else if (keycode == KEY_E)
+	{
 		if ((game->pos.x > DOOR_Y - 2 && game->pos.y > DOOR_X - 2)
 			&& (game->pos.x > DOOR_Y - 2 && game->pos.y < DOOR_X + 3)
 			&& (game->pos.x < DOOR_Y + 3 && game->pos.y > DOOR_X - 2)
 			&& (game->pos.x < DOOR_Y + 3 && game->pos.y < DOOR_X + 3))
-				game->map.layout[DOOR_X][DOOR_Y] = 0;
+		{
+			game->map.layout[DOOR_X][DOOR_Y] = 0;
+			game->doors.status = -game->doors.status;
+		}
+	}
 	return (0);
 }
 

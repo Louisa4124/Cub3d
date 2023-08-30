@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_switch_plan_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/17 21:44:01 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/30 21:46:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	search_sprite(t_tmp *data, int *color)
 			s = intersprite(data, &igs[i], *data->link->pos, color);
 		++i;
 	}
+	
+	s = interdoor(data, data->link->door, *data->link->pos, color);
 	return (s);
 }
 
@@ -108,8 +110,8 @@ int	switch_plan_algo(t_tmp *data)
 		math_sign_float(data->rays.x), wit_y);
 	if (wit_y == 0 || wit_x == 0)
 		color = get_color(data, data->link->map, data->link->pos);
-	else if (wit_y == -2 || wit_x == -2)
-		color = get_color_door(data, data->link->map, data->link->pos);
+	// else if (wit_y == -2 || wit_x == -2)
+	// 	color = get_color_door(data, data->link->map, data->link->pos);
 	else if (s != 0 && data->rays.z > 0)
 		color = data->link->texture->ceiling;
 	else if (s != 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/17 20:34:04 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/30 21:49:22 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,15 @@ typedef struct s_sprite
 	t_img	*view;
 }	t_sprite;
 
+typedef struct s_door
+{
+	t_img	img;
+	t_plan	plan;
+	t_vec3d	pos;
+	int		status;
+	float	offset;
+}	t_door;
+
 typedef struct s_igs
 {
 	t_sprite	*sp;
@@ -135,6 +144,7 @@ typedef struct s_link
 	int			*mm_size;
 	t_igs		*igs;
 	float		*light;
+	t_door		*door;
 }	t_link;
 
 typedef struct s_tmp
@@ -176,6 +186,7 @@ typedef struct s_game
 	sem_t			sem_main;
 	t_mlx			mlx;
 	t_map			map;
+	t_door			doors;
 	t_plan			*plan[2];
 	t_vec3d			pos;
 	t_vec3d			**rays;

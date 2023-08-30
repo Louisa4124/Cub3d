@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/17 20:35:05 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/30 20:43:07 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int		switch_plan_algo(t_tmp *data);
 int		intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2]);
 int		intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color);
 int		search_sprite(t_tmp *data, int *color);
+
+int	interdoor(t_tmp *data, t_door *door, t_vec3d pos, int *color);
 
 /*			Color				*/
 int		get_color(t_tmp *data, t_map *map, t_vec3d *pos);

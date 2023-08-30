@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/17 21:00:51 by louisa           ###   ########.fr       */
+/*   Updated: 2023/08/30 21:55:28 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void	ft_display_settings(t_game *game)
 
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	ft_draw_img(&game->view, game->blur, 0, 0);
-	ft_draw_img(&game->view, game->anim[0][15], 0, 0);\
+	ft_draw_img(&game->view, game->anim[0][15], 0, 0);
 	if (game->resolution == 2)
 		ft_draw_img(&game->view, game->anim[0][16], 150, -30);
 	else if (game->resolution == 3)
@@ -203,6 +203,17 @@ void	ft_jump(t_game *game)
 	}
 }
 
+void	update_door_plane(t_game *game)
+{
+	if (game->doors.status < 0)
+		return ;
+	--game->doors.status;
+	game->doors.plan.a += game->doors.offset;
+	game->doors.plan.b -= game->doors.offset;
+	// game->doors.plan.d = -game->doors.plan.a * game->doors.pos.x \
+	// 		- game->doors.plan.b * game->doors.pos.y;
+}
+
 int	update_game(t_game *game)
 {
 	if (game->pause == 7)
@@ -224,6 +235,7 @@ int	update_game(t_game *game)
 		view_update_pos(game);
 		view_update_dir_key(game);
 		update_igs_plane(game->igs, game->pos);
+		update_door_plane(game);
 		send_frame_job(game);
 		wait_job(game);
 		animation_fire(game);
