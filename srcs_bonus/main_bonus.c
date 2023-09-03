@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/31 13:00:55 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 15:24:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ int	main(int argc, char **argv)
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
 	debug(&game);
-	game.map.layout[DOOR_X][DOOR_Y] = 2;
 	game.link.door = &game.doors;
-	game.doors.status = -250;
-	game.doors.offset = 0.004;
-	game.doors.pos = (t_vec3d){25.5, 5.5, 0};
-	game.doors.plan = (t_plan){1, 0, 0, -26.5};
+	// game.map.layout[DOOR_X][DOOR_Y] = 2;
+	// game.doors.status = -250;
+	// game.doors.offset = 0.005;
+	// game.doors.pos = (t_vec3d){25.5, 6.5, 0};
+	// game.doors.plan = (t_plan){0, 1, 0, -6.5};
 	if (load_img(&game.mlx, &game.doors.img, "img/door.xpm"))
 	{
 		dprintf(2, " err door img load\n");

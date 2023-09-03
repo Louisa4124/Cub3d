@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/31 12:43:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 14:50:51 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,24 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
 	return (0);
 }
 
-int	get_color3(t_tmp *data, t_img wall, float pos, int n)
+int	get_color_door2(t_door *door, t_vec3d point)
 {
-	int	x;
-	int	y;
+	t_vec3d	u;
+	t_vec3d	w;
+	float	n;
+	float	r;
 
-	if (n)
-		x = (int)(((pos + data->point.y) \
-			- (int)(pos + data->point.y)) * wall.width);
-	else
-		x = (int)(((pos + data->point.x) \
-			- (int)(pos + data->point.x)) * wall.width);
-	y = wall.height - (int)((data->point.z \
-		- (int)(data->point.z)) * wall.height) - 1;
-	return (extract_pixel(wall, x, y));
+	u = (t_vec3d){point.x - door->pos.x, point.y - door->pos.y, 0};
+	w = (t_vec3d){door->plan.b, -door->plan.a, 0};
+	n = 1 / sqrt((w.x * w.x) + (w.y * w.y));
+	r = 0.5 + (u.x * w.x * n + u.y * w.y * n);
+	if (r < 0 || r >= 1)
+		return (-1);
+	return (extract_pixel(door->img, r * door->img.width, \
+		(1 - point.z - (int) point.z) * door->img.width));
 }
 
-int	get_color_door2(t_door *door, t_vec3d point)
+int	get_color_door4(t_door *door, t_vec3d point)
 {
 	t_vec3d	u;
 	t_vec3d	w;
@@ -114,27 +115,18 @@ int	interdoor(t_tmp *data, t_door *door, t_vec3d pos, int *color)
 	float	tmp;
 	float	e;
 
-	t = door->plan.a * data->rays.x + door->plan.b * data->rays.y;
+	t = door->plan.a * data->rays.x + door->plan.b * data->rays.y \
+		+ door->plan.c * data->rays.z;
 	if (t == 0)
 		return (1);
-	t = -(door->plan.a * pos.x + door->plan.b + pos.y + door->plan.d) / t;
+	t = -(door->plan.a * pos.x + door->plan.b + pos.y + door->plan.c * pos.z + door->plan.d) / t;
 	if (t < 0)
 		return (1);
 	point.x = pos.x + data->rays.x * t;
 	point.y = pos.y + data->rays.y * t;
-	point.z = pos.z + data->rays.z * t;	// 0.5CHG
-	if (point.z >= 1 || point.z < 0)
+	point.z = pos.z + data->rays.z * t + door->pos.z;	// 0.5CHG
+	if (point.z >= 1  || point.z <= 0 + door->pos.z)
 		return (1);
-	// tmp = point.x - door->pos.x;
-	// if (tmp < 0)
-	// 	tmp = - tmp;
-	// e = 20;
-	// if (tmp > e)
-	// 	return (1);
-	// dprintf(2, " tmp is %f\n", tmp);
-	// dprintf(2, "door pos x %f y %f\nintr pos x %f y %f\n", door->pos.x, door->pos.y, point.x, point.y);
-	// if (door->pos.x - point.x < 0)
-	// 	return (1);
 	*color = get_color_door2(door, point);
 	if ((*color >> 24))
 		return (1);
@@ -195,14 +187,6 @@ int	intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2])
 		data->plan.d = (int)-plan.d;
 		return (0);
 	}
-	// if (ft_is_door(data, map->layout, coord[0], -plan.d))
-	// {
-	// 	data->close_t = data->t;
-	// 	data->plan.x = coord[0];
-	// 	data->plan.y = coord[1];
-	// 	data->plan.d = (int)-plan.d;
-	// 	return (-2);
-	// }
 	return (1);
 }
 

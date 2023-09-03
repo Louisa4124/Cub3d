@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 12:39:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/09 15:52:46 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 15:11:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static t_vec3d	find_pos_igs(t_map map)
 	i = 0;
 	y = 0;
 	x = 0;
-	dprintf(2, "mapy %d\tmapx %d", map.y_size, map.x_size);
 	while (map.layout[y][x] != 0 && ++i < 51)
 	{
 		if (ft_randuint(1, map.y_size - 2, &y) 

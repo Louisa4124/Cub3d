@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/30 20:43:07 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 15:08:47 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	ft_clean_exit(t_game *game, int exit_code);
 int		parser(char *pathname, t_game *game);
 int		parser_texture(t_mlx *mlx, t_texture *texture, int fd);
 int		parser_map(t_map *map, t_game *game, int fd);
+int		parser_doors(t_game *game);
 
 /*			Algo 				*/
 int		switch_plan_algo(t_tmp *data);

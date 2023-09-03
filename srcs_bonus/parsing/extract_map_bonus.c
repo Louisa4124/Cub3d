@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 22:02:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 14:53:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static int	extract_map_line(t_map *map, t_game *game, char *line, int y)
 			map->layout[y][x] = 0;
 		else if (line[x] == '1')
 			map->layout[y][x] = 1;
+		else if (line[x] == '2')
+			map->layout[y][x] = 2;
 		else if (line[x] == ' ')
 			map->layout[y][x] = -1;
 		else if (is_start(line[x]))

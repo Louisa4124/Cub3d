@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 22:02:40 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 14:56:35 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	check_map(t_map *map)
 		x = 0;
 		while (x < map->x_size)
 		{
-			if (map->layout[y][x] == 0)
+			if (map->layout[y][x] == 0 || map->layout[y][x] == 2)
 			{
 				if (y == 0 || x == 0 || y == map->y_size - 1 || \
 					x == map->x_size - 1 || check_tiles(map, y, x))
@@ -92,5 +92,7 @@ int	parser(char *pathname, t_game *game)
 	close(fd);
 	if (check_map(&game->map))
 		return (4);
+	if (parser_doors(game))
+		return (5);
 	return (0);
 }

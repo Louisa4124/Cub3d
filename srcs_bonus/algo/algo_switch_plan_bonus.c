@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/31 12:49:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 15:26:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	search_sprite(t_tmp *data, int *color)
 	i = 0;
 	s = 1;
 	igs = data->link->igs;
-	s = interdoor(data, data->link->door, *data->link->pos, color);
+	if (data->link->door->status)
+		s = interdoor(data, data->link->door, *data->link->pos, color);
 	while (i < N_IGS && s)
 	{
 		if (igs[i].sp)
 			s = intersprite(data, &igs[i], *data->link->pos, color);
 		++i;
 	}
-	
 	return (s);
 }
 
@@ -108,11 +108,9 @@ int	switch_plan_algo(t_tmp *data)
 	idx[1] = data->link->map->x_size;
 	wit_x = switch_plan_inter_search_x(data, idx, \
 		math_sign_float(data->rays.x), wit_y);
-	// if (wit_y == 0 || wit_x == 0)
-	// 	color = get_color(data, data->link->map, data->link->pos);
-	// else if (wit_y == -2 || wit_x == -2)
-	// 	color = get_color_door(data, data->link->map, data->link->pos);
-	if (s != 0 && data->rays.z > 0)
+	if (wit_y == 0 || wit_x == 0)
+		color = get_color(data, data->link->map, data->link->pos);
+	else if (s != 0 && data->rays.z > 0)
 		color = data->link->texture->ceiling;
 	else if (s != 0)
 		color = get_color_floor(data, data->link->texture->t_floor);

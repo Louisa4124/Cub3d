@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/31 12:46:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 14:29:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,13 +205,17 @@ void	ft_jump(t_game *game)
 
 void	update_door_plane(t_game *game)
 {
-	if (game->doors.status < 0)
+	t_vec3d	tmp;
+	
+	if (game->doors.status <= 0)
 		return ;
 	--game->doors.status;
-	game->doors.plan.a += game->doors.offset;
-	game->doors.plan.b -= game->doors.offset;
-	// game->doors.plan.d = -game->doors.plan.a * game->doors.pos.x \
-	// 		- game->doors.plan.b * game->doors.pos.y;
+	game->doors.pos.z += game->doors.offset;
+	// tmp = ft_rotate_vec_x((t_vec3d){game->doors.plan.a, game->doors.plan.b, game->doors.plan.c}, game->doors.offset);
+	// game->doors.plan.a = tmp.x;
+	// game->doors.plan.b = tmp.y;
+	// game->doors.plan.c = tmp.z;
+	// game->doors.plan.d = - (game->doors.plan.a * game->doors.pos.x + game->doors.plan.b * game->doors.pos.y + game->doors.plan.c * game->doors.pos.z);
 }
 
 int	update_game(t_game *game)
@@ -246,7 +250,7 @@ int	update_game(t_game *game)
 		&& (game->pos.x < DOOR_Y + 3 && game->pos.y > DOOR_X - 2)
 		&& (game->pos.x < DOOR_Y + 3 && game->pos.y < DOOR_X + 3)
 		&& game->map.layout[DOOR_X][DOOR_Y] == 2)
-			ft_animation_v(game, &game->sprite[18], (t_vec2d) {670, 970}, 0.02);
+			ft_animation_v(game, &game->sprite[18], (t_vec2d){670, 970}, 0.02);
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
 		game->view.id, 0, 0);
