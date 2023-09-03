@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/17 20:33:58 by louisa           ###   ########.fr       */
+/*   Updated: 2023/09/03 18:02:51 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	load_all_sprite(t_game *game)
 	err += load_img(&game->mlx, &game->sprite[14].img, "img/cat/stretch.xpm");
 	err += load_img(&game->mlx, &game->sprite[15].img, "img/cat/walk.xpm");
 	err += load_img(&game->mlx, &game->sprite[16].img, "img/cat/sleep.xpm");
-	err += load_img(&game->mlx, &game->sprite[17].img, "img/door.xpm");
+	err += load_img(&game->mlx, &game->sprite[17].img, "img/fence.xpm");
 	err += load_img(&game->mlx, &game->sprite[18].img, "img/text.xpm");
 
 	return (err);
