@@ -6,35 +6,39 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 16:26:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 17:42:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	search_sprite(t_tmp *data, int *color)
+int	search_sprite(t_tmp *data)
 {
 	t_igs	*igs;
-	int		s;
+	int		wit_s;
+	int		wit_d;
 	int		i;
 
-	s = 1;
-	igs = data->link->igs;
+	wit_d = 1;
 	i = 0;
-	while (s && i < *data->link->n_doors)
+	while (wit_d && i < *data->link->n_doors)
 	{
 		if (data->link->door[i].status)
-			s = interdoor(data, &data->link->door[i], *data->link->pos, color);
+			wit_d = interdoor(data, &data->link->door[i], *data->link->pos);
 		++i;
 	}
+	igs = data->link->igs;
+	wit_s = 1;
 	i = 0;
-	while (i < N_IGS && s)
+	while (i < N_IGS && wit_s)
 	{
 		if (igs[i].sp)
-			s = intersprite(data, &igs[i], *data->link->pos, color);
+			wit_s = intersprite(data, &igs[i], *data->link->pos, wit_d);
 		++i;
 	}
-	return (s);
+	if (wit_d == 0 || wit_s == 0)
+		return (0);
+	return (1);
 }
 
 static int	switch_plan_inter_search_y(t_tmp *data, int idx[2], \
@@ -101,10 +105,9 @@ int	switch_plan_algo(t_tmp *data)
 	int	wit_y;
 	int	wit_x;
 	int	s;
-	int	color;
 
 	s = 1;
-	s = search_sprite(data, &color);
+	s = search_sprite(data);
 	idx[0] = data->link->pos->y;
 	idx[1] = data->link->map->y_size;
 	wit_y = switch_plan_inter_search_y(data, idx, \
@@ -114,10 +117,10 @@ int	switch_plan_algo(t_tmp *data)
 	wit_x = switch_plan_inter_search_x(data, idx, \
 		math_sign_float(data->rays.x), wit_y);
 	if (wit_y == 0 || wit_x == 0)
-		color = get_color(data, data->link->map, data->link->pos);
+		data->color = get_color(data, data->link->map, data->link->pos);
 	else if (s != 0 && data->rays.z > 0)
-		color = data->link->texture->ceiling;
+		data->color = data->link->texture->ceiling;
 	else if (s != 0)
-		color = get_color_floor(data, data->link->texture->t_floor);
-	return (color);
+		data->color = get_color_floor(data, data->link->texture->t_floor);
+	return (data->color);
 }

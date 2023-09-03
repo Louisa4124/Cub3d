@@ -6,15 +6,16 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/03 15:39:03 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 17:41:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
+int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int wit)
 {
 	t_vec3d	point;
+	int		tmp_color;
 	float	t;
 
 	t = igs->plan.a * data->rays.x + igs->plan.b * data->rays.y;
@@ -23,19 +24,22 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int *color)
 	t = -(igs->plan.a * pos.x + igs->plan.b * pos.y + igs->plan.d) / t;
 	if (t <= 0)
 		return (1);
+	if (wit == 0 && data->close_t < t)
+		return (-1);
 	point.x = pos.x + data->rays.x * t;
 	point.y = pos.y + data->rays.y * t;
 	point.z = pos.z + data->rays.z * t;	// 0.5CHG
 	if (point.z >= 1 || point.z < 0)
 		return (1);
-	*color = get_color_sprite(igs, point);
-	if ((*color >> 24))
+	tmp_color = get_color_sprite(igs, point);
+	if ((tmp_color >> 24))
 		return (1);
+	data->color = tmp_color;
 	data->close_t = t;
 	return (0);
 }
 
-int	interdoor(t_tmp *data, t_door *door, t_vec3d pos, int *color)
+int	interdoor(t_tmp *data, t_door *door, t_vec3d pos)
 {
 	t_vec3d	point;
 	float	t;
@@ -52,11 +56,10 @@ int	interdoor(t_tmp *data, t_door *door, t_vec3d pos, int *color)
 	point.z = pos.z + data->rays.z * t + door->pos.z;	// 0.5CHG
 	if (point.z >= 1  || point.z <= 0 + door->pos.z)
 		return (1);
-	*color = get_color_door(door, point);
-	if ((*color >> 24))
+	data->color = get_color_door(door, point);
+	if ((data->color >> 24))
 		return (1);
 	data->close_t = t;
-
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/03 16:14:15 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 17:38:50 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct s_tmp
 	t_link		*link;
 	t_area		*area;
 	t_img		*img;
+	int			color;
 }	t_tmp;
 
 typedef struct s_job
