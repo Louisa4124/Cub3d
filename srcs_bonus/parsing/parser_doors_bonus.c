@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:54:51 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 15:27:51 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:27:50 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static	int	get_n_doors(t_map *map)
 	return (n);
 }
 
-static int	get_door(t_door *door, int y, int x)
+static int	get_door(t_door *door, int y, int x, t_game *game)
 {
 	door->plan = (t_plan) (t_plan){0, 1, 0, -1.5};
 	door->plan.d -= y;
@@ -57,36 +57,34 @@ static int	get_door(t_door *door, int y, int x)
 	door->pos.y += 0.5;
 	door->status = -100;
 	door->offset = 0.01;
+	door->img = &game->sprite[17].img;
 	return (0);
 }
 
 int	parser_doors(t_game *game)
 {
-	int	n_doors;
-
-	n_doors = get_n_doors(&game->map);
-	if (n_doors == 0)
-		return (0);
-	dprintf(2, "n dorr :%d\n", n_doors);
-
 	int	i;
 	int	j;
-
-
-	i = 0;
-	while (i < game->map.y_size)
+	int	n;
+	game->n_doors = get_n_doors(&game->map);
+	if (game->n_doors == 0)
+		return (0);
+	game->doors = ft_calloc(game->n_doors, sizeof(t_door));
+	if (game->doors == NULL)
+		return (ft_putstr_fd("Error\nMalloc failed\n", 2), 1);
+	n = 0;
+	i = -1;
+	while (++i < game->map.y_size)
 	{
-		j = 0;
-		while (j < game->map.x_size)
+		j = -1;
+		while (++j < game->map.x_size)
 		{
 			if (game->map.layout[i][j] == 2)
-				get_door(&game->doors, i, j);
-			++j;
+			{
+				get_door(&game->doors[n], i, j, game);
+				++n;
+			}
 		}
-		++i;
 	}
-	
-	
-	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 14:29:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:22:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,17 +205,22 @@ void	ft_jump(t_game *game)
 
 void	update_door_plane(t_game *game)
 {
-	t_vec3d	tmp;
-	
-	if (game->doors.status <= 0)
-		return ;
-	--game->doors.status;
-	game->doors.pos.z += game->doors.offset;
-	// tmp = ft_rotate_vec_x((t_vec3d){game->doors.plan.a, game->doors.plan.b, game->doors.plan.c}, game->doors.offset);
-	// game->doors.plan.a = tmp.x;
-	// game->doors.plan.b = tmp.y;
-	// game->doors.plan.c = tmp.z;
-	// game->doors.plan.d = - (game->doors.plan.a * game->doors.pos.x + game->doors.plan.b * game->doors.pos.y + game->doors.plan.c * game->doors.pos.z);
+	int		i;
+
+	i = 0;
+	while (i < game->n_doors)
+	{
+		if (game->doors[i].status <= 0)
+		{
+			++i;
+			continue ;
+		}
+		--game->doors[i].status;
+		game->doors[i].pos.z += game->doors[i].offset;
+		if (game->doors[i].status == 0)
+			game->map.layout[(int)game->doors[i].pos.y][(int)game->doors[i].pos.x] = 0;
+		++i;
+	}
 }
 
 int	update_game(t_game *game)
@@ -245,11 +250,7 @@ int	update_game(t_game *game)
 		animation_fire(game);
 		ft_transition(game);
 		ft_jump(game);
-		if ((game->pos.x > DOOR_Y - 2 && game->pos.y > DOOR_X - 2)
-		&& (game->pos.x > DOOR_Y - 2 && game->pos.y < DOOR_X + 3)
-		&& (game->pos.x < DOOR_Y + 3 && game->pos.y > DOOR_X - 2)
-		&& (game->pos.x < DOOR_Y + 3 && game->pos.y < DOOR_X + 3)
-		&& game->map.layout[DOOR_X][DOOR_Y] == 2)
+		if (is_near_door(game, game->doors, &game->pos) != -1)
 			ft_animation_v(game, &game->sprite[18], (t_vec2d){670, 970}, 0.02);
 	}
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \

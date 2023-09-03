@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/03 15:08:47 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:12:29 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,12 +206,13 @@ void	ft_display_fly_menu(t_game *game);
 void	ft_display_launch_game(t_game *game);
 
 int		get_color_ceiling(t_tmp *data , t_img ceiling);
-int		get_color_door(t_tmp *data, t_map *map, t_vec3d *pos);
+int		get_color_door(t_door *door, t_vec3d point);
 
 
 
 int	ft_randuint(int min, int max, int *n);
-
+int	is_near(t_vec3d p1, t_vec3d p2, float e);
+int	is_near_door(t_game *game, t_door *doors, t_vec3d *pos);
 
 
 

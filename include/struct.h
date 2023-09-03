@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/30 21:49:22 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:14:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_sprite
 
 typedef struct s_door
 {
-	t_img	img;
+	t_img	*img;
 	t_plan	plan;
 	t_vec3d	pos;
 	int		status;
@@ -145,6 +145,7 @@ typedef struct s_link
 	t_igs		*igs;
 	float		*light;
 	t_door		*door;
+	int			*n_doors;
 }	t_link;
 
 typedef struct s_tmp
@@ -186,7 +187,7 @@ typedef struct s_game
 	sem_t			sem_main;
 	t_mlx			mlx;
 	t_map			map;
-	t_door			doors;
+	t_door			*doors;
 	t_plan			*plan[2];
 	t_vec3d			pos;
 	t_vec3d			**rays;
@@ -203,6 +204,7 @@ typedef struct s_game
 	float			angle_x;
 	float			angle_offset;
 	float			sensitivity;
+	int				n_doors;
 	int				n_job;
 	int				n_thread;
 	int				minimap_size;

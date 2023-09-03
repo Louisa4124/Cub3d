@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 15:26:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:26:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@ int	search_sprite(t_tmp *data, int *color)
 	int		s;
 	int		i;
 
-	i = 0;
 	s = 1;
 	igs = data->link->igs;
-	if (data->link->door->status)
-		s = interdoor(data, data->link->door, *data->link->pos, color);
+	i = 0;
+	while (s && i < *data->link->n_doors)
+	{
+		if (data->link->door[i].status)
+			s = interdoor(data, &data->link->door[i], *data->link->pos, color);
+		++i;
+	}
+	i = 0;
 	while (i < N_IGS && s)
 	{
 		if (igs[i].sp)

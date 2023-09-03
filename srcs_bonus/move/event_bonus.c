@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/30 21:49:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:25:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,11 @@ int	event_press(int keycode, t_game *game)
 		game->pause = 4;
 	else if (keycode == KEY_E)
 	{
-		if ((game->pos.x > DOOR_Y - 2 && game->pos.y > DOOR_X - 2)
-			&& (game->pos.x > DOOR_Y - 2 && game->pos.y < DOOR_X + 3)
-			&& (game->pos.x < DOOR_Y + 3 && game->pos.y > DOOR_X - 2)
-			&& (game->pos.x < DOOR_Y + 3 && game->pos.y < DOOR_X + 3))
-		{
-			game->map.layout[DOOR_X][DOOR_Y] = 0;
-			game->doors.status = -game->doors.status;
-		}
+		int	i;
+		i = is_near_door(game, game->doors, &game->pos);
+		if (i != -1)
+			game->doors[i].status = -game->doors[i].status;
+		
 	}
 	return (0);
 }

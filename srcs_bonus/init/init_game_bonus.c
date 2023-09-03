@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/30 20:21:08 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:14:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,6 @@ void	init_area_link(t_game *game)
 	game->link.resolution = &game->resolution;
 	game->link.light = &game->light;
 	game->link.igs = game->igs;
+	game->link.door = game->doors;
+	game->link.n_doors = &game->n_doors;
 }
