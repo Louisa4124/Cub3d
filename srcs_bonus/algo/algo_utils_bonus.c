@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/03 17:41:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:44:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,29 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int wit)
 	return (0);
 }
 
-int	interdoor(t_tmp *data, t_door *door, t_vec3d pos)
+int	interdoor(t_tmp *data, t_door *door, t_vec3d pos, int wit)
 {
 	t_vec3d	point;
+	int		tmp_color;
 	float	t;
 
 	t = door->plan.a * data->rays.x + door->plan.b * data->rays.y \
 		+ door->plan.c * data->rays.z;
 	if (t == 0)
 		return (1);
-	t = -(door->plan.a * pos.x + door->plan.b + pos.y + door->plan.c * pos.z + door->plan.d) / t;
+	t = -(door->plan.a * pos.x + door->plan.b + pos.y \
+		+ door->plan.c * pos.z + door->plan.d) / t;
 	if (t < 0)
 		return (1);
 	point.x = pos.x + data->rays.x * t;
 	point.y = pos.y + data->rays.y * t;
 	point.z = pos.z + data->rays.z * t + door->pos.z;	// 0.5CHG
-	if (point.z >= 1  || point.z <= 0 + door->pos.z)
+	if (point.z >= 1 || point.z <= 0 + door->pos.z)
 		return (1);
-	data->color = get_color_door(door, point);
-	if ((data->color >> 24))
+	tmp_color = get_color_door(door, point);
+	if ((tmp_color >> 24))
 		return (1);
+	data->color = tmp_color;
 	data->close_t = t;
 	return (0);
 }

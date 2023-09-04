@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 17:32:09 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:53:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,26 +203,6 @@ void	ft_jump(t_game *game)
 	}
 }
 
-void	update_door_plane(t_game *game)
-{
-	int		i;
-
-	i = 0;
-	while (i < game->n_doors)
-	{
-		if (game->doors[i].status <= 0)
-		{
-			++i;
-			continue ;
-		}
-		--game->doors[i].status;
-		game->doors[i].pos.z += game->doors[i].offset;
-		if (game->doors[i].status == 0)
-			game->map.layout[(int)game->doors[i].pos.y][(int)game->doors[i].pos.x] = 0;
-		++i;
-	}
-}
-
 int	update_game(t_game *game)
 {
 	if (game->pause == 7)
@@ -244,7 +224,8 @@ int	update_game(t_game *game)
 		view_update_pos(game);
 		view_update_dir_key(game);
 		update_igs_plane(game->igs, game->pos);
-		update_door_plane(game);
+		update_doors_dist(game->doors, &game->pos, game->n_doors);
+		update_door(game);
 		send_frame_job(game);
 		wait_job(game);
 		animation_fire(game);

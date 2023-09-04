@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 17:42:08 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:51:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	search_sprite(t_tmp *data)
 	i = 0;
 	while (wit_d && i < *data->link->n_doors)
 	{
-		if (data->link->door[i].status)
-			wit_d = interdoor(data, &data->link->door[i], *data->link->pos);
+		wit_d = interdoor(data, &data->link->door[i], *data->link->pos, wit_d);
 		++i;
 	}
 	igs = data->link->igs;
@@ -57,8 +56,8 @@ static int	switch_plan_inter_search_y(t_tmp *data, int idx[2], \
 			+ plan[idx[0]].c * data->rays.z);
 		if (data->t != 0)
 		{
-			data->t = -(plan[idx[0]].b * data->link->pos->y \
-				+ plan[idx[0]].c * data->link->pos->z + plan[idx[0]].d) / data->t; // 0.5CHG
+			data->t = -(plan[idx[0]].b * data->link->pos->y + \
+				plan[idx[0]].c * data->link->pos->z + plan[idx[0]].d) / data->t;
 			if (found == 0 && data->t > data->close_t)
 				return (-1);
 			if (data->t > 0)
@@ -86,8 +85,8 @@ static int	switch_plan_inter_search_x(t_tmp *data, int idx[2], \
 			+ plan[idx[0]].c * data->rays.z);
 		if (data->t != 0)
 		{
-			data->t = -(plan[idx[0]].a * data->link->pos->x \
-				+ plan[idx[0]].c * data->link->pos->z + plan[idx[0]].d) / data->t;	// 0.5CHG
+			data->t = -(plan[idx[0]].a * data->link->pos->x + \
+				plan[idx[0]].c * data->link->pos->z + plan[idx[0]].d) / data->t;
 			if (found == 0 && data->t > data->close_t)
 				return (-1);
 			if (data->t > 0)

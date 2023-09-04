@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:54:51 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 16:27:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:31:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ static	int	get_n_doors(t_map *map)
 
 static int	get_door(t_door *door, int y, int x, t_game *game)
 {
-	door->plan = (t_plan) (t_plan){0, 1, 0, -1.5};
+	door->plan = (t_plan)(t_plan){0, 1, 0, -1.5};
 	door->plan.d -= y;
 	door->pos = (t_vec3d){x, y, 0};
 	door->pos.x += 0.5;
 	door->pos.y += 0.5;
-	door->status = -100;
+	door->status = 0;
+	door->count = 40;
 	door->offset = 0.01;
+	door->t = 0;
 	door->img = &game->sprite[17].img;
 	return (0);
 }

@@ -6,16 +6,16 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 16:25:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:13:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-char *ft_imgcpy(char *data, int size)
+char	*ft_imgcpy(char *data, int size)
 {
-	char *dup;
-	int i;
+	char	*dup;
+	int		i;
 
 	i = 0;
 	dup = malloc(sizeof(char) * size + 1);
@@ -32,7 +32,8 @@ void	pause_in(t_game *game)
 	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 	ft_blur_pause(game);
 	game->blur = game->view;
-	game->blur.addr = ft_imgcpy(game->view.addr, game->view.height * game->view.width * 4);
+	game->blur.addr = ft_imgcpy(game->view.addr, \
+		game->view.height * game->view.width * 4);
 	game->pause = 6;
 }
 
@@ -42,6 +43,17 @@ void	pause_off(t_game *game)
 	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
 		game->mlx.win_height >> 1);
 	game->pause = 0;
+}
+
+void	update_door_status(t_game *game)
+{
+	int	i;
+
+	i = is_near_door(game, game->doors, &game->pos);
+	if (i == -1)
+		return ;
+	game->doors[i].status = -1;
+	game->doors[i].count = 45;
 }
 
 int	event_press(int keycode, t_game *game)
@@ -73,13 +85,7 @@ int	event_press(int keycode, t_game *game)
 	else if (keycode == KEY_ENTER && game->pause == 2)
 		game->pause = 4;
 	else if (keycode == KEY_E)
-	{
-		int	i;
-		i = is_near_door(game, game->doors, &game->pos);
-		if (i != -1)
-			game->doors[i].status = -game->doors[i].status;
-		
-	}
+		update_door_status(game);
 	return (0);
 }
 

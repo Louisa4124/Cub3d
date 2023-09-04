@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:57:21 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 16:12:23 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:47:32 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	ft_randuint(int min, int max, int *n)
 	*n = c % (max + 1 - min) + min;
 	return (0);
 }
+
 int	is_near(t_vec3d p1, t_vec3d p2, float e)
 {
 	t_vec3d	diff;
@@ -65,23 +66,4 @@ int	is_near(t_vec3d p1, t_vec3d p2, float e)
 	if (diff.y < -e || diff.y > e)
 		return (0);
 	return (1);
-}
-
-int	is_near_door(t_game *game, t_door *doors, t_vec3d *pos)
-{
-	int	i;
-
-	i = 0;
-	while (i < game->n_doors)
-	{
-		if (doors[i].status >= 0)
-		{
-			++i;
-			continue ;
-		}
-		if (is_near(doors[i].pos, *pos, 2.0))
-			return (i);
-		++i;
-	}
-	return (-1);
 }

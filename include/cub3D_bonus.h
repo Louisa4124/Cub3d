@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/03 17:41:04 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:53:32 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		parser_doors(t_game *game);
 /*			Algo 				*/
 int		switch_plan_algo(t_tmp *data);
 int		intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2]);
-int		interdoor(t_tmp *data, t_door *door, t_vec3d pos);
+int		interdoor(t_tmp *data, t_door *door, t_vec3d pos, int wit);
 int		intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int wit);
 
 
@@ -112,7 +112,8 @@ int		intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int wit);
 int		get_color(t_tmp *data, t_map *map, t_vec3d *pos);
 int		get_color_floor(t_tmp *data, t_img floor);
 int		get_color_sprite(t_igs *igs, t_vec3d point);
-
+int		get_color_ceiling(t_tmp *data , t_img ceiling);
+int		get_color_door(t_door *door, t_vec3d point);
 int		rgb_to_hexa(int r, int g, int b);
 int		darken_color(int color, float d_ratio, float intensity);
 
@@ -131,6 +132,9 @@ void	display_game(void *ptr, void *area);
 void	fredimation(void *ptr, void *area);
 void	update_igs_time(t_igs *igs);
 void	update_igs_plane(t_igs *igs, t_vec3d player);
+int		is_near_door(t_game *game, t_door *doors, t_vec3d *pos);
+void	update_doors_dist(t_door *doors, t_vec3d *pos, int n_doors);
+void	update_door(t_game *game);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -163,6 +167,11 @@ int		add_job( t_game *game, void *data, void *area, \
 void	clear_job(t_job **job);
 int		wait_job(t_game *game);
 int		send_frame_job(t_game *game);
+
+/*			Utils				*/
+int		ft_randuint(int min, int max, int *n);
+int		is_near(t_vec3d p1, t_vec3d p2, float e);
+
 
 /*			Debug				*/
 void	debug_print_texture(t_texture *texture);
@@ -200,18 +209,14 @@ void	ft_change_cursor(t_game *game, int x, int y);
 void	ft_display_menu(t_game *game);
 void	ft_display_select_menu(t_game *game);
 void	ft_display_select_player(t_game *game, int x, int y);
-void    ft_display_players(t_game *game);
+void	ft_display_players(t_game *game);
 void	ft_display_fly_menu(t_game *game);
 void	ft_display_launch_game(t_game *game);
 
-int		get_color_ceiling(t_tmp *data , t_img ceiling);
-int		get_color_door(t_door *door, t_vec3d point);
 
 
 
-int	ft_randuint(int min, int max, int *n);
-int	is_near(t_vec3d p1, t_vec3d p2, float e);
-int	is_near_door(t_game *game, t_door *doors, t_vec3d *pos);
+
 
 
 

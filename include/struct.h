@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/03 17:38:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:31:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ typedef struct s_door
 	t_plan	plan;
 	t_vec3d	pos;
 	int		status;
+	int		count;
 	float	offset;
+	float	t;
 }	t_door;
 
 typedef struct s_igs

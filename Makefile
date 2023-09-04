@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/09/03 15:07:12 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/09/04 14:48:01 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	display/
 LST_SRCS_DISP	=	color_bonus.c display_bonus.c draw_bonus.c blur_bonus.c image2_bonus.c \
-					animation_bonus.c settings_bonus.c menu_bonus.c update_igs_bonus.c
+					animation_bonus.c settings_bonus.c menu_bonus.c update_igs_bonus.c doors_bonus.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	init/
