@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/16 13:09:09 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:35:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ int	ft_mlx_error(int errnum, t_mlx *mlx)
 	return (EXIT_FAILURE);
 }
 
+int	new_image(t_mlx *mlx, t_img *new_img, int width, int height)
+{
+	new_img->width = width;
+	new_img->height = height;
+	new_img->id = mlx_new_image(mlx->ptr, new_img->width, new_img->height);
+	if (new_img->id == NULL)
+		return (ft_putstr_fd("Error\nCan't create new image\n", 2), 1);
+	new_img->addr = mlx_get_data_addr(new_img->id, &new_img->bpp, \
+		&new_img->ll, &new_img->endian);
+	if (new_img->addr == NULL)
+		return (ft_putstr_fd("Error\nCan't get new_image data\n", 2), 1);
+	return (0);
+}
+
 int	ft_init_mlx(t_game *game)
 {
 	game->mlx.ptr = mlx_init();
@@ -39,29 +53,21 @@ int	ft_init_mlx(t_game *game)
 		game->mlx.win_width, game->mlx.win_height, "cub3D");
 	if (!game->mlx.win)
 		return (ft_mlx_error(2, &game->mlx));
-	game->view.id = mlx_new_image(game->mlx.ptr, \
-		game->mlx.win_width, game->mlx.win_height);
-	if (!game->view.id)
-		return (ft_mlx_error(3, &game->mlx));
-	game->blur.id = mlx_new_image(game->mlx.ptr, \
-		game->mlx.win_width, game->mlx.win_height);
-	if (!game->blur.id)
-		return (ft_mlx_error(3, &game->mlx));
-	game->blur.addr = mlx_get_data_addr(game->blur.id, \
-		&game->blur.bpp, &game->blur.ll, &game->blur.endian);
-	if (!game->blur.addr)
-	{
-		s_img_destroy(&game->mlx, &game->view);
-		return (ft_mlx_error(4, &game->mlx));
-	}
-	game->view.addr = mlx_get_data_addr(game->view.id, \
-		&game->view.bpp, &game->view.ll, &game->view.endian);
-	if (!game->view.addr)
-	{
-		s_img_destroy(&game->mlx, &game->view);
-		return (ft_mlx_error(4, &game->mlx));
-	}
-	game->view.height = game->mlx.win_height;
-	game->view.width = game->mlx.win_width;
+	new_image(&game->mlx, &game->view, game->mlx.win_width, \
+		game->mlx.win_height);
+	new_image(&game->mlx, &game->blur, game->mlx.win_width, \
+		game->mlx.win_height);
 	return (0);
 }
+
+void	set_mlx_hook(t_game *game)
+{
+	mlx_loop_hook(game->mlx.ptr, update_game, game);
+	mlx_hook(game->mlx.win, 2, 1L << 0, event_press, game);
+	mlx_hook(game->mlx.win, 3, 1L << 1, event_unpress, game);
+	mlx_hook(game->mlx.win, 4, 1L << 2, event_pause, game);
+	mlx_hook(game->mlx.win, 6, 1L << 6, event_mouse, game);
+	mlx_hook(game->mlx.win, 8, 1L << 5, event_mouse_reset, game);
+	mlx_hook(game->mlx.win, 17, 0L, close_event, game);
+}
+

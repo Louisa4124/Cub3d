@@ -6,27 +6,14 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:32:18 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 18:32:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:28:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	new_image(t_mlx *mlx, t_img *new_img, int width, int height)
-{
-	new_img->width = width;
-	new_img->height = height;
-	new_img->id = mlx_new_image(mlx->ptr, new_img->width, new_img->height);
-	if (new_img->id == NULL)
-		return (ft_putstr_fd("Error\nCan't create new image\n", 2), 1);
-	new_img->addr = mlx_get_data_addr(new_img->id, &new_img->bpp, \
-		&new_img->ll, &new_img->endian);
-	if (new_img->addr == NULL)
-		return (ft_putstr_fd("Error\nCan't get new_image data\n", 2), 1);
-	return (0);
-}
-
-void	calculus(t_vec2d *src_pos, t_vec2d *index, t_img *src, t_img *new_img)
+static void	copy_scale(t_vec2d *src_pos, t_vec2d *index, t_img *src, \
+	t_img *new_img)
 {
 	t_vec2d	p_index;
 	int		byte;
@@ -57,7 +44,7 @@ int	resize_image(t_game *game, t_img *src, int r)
 		index.x = 0;
 		while (index.x < new_img.width)
 		{
-			calculus(&src_pos, &index, src, &new_img);
+			copy_scale(&src_pos, &index, src, &new_img);
 			++index.x;
 		}
 		++index.y;

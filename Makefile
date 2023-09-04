@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/09/04 23:52:54 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/09/05 00:22:07 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ LST_SRCS_DISP	=	color_bonus.c display_bonus.c display_utils_bonus.c draw_bonus.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	init/
-LST_SRCS_INIT	=	init_game_bonus.c init_mlx_bonus.c init_struct_bonus.c init_igs_bonus.c load_bonus.c init_img_bonus.c
+LST_SRCS_INIT	=	init_game_bonus.c init_mlx_bonus.c init_struct_bonus.c init_igs_bonus.c init_img_utils_bonus.c init_img_bonus.c
 SRCS_INIT		=	${addprefix ${DIR_SRCS_INIT}, ${LST_SRCS_INIT}}
 
 DIR_SRCS_EVENT	=	move/

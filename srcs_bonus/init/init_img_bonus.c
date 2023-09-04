@@ -6,72 +6,59 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/05 00:03:40 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:33:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	init_img(t_game *game)
+void	fill_all_sprite(t_game *game);
+
+int	init_img_background(t_game *game)
 {
-	load_menu(game, 0, 0, "img/menu/background.xpm");
-	load_menu(game, 0, 1, "img/menu/cloud1.xpm");
-	load_menu(game, 0, 2, "img/menu/cloud2.xpm");
-	load_menu(game, 0, 3, "img/menu/title.xpm");
+	int	err;
+
+	err = load_img(&game->mlx, &game->anim[0][0], "img/menu/background.xpm");
+	err += load_img(&game->mlx, &game->anim[0][1], "img/menu/cloud1.xpm");
+	err += load_img(&game->mlx, &game->anim[0][2], "img/menu/cloud2.xpm");
+	err += load_img(&game->mlx, &game->anim[0][3], "img/menu/title.xpm");
 	ft_draw_img(&game->view, game->anim[0][0], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][1], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][2], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][3], 0, 0);
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->view.id, 0, 0);
-	load_menu(game, 0, 4, "img/select/all.xpm");
-	load_menu(game, 0, 5, "img/select/clouds.xpm");
-	load_menu(game, 0, 6, "img/select/sky.xpm");
-	load_menu(game, 0, 7, "img/select/select.xpm");
-	load_menu(game, 0, 8, "img/select/left.xpm");
-	load_menu(game, 0, 9, "img/select/right.xpm");
-	load_menu(game, 0, 10, "img/select/start.xpm");
-	load_menu(game, 0, 11, "img/select/settings.xpm");
-	load_menu(game, 0, 12, "img/select/exit.xpm");
-	load_menu(game, 0, 13, "img/select/transition.xpm");
-	
-	load_menu(game, 0, 14, "img/settings/background.xpm");
-	load_menu(game, 0, 15, "img/settings/all.xpm");
-	load_menu(game, 0, 16, "img/settings/high.xpm");
-	load_menu(game, 0, 17, "img/settings/medium.xpm");
-	load_menu(game, 0, 18, "img/settings/low.xpm");
-
-	load_menu(game, 1, 0, "img/select/0.xpm");
-	load_menu(game, 1, 1, "img/cursor.xpm");
-
-	load_menu(game, 1, 2, "img/torch.xpm");
-	resize_image(game, &game->anim[1][2], 5);
-	load_img(&game->mlx, &game->texture.t_floor, "img/grass2.xpm");
-	load_img(&game->mlx, &game->texture.t_ceiling, "img/sky.xpm");
-	load_img(&game->mlx, &game->texture.t_door, "img/door.xpm");
-
-	return (0);
+	err += load_img(&game->mlx, &game->anim[1][0], "img/select/0.xpm");
+	err += load_img(&game->mlx, &game->anim[1][1], "img/cursor.xpm");
+	err += load_img(&game->mlx, &game->anim[1][2], "img/torch.xpm");
+	err += resize_image(game, &game->anim[1][2], 5);
+	err += load_img(&game->mlx, &game->texture.t_floor, "img/grass2.xpm");
+	err += load_img(&game->mlx, &game->texture.t_ceiling, "img/sky.xpm");
+	err += load_img(&game->mlx, &game->texture.t_door, "img/door.xpm");
+	return (err);
 }
 
-void	fill_all_sprite(t_game *game)
+int	init_img_settings(t_game *game)
 {
-	fill_sprite(game, &game->sprite[0], 8);
-	fill_sprite(game, &game->sprite[1], 10);
-	fill_sprite(game, &game->sprite[2], 5);
-	fill_sprite(game, &game->sprite[3], 6);
-	fill_sprite(game, &game->sprite[4], 6);
-	fill_sprite(game, &game->sprite[5], 6);
-	fill_sprite(game, &game->sprite[6], 6);
-	fill_sprite(game, &game->sprite[7], 8);
-	fill_sprite(game, &game->sprite[8], 8);
-	fill_sprite(game, &game->sprite[9], 8);
-	fill_sprite(game, &game->sprite[10], 19);
-	fill_sprite(game, &game->sprite[11], 10);
-	fill_sprite(game, &game->sprite[12], 8);
-	fill_sprite(game, &game->sprite[13], 5);
-	fill_sprite(game, &game->sprite[14], 13);
-	fill_sprite(game, &game->sprite[15], 8);
-	fill_sprite(game, &game->sprite[16], 1);
-	fill_sprite(game, &game->sprite[18], 19);
+	int	err;
+
+	err = load_img(&game->mlx, &game->anim[0][4], "img/select/all.xpm");
+	err += load_img(&game->mlx, &game->anim[0][5], "img/select/clouds.xpm");
+	err += load_img(&game->mlx, &game->anim[0][6], "img/select/sky.xpm");
+	err += load_img(&game->mlx, &game->anim[0][7], "img/select/select.xpm");
+	err += load_img(&game->mlx, &game->anim[0][8], "img/select/left.xpm");
+	err += load_img(&game->mlx, &game->anim[0][9], "img/select/right.xpm");
+	err += load_img(&game->mlx, &game->anim[0][10], "img/select/start.xpm");
+	err += load_img(&game->mlx, &game->anim[0][11], "img/select/settings.xpm");
+	err += load_img(&game->mlx, &game->anim[0][12], "img/select/exit.xpm");
+	err += load_img(&game->mlx, &game->anim[0][13], \
+		"img/select/transition.xpm");
+	err += load_img(&game->mlx, &game->anim[0][14], \
+		"img/settings/background.xpm");
+	err += load_img(&game->mlx, &game->anim[0][15], "img/settings/all.xpm");
+	err += load_img(&game->mlx, &game->anim[0][16], "img/settings/high.xpm");
+	err += load_img(&game->mlx, &game->anim[0][17], "img/settings/medium.xpm");
+	err += load_img(&game->mlx, &game->anim[0][18], "img/settings/low.xpm");
+	return (0);
 }
 
 int	resize_all_sprite(t_game *game)
@@ -123,8 +110,12 @@ int	load_all_sprite(t_game *game)
 	return (err);
 }
 
-int	init_sprite(t_game *game)
+int	init_img(t_game *game)
 {
+	if (init_img_background(game))
+		return (EXIT_FAILURE);
+	if (init_img_settings(game))
+		return (EXIT_FAILURE);
 	if (load_all_sprite(game))
 		return (EXIT_FAILURE);
 	if (resize_all_sprite(game))

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/04 14:59:53 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:36:22 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,16 @@ int	main(int argc, char **argv)
 		ft_clean_exit(&game, EXIT_FAILURE);
 	if (ft_init_game(&game))
 		ft_clean_exit(&game, EXIT_FAILURE);
-	if (init_sprite(&game))
+	if (init_img(&game))
 		ft_clean_exit(&game, EXIT_FAILURE);
-	init_img(&game);
 	init_area_link(&game);
-	init_igs(&game, game.igs); // a enlever d'ici
+	init_igs(&game, game.igs);
 	queue = NULL;
 	game.queue = &queue;
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
-	update_doors_dist(game.doors, &game.pos, game.n_doors);
-	mlx_loop_hook(game.mlx.ptr, update_game, &game);
-	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
-	mlx_hook(game.mlx.win, 3, 1L << 1, event_unpress, &game);
-	mlx_hook(game.mlx.win, 4, 1L << 2, event_pause, &game);
-	mlx_hook(game.mlx.win, 6, 1L << 6, event_mouse, &game);
-	mlx_hook(game.mlx.win, 8, 1L << 5, event_mouse_reset, &game);
-	mlx_hook(game.mlx.win, 17, 0L, close_event, &game);
+	set_mlx_hook(&game);
+
 	mlx_mouse_move(game.mlx.ptr, game.mlx.win, game.mlx.win_width >> 1, \
 		game.mlx.win_height >> 1);
 	mlx_loop(game.mlx.ptr);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_bonus.c                                       :+:      :+:    :+:   */
+/*   init_img_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:50:43 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 21:43:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:24:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,24 @@ void	fill_sprite(t_game *g, t_sprite *sprite, int n_frame)
 	}
 }
 
-int	load_menu(t_game *game, int i, int j, char *path)
+void	fill_all_sprite(t_game *game)
 {
-	game->anim[i][j].id = mlx_xpm_file_to_image(game->mlx.ptr, \
-		path, &game->anim[i][j].width, &game->anim[i][j].height);
-	if (game->anim[i][j].id == NULL)
-		return (ft_putstr_fd("Error\nCan't load texture\n", 2), 1);
-	game->anim[i][j].addr = mlx_get_data_addr(game->anim[i][j].id, \
-		&game->anim[i][j].bpp, &game->anim[i][j].ll, &game->anim[i][j].endian);
-	if (game->anim[i][j].addr == NULL)
-		return (ft_putstr_fd("Error\nCan't get texture data\n", 2), 1);
-	return (0); 
+	fill_sprite(game, &game->sprite[0], 8);
+	fill_sprite(game, &game->sprite[1], 10);
+	fill_sprite(game, &game->sprite[2], 5);
+	fill_sprite(game, &game->sprite[3], 6);
+	fill_sprite(game, &game->sprite[4], 6);
+	fill_sprite(game, &game->sprite[5], 6);
+	fill_sprite(game, &game->sprite[6], 6);
+	fill_sprite(game, &game->sprite[7], 8);
+	fill_sprite(game, &game->sprite[8], 8);
+	fill_sprite(game, &game->sprite[9], 8);
+	fill_sprite(game, &game->sprite[10], 19);
+	fill_sprite(game, &game->sprite[11], 10);
+	fill_sprite(game, &game->sprite[12], 8);
+	fill_sprite(game, &game->sprite[13], 5);
+	fill_sprite(game, &game->sprite[14], 13);
+	fill_sprite(game, &game->sprite[15], 8);
+	fill_sprite(game, &game->sprite[16], 1);
+	fill_sprite(game, &game->sprite[18], 19);
 }
