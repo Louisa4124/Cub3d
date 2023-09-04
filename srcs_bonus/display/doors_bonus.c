@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:46:45 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 14:54:21 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:51:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	is_near_door(t_game *game, t_door *doors, t_vec3d *pos)
 			++i;
 			continue ;
 		}
-		if (is_near(doors[i].pos, *pos, 1.0))
+		if (is_near(doors[i].pos, *pos, 2.0))
 			return (i);
 		++i;
 	}
@@ -83,6 +83,9 @@ void	update_door(t_game *game)
 			++i;
 			continue ;
 		}
+		if (game->doors[i].count == 45 && game->doors[i].offset < 0)
+			game->map.layout[(int)game->doors[i].pos.y] \
+								[(int)game->doors[i].pos.x] = 2;
 		game->doors[i].count += game->doors[i].status;
 		game->doors[i].pos.z += game->doors[i].offset;
 		if (game->doors[i].count == 0)
@@ -90,9 +93,6 @@ void	update_door(t_game *game)
 			if (game->doors[i].offset > 0)
 				game->map.layout[(int)game->doors[i].pos.y] \
 					[(int)game->doors[i].pos.x] = 0;
-			else
-				game->map.layout[(int)game->doors[i].pos.y] \
-					[(int)game->doors[i].pos.x] = 2;
 			game->doors[i].status = 0;
 			game->doors[i].offset = -game->doors[i].offset;
 		}

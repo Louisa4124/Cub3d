@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 14:13:40 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:28:46 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	update_door_status(t_game *game)
 
 	i = is_near_door(game, game->doors, &game->pos);
 	if (i == -1)
+		return ;
+	if (game->doors[i].t < 1)
 		return ;
 	game->doors[i].status = -1;
 	game->doors[i].count = 45;

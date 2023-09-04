@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/04 13:39:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:59:36 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	rays_create(t_game *game)
 
 int	ft_init_game(t_game *game)
 {
-	game->pause = 0;
+	game->pause = 2;
 	game->player = 1;
 	game->jump = 0;
 	game->angle_offset = ANG_OFFSET_MOUSE;

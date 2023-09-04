@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/04 14:48:18 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:59:53 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	main(int argc, char **argv)
 	game.queue = &queue;
 	init_thread_data(&game, data_thread);
 	launch_fred(&game, data_thread);
-	debug(&game);
 	update_doors_dist(game.doors, &game.pos, game.n_doors);
 	mlx_loop_hook(game.mlx.ptr, update_game, &game);
 	mlx_hook(game.mlx.win, 2, 1L << 0, event_press, &game);
