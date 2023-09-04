@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 19:02:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:24:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	s_destroy_texture(t_mlx *mlx, t_texture *texture)
 	s_img_destroy(mlx, &texture->wall[1]);
 	s_img_destroy(mlx, &texture->wall[2]);
 	s_img_destroy(mlx, &texture->wall[3]);
+	s_img_destroy(mlx, &texture->t_ceiling);
+	s_img_destroy(mlx, &texture->t_floor);
+	s_img_destroy(mlx, &texture->t_door);
 }
 
 int	change_status(pthread_mutex_t *mutex, int *status, int new_status)

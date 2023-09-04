@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/04 17:44:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:27:19 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int wit)
 		return (-1);
 	point.x = pos.x + data->rays.x * t;
 	point.y = pos.y + data->rays.y * t;
-	point.z = pos.z + data->rays.z * t;	// 0.5CHG
+	point.z = pos.z + data->rays.z * t;
 	if (point.z >= 1 || point.z < 0)
 		return (1);
 	tmp_color = get_color_sprite(igs, point);
@@ -95,7 +95,6 @@ static int	ft_is_wall(t_tmp *data, int **layout, int v, int d)
 	return (0);
 }
 
-
 int	intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2])
 {
 	t_map	*map;
@@ -103,7 +102,7 @@ int	intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2])
 	map = data->link->map;
 	data->point.x = data->rays.x * data->t;
 	data->point.y = data->rays.y * data->t;
-	data->point.z = pos.z + data->rays.z * data->t;	// 0.5CHG
+	data->point.z = pos.z + data->rays.z * data->t;
 	if (data->point.z >= 1 || data->point.z <= 0 \
 		|| (int)(pos.x + data->point.x) < 0 \
 		|| (int)(pos.y + data->point.y) < 0 \

@@ -6,38 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 15:37:26 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:52:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
-
-// les ratios à utiliser seront r pour la
-// largeur de la texture et la partie décimale de Iz pour sa hauteur.
-
-int	get_color_sprite(t_igs *igs, t_vec3d point)
-{
-	t_vec3d	u;
-	t_vec3d	w;
-	float	n;
-	float	r;
-
-	u = (t_vec3d){point.x - igs->pos.x, point.y - igs->pos.y, 0};
-	w = (t_vec3d){igs->plan.b, -igs->plan.a, 0};
-	n = 1 / sqrt((w.x * w.x) + (w.y * w.y));
-	r = 0.5 + (u.x * w.x * n + u.y * w.y * n);
-	if (r < 0 || r >= 1)
-		return (-1);
-	if (igs->ms >= 0.02)
-	{
-		igs->ms -= 0.02;
-		igs->sp->y += igs->sp->ry;
-	}
-	if (igs->sp->y >= igs->sp->ry * igs->sp->frame)
-		igs->sp->y = 0;
-	return (extract_pixel(igs->sp->img, r * igs->sp->img.width, \
-		(1 - point.z - (int) point.z) * igs->sp->ry + igs->sp->y));
-}
 
 static int	get_color_wall(t_tmp *data, t_img wall, float pos, int n)
 {
@@ -62,7 +35,7 @@ int	get_color_floor(t_tmp *data, t_img floor)
 	float	t;
 	int		offset;
 
-	t = -data->link->pos->z / (data->rays.z);	// 0.5CHG
+	t = -data->link->pos->z / (data->rays.z);
 	data->close_t = t;
 	res_x = data->link->pos->x + (data->rays.x * t);
 	res_y = data->link->pos->y + (data->rays.y * t);
@@ -73,7 +46,7 @@ int	get_color_floor(t_tmp *data, t_img floor)
 	return (*(int *)(floor.addr + offset));
 }
 
-int	get_color_ceiling(t_tmp *data , t_img ceiling)
+int	get_color_ceiling(t_tmp *data, t_img ceiling)
 {
 	int		x;
 	int		y;
@@ -81,7 +54,7 @@ int	get_color_ceiling(t_tmp *data , t_img ceiling)
 	float	res_y;
 	float	t;
 
-	data->close_t = data->link->pos->z / data->rays.z;	// 0.5CHG
+	data->close_t = data->link->pos->z / data->rays.z;
 	t = (1 - data->link->pos->z) / data->rays.z;
 	res_x = data->link->pos->x + (data->rays.x * t);
 	res_y = data->link->pos->y + (data->rays.y * t);
@@ -92,28 +65,11 @@ int	get_color_ceiling(t_tmp *data , t_img ceiling)
 		x * (ceiling.bpp >> 3)));
 }
 
-int	get_color_door(t_door *door, t_vec3d point)
-{
-	t_vec3d	u;
-	t_vec3d	w;
-	float	n;
-	float	r;
-
-	u = (t_vec3d){point.x - door->pos.x, point.y - door->pos.y, 0};
-	w = (t_vec3d){door->plan.b, -door->plan.a, 0};
-	n = 1 / sqrt((w.x * w.x) + (w.y * w.y));
-	r = 0.5 + (u.x * w.x * n + u.y * w.y * n);
-	if (r < 0 || r >= 1)
-		return (-1);
-	return (extract_pixel(*door->img, r * door->img->width, \
-		(1 - point.z - (int) point.z) * door->img->width));
-}
-
 int	get_color(t_tmp *data, t_map *map, t_vec3d *pos)
 {
 	data->point.x = data->rays.x * data->close_t;
 	data->point.y = data->rays.y * data->close_t;
-	data->point.z = pos->z + data->rays.z * data->close_t;	// 0.5CHG
+	data->point.z = pos->z + data->rays.z * data->close_t;
 	if (data->plan.x == 0 && (pos->y + data->point.y) < data-> \
 		link->pos->y && (data->plan.d - 1) < map->y_size && \
 		(data->plan.d - 1) >= 0 && map->layout[data->plan.d - 1] \

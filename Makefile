@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/09/04 18:33:10 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/09/04 23:52:54 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,13 @@ LST_SRCS_PARSE	=	parser_bonus.c extract_texture_bonus.c extract_map_bonus.c pars
 SRCS_PARSE		=	${addprefix ${DIR_SRCS_PARSE}, ${LST_SRCS_PARSE}}
 
 DIR_SRCS_ALGO	=	algo/
-LST_SRCS_ALGO	=	algo_switch_plan_bonus.c algo_utils_bonus.c thread_bonus.c job_bonus.c 
+LST_SRCS_ALGO	=	algo_switch_plan_bonus.c algo_utils_bonus.c thread_bonus.c job_bonus.c job_utils_bonus.c 
 SRCS_ALGO		=	${addprefix ${DIR_SRCS_ALGO}, ${LST_SRCS_ALGO}}
 
 DIR_SRCS_DISP	=	display/
 LST_SRCS_DISP	=	color_bonus.c display_bonus.c display_utils_bonus.c draw_bonus.c blur_bonus.c image_bonus.c \
-					animation_bonus.c settings_bonus.c menu_bonus.c update_igs_bonus.c doors_bonus.c image_resize_bonus.c
+					animation_bonus.c settings_bonus.c menu_bonus.c update_igs_bonus.c doors_bonus.c image_resize_bonus.c \
+					color_sprite_bonus.c
 SRCS_DISP		=	${addprefix ${DIR_SRCS_DISP}, ${LST_SRCS_DISP}}
 
 DIR_SRCS_INIT	=	init/

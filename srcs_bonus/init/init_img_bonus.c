@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 19:04:33 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:03:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,41 +78,22 @@ int	resize_all_sprite(t_game *game)
 {
 	int	err;
 
-	err = 0;
-	resize_image(game, &game->sprite[0].img, 7);
-	resize_image(game, &game->sprite[1].img, 7);
-	resize_image(game, &game->sprite[2].img, 7);
-	resize_image(game, &game->sprite[3].img, 7);
-	resize_image(game, &game->sprite[4].img, 7);
-	resize_image(game, &game->sprite[5].img, 7);
-	resize_image(game, &game->sprite[6].img, 4);
-	resize_image(game, &game->sprite[7].img, 8);
-	resize_image(game, &game->sprite[8].img, 8);
-	resize_image(game, &game->sprite[9].img, 8);
-	resize_image(game, &game->sprite[11].img, 3);
-	resize_image(game, &game->sprite[12].img, 3);
-	resize_image(game, &game->sprite[13].img, 3);
-	resize_image(game, &game->sprite[14].img, 3);
-	resize_image(game, &game->sprite[15].img, 3);
-	resize_image(game, &game->sprite[16].img, 3);
-	
-
-	// game->sprite[0].img = resize_image(game, &game->sprite[0].img, 7);
-	// game->sprite[1].img = resize_image(game, &game->sprite[1].img, 7);
-	// game->sprite[2].img = resize_image(game, &game->sprite[2].img, 7);
-	// game->sprite[3].img = resize_image(game, &game->sprite[3].img, 7);
-	// game->sprite[4].img = resize_image(game, &game->sprite[4].img, 7);
-	// game->sprite[5].img = resize_image(game, &game->sprite[5].img, 7);
-	// game->sprite[6].img = resize_image(game, &game->sprite[6].img, 4);
-	// game->sprite[7].img = resize_image(game, &game->sprite[7].img, 8);
-	// game->sprite[8].img = resize_image(game, &game->sprite[8].img, 8);
-	// game->sprite[9].img = resize_image(game, &game->sprite[9].img, 8);
-	// game->sprite[11].img = resize_image(game, &game->sprite[11].img, 3);
-	// game->sprite[12].img = resize_image(game, &game->sprite[12].img, 3);
-	// game->sprite[13].img = resize_image(game, &game->sprite[13].img, 3);
-	// game->sprite[14].img = resize_image(game, &game->sprite[14].img, 3);
-	// game->sprite[15].img = resize_image(game, &game->sprite[15].img, 3);
-	// game->sprite[16].img = resize_image(game, &game->sprite[16].img, 3);
+	err = resize_image(game, &game->sprite[0].img, 7);
+	err += resize_image(game, &game->sprite[1].img, 7);
+	err += resize_image(game, &game->sprite[2].img, 7);
+	err += resize_image(game, &game->sprite[3].img, 7);
+	err += resize_image(game, &game->sprite[4].img, 7);
+	err += resize_image(game, &game->sprite[5].img, 7);
+	err += resize_image(game, &game->sprite[6].img, 4);
+	err += resize_image(game, &game->sprite[7].img, 8);
+	err += resize_image(game, &game->sprite[8].img, 8);
+	err += resize_image(game, &game->sprite[9].img, 8);
+	err += resize_image(game, &game->sprite[11].img, 3);
+	err += resize_image(game, &game->sprite[12].img, 3);
+	err += resize_image(game, &game->sprite[13].img, 3);
+	err += resize_image(game, &game->sprite[14].img, 3);
+	err += resize_image(game, &game->sprite[15].img, 3);
+	err += resize_image(game, &game->sprite[16].img, 3);
 	return (err);
 }
 
@@ -139,7 +120,6 @@ int	load_all_sprite(t_game *game)
 	err += load_img(&game->mlx, &game->sprite[16].img, "img/cat/sleep.xpm");
 	err += load_img(&game->mlx, &game->sprite[17].img, "img/fence.xpm");
 	err += load_img(&game->mlx, &game->sprite[18].img, "img/text.xpm");
-
 	return (err);
 }
 

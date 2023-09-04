@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image2_bonus.c                                     :+:      :+:    :+:   */
+/*   image_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/04 18:32:38 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:01:22 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,30 @@ void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y)
 	}
 }
 
-void	ft_draw_img_vel(t_img *img_dst, t_img tex, float x, float y)
+void	ft_draw_img_vel(t_img *img, t_img tex, float x, float y)
 {
 	char	*dst;
 	char	*src;
-	int		i;
-	int		j;
+	t_vec2d	i;
+	t_vec2d	j;
 
-	i = 0;
-	while (i < tex.height)
+	i.x = 0;
+	while (i.x < tex.height)
 	{
-		j = 0;
-		while (j < tex.width)
+		i.y = 0;
+		while (i.y < tex.width)
 		{
-			int destX = (int)(x + j);
-			int destY = (int)(y + i);
-
-			if (destX < WIDTH && destX >= 0 && destY < HEIGHT && destY >= 0)
+			j.x = (int)(x + i.y);
+			j.y = (int)(y + i.x);
+			if (j.x < WIDTH && j.x >= 0 && j.y < HEIGHT && j.y >= 0)
 			{
-				dst = (img_dst->addr + (destY * img_dst->ll + destX * (img_dst->bpp >> 3)));
-				src = (tex.addr + (i * tex.ll + j * (tex.bpp >> 3)));
+				dst = (img->addr + (j.y * img->ll + j.x * (img->bpp >> 3)));
+				src = (tex.addr + (i.x * tex.ll + i.y * (tex.bpp >> 3)));
 				if (*(unsigned int *)src != 0xff000000)
 					*(unsigned int *)dst = *(unsigned int *)src;
 			}
-			++j;
+			++i.y;
 		}
-		++i;
+		++i.x;
 	}
 }

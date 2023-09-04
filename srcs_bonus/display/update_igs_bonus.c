@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 17:45:57 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 14:47:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:38:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,11 @@ void	update_igs_plane(t_igs *igs, t_vec3d player)
 		if (i == 0)
 			tmp[s] = igs[i];
 		else if (igs[i].t < tmp[s].t)
-		{
-			--s;
-			tmp[s] = igs[i];
-		}
+			tmp[--s] = igs[i];
 		else
 			tmp[s + i] = igs[i];
 	}
 	i = -1;
 	while (++i < N_IGS)
 		igs[i] = tmp[i + s];
-	// dprintf(2, "START\n");
-	// debug_print_igs(igs);
-	// dprintf(2, "END\n");
 }
