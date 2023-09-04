@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 14:53:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:04:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,6 @@ static void	ft_resolution(t_tmp *data, int i, int j, int color)
 		}
 		++i;
 	}
-}
-
-void	ft_blur_pause(t_game *game)
-{
-	int		i;
-
-	i = 0;
-	pthread_mutex_lock(&game->m_queue);
-	while (i < N_CHUNK)
-	{
-		if (add_job(game, &game->view, &game->area[i], blur_image))
-			return ;
-		++i;
-	}
-	pthread_mutex_unlock(&game->m_queue);
-	wait_job(game);
-}
-
-void	ft_change_cursor(t_game *game, int x, int y)
-{
-	mlx_mouse_hide(game->mlx.ptr, game->mlx.win);
-	ft_draw_img(&game->view, game->anim[1][1], x, y);
 }
 
 void	ft_display_players(t_game *game)
@@ -104,20 +82,6 @@ void	display_map(void *ptr, void *area)
 		}
 		idx_draw.x += *(int *) area;
 	}
-}
-
-static int	is_in_minimap(t_link *link, int i, int *j)
-{
-	int	max;
-
-	max = link->map->x_size * *link->mm_size + 10;
-	if (i > 10 && i < link->map->y_size * *link->mm_size + 10 
-		&& *j > 10 && *j < max)
-	{
-		*j = max;
-		return (1);
-	}
-	return (0);
 }
 
 void	display_game(void *ptr, void *area)
@@ -173,72 +137,4 @@ void	ft_display_settings(t_game *game)
 	else if (*game->link.light >= 1.4)
 		ft_draw_img(&game->view, game->anim[0][18], 150, 230);
 	ft_settings_mouse(game, x, y);
-}
-
-void	ft_transition(t_game *game)
-{
-	static float	x = 0;
-
-	if (game->ms >= 0.001 && x >= -WIDTH)
-		x -= 40;
-	// x = x - (game->ms * game->ms) * WIDTH;
-	ft_draw_img_vel(&game->view, game->anim[0][13], x, 0);
-}
-
-void	ft_jump(t_game *game)
-{
-	if (game->jump == 1)
-	{
-		if (game->pos.z < 0.8)
-			game->pos.z += (sqrt(2 * G * 0.2)) / 80 ;
-		else
-			game->jump = 2;
-	}
-	if (game->jump == 2)
-	{
-		if (game->pos.z > 0.5)
-			game->pos.z -= (sqrt(2 * G * 0.2)) / 70;
-		else
-			game->jump = 0;
-	}
-}
-
-int	update_game(t_game *game)
-{
-	if (game->pause == 7)
-		ft_display_launch_game(game);
-	if (game->pause == 6)
-		ft_display_settings(game);
-	if (game->pause == 5)
-		ft_display_select_menu(game);
-	if (game->pause == 4)
-		ft_display_fly_menu(game);
-	if (game->pause == 3)
-		ft_display_settings_menu(game);
-	if (game->pause == 2)
-		ft_display_menu(game);
-	if (game->pause == 1)
-		ft_select_settings(game);
-	if (game->pause == 0)
-	{
-		view_update_pos(game);
-		view_update_dir_key(game);
-		update_igs_plane(game->igs, game->pos);
-		update_doors_dist(game->doors, &game->pos, game->n_doors);
-		update_door(game);
-		send_frame_job(game);
-		wait_job(game);
-		animation_fire(game);
-		ft_transition(game);
-		ft_jump(game);
-		if (is_near_door(game, game->doors, &game->pos) != -1)
-			ft_animation_v(game, &game->sprite[18], (t_vec2d){670, 970}, 0.02);
-	}
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, \
-		game->view.id, 0, 0);
-	update_igs_time(game->igs);
-	if (game->pause != 6 && game->pause != 3)
-		game->ms += 0.0015;
-	ft_printf_fps(DEBUG);
-	return (0);
 }

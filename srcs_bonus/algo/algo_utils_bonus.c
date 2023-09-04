@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/04 14:44:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:44:14 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int wit)
 	return (0);
 }
 
-int	interdoor(t_tmp *data, t_door *door, t_vec3d pos, int wit)
+int	interdoor(t_tmp *data, t_door *door, t_vec3d pos)
 {
 	t_vec3d	point;
 	int		tmp_color;
@@ -55,7 +55,7 @@ int	interdoor(t_tmp *data, t_door *door, t_vec3d pos, int wit)
 		return (1);
 	point.x = pos.x + data->rays.x * t;
 	point.y = pos.y + data->rays.y * t;
-	point.z = pos.z + data->rays.z * t + door->pos.z;	// 0.5CHG
+	point.z = pos.z + data->rays.z * t + door->pos.z;
 	if (point.z >= 1 || point.z <= 0 + door->pos.z)
 		return (1);
 	tmp_color = get_color_door(door, point);

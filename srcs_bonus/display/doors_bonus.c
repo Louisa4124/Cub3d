@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:46:45 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 15:51:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:22:01 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,17 @@ void	update_door(t_game *game)
 		}
 		++i;
 	}
+}
+
+void	update_door_status(t_game *game)
+{
+	int	i;
+
+	i = is_near_door(game, game->doors, &game->pos);
+	if (i == -1)
+		return ;
+	if (game->doors[i].t < 0.9)
+		return ;
+	game->doors[i].status = -1;
+	game->doors[i].count = 45;
 }

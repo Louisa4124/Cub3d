@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/09 18:02:19 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:40:00 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void	ft_mlx_pixel_put2(t_img *img, int x, int y, int color)
-{
-	((int *)img->addr)[y * (img->ll >> 2) + x] = color;
-}
-
 int	extract_pixel(t_img img, int x, int y)
 {
 	int	offset;
@@ -35,9 +30,19 @@ int	extract_pixel(t_img img, int x, int y)
 	return (*(int *)(img.addr + offset));
 }
 
-int	extract_pixel2(t_img img, int x, int y)
+char	*ft_imgcpy(char *data, int size)
 {
-	return (((int *)img.addr)[y * (img.ll >> 2) + x]);
+	char	*dup;
+	int		i;
+
+	i = 0;
+	dup = malloc(sizeof(char) * size + 1);
+	while (i < size)
+	{
+		dup[i] = data[i];
+		i++;
+	}
+	return (dup);
 }
 
 void	draw_circle(t_img *img, t_vec2d center, int rayon, int color)

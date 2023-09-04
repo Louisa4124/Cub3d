@@ -6,88 +6,15 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 15:28:46 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:46:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-char	*ft_imgcpy(char *data, int size)
+int	close_event(t_game *game)
 {
-	char	*dup;
-	int		i;
-
-	i = 0;
-	dup = malloc(sizeof(char) * size + 1);
-	while (i < size)
-	{
-		dup[i] = data[i];
-		i++;
-	}
-	return (dup);
-}
-
-void	pause_in(t_game *game)
-{
-	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
-	ft_blur_pause(game);
-	game->blur = game->view;
-	game->blur.addr = ft_imgcpy(game->view.addr, \
-		game->view.height * game->view.width * 4);
-	game->pause = 6;
-}
-
-void	pause_off(t_game *game)
-{
-	mlx_mouse_hide(game->mlx.ptr, game->mlx.win);
-	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
-		game->mlx.win_height >> 1);
-	game->pause = 0;
-}
-
-void	update_door_status(t_game *game)
-{
-	int	i;
-
-	i = is_near_door(game, game->doors, &game->pos);
-	if (i == -1)
-		return ;
-	if (game->doors[i].t < 1)
-		return ;
-	game->doors[i].status = -1;
-	game->doors[i].count = 45;
-}
-
-int	event_press(int keycode, t_game *game)
-{
-	if (keycode == 53 || keycode == KEY_ESCAPE)
-		close_event(game);
-	else if (keycode == KEY_W)
-		game->bit_key |= BFLAG_W;
-	else if (keycode == KEY_UP)
-		game->bit_key |= BFLAG_UP;
-	else if (keycode == KEY_S)
-		game->bit_key |= BFLAG_S;
-	else if (keycode == KEY_DOWN)
-		game->bit_key |= BFLAG_DOWN;
-	else if (keycode == KEY_A)
-		game->bit_key |= BFLAG_A;
-	else if (keycode == KEY_D)
-		game->bit_key |= BFLAG_D;
-	else if (keycode == KEY_RIGHT)
-		game->bit_key |= BFLAG_RIGHT;
-	else if (keycode == KEY_LEFT)
-		game->bit_key |= BFLAG_LEFT;
-	else if (keycode == KEY_SPACE)
-		game->jump = 1;
-	else if (keycode == KEY_P && game->pause == 0)
-		pause_in(game);
-	else if (keycode == KEY_P && game->pause == 6)
-		pause_off(game);
-	else if (keycode == KEY_ENTER && game->pause == 2)
-		game->pause = 4;
-	else if (keycode == KEY_E)
-		update_door_status(game);
+	ft_clean_exit(game, EXIT_SUCCESS);
 	return (0);
 }
 
@@ -101,9 +28,9 @@ int	event_pause(int button, int x, int y, t_game *game)
 	if (game->pause == 1 || game->pause == 6)
 	{
 		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)) && game->pause == 1)
-			return(game->pause = 5, 0);
+			return (game->pause = 5, 0);
 		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)) && game->pause == 6)
-			return(game->pause = 0, 0);
+			return (game->pause = 0, 0);
 		event_settings(x, y, game);
 	}
 	return (0);
@@ -175,29 +102,4 @@ int	event_menu(int x, int y, t_game *game)
 	return (0);
 }
 
-int	event_unpress(int keycode, t_game *game)
-{
-	if (keycode == KEY_W)
-		game->bit_key ^= BFLAG_W;
-	else if (keycode == KEY_UP)
-		game->bit_key ^= BFLAG_UP;
-	else if (keycode == KEY_S)
-		game->bit_key ^= BFLAG_S;
-	else if (keycode == KEY_DOWN)
-		game->bit_key ^= BFLAG_DOWN;
-	else if (keycode == KEY_A)
-		game->bit_key ^= BFLAG_A;
-	else if (keycode == KEY_D)
-		game->bit_key ^= BFLAG_D;
-	else if (keycode == KEY_RIGHT)
-		game->bit_key ^= BFLAG_RIGHT;
-	else if (keycode == KEY_LEFT)
-		game->bit_key ^= BFLAG_LEFT;
-	return (0);
-}
 
-int	close_event(t_game *game)
-{
-	ft_clean_exit(game, EXIT_SUCCESS);
-	return (0);
-}

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/04 14:59:17 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:24:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,14 @@ int		parser_doors(t_game *game);
 /*			Algo 				*/
 int		switch_plan_algo(t_tmp *data);
 int		intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2]);
-int		interdoor(t_tmp *data, t_door *door, t_vec3d pos, int wit);
+int		interdoor(t_tmp *data, t_door *door, t_vec3d pos);
 int		intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int wit);
-
 
 /*			Color				*/
 int		get_color(t_tmp *data, t_map *map, t_vec3d *pos);
 int		get_color_floor(t_tmp *data, t_img floor);
 int		get_color_sprite(t_igs *igs, t_vec3d point);
-int		get_color_ceiling(t_tmp *data , t_img ceiling);
+int		get_color_ceiling(t_tmp *data, t_img ceiling);
 int		get_color_door(t_door *door, t_vec3d point);
 int		rgb_to_hexa(int r, int g, int b);
 int		darken_color(int color, float d_ratio, float intensity);
@@ -122,6 +121,7 @@ void	view_update_pos(t_game *game);
 void	view_update_dir_mouse(t_game *game);
 void	view_update_dir_key(t_game *game);
 void	view_move(t_game *game);
+void	update_door_status(t_game *game);
 
 /*			Display				*/
 int		update_game(t_game *game);
@@ -194,14 +194,14 @@ void	ft_draw_img_vel(t_img *img_dst, t_img tex, float x, float y);
 int		load_menu(t_game *game, int i, int j, char *path);
 
 void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
-t_img	resize_image(t_game *game, t_img *src, int ratio);
+int		resize_image(t_game *game, t_img *src, int ratio);
 int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, \
 	float speed);
 void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
 void	animation_fire(t_game *game);
 int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, float speed);
 void	ft_animation_cat(t_game *game, float speed);
-void	ft_settings_mouse(t_game * game, int x, int y);
+void	ft_settings_mouse(t_game *game, int x, int y);
 void	ft_select_settings(t_game *game);
 void	ft_display_settings_menu(t_game *game);
 void	ft_change_cursor(t_game *game, int x, int y);
@@ -212,13 +212,15 @@ void	ft_display_select_player(t_game *game, int x, int y);
 void	ft_display_players(t_game *game);
 void	ft_display_fly_menu(t_game *game);
 void	ft_display_launch_game(t_game *game);
+void	ft_display_settings(t_game *game);
+
+char	*ft_imgcpy(char *data, int size);
+int		ft_in_wall(t_map *map, int x, int y);
+void	ft_jump(t_game *game);
 
 
 
-
-
-
-
+int		is_in_minimap(t_link *link, int i, int *j);
 
 
 

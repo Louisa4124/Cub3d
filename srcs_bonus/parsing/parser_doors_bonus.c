@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:54:51 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 14:31:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:35:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	parser_doors(t_game *game)
 	int	i;
 	int	j;
 	int	n;
+
 	game->n_doors = get_n_doors(&game->map);
 	if (game->n_doors == 0)
 		return (0);

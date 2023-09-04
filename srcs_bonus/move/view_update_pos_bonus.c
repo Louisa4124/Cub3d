@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   view_update_pos_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:44 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/17 19:58:22 by louisa           ###   ########.fr       */
+/*   Updated: 2023/09/04 17:56:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
-
-int	ft_in_wall(t_map *map, int x, int y)
-{
-	if (x > map->x_size || y > map->y_size)
-		return (0);
-	if (x < 0 || y < 0)
-		return (0);
-	if (map->layout[y][x] == 1 || map->layout[y][x] == 2)
-		return (1);
-	return (0);
-}
 
 int	ft_hit_wall(t_game *game, float x, float y)
 {

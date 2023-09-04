@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:43:27 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/16 16:39:31 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:01:42 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_display_menu(t_game *game)
 	ft_draw_img(&game->view, game->anim[0][1], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][2], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][3], 0, 0);
-	ft_animation_v(game, &game->sprite[10], (t_vec2d) {670, 970}, 0.02);
+	ft_animation_v(game, &game->sprite[10], (t_vec2d){670, 970}, 0.02);
 	if (game->ms >= 0.02)
 		game->ms -= 0.02;
 }
@@ -32,11 +32,11 @@ void	ft_display_select_menu(t_game *game)
 	ft_draw_img(&game->view, game->anim[0][4], 0, 0);
 	ft_display_select_player(game, x, y);
 	if (game->player == 1)
-		ft_animation_v(game, &game->sprite[3], (t_vec2d) {1230, 370}, 0.08);
+		ft_animation_v(game, &game->sprite[3], (t_vec2d){1230, 370}, 0.08);
 	else if (game->player == 2)
-		ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
+		ft_animation_v(game, &game->sprite[4], (t_vec2d){1280, 530}, 0.08);
 	else if (game->player == 3)
-		ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
+		ft_animation_v(game, &game->sprite[5], (t_vec2d){1280, 470}, 0.08);
 	ft_animation_cat(game, 0.05);
 	if (game->ms >= 0.08)
 		game->ms -= 0.08;
@@ -70,8 +70,8 @@ void	ft_display_select_player(t_game *game, int x, int y)
 
 void	ft_display_fly_menu(t_game *game)
 {
-	static float y = 0;
-	static float x = 0;
+	static float	y;
+	static float	x;
 
 	if (game->ms >= 0.0001 && y >= -1800)
 	{
@@ -95,11 +95,11 @@ void	ft_display_launch_game(t_game *game)
 	if (x > 0)
 	{
 		if (game->player == 1)
-			ft_animation_v(game, &game->sprite[3], (t_vec2d) {1230, 370}, 0.8);
+			ft_animation_v(game, &game->sprite[3], (t_vec2d){1230, 370}, 0.8);
 		else if (game->player == 2)
-			ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.8);
+			ft_animation_v(game, &game->sprite[4], (t_vec2d){1280, 530}, 0.8);
 		else if (game->player == 3)
-			ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.8);
+			ft_animation_v(game, &game->sprite[5], (t_vec2d){1280, 470}, 0.8);
 		ft_animation_cat(game, 1);
 	}
 	if (game->ms >= 0.001 && x >= -WIDTH)

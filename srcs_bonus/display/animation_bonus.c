@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 12:59:18 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/16 16:37:38 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:50:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, float speed)
 		sprite->y = 0;
 		++count;
 	}
-	draw_on(&game->view, (t_vec2d) {pos.x,pos.y}, sprite->img, \
-		(t_area) {sprite->x,sprite->x + rx,sprite->y,sprite->y + ry});
+	draw_on(&game->view, (t_vec2d){pos.x, pos.y}, sprite->img, \
+		(t_area){sprite->x, sprite->x + rx, sprite->y, sprite->y + ry});
 	return (count);
 }
 
@@ -96,19 +96,24 @@ void	ft_animation_cat(t_game *game, float speed)
 	static int	count = 0;
 
 	if (count < 1)
-		count += ft_animation_h(game, &game->sprite[11], (t_vec2d) {x, 985}, 0.08);
+		count += ft_animation_h(game, &game->sprite[11], \
+			(t_vec2d){x, 985}, 0.08);
 	else if (count < 4)
 	{
 		if (game->ms >= speed && game->pause == 5)
 			++x;
-		count += ft_animation_h(game, &game->sprite[15], (t_vec2d) {x, 985}, 0.08);
+		count += ft_animation_h(game, &game->sprite[15], \
+			(t_vec2d){x, 985}, 0.08);
 	}
 	else if (count < 5)
-		count += ft_animation_h(game, &game->sprite[11], (t_vec2d) {x, 985}, 0.08);
+		count += ft_animation_h(game, &game->sprite[11], \
+			(t_vec2d){x, 985}, 0.08);
 	else if (count < 6)
-		count += ft_animation_h(game, &game->sprite[14], (t_vec2d) {x, 985}, 0.08);
+		count += ft_animation_h(game, &game->sprite[14], \
+			(t_vec2d){x, 985}, 0.08);
 	else if (count < 7)
-		count += ft_animation_h(game, &game->sprite[12], (t_vec2d) {x, 985}, 0.08);
+		count += ft_animation_h(game, &game->sprite[12], \
+			(t_vec2d){x, 985}, 0.08);
 	else
 		ft_draw_img(&game->view, game->sprite[16].img, x, 985);
 }

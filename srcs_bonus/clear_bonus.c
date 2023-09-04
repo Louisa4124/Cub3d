@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 16:17:49 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:02:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,27 @@ void	s_destroy_sprite_tab(t_mlx *mlx, t_sprite *sprite, int n)
 	}
 }
 
+void	s_destroy_img_tab(t_mlx *mlx, t_img tab[5][23])
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < 5)
+	{
+		j = -1;
+		while (++j < 23)
+		{
+			if (tab[i][j].id)
+			{
+				mlx_destroy_image(mlx->ptr, tab[i][j].id);
+				tab[i][j].id = NULL;
+				tab[i][j].addr = NULL;
+			}
+		}
+	}
+}
+
 void	ft_clean_exit(t_game *game, int exit_code)
 {
 	int	i;
@@ -85,6 +106,9 @@ void	ft_clean_exit(t_game *game, int exit_code)
 	clear_job(game->queue);
 	s_destroy_texture(&game->mlx, &game->texture);
 	s_destroy_sprite_tab(&game->mlx, game->sprite, N_SPRITE);
+	s_destroy_img_tab(&game->mlx, game->anim);
+	s_img_destroy(&game->mlx, &game->view);
+	s_img_destroy(&game->mlx, &game->blur);
 	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 	s_mlx_destroy(&game->mlx);
 	ft_free2d((void **) game->map.layout, game->map.y_size);

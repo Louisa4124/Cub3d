@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   settings_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:40:03 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/16 16:37:54 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:10:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-void	ft_settings_mouse(t_game * game, int x, int y)
+void	ft_settings_mouse(t_game *game, int x, int y)
 {
 	if ((x > 1170 && x < 1200) && (y > 500 && y < 520))
 		ft_change_cursor(game, x, y);
@@ -61,19 +61,25 @@ void	ft_select_settings(t_game *game)
 	ft_settings_mouse(game, x, y);
 }
 
+static int	set_pause_settings(t_game *game)
+{
+	game->pause = 1;
+	return (WIDTH);
+}
+
 void	ft_display_settings_menu(t_game *game)
 {
-	static int x = WIDTH;
+	static int	x = WIDTH;
 
 	ft_draw_img(&game->view, game->anim[0][4], 0, 0);
 	if (x > 0)
 	{
 		if (game->player == 1)
-			ft_animation_v(game, &game->sprite[3], (t_vec2d) {1230, 370}, 0.08);
+			ft_animation_v(game, &game->sprite[3], (t_vec2d){1230, 370}, 0.08);
 		else if (game->player == 2)
-			ft_animation_v(game, &game->sprite[4], (t_vec2d) {1280, 530}, 0.08);
+			ft_animation_v(game, &game->sprite[4], (t_vec2d){1280, 530}, 0.08);
 		else if (game->player == 3)
-			ft_animation_v(game, &game->sprite[5], (t_vec2d) {1280, 470}, 0.08);
+			ft_animation_v(game, &game->sprite[5], (t_vec2d){1280, 470}, 0.08);
 		ft_animation_cat(game, 0.05);
 	}
 	if (game->ms >= 0.001 && x >= -WIDTH)
@@ -85,9 +91,6 @@ void	ft_display_settings_menu(t_game *game)
 	}
 	ft_draw_img(&game->view, game->anim[0][13], x, 0);
 	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
-	if (x <= - WIDTH)
-	{
-		game->pause = 1;
-		x = WIDTH;
-	}
+	if (x <= -WIDTH)
+		x = set_pause_settings(game);
 }
