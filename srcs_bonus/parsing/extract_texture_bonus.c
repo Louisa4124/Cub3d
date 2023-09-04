@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 22:28:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:21:44 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ static int	extract_color(int *color, char *line)
 			rgb[i] = ft_atoi(line) & 255;
 		else
 			break ;
-		if (rgb[i] < 0)
-			break ;
 		while (*line && ft_isdigit(*line))
 			++line;
 		if (*line == ',')
 			++line;
 	}
-	if (i < 3)
+	while (*line && *line == ' ')
+		++line;
+	if (i < 3 || *line != '\n')
 		return (ft_putstr_fd("Error\nWrong rgb color\n", 2), 1);
 	*color = rgb_to_hexa(rgb[0], rgb[1], rgb[2]);
 	return (0);
