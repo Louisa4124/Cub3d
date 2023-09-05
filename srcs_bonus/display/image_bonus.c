@@ -6,93 +6,83 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/05 00:01:22 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:27:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area)
+static void	set_pixel(t_vec2d i, t_vec2d j, t_img src, t_img *img)
 {
-	char	*dst;
-	char	*src;
-	int		i;
-	int		j;
+	int		pixel;
+	int		*dst;
+
+	pixel = *(int *)(src.addr + (i.y * src.ll + i.x * (src.bpp >> 3)));
+	if (!(pixel >> 24))
+	{
+		dst = (int *)(img->addr + (j.y * img->ll + j.x * (img->bpp >> 3)));
+		*dst = pixel;
+	}
+}
+
+void	draw_on(t_img *dst, t_vec2d pos, t_img src, t_area area)
+{
+	t_vec2d	idx;
+	t_vec2d	i_dst;
 
 	pos.x -= area.start_x;
 	pos.y -= area.start_y;
-	i = area.start_y - 1;
-	while (++i < area.end_y && i < img_src.height)
+	idx.y = area.start_y - 1;
+	while (++idx.y < area.end_y && idx.y < src.height)
 	{
-		j = area.start_x - 1;
-		while (++j < area.end_x && j < img_src.width)
+		idx.x = area.start_x - 1;
+		while (++idx.x < area.end_x && idx.x < src.width)
 		{
-			if ((pos.x + j) < WIDTH && (pos.x + j) >= 0 
-				&& (pos.y + i) < HEIGHT && (pos.y + i) >= 0)
-			{
-				dst = (img_dst->addr + ((pos.y + i) * img_dst->ll + (pos.x + j) \
-					*(img_dst->bpp >> 3)));
-				src = (img_src.addr + (i * img_src.ll + j *(img_src.bpp >> 3)));
-				if (*(unsigned int *)src != 0xff000000)
-					*(unsigned int *)dst = *(unsigned int *)src;
-			}
+			i_dst = (t_vec2d){pos.x + idx.x, pos.y + idx.y};
+			if (i_dst.x < WIDTH && i_dst.x >= 0 
+				&& i_dst.y < HEIGHT && i_dst.y >= 0)
+				set_pixel(idx, i_dst, src, dst);
 		}
 	}
 }
 
-void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y)
+void	ft_draw_img(t_img *dst, t_img src, int x, int y)
 {
-	char	*dst;
-	char	*src;
-	int		i;
-	int		j;
+	t_vec2d	idx;
+	t_vec2d	i_dst;
 
-	i = 0;
-	while (i < tex.height)
+	idx.y = 0;
+	while (idx.y < src.height)
 	{
-		j = 0;
-		while (j < tex.width)
+		idx.x = 0;
+		while (idx.x < src.width)
 		{
-			if ((x + j) < WIDTH && (x + j) >= 0 && (y + i) < HEIGHT 
-				&& (y + i) >= 0)
-			{
-				dst = (img_dst->addr + ((y + i) * img_dst->ll + (x + j)
-							*(img_dst->bpp >> 3)));
-				src = (tex.addr + (i * tex.ll + j
-							*(tex.bpp >> 3)));
-				if (*(unsigned int *)src != 0xff000000)
-					*(unsigned int *)dst = *(unsigned int *)src;
-			}
-			++j;
+			i_dst = (t_vec2d){x + idx.x, y + idx.y};
+			if (i_dst.x < WIDTH && i_dst.x >= 0 && i_dst.y < HEIGHT 
+				&& i_dst.y >= 0)
+				set_pixel(idx, i_dst, src, dst);
+			++idx.x;
 		}
-		++i;
+		++idx.y;
 	}
 }
 
-void	ft_draw_img_vel(t_img *img, t_img tex, float x, float y)
+void	ft_draw_img_vel(t_img *img, t_img src, float x, float y)
 {
-	char	*dst;
-	char	*src;
 	t_vec2d	i;
 	t_vec2d	j;
 
-	i.x = 0;
-	while (i.x < tex.height)
+	i.y = 0;
+	while (i.y < src.height)
 	{
-		i.y = 0;
-		while (i.y < tex.width)
+		i.x = 0;
+		while (i.x < src.width)
 		{
-			j.x = (int)(x + i.y);
-			j.y = (int)(y + i.x);
+			j = (t_vec2d){(int)(x + i.x), (int)(y + i.y)};
 			if (j.x < WIDTH && j.x >= 0 && j.y < HEIGHT && j.y >= 0)
-			{
-				dst = (img->addr + (j.y * img->ll + j.x * (img->bpp >> 3)));
-				src = (tex.addr + (i.x * tex.ll + i.y * (tex.bpp >> 3)));
-				if (*(unsigned int *)src != 0xff000000)
-					*(unsigned int *)dst = *(unsigned int *)src;
-			}
-			++i.y;
+				set_pixel(i, j, src, img);
+			++i.x;
 		}
-		++i.x;
+		++i.y;
 	}
 }

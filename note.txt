@@ -44,3 +44,8 @@ void	*mlx_new_fullscreen_window(t_xvar *xvar, int *size_x, int *size_y,
 	return (set_configs(xvar, new_win, *size_x, *size_y, title));
 }
 */
+
+			if ((pos.x + idx.x) < WIDTH && (pos.x + idx.x) >= 0 
+				&& (pos.y + idx.y) < HEIGHT && (pos.y + idx.y) >= 0)
+				set_pixel(idx, (t_vec2d){(pos.x + idx.x), (pos.y + idx.y)}, \
+					src, dst);
