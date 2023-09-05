@@ -6,26 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 23:24:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:26:53 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
-
-void	s_mlx_destroy(t_mlx *mlx)
-{
-	if (mlx == NULL)
-		return ;
-	if (mlx->win)
-		mlx_destroy_window(mlx->ptr, mlx->win);
-	if (mlx->ptr)
-	{
-		mlx_destroy_display(mlx->ptr);
-		free(mlx->ptr);
-	}
-	mlx->win = NULL;
-	mlx->ptr = NULL;
-}
 
 void	s_img_destroy(t_mlx *mlx, t_img *img)
 {
@@ -35,7 +20,7 @@ void	s_img_destroy(t_mlx *mlx, t_img *img)
 	img->addr = NULL;
 }
 
-void	s_destroy_texture(t_mlx *mlx, t_texture *texture)
+static void	s_destroy_texture(t_mlx *mlx, t_texture *texture)
 {
 	s_img_destroy(mlx, &texture->wall[0]);
 	s_img_destroy(mlx, &texture->wall[1]);
@@ -56,40 +41,20 @@ int	change_status(pthread_mutex_t *mutex, int *status, int new_status)
 	return (0);
 }
 
-void	s_destroy_sprite_tab(t_mlx *mlx, t_sprite *sprite, int n)
-{
-	int	i;
-
-	i = -1;
-	while (++i < n)
-	{
-		if (sprite[i].img.id)
-		{
-			mlx_destroy_image(mlx->ptr, sprite[i].img.id);
-			sprite[i].img.id = NULL;
-			sprite[i].img.addr = NULL;
-		}
-	}
-}
-
-void	s_destroy_img_tab(t_mlx *mlx, t_img tab[5][23])
+static void	s_destroy_all_img(t_mlx *mlx, t_sprite *sprite, t_img tab[5][23])
 {
 	int	i;
 	int	j;
 
 	i = -1;
+	while (++i < N_SPRITE)
+		s_img_destroy(mlx, &sprite[i].img);
+	i = -1;
 	while (++i < 5)
 	{
 		j = -1;
 		while (++j < 23)
-		{
-			if (tab[i][j].id)
-			{
-				mlx_destroy_image(mlx->ptr, tab[i][j].id);
-				tab[i][j].id = NULL;
-				tab[i][j].addr = NULL;
-			}
-		}
+			s_img_destroy(mlx, &tab[i][j]);
 	}
 }
 
@@ -108,8 +73,7 @@ void	ft_clean_exit(t_game *game, int exit_code)
 	sem_destroy(&game->sem_main);
 	clear_job(game->queue);
 	s_destroy_texture(&game->mlx, &game->texture);
-	s_destroy_sprite_tab(&game->mlx, game->sprite, N_SPRITE);
-	s_destroy_img_tab(&game->mlx, game->anim);
+	s_destroy_all_img(&game->mlx, game->sprite, game->anim);
 	s_img_destroy(&game->mlx, &game->view);
 	s_img_destroy(&game->mlx, &game->blur);
 	mlx_mouse_show(game->mlx.ptr, game->mlx.win);

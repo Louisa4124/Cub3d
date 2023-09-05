@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/05 00:40:26 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 11:56:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,40 @@ static int	rays_create(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
+void	init_area(t_game *game)
+{
+	int	i;
+
+	i = -1;
+	while (++i < N_CHUNK)
+	{
+		game->area[i].start_y = i * (game->mlx.win_height / N_CHUNK);
+		game->area[i].end_y = (i + 1) * (game->mlx.win_height / N_CHUNK);
+		game->area[i].start_x = 0;
+		game->area[i].end_x = game->mlx.win_width;
+	}
+	game->area[--i].end_y = game->mlx.win_height;
+}
+
+void	init_link(t_game *game)
+{
+	game->link.map = &game->map;
+	game->link.pos = &game->pos;
+	game->link.rays = game->rays;
+	game->link.plan[0] = game->plan[0];
+	game->link.plan[1] = game->plan[1];
+	game->link.angle_x = &game->angle_x;
+	game->link.angle_z = &game->angle_z;
+	game->link.view = &game->view;
+	game->link.texture = &game->texture;
+	game->link.mm_size = &game->minimap_size;
+	game->link.resolution = &game->resolution;
+	game->link.light = &game->light;
+	game->link.igs = game->igs;
+	game->link.door = game->doors;
+	game->link.n_doors = &game->n_doors;
+}
+
 int	ft_init_game(t_game *game)
 {
 	game->pause = 2;
@@ -90,35 +124,7 @@ int	ft_init_game(t_game *game)
 		return (ft_putstr_fd("Error\nSem_init failed\n", 2), EXIT_FAILURE);
 	if (pthread_mutex_init(&game->m_queue, NULL))
 		return (ft_putstr_fd("Error\nMutex_init failed\n", 2), EXIT_FAILURE);
+	init_area(game);
+	init_link(game);
 	return (EXIT_SUCCESS);
-}
-
-void	init_area_link(t_game *game)
-{
-	int	i;
-
-	i = -1;
-	while (++i < N_CHUNK)
-	{
-		game->area[i].start_y = i * (game->mlx.win_height / N_CHUNK);
-		game->area[i].end_y = (i + 1) * (game->mlx.win_height / N_CHUNK);
-		game->area[i].start_x = 0;
-		game->area[i].end_x = game->mlx.win_width;
-	}
-	game->area[--i].end_y = game->mlx.win_height;
-	game->link.map = &game->map;
-	game->link.pos = &game->pos;
-	game->link.rays = game->rays;
-	game->link.plan[0] = game->plan[0];
-	game->link.plan[1] = game->plan[1];
-	game->link.angle_x = &game->angle_x;
-	game->link.angle_z = &game->angle_z;
-	game->link.view = &game->view;
-	game->link.texture = &game->texture;
-	game->link.mm_size = &game->minimap_size;
-	game->link.resolution = &game->resolution;
-	game->link.light = &game->light;
-	game->link.igs = game->igs;
-	game->link.door = game->doors;
-	game->link.n_doors = &game->n_doors;
 }

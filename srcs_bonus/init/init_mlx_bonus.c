@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/05 00:35:57 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:18:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,17 @@ void	set_mlx_hook(t_game *game)
 	mlx_hook(game->mlx.win, 17, 0L, close_event, game);
 }
 
+void	s_mlx_destroy(t_mlx *mlx)
+{
+	if (mlx == NULL)
+		return ;
+	if (mlx->win)
+		mlx_destroy_window(mlx->ptr, mlx->win);
+	if (mlx->ptr)
+	{
+		mlx_destroy_display(mlx->ptr);
+		free(mlx->ptr);
+	}
+	mlx->win = NULL;
+	mlx->ptr = NULL;
+}

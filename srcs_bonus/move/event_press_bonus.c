@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:41:10 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/05 00:26:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:27:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	pause_off(t_game *game)
 	game->pause = 0;
 }
 
-void	event_press_action(int keycode, t_game *game)
+static void	event_press_action(int keycode, t_game *game)
 {
 	if (keycode == KEY_SPACE)
 		game->jump = 1;

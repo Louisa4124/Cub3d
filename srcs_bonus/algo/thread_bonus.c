@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:21:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/06 00:21:54 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:28:17 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	*routine(void *ptr)
 	return (NULL);
 }
 
-void	fredimation(void *ptr, void *area)
+void	thread_anim(void *ptr, void *area)
 {
 	t_sprite	*sprite;
 	t_vec2d		*pos;
@@ -78,4 +78,23 @@ void	fredimation(void *ptr, void *area)
 	draw_on(sprite->view, (t_vec2d){pos->x, pos->y}, sprite->img, \
 		(t_area){sprite->x, sprite->x + sprite->rx, sprite->y, \
 		sprite->y + sprite->ry});
+}
+
+int	launch_thread(t_game *game, t_thread_data th[N_THREAD])
+{
+	int	i;
+
+	i = 0;
+	while (i < N_THREAD)
+	{
+		if (pthread_create(&game->pid[i], NULL, routine, &th[i]))
+		{
+			ft_putstr_fd("Error\nThread creation failed\n", 2);
+			game->n_thread = i;
+			return (1);
+		}
+		++i;
+	}
+	game->n_thread = i;
+	return (0);
 }

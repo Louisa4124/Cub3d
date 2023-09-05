@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:56:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 17:58:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:25:15 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_jump(t_game *game)
 			game->jump = 0;
 	}
 }
-
 
 int	ft_in_wall(t_map *map, int x, int y)
 {

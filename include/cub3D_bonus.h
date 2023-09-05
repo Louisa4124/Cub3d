@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/05 00:40:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:30:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@
 /*			Initialisation			*/
 int		ft_init_game(t_game *game);
 int		ft_init_mlx(t_game *game);
-void	init_area_link(t_game *game);
+void	init_area(t_game *game);
+void	init_link(t_game *game);
 void	init_thread_data( t_game *game, t_thread_data data[N_THREAD]);
 int		new_image(t_mlx *mlx, t_img *new_img, int width, int height);
 int		load_img(t_mlx *mlx, t_img *img, char *path);
@@ -168,11 +169,12 @@ int		add_job( t_game *game, void *data, void *area, \
 void	clear_job(t_job **job);
 int		wait_job(t_game *game);
 int		send_frame_job(t_game *game);
+int		launch_thread(t_game *game, t_thread_data th[N_THREAD]);
 
 /*			Utils				*/
 int		ft_randuint(int min, int max, int *n);
 int		is_near(t_vec3d p1, t_vec3d p2, float e);
-
+int		is_in_minimap(t_link *link, int i, int *j);
 
 /*			Debug				*/
 void	debug_print_texture(t_texture *texture);
@@ -188,20 +190,21 @@ int		event_menu(int x, int y, t_game *game);
 int		event_settings(int x, int y, t_game *game);
 int		ft_get_fps(void);
 
-void	ft_display_menu(t_game *game);
-void	ft_blur_pause(t_game *game);
 void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y);
 void	ft_draw_img_vel(t_img *img_dst, t_img tex, float x, float y);
-int		load_menu(t_game *game, int i, int j, char *path);
-
 void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
 int		resize_image(t_game *game, t_img *src, int ratio);
+void	ft_blur_pause(t_game *game);
+
 int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, \
 	float speed);
 void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
 void	animation_fire(t_game *game);
-int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, float speed);
+int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, \
+	float speed);
 void	ft_animation_cat(t_game *game, float speed);
+
+void	ft_display_menu(t_game *game);
 void	ft_settings_mouse(t_game *game, int x, int y);
 void	ft_select_settings(t_game *game);
 void	ft_display_settings_menu(t_game *game);
@@ -218,15 +221,5 @@ void	ft_display_settings(t_game *game);
 char	*ft_imgcpy(char *data, int size);
 int		ft_in_wall(t_map *map, int x, int y);
 void	ft_jump(t_game *game);
-
-
-
-int		is_in_minimap(t_link *link, int i, int *j);
-
-
-
-
-
-
 
 #endif
