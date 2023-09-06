@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/05 00:40:42 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:03:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ typedef struct s_game
 	t_texture		texture;
 	t_link			link;
 	t_img			view;
-	t_img			blur;
 	pthread_mutex_t	m_queue;
 	pthread_t		pid[N_THREAD];
 	t_igs			igs[N_IGS];
@@ -196,6 +195,7 @@ typedef struct s_game
 	t_vec3d			**rays;
 	t_vec2d			mouse;
 	t_job			**queue;
+	char			*view_data_cpy;
 	float			light;
 	int				jump;
 	int				pause;

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:41:10 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/05 12:27:11 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:02:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ void	pause_in(t_game *game)
 {
 	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
 	ft_blur_pause(game);
-	game->blur = game->view;
-	game->blur.addr = ft_imgcpy(game->view.addr, \
-		game->view.height * game->view.width * 4);
+	game->view_data_cpy = ft_memcpy(game->view_data_cpy, game->view.addr, \
+		game->view.height * game->view.ll);
 	game->pause = 6;
 }
 

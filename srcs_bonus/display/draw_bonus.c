@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/04 17:40:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:04:47 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_imgcpy(char *data, int size)
 	int		i;
 
 	i = 0;
-	dup = malloc(sizeof(char) * size + 1);
+	dup = malloc(sizeof(char) * size + 1);	//Pas securise tout ca gngngngn 
 	while (i < size)
 	{
 		dup[i] = data[i];

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/05 11:56:57 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:01:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	init_link(t_game *game)
 
 int	ft_init_game(t_game *game)
 {
-	game->pause = 2;
+	game->pause = 0;
 	game->player = 1;
 	game->jump = 0;
 	game->angle_offset = ANG_OFFSET_MOUSE;
@@ -124,6 +124,10 @@ int	ft_init_game(t_game *game)
 		return (ft_putstr_fd("Error\nSem_init failed\n", 2), EXIT_FAILURE);
 	if (pthread_mutex_init(&game->m_queue, NULL))
 		return (ft_putstr_fd("Error\nMutex_init failed\n", 2), EXIT_FAILURE);
+	game->view_data_cpy = ft_calloc(sizeof(char), game->view.height * \
+		game->view.ll);
+	if (game->view_data_cpy == NULL)
+		return (ft_putstr_fd("Error\nMaloc failed\n", 2), EXIT_FAILURE);
 	init_area(game);
 	init_link(game);
 	return (EXIT_SUCCESS);

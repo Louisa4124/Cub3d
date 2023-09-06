@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 18:04:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:02:18 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ void	ft_display_settings(t_game *game)
 	int	y;
 
 	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
-	ft_draw_img(&game->view, game->blur, 0, 0);
+	ft_memcpy(game->view.addr, game->view_data_cpy, \
+		game->view.height * game->view.ll);
 	ft_draw_img(&game->view, game->anim[0][15], 0, 0);
 	if (game->resolution == 2)
 		ft_draw_img(&game->view, game->anim[0][16], 150, -30);
