@@ -6,14 +6,18 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:40:03 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/06 12:18:02 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:36:08 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-void	ft_settings_mouse(t_game *game, int x, int y)
+void	ft_settings_mouse(t_game *game)
 {
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	if ((x > 1170 && x < 1200) && (y > 500 && y < 520))
 		ft_change_cursor(game, x, y);
 	else if ((x > 1015 && x < 1045) && (y > 500 && y < 520))
@@ -34,10 +38,6 @@ void	ft_settings_mouse(t_game *game, int x, int y)
 
 void	ft_select_settings(t_game *game)
 {
-	int	x;
-	int	y;
-
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	ft_draw_img(&game->view, game->anim[0][14], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][15], 0, 0);
 	if (game->resolution == 3)
@@ -58,7 +58,7 @@ void	ft_select_settings(t_game *game)
 		ft_draw_img(&game->view, game->anim[0][17], 150, 230);
 	else if (*game->link.light >= 1.4)
 		ft_draw_img(&game->view, game->anim[0][18], 150, 230);
-	ft_settings_mouse(game, x, y);
+	ft_settings_mouse(game);
 }
 
 static int	set_pause_settings(t_game *game)

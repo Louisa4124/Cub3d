@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/06 13:02:18 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:36:51 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,6 @@ void	display_game(void *ptr, void *area)
 
 void	ft_display_settings(t_game *game)
 {
-	int	x;
-	int	y;
-
-	mlx_mouse_get_pos(game->mlx.ptr, game->mlx.win, &x, &y);
 	ft_memcpy(game->view.addr, game->view_data_cpy, \
 		game->view.height * game->view.ll);
 	ft_draw_img(&game->view, game->anim[0][15], 0, 0);
@@ -137,5 +133,5 @@ void	ft_display_settings(t_game *game)
 		ft_draw_img(&game->view, game->anim[0][17], 150, 230);
 	else if (*game->link.light >= 1.4)
 		ft_draw_img(&game->view, game->anim[0][18], 150, 230);
-	ft_settings_mouse(game, x, y);
+	ft_settings_mouse(game);
 }

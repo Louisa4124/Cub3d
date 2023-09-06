@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/05 12:30:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:37:07 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, \
 void	ft_animation_cat(t_game *game, float speed);
 
 void	ft_display_menu(t_game *game);
-void	ft_settings_mouse(t_game *game, int x, int y);
+void	ft_settings_mouse(t_game *game);
 void	ft_select_settings(t_game *game);
 void	ft_display_settings_menu(t_game *game);
 void	ft_change_cursor(t_game *game, int x, int y);
