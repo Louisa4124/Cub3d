@@ -1,4 +1,3 @@
-	F 	48,78,52
 
 
 
@@ -9,9 +8,10 @@ C        16,36,84
 SO   maps/tree_1.xpm
 
 
-WE maps/tree_1.xpm
+WE maps/wall_gr.xpm
 
 
+	F 	00,00,52
 	EA maps/tree_1.xpm
 
 
