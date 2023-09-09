@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/06 13:37:07 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/09 11:48:59 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,9 @@ int		event_mouse(int x, int y, t_game *game);
 int		event_mouse_reset(t_game *game);
 int		event_pause(int button, int x, int y, t_game *game);
 int		close_event(t_game *game);
+void	event_resolution(int x, int y, t_game *game);
+void	event_sensitivity(int x, int y, t_game *game);
+void	event_luminosity(int x, int y, t_game *game);
 
 /*			Draw				*/
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);

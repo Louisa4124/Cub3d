@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:53:49 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 17:59:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:45:13 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_transition(t_game *game)
 
 	if (game->ms >= 0.001 && x >= -WIDTH)
 		x -= 40;
-	// x = x - (game->ms * game->ms) * WIDTH;
 	ft_draw_img_vel(&game->view, game->anim[0][13], x, 0);
 }
 

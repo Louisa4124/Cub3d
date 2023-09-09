@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/09/06 12:00:52 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/09/09 11:49:44 by lboudjem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ LST_SRCS_INIT	=	init_game_bonus.c init_mlx_bonus.c init_igs_bonus.c init_img_uti
 SRCS_INIT		=	${addprefix ${DIR_SRCS_INIT}, ${LST_SRCS_INIT}}
 
 DIR_SRCS_EVENT	=	move/
-LST_SRCS_EVENT	=	event_bonus.c event_press_bonus.c view_update_pos_bonus.c view_update_dir_bonus.c move_utils.c
+LST_SRCS_EVENT	=	event_bonus.c event_settings.c event_press_bonus.c view_update_pos_bonus.c \
+					view_update_dir_bonus.c move_utils.c 
 SRCS_EVENT		=	${addprefix ${DIR_SRCS_EVENT}, ${LST_SRCS_EVENT}}
 
 DIR_SRCS_B		=	srcs_bonus/
