@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/05 11:52:58 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:11:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	init_img_settings(t_game *game)
 	err += load_img(&game->mlx, &game->anim[0][14], \
 		"img/settings/background.xpm");
 	err += load_img(&game->mlx, &game->anim[0][15], "img/settings/all.xpm");
-	err += load_img(&game->mlx, &game->anim[0][16], "img/settings/high.xpm");
+	err += load_img(&game->mlx, &game->anim[0][16], "img/settings/low.xpm");
 	err += load_img(&game->mlx, &game->anim[0][17], "img/settings/medium.xpm");
-	err += load_img(&game->mlx, &game->anim[0][18], "img/settings/low.xpm");
+	err += load_img(&game->mlx, &game->anim[0][18], "img/settings/high.xpm");
 	return (0);
 }
 

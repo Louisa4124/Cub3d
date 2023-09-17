@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/17 13:35:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:00:41 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define HEIGHT 1080
 # define MINIMAP_SIZE 10
 # define BLUR 25
-# define DEBUG	0
+# define FPS_MODE 0
 # define DOOR_X 5
 # define DOOR_Y 25
 

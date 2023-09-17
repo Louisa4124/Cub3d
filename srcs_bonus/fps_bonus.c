@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:45:36 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 19:01:24 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:00:21 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_printf_fps(int mode)
 	static int	n_frame;
 	static int	time;
 
+	if (mode == -1)
+		return ;
 	if (get_time() - time < 1000)
 		n_frame++;
 	else

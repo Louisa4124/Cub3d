@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:40:03 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/17 13:41:23 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:57:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,23 @@ void	ft_select_settings(t_game *game)
 {
 	ft_draw_img(&game->view, game->anim[0][14], 0, 0);
 	ft_draw_img(&game->view, game->anim[0][15], 0, 0);
-	if (game->resolution == 3)
+	if (game->resolution == 5)
 		ft_draw_img(&game->view, game->anim[0][16], 150, -30);
-	else if (game->resolution == 2)
+	else if (game->resolution == 3)
 		ft_draw_img(&game->view, game->anim[0][17], 150, -30);
-	else if (game->resolution == 4)
+	else if (game->resolution == 2)
 		ft_draw_img(&game->view, game->anim[0][18], 150, -30);
 	if (game->angle_offset >= 0.000 && game->angle_offset < 0.002)
-		ft_draw_img(&game->view, game->anim[0][18], 150, 100);
+		ft_draw_img(&game->view, game->anim[0][16], 150, 100);
 	else if (game->angle_offset >= 0.002 && game->angle_offset < 0.004)
 		ft_draw_img(&game->view, game->anim[0][17], 150, 100);
 	else if (game->angle_offset >= 0.004)
-		ft_draw_img(&game->view, game->anim[0][16], 150, 100);
-	if (*game->link.light >= 0 && *game->link.light < 1)
+		ft_draw_img(&game->view, game->anim[0][18], 150, 100);
+	if (*game->link.light >= 0.2 && *game->link.light < 0.4)
 		ft_draw_img(&game->view, game->anim[0][16], 150, 230);
-	else if (*game->link.light >= 1 && *game->link.light < 1.5)
+	else if (*game->link.light >= 0.6 && *game->link.light < 0.8)
 		ft_draw_img(&game->view, game->anim[0][17], 150, 230);
-	else if (*game->link.light >= 1.4)
+	else if (*game->link.light >= 1)
 		ft_draw_img(&game->view, game->anim[0][18], 150, 230);
 	ft_settings_mouse(game);
 }

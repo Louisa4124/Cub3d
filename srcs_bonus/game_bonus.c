@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:53:49 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/09 12:45:13 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:00:02 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int	update_game(t_game *game)
 	update_igs_time(game->igs);
 	if (game->pause != 6 && game->pause != 3)
 		game->ms += 0.0015;
-	ft_printf_fps(DEBUG);
+	ft_printf_fps(FPS_MODE);
 	return (0);
 }

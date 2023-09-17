@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/09 12:44:37 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:26:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	event_settings(int x, int y, t_game *game)
 	event_resolution(x, y, game);
 	event_sensitivity(x, y, game);
 	event_luminosity(x, y, game);
+	dprintf(2, "==================\n");
 	return (0);
 }
 
