@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/09 11:48:59 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:35:59 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <semaphore.h>
 # include <stdint.h>
 # include "struct.h"
+# include <X11/extensions/Xfixes.h>
 
 # define FOV 60
 # define PI_HALF 1.570796
@@ -178,6 +179,8 @@ int		launch_thread(t_game *game, t_thread_data th[N_THREAD]);
 int		ft_randuint(int min, int max, int *n);
 int		is_near(t_vec3d p1, t_vec3d p2, float e);
 int		is_in_minimap(t_link *link, int i, int *j);
+int		better_mlx_mouse_hide(void *xvar, void *win, int *cursor);
+int		better_mlx_mouse_show(void *xvar, void *win, int *cursor);
 
 /*			Debug				*/
 void	debug_print_texture(t_texture *texture);

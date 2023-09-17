@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+         #
+#    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/09/09 11:49:44 by lboudjem         ###   ########.fr        #
+#    Updated: 2023/09/17 13:15:15 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ LST_SRCS_EVENT	=	event_bonus.c event_settings.c event_press_bonus.c view_update_
 SRCS_EVENT		=	${addprefix ${DIR_SRCS_EVENT}, ${LST_SRCS_EVENT}}
 
 DIR_SRCS_B		=	srcs_bonus/
-LST_SRCS_B		=	main_bonus.c game_bonus.c clear_bonus.c debug_bonus.c math_bonus.c utils_bonus.c fps_bonus.c \
+LST_SRCS_B		=	main_bonus.c game_bonus.c clear_bonus.c better_mlx_bonus.c math_bonus.c utils_bonus.c fps_bonus.c \
 					${SRCS_PARSE} ${SRCS_ALGO} ${SRCS_DISP} ${SRCS_INIT} ${SRCS_EVENT}
 SRCS_B			=	${addprefix ${DIR_SRCS_B}, ${LST_SRCS_B}}
 
@@ -87,9 +87,9 @@ MAKE		=	make -s
 DEBUG		=	no
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-O3 -Wall -Wextra -pthread 
+CFLAGS		=	-O3 -Wall -Wextra -pthread
 FTFLAGS		=	-L${DIR_LIBFT} -lft
-MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lXext -lX11
+MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lX11 -lXext -lXfixes
 DFLAGS		=	-g3 -fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined 
 DFLAGS_TH	=	-g3 -fsanitize=thread
 

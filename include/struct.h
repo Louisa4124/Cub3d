@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/09 11:21:16 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:34:50 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ typedef struct s_game
 	int				n_thread;
 	int				minimap_size;
 	int				queue_status;
-	int				debug;
+	int				cursor;
 }	t_game;
 
 typedef struct s_thread_data

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:43:27 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/06 12:18:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:41:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_display_select_player(t_game *game, int x, int y)
 	else if ((x > 360 && x < 430) && (y > 745 && y < 780))
 		ft_change_cursor(game, x, y);
 	else
-		mlx_mouse_show(game->mlx.ptr, game->mlx.win);
+		better_mlx_mouse_show(game->mlx.ptr, game->mlx.win, &game->cursor);
 }
 
 void	ft_display_fly_menu(t_game *game)

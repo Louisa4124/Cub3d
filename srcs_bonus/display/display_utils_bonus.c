@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/06 12:18:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:37:43 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	ft_blur_pause(t_game *game)
 
 void	ft_change_cursor(t_game *game, int x, int y)
 {
-	mlx_mouse_hide(game->mlx.ptr, game->mlx.win);
+	better_mlx_mouse_hide(game->mlx.ptr, game->mlx.win, &game->cursor);
 	ft_draw_img(&game->view, game->anim[1][1], x, y);
 }

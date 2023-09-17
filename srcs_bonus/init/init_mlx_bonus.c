@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:28:18 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/06 13:03:02 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:36:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	ft_init_mlx(t_game *game)
 		return (ft_mlx_error(2, &game->mlx));
 	new_image(&game->mlx, &game->view, game->mlx.win_width, \
 		game->mlx.win_height);
+	game->cursor = 1;
 	return (0);
 }
 

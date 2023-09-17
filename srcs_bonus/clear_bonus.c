@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/06 13:03:06 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:41:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_clean_exit(t_game *game, int exit_code)
 	s_destroy_all_img(&game->mlx, game->sprite, game->anim);
 	s_img_destroy(&game->mlx, &game->view);
 	ft_free_secure(game->view_data_cpy);
-	mlx_mouse_show(game->mlx.ptr, game->mlx.win);
+	better_mlx_mouse_show(game->mlx.ptr, game->mlx.win, &game->cursor);
 	s_mlx_destroy(&game->mlx);
 	ft_free2d((void **) game->map.layout, game->map.y_size);
 	ft_free_secure(game->doors);
