@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:41:10 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/17 13:41:14 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:26:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	pause_off(t_game *game)
 	better_mlx_mouse_hide(game->mlx.ptr, game->mlx.win, &game->cursor);
 	mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
 		game->mlx.win_height >> 1);
+	game->mouse.x = game->mlx.win_width >> 1;
+	game->mouse.y = game->mlx.win_height >> 1;
 	game->pause = 0;
 }
 

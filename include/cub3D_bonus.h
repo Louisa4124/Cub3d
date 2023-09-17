@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/17 16:00:41 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:18:05 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define HEIGHT 1080
 # define MINIMAP_SIZE 10
 # define BLUR 25
-# define FPS_MODE 0
+# define FPS_MODE -1
 # define DOOR_X 5
 # define DOOR_Y 25
 
@@ -149,6 +149,7 @@ int		close_event(t_game *game);
 void	event_resolution(int x, int y, t_game *game);
 void	event_sensitivity(int x, int y, t_game *game);
 void	event_luminosity(int x, int y, t_game *game);
+void	pause_off(t_game *game);
 
 /*			Draw				*/
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);

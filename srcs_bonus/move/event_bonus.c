@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:43:59 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/17 15:26:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:17:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	event_pause(int button, int x, int y, t_game *game)
 		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)) && game->pause == 1)
 			return (game->pause = 5, 0);
 		if (((x > 50 && x < 280) && (y > 1000 && y < 1050)) && game->pause == 6)
-			return (game->pause = 0, 0);
+			return (pause_off(game), 0);
 		event_settings(x, y, game);
 	}
 	return (0);
@@ -41,7 +41,6 @@ int	event_settings(int x, int y, t_game *game)
 	event_resolution(x, y, game);
 	event_sensitivity(x, y, game);
 	event_luminosity(x, y, game);
-	dprintf(2, "==================\n");
 	return (0);
 }
 

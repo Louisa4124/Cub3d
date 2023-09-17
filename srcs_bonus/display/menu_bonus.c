@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:43:27 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/17 13:41:20 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:27:38 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ void	ft_display_launch_game(t_game *game)
 	{
 		init_igs(game, game->igs);
 		game->pause = 0;
+		mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \
+			game->mlx.win_height >> 1);
+		game->mouse.x = game->mlx.win_width >> 1;
+		game->mouse.y = game->mlx.win_height >> 1;
 	}
 	ft_draw_img_vel(&game->view, game->anim[0][13], x, 0);
 }
