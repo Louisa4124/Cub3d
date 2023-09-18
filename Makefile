@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/09/17 13:15:15 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/09/18 22:49:51 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ MAKE		=	make -s
 DEBUG		=	no
 
 #	==============================	FLAGS	==============================	#
-CFLAGS		=	-O3 -Wall -Wextra -pthread
+CFLAGS		=	-O3 -Wall -Wextra -Werror -pthread
 FTFLAGS		=	-L${DIR_LIBFT} -lft
 MLXFLAGS	=	-L${DIR_LIBMLX} -lmlx -lX11 -lXext -lXfixes
 DFLAGS		=	-g3 -fsanitize=address -fsanitize=leak -fsanitize=pointer-subtract -fsanitize=pointer-compare -fsanitize=undefined 
