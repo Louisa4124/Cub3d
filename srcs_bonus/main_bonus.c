@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/17 20:57:35 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 10:02:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,9 @@ int	main(int argc, char **argv)
 	mlx_loop(game.mlx.ptr);
 	return (0);
 	// bug minmpa affiche mal doors
-	// https://www.gnu.org/licenses/gpl-3.0.html
 }
 
-/*
- This file is part of Foobar.
 
-Foobar is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-Foobar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>
-*/
 
 //LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
 // TODO: end thread properly, clear sem, clear struct
