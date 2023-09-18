@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_press_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:41:10 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/17 16:26:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:21:06 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	event_press_action(int keycode, t_game *game)
 		pause_off(game);
 	else if (keycode == KEY_ENTER && game->pause == 2)
 		game->pause = 4;
-	else if (keycode == KEY_E)
-		update_door_status(game);
+	// else if (keycode == KEY_E)
+		// update_door_status(game);
 }
 
 int	event_press(int keycode, t_game *game)

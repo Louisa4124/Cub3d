@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:46:45 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 18:22:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:20:28 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	sort_doors(t_door *doors, int n_doors)
 	}
 }
 
-void	update_doors_dist(t_door *doors, t_vec3d *pos, int n_doors)
+void	s_dist(t_door *doors, t_vec3d *pos, int n_doors)
 {
 	t_vec3d	diff;
 	int		i;
@@ -100,7 +100,7 @@ void	update_door(t_game *game)
 	}
 }
 
-void	update_door_status(t_game *game)
+void	_status(t_game *game)
 {
 	int	i;
 

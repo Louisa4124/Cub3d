@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_switch_plan_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:05:03 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 17:44:56 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:30:35 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ int	search_sprite(t_tmp *data)
 	int		wit_s;
 	int		wit_d;
 	int		i;
+	t_door	tmp;
 
 	wit_d = 1;
 	i = 0;
-	while (wit_d && i < *data->link->n_doors)
-	{
-		wit_d = interdoor(data, &data->link->door[i], *data->link->pos);
-		++i;
-	}
+	tmp.img = NULL;
+	tmp.plan = (t_plan){1, 0, 0, -35};
+	tmp.pos = (t_vec3d) {12, 355, 0};
+	tmp.status = 0;
+	wit_d = interdoor(data, &tmp, *data->link->pos);
+	// while (wit_d && i < *data->link->n_doors)
+	// {
+	// 	wit_d = interdoor(data, &data->link->door[i], *data->link->pos);
+	// 	++i;
+	// }
 	igs = data->link->igs;
 	wit_s = 1;
 	i = 0;
@@ -115,9 +121,9 @@ int	switch_plan_algo(t_tmp *data)
 	idx[1] = data->link->map->x_size;
 	wit_x = switch_plan_inter_search_x(data, idx, \
 		math_sign_float(data->rays.x), wit_y);
-	if (wit_y == 0 || wit_x == 0)
-		data->color = get_color(data, data->link->map, data->link->pos);
-	else if (s != 0 && data->rays.z > 0)
+	// if (wit_y == 0 || wit_x == 0)
+	// 	data->color = get_color(data, data->link->map, data->link->pos);
+	 if (s != 0 && data->rays.z > 0)
 		data->color = data->link->texture->ceiling;
 	else if (s != 0)
 		data->color = get_color_floor(data, data->link->texture->t_floor);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:53:49 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/17 16:27:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:20:21 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	run_game(t_game *game)
 	view_update_pos(game);
 	view_update_dir_key(game);
 	update_igs_plane(game->igs, game->pos);
-	update_doors_dist(game->doors, &game->pos, game->n_doors);
-	update_door(game);
+	// update_doors_dist(game->doors, &game->pos, game->n_doors);
+	// update_door(game);
 	send_frame_job(game);
 	wait_job(game);
 	animation_fire(game);

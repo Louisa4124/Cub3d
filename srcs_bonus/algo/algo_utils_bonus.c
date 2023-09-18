@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:29:53 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/04 23:27:19 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:19:39 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	interdoor(t_tmp *data, t_door *door, t_vec3d pos)
 	point.z = pos.z + data->rays.z * t + door->pos.z;
 	if (point.z >= 1 || point.z <= 0 + door->pos.z)
 		return (1);
-	tmp_color = get_color_door(door, point);
+	tmp_color = RED;//get_color_door(door, point);
 	if ((tmp_color >> 24))
 		return (1);
 	data->color = tmp_color;
@@ -73,13 +73,13 @@ static int	ft_is_wall(t_tmp *data, int **layout, int v, int d)
 
 	sumx = data->link->pos->x + data->point.x;
 	sumy = data->link->pos->y + data->point.y;
-	if (data->close_t == 0 || data->t < data->close_t) 
+	if (data->close_t == 0 || data->t < data->close_t)
 	{
 		if (v == 0 && d < data->link->map->y_size)
 		{
 			if ((sumy < data->link->pos->y && (d - 1) >= 0 \
 				&& layout[d - 1][sumx] == 1)
-				|| (sumy > data->link->pos->y && d >= 0 
+				|| (sumy > data->link->pos->y && d >= 0
 				&& layout[d][sumx] == 1))
 				return (1);
 		}
@@ -87,7 +87,7 @@ static int	ft_is_wall(t_tmp *data, int **layout, int v, int d)
 		{
 			if ((sumx < data->link->pos->x && (d - 1) >= 0 \
 				&& layout[sumy][d - 1] == 1)
-				|| (sumx > data->link->pos->x 
+				|| (sumx > data->link->pos->x
 				&& d >= 0 && layout[sumy][d] == 1))
 				return (1);
 		}
