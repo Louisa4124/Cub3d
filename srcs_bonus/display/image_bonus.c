@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 19:39:31 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/05 13:27:25 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 21:24:06 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_on(t_img *dst, t_vec2d pos, t_img src, t_area area)
 		while (++idx.x < area.end_x && idx.x < src.width)
 		{
 			i_dst = (t_vec2d){pos.x + idx.x, pos.y + idx.y};
-			if (i_dst.x < WIDTH && i_dst.x >= 0 
+			if (i_dst.x < WIDTH && i_dst.x >= 0
 				&& i_dst.y < HEIGHT && i_dst.y >= 0)
 				set_pixel(idx, i_dst, src, dst);
 		}
@@ -58,7 +58,7 @@ void	ft_draw_img(t_img *dst, t_img src, int x, int y)
 		while (idx.x < src.width)
 		{
 			i_dst = (t_vec2d){x + idx.x, y + idx.y};
-			if (i_dst.x < WIDTH && i_dst.x >= 0 && i_dst.y < HEIGHT 
+			if (i_dst.x < WIDTH && i_dst.x >= 0 && i_dst.y < HEIGHT
 				&& i_dst.y >= 0)
 				set_pixel(idx, i_dst, src, dst);
 			++idx.x;

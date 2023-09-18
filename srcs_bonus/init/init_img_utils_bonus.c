@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:50:43 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/05 00:24:31 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 21:23:35 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	load_img(t_mlx *mlx, t_img *img, char *path)
 	img->addr = mlx_get_data_addr(img->id, &img->bpp, &img->ll, &img->endian);
 	if (img->addr == NULL)
 		return (ft_putstr_fd("Error\nCan't get sprite data\n", 2), 1);
-	return (0); 
+	return (0);
 }
 
 void	fill_sprite(t_game *g, t_sprite *sprite, int n_frame)

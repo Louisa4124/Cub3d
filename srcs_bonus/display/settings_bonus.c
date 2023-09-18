@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:40:03 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/17 15:57:12 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 21:23:53 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_settings_mouse(t_game *game)
 		ft_change_cursor(game, x, y);
 	else if ((x > 1170 && x < 1200) && (y > 620 && y < 650))
 		ft_change_cursor(game, x, y);
-	else if ((x > 1015 && x < 1045) && (y > 620 && y < 650)) 
+	else if ((x > 1015 && x < 1045) && (y > 620 && y < 650))
 		ft_change_cursor(game, x, y);
 	else if ((x > 1015 && x < 1045) && (y > 760 && y < 780))
 		ft_change_cursor(game, x, y);

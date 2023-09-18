@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_update_dir_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:05:38 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/17 19:50:11 by louisa           ###   ########.fr       */
+/*   Updated: 2023/09/18 21:24:19 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	event_mouse(int x, int y, t_game *game)
 
 	if (game->pause != 0 || (x == game->mouse.x && y == game->mouse.y))
 		return (0);
-	if (x <= 0 || y <= 0 || x >= game->mlx.win_width - 1 
+	if (x <= 0 || y <= 0 || x >= game->mlx.win_width - 1
 		|| y >= game->mlx.win_height - 1)
 	{
 		mlx_mouse_move(game->mlx.ptr, game->mlx.win, game->mlx.win_width >> 1, \

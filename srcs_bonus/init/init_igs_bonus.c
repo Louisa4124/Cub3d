@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 12:39:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 15:11:01 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 21:23:25 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_vec3d	find_pos_igs(t_map map)
 	x = 0;
 	while (map.layout[y][x] != 0 && ++i < 51)
 	{
-		if (ft_randuint(1, map.y_size - 2, &y) 
+		if (ft_randuint(1, map.y_size - 2, &y)
 			|| ft_randuint(1, map.x_size - 2, &x))
 		{
 			ft_putendl_fd("Error\nCan't generate random pos\n", 2);

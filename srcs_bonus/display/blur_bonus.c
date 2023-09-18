@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:39:15 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/04 13:28:56 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/18 21:24:45 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void	blur_image(void *ptr, void *area)
 	data.area = area;
 	img_data = (unsigned int *)data.img->addr;
 	i.y = data.area->start_y;
-	while (i.y < data.area->end_y) 
+	while (i.y < data.area->end_y)
 	{
 		i.x = data.area->start_x;
-		while (i.x < data.area->end_x) 
+		while (i.x < data.area->end_x)
 		{
 			avg = blur_image_avg(data.img, img_data, i, kernel);
 			img_data[i.y * data.img->width + i.x] = \
