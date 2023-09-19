@@ -6,13 +6,13 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 20:30:38 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:20:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-int	ft_man(int num)
+static int	ft_man(int num)
 {
 	if (num == 1)
 		printf("Cub3d need a map!\n");
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 		return (ft_man(argc));
 	ft_bzero(&game, sizeof(game));
 	if (ft_init_mlx(&game))
-		return (EXIT_FAILURE);
+		ft_clean_exit(&game, EXIT_FAILURE);
 	if (parser(argv[1], &game))
 		ft_clean_exit(&game, EXIT_FAILURE);
 	if (ft_init_game(&game))

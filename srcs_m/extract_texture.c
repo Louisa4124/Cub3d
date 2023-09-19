@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 18:37:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:11:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 {
 	int	i;
 
+	if (img->id != NULL)
+		return (ft_putstr_fd("Error\nToo much texture\n", 2), 1);
 	while (*path && ft_isspace(*path))
 		++path;
 	if (*path == '\0')
@@ -31,12 +33,7 @@ static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 		if (path[i] != '\n' && path[i] != '\0')
 			return (ft_putstr_fd("Error\nUnknow data on texture line\n", 2), 1);
 	}
-	img->id = mlx_xpm_file_to_image(mlx->ptr, path, &img->width, &img->height);
-	if (img->id == NULL)
-		return (ft_putstr_fd("Error\nCan't load texture\n", 2), 1);
-	img->addr = mlx_get_data_addr(img->id, &img->bpp, &img->ll, &img->endian);
-	if (img->addr == NULL)
-		return (ft_putstr_fd("Error\nCan't get texture data\n", 2), 1);
+	return (load_img(mlx, img, path));
 	return (0);
 }
 
@@ -45,17 +42,16 @@ static int	extract_color(int *color, char *line)
 	int	rgb[3];
 	int	i;
 
+	if (*color != -1)
+		return (ft_putstr_fd("Error\nToo much color\n", 2), 1);
 	while (*line && ft_isspace(*line))
 		++line;
 	if (!*line)
 		return (ft_putstr_fd("Error\nColor missing\n", 2), 1);
 	i = -1;
-	while (++i < 3)
+	while (++i < 3 && ft_isdigit(*line))
 	{
-		if (ft_isdigit(*line))
-			rgb[i] = ft_atoi(line) & 255;
-		else
-			break ;
+		rgb[i] = ft_atoi(line) & 255;
 		while (*line && ft_isdigit(*line))
 			++line;
 		if (*line == ',')
@@ -78,17 +74,17 @@ static int	extract_selector(t_mlx *mlx, t_texture *texture, char *line)
 		++i;
 	if (line[i] == '\0')
 		return (2);
-	if (line[i] == 'N' && line[i + 1] == 'O')
+	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
 		return (extract_texture(mlx, &texture->wall[0], &line[i + 2]));
-	if (line[i] == 'S' && line[i + 1] == 'O')
+	if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
 		return (extract_texture(mlx, &texture->wall[1], &line[i + 2]));
-	if (line[i] == 'W' && line[i + 1] == 'E')
+	if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
 		return (extract_texture(mlx, &texture->wall[2], &line[i + 2]));
-	if (line[i] == 'E' && line[i + 1] == 'A')
+	if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
 		return (extract_texture(mlx, &texture->wall[3], &line[i + 2]));
-	if (line[i] == 'F')
+	if (line[i] == 'F' && line[i + 1] == ' ')
 		return (extract_color(&texture->floor, &line[i + 1]));
-	if (line[i] == 'C')
+	if (line[i] == 'C' && line[i + 1] == ' ')
 		return (extract_color(&texture->ceiling, &line[i + 1]));
 	ft_putstr_fd("Error\nUnexpected line while parsing\n", 2);
 	return (1);
@@ -105,6 +101,10 @@ static int	all_texture(t_texture *texture)
 			return (1);
 		++i;
 	}
+	if (texture->floor == -1)
+		return (1);
+	if (texture->ceiling == -1)
+		return (1);
 	return (0);
 }
 
@@ -116,6 +116,8 @@ int	parser_texture(t_mlx *mlx, t_texture *texture, int fd)
 
 	count = 6;
 	line = NULL;
+	texture->floor = -1;
+	texture->ceiling = -1;
 	while (count)
 	{
 		if (get_next_line(fd, &line))
@@ -130,9 +132,7 @@ int	parser_texture(t_mlx *mlx, t_texture *texture, int fd)
 		line = ft_free_secure(line);
 	}
 	if (count || all_texture(texture))
-	{
-		ft_putstr_fd("Error\nData about color or texture missing\n", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("Error\nData about color or texture \
+			missing\n", 2), 1);
 	return (count);
 }

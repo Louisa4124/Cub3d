@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/08/05 20:03:54 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:57:43 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct s_game
 /*			Initialisation			*/
 int		ft_init_mlx(t_game *game);
 int		ft_init_game(t_game *game);
+int		load_img(t_mlx *mlx, t_img *img, char *path);
 
 /*			Parsing					*/
 int		parser(char *pathname, t_game *game);
@@ -151,7 +152,6 @@ int		switch_plan_algo(t_game *data);
 
 /*			Color				*/
 int		get_color(t_game *game);
-int		get_color_ceiling_floor(t_game *game);
 int		rgb_to_hexa(int r, int g, int b);
 
 /*			Move		*/
@@ -173,12 +173,5 @@ int		math_sign_float(float f);
 void	s_mlx_destroy(t_mlx *mlx);
 void	s_img_destroy(t_mlx *mlx, t_img *img);
 void	ft_clean_exit(t_game *game, int exit_code);
-
-/*			Debug					*/
-void	debug_print_texture(t_texture *texture);
-void	debug_print_img(t_img *img);
-void	debug_print_mlx(t_mlx *mlx);
-void	debug_print_map(t_map *map);
-void	debug_print_vec3d(t_vec3d *u, char *name);
 
 #endif
