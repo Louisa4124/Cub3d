@@ -55,8 +55,8 @@ Bonus
 #### Multithreading
 
 ## Demo
+![screenshot of the game](http:///www.github.com/Louisa4124/Cub3d/blob/main/screenshot0.png)
 
-Insert gif or link to demo
 
 
 ## Authors
