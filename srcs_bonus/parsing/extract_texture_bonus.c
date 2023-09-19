@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 17:21:44 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:27:58 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,14 @@ static int	extract_texture(t_mlx *mlx, t_img *img, char *path)
 	i = 0;
 	while (path[i] && ft_isspace(path[i]) == 0)
 		++i;
-	path[i] = '\0';
+	if (path[i])
+	{
+		path[i++] = '\0';
+		while (path[i] == ' ')
+			++i;
+		if (path[i] != '\n' && path[i] != '\0')
+			return (ft_putstr_fd("Error\nUnknow data on texture line\n", 2), 1);
+	}
 	img->id = mlx_xpm_file_to_image(mlx->ptr, path, &img->width, &img->height);
 	if (img->id == NULL)
 		return (ft_putstr_fd("Error\nCan't load texture\n", 2), 1);
