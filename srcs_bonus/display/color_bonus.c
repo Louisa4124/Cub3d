@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 18:47:16 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 21:23:48 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ static int	get_color_wall(t_tmp *data, t_img wall, float pos, int n)
 	int	x;
 	int	y;
 
-	if (n)
-		x = (int)(((pos + data->point.y) \
-			- (int)(pos + data->point.y)) * wall.width);
-	else
+	if (n == 0)
 		x = (int)(((pos + data->point.x) \
 			- (int)(pos + data->point.x)) * wall.width);
+	else if (n == 1)
+		x = wall.width - 1 - (int)(((pos + data->point.x) \
+			- (int)(pos + data->point.x)) * wall.width);
+	else if (n == 2)
+		x = wall.width - 1 - (int)(((pos + data->point.y) \
+			- (int)(pos + data->point.y)) * wall.width);
+	else if (n == 3)
+		x = (int)(((pos + data->point.y) \
+			- (int)(pos + data->point.y)) * wall.width);
 	y = wall.height - (int)((data->point.z \
 		- (int)(data->point.z)) * wall.height) - 1;
 	return (extract_pixel(wall, x, y));
@@ -79,12 +85,12 @@ int	get_color(t_tmp *data, t_map *map, t_vec3d *pos)
 		pos->x && (data->plan.d - 1) < map->x_size && \
 		(data->plan.d - 1) >= 0 && map->layout[(int)(data->link-> \
 		pos->y + data->point.y)][(int)(data->plan.d - 1)] == 1)
-		return (get_color_wall(data, data->link->texture->wall[2], pos->y, 1));
+		return (get_color_wall(data, data->link->texture->wall[2], pos->y, 2));
 	else if (data->plan.x == 0 && (pos->y + data->point.y) > \
 		pos->y && (data->plan.d) < map->y_size && \
 		data->plan.d >= 0 && map->layout[(data->plan.d)][(int) \
 		(pos->x + data->point.x)] == 1)
-		return (get_color_wall(data, data->link->texture->wall[1], pos->x, 0));
+		return (get_color_wall(data, data->link->texture->wall[1], pos->x, 1));
 	else
-		return (get_color_wall(data, data->link->texture->wall[3], pos->y, 1));
+		return (get_color_wall(data, data->link->texture->wall[3], pos->y, 3));
 }
