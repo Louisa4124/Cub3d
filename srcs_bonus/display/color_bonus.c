@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 18:08:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:47:16 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ int	get_color(t_tmp *data, t_map *map, t_vec3d *pos)
 		pos->x && (data->plan.d - 1) < map->x_size && \
 		(data->plan.d - 1) >= 0 && map->layout[(int)(data->link-> \
 		pos->y + data->point.y)][(int)(data->plan.d - 1)] == 1)
-		return (get_color_wall(data, data->link->texture->wall[1], pos->y, 1));
+		return (get_color_wall(data, data->link->texture->wall[2], pos->y, 1));
 	else if (data->plan.x == 0 && (pos->y + data->point.y) > \
 		pos->y && (data->plan.d) < map->y_size && \
 		data->plan.d >= 0 && map->layout[(data->plan.d)][(int) \
 		(pos->x + data->point.x)] == 1)
-		return (get_color_wall(data, data->link->texture->wall[2], pos->x, 0));
+		return (get_color_wall(data, data->link->texture->wall[1], pos->x, 0));
 	else
 		return (get_color_wall(data, data->link->texture->wall[3], pos->y, 1));
 }
