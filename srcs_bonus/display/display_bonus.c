@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/17 15:59:08 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:54:42 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	display_map(void *ptr, void *area)
 		{
 			if (ln->map->layout[idx_map.y][idx_map.x] == 1)
 				draw_square(ln->view, idx_draw, *(int *) area, WHITE);
-			else if (ln->map->layout[idx_map.y][idx_map.x] == 0)
-				draw_square(ln->view, idx_draw, *(int *) area, BLACK);
 			else if (ln->map->layout[idx_map.y][idx_map.x] == -1)
 				draw_square(ln->view, idx_draw, *(int *) area, GREY);
+			else
+				draw_square(ln->view, idx_draw, *(int *) area, BLACK);
 			if (idx_map.x == (int)ln->pos->x && idx_map.y == (int)ln->pos->y)
 				draw_square(ln->view, idx_draw, 5, RED);
 			idx_draw.y += *(int *) area;

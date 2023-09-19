@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/17 13:41:05 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:40:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_clean_exit(t_game *game, int exit_code)
 
 	change_status(&game->m_queue, &game->queue_status, 1);
 	i = -1;
-	while (++i < N_THREAD)
+	while (++i < game->n_thread)
 		sem_post(&game->sem_thread);
 	i = -1;
 	while (++i < game->n_thread)

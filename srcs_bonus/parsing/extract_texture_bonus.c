@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 20:12:53 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:25:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	extract_selector(t_mlx *mlx, t_texture *texture, char *line)
 		return (extract_color(&texture->ceiling, &line[i + 1]));
 	ft_putstr_fd("Error\nUnexpected line while parsing\n", 2);
 	return (1);
-}	
+}
 
 static int	all_texture(t_texture *texture)
 {

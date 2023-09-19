@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/18 10:02:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:53:02 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	main(int argc, char **argv)
 		game.mlx.win_height >> 1);
 	mlx_loop(game.mlx.ptr);
 	return (0);
-	// bug minmpa affiche mal doors
 }
 
 
