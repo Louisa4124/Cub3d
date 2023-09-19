@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:14:46 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 18:43:04 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/19 21:01:58 by louisa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static int	get_color_wall(t_game *game, int wall)
 		x = (int)(((game->pos.x + game->point.x) - (int)(game->pos.x + \
 			game->point.x)) * game->texture.wall[wall].width);
 	else if (wall == 1)
-		x = (int)(((game->pos.x + game->point.x) - (int)(game->pos.x + \
-			game->point.x)) * game->texture.wall[wall].width);
+		x = game->texture.wall[wall].width - 1 - (int)(((game->pos.x + game->point.x) \
+			- (int)(game->pos.x + game->point.x)) * game->texture.wall[wall].width);
 	else if (wall == 2)
 		x = (int)(((game->pos.y + game->point.y) - (int)(game->pos.y + \
 			game->point.y)) * game->texture.wall[wall].width);
