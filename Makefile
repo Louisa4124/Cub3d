@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 20:46:19 by tlegrand          #+#    #+#              #
-#    Updated: 2023/09/18 22:49:51 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/09/20 14:47:02 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME_B		=	cub3D_bonus
 DIR_SRCS_M		=	srcs_m/
 LST_SRCS		=	algo.c clear.c color.c display.c event.c math.c main.c \
 					parser.c extract_texture.c extract_map.c parser_utils.c \
-					init_game.c init_mlx.c init_struct.c view_update.c utils.c
+					init_game.c init_mlx.c view_update.c utils.c
 SRCS_M			=	${addprefix ${DIR_SRCS_M}, ${LST_SRCS}}
 
 DIR_SRCS_PARSE	=	parsing/
