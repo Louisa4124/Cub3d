@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/20 10:53:00 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:27:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ int	ft_init_game(t_game *game)
 	game->angle_offset = ANG_OFFSET_MOUSE;
 	game->mouse = (t_vec2d){game->mlx.win_width >> 1, \
 		game->mlx.win_height >> 1};
-	game->resolution = 3;
+	game->resolution = RESOLUTION;
 	game->light = 1;
-	game->minimap_size = 10;
+	game->minimap_size = MINIMAP_SIZE;
 	game->sensitivity = 0.5;
 	if (rays_create(game) || plane_create(game))
 		return (ft_putstr_fd("Error\nMalloc failed\n", 2), EXIT_FAILURE);

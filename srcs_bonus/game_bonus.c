@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:53:49 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/17 16:27:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:29:19 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	run_game(t_game *game)
 	ft_jump(game);
 	if (is_near_door(game, game->doors, &game->pos) != -1)
 		ft_animation_v(game, &game->sprite[18], (t_vec2d){670, 970}, 0.02);
+	ft_printf_fps(FPS_MODE);
 }
 
 int	update_game(t_game *game)
@@ -60,6 +61,5 @@ int	update_game(t_game *game)
 	update_igs_time(game->igs);
 	if (game->pause != 6 && game->pause != 3)
 		game->ms += 0.0015;
-	ft_printf_fps(FPS_MODE);
 	return (0);
 }

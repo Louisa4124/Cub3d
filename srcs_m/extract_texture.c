@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:24:08 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 20:11:13 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:28:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ static int	extract_selector(t_mlx *mlx, t_texture *texture, char *line)
 	if (line[i] == '\0')
 		return (2);
 	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		return (extract_texture(mlx, &texture->wall[0], &line[i + 2]));
-	if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
 		return (extract_texture(mlx, &texture->wall[1], &line[i + 2]));
+	if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
+		return (extract_texture(mlx, &texture->wall[0], &line[i + 2]));
 	if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
-		return (extract_texture(mlx, &texture->wall[2], &line[i + 2]));
-	if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
 		return (extract_texture(mlx, &texture->wall[3], &line[i + 2]));
+	if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
+		return (extract_texture(mlx, &texture->wall[2], &line[i + 2]));
 	if (line[i] == 'F' && line[i + 1] == ' ')
 		return (extract_color(&texture->floor, &line[i + 1]));
 	if (line[i] == 'C' && line[i + 1] == ' ')

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:05:38 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/18 21:24:19 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:20:21 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ int	event_mouse(int x, int y, t_game *game)
 		game->mouse.x = game->mlx.win_width >> 1;
 		return (1);
 	}
-	game->angle_z = pi_modulo(game->angle_z + (x - game->mouse.x) * 0.004);
+	game->angle_z = pi_modulo(game->angle_z + (x - game->mouse.x) \
+		* game->angle_offset);
 	game->mouse.x = x;
-	tmp = pi_modulo(game->angle_x + (y - game->mouse.y) * 0.004);
+	tmp = pi_modulo(game->angle_x + (y - game->mouse.y) * game->angle_offset);
 	if (tmp < -0.5)
 		tmp = -0.5;
 	else if (tmp > 0.5)

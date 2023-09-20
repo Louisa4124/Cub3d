@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/17 13:34:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:42:37 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define N_THREAD 4
 # define N_CHUNK 16
-# define N_SPRITE 20
+# define N_SPRITE 19
 # define N_IGS 2
 
 typedef void	(*t_job_func)(void *, void *);
@@ -176,7 +176,7 @@ typedef struct s_job
 
 typedef struct s_game
 {
-	t_img			anim[5][23];
+	t_img			anim[2][19];
 	t_sprite		sprite[N_SPRITE];
 	t_area			area[N_CHUNK];
 	t_texture		texture;

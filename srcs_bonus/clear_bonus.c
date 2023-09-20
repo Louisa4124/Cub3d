@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 20:40:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:42:00 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	change_status(pthread_mutex_t *mutex, int *status, int new_status)
 	return (0);
 }
 
-static void	s_destroy_all_img(t_mlx *mlx, t_sprite *sprite, t_img tab[5][23])
+static void	s_destroy_all_img(t_mlx *mlx, t_sprite *sprite, t_img tab[2][19])
 {
 	int	i;
 	int	j;

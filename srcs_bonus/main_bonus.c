@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:36:49 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/19 20:53:02 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:30:56 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	main(int argc, char **argv)
 	t_thread_data	data_thread[N_THREAD];
 	t_job			*queue;
 
-	ft_printf("Bonjour ! Je suis le cub3D de Tilou et j'ai treeees \
-		sommeil.... \nShmimimimimi\n rommpshhhhh\n");
 	if (argc != 2)
 		return (ft_man(argc));
 	ft_bzero(&game, sizeof(game));
@@ -58,22 +56,3 @@ int	main(int argc, char **argv)
 	mlx_loop(game.mlx.ptr);
 	return (0);
 }
-
-
-
-//LOULOU LOULOULOULOULOU EST SUPER FORTE NANMEOH!!!!!!
-// TODO: end thread properly, clear sem, clear struct
-// calculer pout chaque plan a * pos.x + b * pos.y + c * pos.z -d au 
-// debut  de chaque frame
-// {0,1,0,-d} plan y 
-// (1,0,0,-d) plan x
-// plan du sol : {0, 0, 1, 0}
-// plan du plafond : {0, 0, 1, -1}
-// rays entre -1.000 et 1.000
-// NO -> 0
-// SO -> 1
-// WE -> 2
-// EA -> 3
-
-//d = sqrt(2g(z0 - z)) / FPS => gravite que loulou a la flemme d'ajouter
-// wall 0=N 1=S 2=W 3=E

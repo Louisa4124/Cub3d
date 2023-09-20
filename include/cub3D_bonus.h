@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louisa <louisa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/19 20:44:06 by louisa           ###   ########.fr       */
+/*   Updated: 2023/09/20 13:26:53 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,14 @@
 
 # include "../libft/libft.h"
 # include "../mlx-linux/mlx.h"
-# include <stdio.h>
-# include <math.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
-# include <stdbool.h>
-# include <pthread.h>
-# include <semaphore.h>
-# include <stdint.h>
-# include "struct.h"
 # include <X11/extensions/Xfixes.h>
+# include <sys/time.h>
+# include <math.h>
+# include <semaphore.h>
+# include <pthread.h>
+# include "struct.h"
 
+/*			constant and mode	*/
 # define FOV 60
 # define PI_HALF 1.570796
 # define PI 3.14159265
@@ -38,15 +33,14 @@
 # define DIR_OFFSET 0.1
 # define ANG_OFFSET_KEY 0.05
 # define ANG_OFFSET_MOUSE 0.003
-# define RESOLUTION 2
+# define RESOLUTION 3
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MINIMAP_SIZE 10
 # define BLUR 25
-# define FPS_MODE -1
-# define DOOR_X 5
-# define DOOR_Y 25
+# define FPS_MODE 0
 
+/*			keycode and related bitflag	*/
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
@@ -71,6 +65,7 @@
 # define BFLAG_RIGHT 0b100000000
 # define BFLAG_P 0b1000000000
 
+/*			color code		*/
 # define DARK_RED 0x8B0000
 # define RED 0xff0000
 # define BLACK 0x000000
@@ -95,7 +90,6 @@ void	set_mlx_hook(t_game *game);
 /*			Clear					*/
 void	s_mlx_destroy(t_mlx *mlx);
 void	s_img_destroy(t_mlx *mlx, t_img *img);
-void	s_destroy_sprite_tab(t_mlx *mlx, t_sprite *sprite, int n);
 void	ft_clean_exit(t_game *game, int exit_code);
 
 /*			Parsing					*/
@@ -109,6 +103,12 @@ int		switch_plan_algo(t_tmp *data);
 int		intersect(t_tmp *data, t_plan plan, t_vec3d pos, int coord[2]);
 int		interdoor(t_tmp *data, t_door *door, t_vec3d pos);
 int		intersprite(t_tmp *data, t_igs *igs, t_vec3d pos, int wit);
+int		update_game(t_game *game);
+void	update_igs_time(t_igs *igs);
+void	update_igs_plane(t_igs *igs, t_vec3d player);
+int		is_near_door(t_game *game, t_door *doors, t_vec3d *pos);
+void	update_doors_dist(t_door *doors, t_vec3d *pos, int n_doors);
+void	update_door(t_game *game);
 
 /*			Color				*/
 int		get_color(t_tmp *data, t_map *map, t_vec3d *pos);
@@ -121,23 +121,30 @@ int		darken_color(int color, float d_ratio, float intensity);
 
 /*			Move			*/
 void	view_update_pos(t_game *game);
-void	view_update_dir_mouse(t_game *game);
 void	view_update_dir_key(t_game *game);
-void	view_move(t_game *game);
 void	update_door_status(t_game *game);
 
 /*			Display				*/
-int		update_game(t_game *game);
-void	ft_printf_fps(int mode);
-void	ft_display_pause(t_game *game);
-void	ft_display_menu(t_game *game);
 void	display_game(void *ptr, void *area);
-void	fredimation(void *ptr, void *area);
-void	update_igs_time(t_igs *igs);
-void	update_igs_plane(t_igs *igs, t_vec3d player);
-int		is_near_door(t_game *game, t_door *doors, t_vec3d *pos);
-void	update_doors_dist(t_door *doors, t_vec3d *pos, int n_doors);
-void	update_door(t_game *game);
+void	ft_display_menu(t_game *game);
+void	ft_settings_mouse(t_game *game);
+void	ft_select_settings(t_game *game);
+void	ft_display_settings_menu(t_game *game);
+void	ft_change_cursor(t_game *game, int x, int y);
+void	ft_display_menu(t_game *game);
+void	ft_display_select_menu(t_game *game);
+void	ft_display_select_player(t_game *game, int x, int y);
+void	ft_display_players(t_game *game);
+void	ft_display_fly_menu(t_game *game);
+void	ft_display_launch_game(t_game *game);
+void	ft_display_settings(t_game *game);
+int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, \
+	float speed);
+void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
+void	animation_fire(t_game *game);
+int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, \
+	float speed);
+void	ft_animation_cat(t_game *game, float speed);
 
 /*			Events 				*/
 int		event_press(int keycode, t_game *game);
@@ -150,6 +157,10 @@ void	event_resolution(int x, int y, t_game *game);
 void	event_sensitivity(int x, int y, t_game *game);
 void	event_luminosity(int x, int y, t_game *game);
 void	pause_off(t_game *game);
+int		event_menu(int x, int y, t_game *game);
+int		event_settings(int x, int y, t_game *game);
+int		ft_in_wall(t_map *map, int x, int y);
+void	ft_jump(t_game *game);
 
 /*			Draw				*/
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -158,6 +169,11 @@ void	blur_image(void *ptr, void *area);
 void	display_map(void *ptr, void *area);
 void	draw_circle(t_img *img, t_vec2d center, int rayon, int color);
 void	draw_square(t_img *img, t_vec2d center, int rayon, int color);
+void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y);
+void	ft_draw_img_vel(t_img *img_dst, t_img tex, float x, float y);
+void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
+int		resize_image(t_game *game, t_img *src, int ratio);
+void	ft_blur_pause(t_game *game);
 
 /*			Math utils			*/
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
@@ -182,51 +198,7 @@ int		is_near(t_vec3d p1, t_vec3d p2, float e);
 int		is_in_minimap(t_link *link, int i, int *j);
 int		better_mlx_mouse_hide(void *xvar, void *win, int *cursor);
 int		better_mlx_mouse_show(void *xvar, void *win, int *cursor);
-
-/*			Debug				*/
-void	debug_print_texture(t_texture *texture);
-void	debug_print_img(t_img *img);
-void	debug_print_mlx(t_mlx *mlx);
-void	debug_print_map(t_map *map);
-void	debug_print_vec3d(t_vec3d *u, char *name);
-void	debug_print_queue(t_job *job);
-void	debug_print_igs(t_igs *igs);
-
-/*          a trier pour plus tard pck loulou a la flemme       */
-int		event_menu(int x, int y, t_game *game);
-int		event_settings(int x, int y, t_game *game);
 int		ft_get_fps(void);
-
-void	ft_draw_img(t_img *img_dst, t_img tex, int x, int y);
-void	ft_draw_img_vel(t_img *img_dst, t_img tex, float x, float y);
-void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
-int		resize_image(t_game *game, t_img *src, int ratio);
-void	ft_blur_pause(t_game *game);
-
-int		ft_animation_h(t_game *game, t_sprite *sprite, t_vec2d pos, \
-	float speed);
-void	ft_animation(t_game *game, t_sprite *sprite, t_vec2d pos);
-void	animation_fire(t_game *game);
-int		ft_animation_v(t_game *game, t_sprite *sprite, t_vec2d pos, \
-	float speed);
-void	ft_animation_cat(t_game *game, float speed);
-
-void	ft_display_menu(t_game *game);
-void	ft_settings_mouse(t_game *game);
-void	ft_select_settings(t_game *game);
-void	ft_display_settings_menu(t_game *game);
-void	ft_change_cursor(t_game *game, int x, int y);
-
-void	ft_display_menu(t_game *game);
-void	ft_display_select_menu(t_game *game);
-void	ft_display_select_player(t_game *game, int x, int y);
-void	ft_display_players(t_game *game);
-void	ft_display_fly_menu(t_game *game);
-void	ft_display_launch_game(t_game *game);
-void	ft_display_settings(t_game *game);
-
-char	*ft_imgcpy(char *data, int size);
-int		ft_in_wall(t_map *map, int x, int y);
-void	ft_jump(t_game *game);
+void	ft_printf_fps(int mode);
 
 #endif
