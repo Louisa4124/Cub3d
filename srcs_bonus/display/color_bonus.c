@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:50:23 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 21:23:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:51:58 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	get_color_wall(t_tmp *data, t_img wall, float pos, int n)
 	else if (n == 2)
 		x = wall.width - 1 - (int)(((pos + data->point.y) \
 			- (int)(pos + data->point.y)) * wall.width);
-	else if (n == 3)
+	else
 		x = (int)(((pos + data->point.y) \
 			- (int)(pos + data->point.y)) * wall.width);
 	y = wall.height - (int)((data->point.z \
