@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/20 12:42:00 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:29:07 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static void	s_destroy_all_img(t_mlx *mlx, t_sprite *sprite, t_img tab[2][19])
 	while (++i < N_SPRITE)
 		s_img_destroy(mlx, &sprite[i].img);
 	i = -1;
-	while (++i < 5)
+	while (++i < 2)
 	{
 		j = -1;
-		while (++j < 23)
+		while (++j < 19)
 			s_img_destroy(mlx, &tab[i][j]);
 	}
 }

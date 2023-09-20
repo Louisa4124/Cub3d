@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 22:35:31 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/08/05 20:13:02 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:39:10 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	check_tiles(t_map *map, int y, int x)
 		return (1);
 	if (map->layout[y + 1][x] == -1)
 		return (1);
-	if (map->layout[y][x + 1] == -1)
+	if (map->layout[y][x - 1] == -1)
 		return (1);
 	if (map->layout[y][x + 1] == -1)
 		return (1);

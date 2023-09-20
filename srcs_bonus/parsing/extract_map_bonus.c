@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:36:17 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/03 14:53:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:38:13 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static int	extract_map(t_map *map, t_game *game, t_list **lst)
 	int		y;
 
 	map->y_size = ft_lstsize(*lst);
+	if (map->y_size == 0)
+		return (ft_putstr_fd("Error\nNo map\n", 2), 1);
 	map->layout = ft_calloc(map->y_size, sizeof(void *));
 	if (!map->layout)
 		return (ft_putstr_fd("Error\nMalloc failed\n", 2), 1);
