@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/17 13:22:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:46:31 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	draw_square(t_img *img, t_vec2d pos, int size, int color)
 	int	max_x;
 	int	tmp;
 
-	max_y = pos.y + size;
+	max_y = pos.y + size ;
 	max_x = pos.x + size;
 	tmp = pos.x;
 	while (pos.y < max_y)

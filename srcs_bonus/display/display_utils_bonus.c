@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/18 21:24:27 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:22:54 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	is_in_minimap(t_link *link, int i, int *j)
 	int	max;
 
 	max = link->map->x_size * *link->mm_size + 10;
-	if (i > 10 && i < link->map->y_size * *link->mm_size + 10
-		&& *j > 10 && *j < max)
+	if (i >= 10 && i < link->map->y_size * *link->mm_size + 10
+		&& *j >= 10 && *j < max)
 	{
 		*j = max;
 		return (1);

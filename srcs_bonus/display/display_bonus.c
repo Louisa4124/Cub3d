@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/19 20:54:42 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:02:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	display_map(void *ptr, void *area)
 
 	ln = ptr;
 	idx_map.x = -1;
-	idx_draw.x = 10;
+	idx_draw.x = 12;
 	while (++idx_map.x < ln->map->x_size)
 	{
 		idx_map.y = -1;
-		idx_draw.y = 10;
+		idx_draw.y = 12;
 		while (++idx_map.y < ln->map->y_size)
 		{
 			if (ln->map->layout[idx_map.y][idx_map.x] == 1)

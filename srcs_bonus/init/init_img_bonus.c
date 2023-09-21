@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:26:27 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/17 15:11:45 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:55:24 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int	init_img(t_game *game)
 	if (resize_all_sprite(game))
 		return (EXIT_FAILURE);
 	fill_all_sprite(game);
-	init_igs(game, game->igs);
+	if (init_igs(game, game->igs))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

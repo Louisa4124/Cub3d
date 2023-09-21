@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 23:12:42 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/20 12:42:37 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:54:35 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,12 @@ typedef struct s_door
 
 typedef struct s_igs
 {
-	t_sprite	*sp;
-	t_plan		plan;
-	t_vec3d		pos;
-	float		t;
-	float		ms;
+	pthread_mutex_t	m_ms;
+	t_sprite		*sp;
+	t_plan			plan;
+	t_vec3d			pos;
+	float			t;
+	float			ms;
 }	t_igs;
 
 typedef struct s_texture

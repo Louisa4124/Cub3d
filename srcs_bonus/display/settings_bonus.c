@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   settings_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:40:03 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/18 21:23:53 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 10:34:11 by lboudjem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	ft_display_settings_menu(t_game *game)
 			ft_animation_v(game, &game->sprite[5], (t_vec2d){1280, 470}, 0.08);
 		ft_animation_cat(game, 0.05);
 	}
-	if (game->ms >= 0.001 && x >= -WIDTH)
-		x -= 15;
+	if (game->ms >= 0.0002 && x >= -WIDTH)
+		x -= 20;
 	if (x <= 0)
 	{
 		ft_draw_img(&game->view, game->anim[0][14], 0, 0);

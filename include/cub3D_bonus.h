@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/20 13:26:53 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:54:52 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		new_image(t_mlx *mlx, t_img *new_img, int width, int height);
 int		load_img(t_mlx *mlx, t_img *img, char *path);
 int		init_img(t_game *game);
 void	fill_sprite(t_game *g, t_sprite *sprite, int nb_frame);
-void	init_igs(t_game *game, t_igs *igs);
+int		init_igs(t_game *game, t_igs *igs);
 void	set_mlx_hook(t_game *game);
 
 /*			Clear					*/
