@@ -6,19 +6,11 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:34:52 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/21 13:56:50 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:38:26 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
-
-void	s_img_destroy(t_mlx *mlx, t_img *img)
-{
-	if (img->id)
-		mlx_destroy_image(mlx->ptr, img->id);
-	img->id = NULL;
-	img->addr = NULL;
-}
 
 static void	s_destroy_texture(t_mlx *mlx, t_texture *texture)
 {
@@ -58,6 +50,16 @@ static void	s_destroy_all_img(t_mlx *mlx, t_sprite *sprite, t_img tab[2][19])
 	}
 }
 
+void	ft_free_all(t_game *game)
+{
+	ft_free_secure(game->view_data_cpy);
+	ft_free2d((void **) game->map.layout, game->map.y_size);
+	ft_free_secure(game->doors);
+	ft_free_secure(game->plan[0]);
+	ft_free_secure(game->plan[1]);
+	ft_free2d((void **) game->rays, game->mlx.win_height);
+}
+
 void	ft_clean_exit(t_game *game, int exit_code)
 {
 	int	i;
@@ -75,17 +77,11 @@ void	ft_clean_exit(t_game *game, int exit_code)
 	s_destroy_texture(&game->mlx, &game->texture);
 	s_destroy_all_img(&game->mlx, game->sprite, game->anim);
 	s_img_destroy(&game->mlx, &game->view);
-	ft_free_secure(game->view_data_cpy);
 	better_mlx_mouse_show(game->mlx.ptr, game->mlx.win, &game->cursor);
 	s_mlx_destroy(&game->mlx);
 	pthread_mutex_destroy(&game->m_queue);
 	pthread_mutex_destroy(&game->igs[0].m_ms);
 	pthread_mutex_destroy(&game->igs[1].m_ms);
-	ft_free2d((void **) game->map.layout, game->map.y_size);
-	ft_free_secure(game->doors);
-	ft_free_secure(game->plan[0]);
-	ft_free_secure(game->plan[1]);
-	ft_free2d((void **) game->rays, game->mlx.win_height);
 	ft_printf("\n");
 	exit(exit_code);
 }

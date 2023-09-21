@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:36:25 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 23:29:19 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:16:27 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ void	jobadd_back(t_job **HEAD, t_job *new)
 int	add_job(t_game *game, void *data, void *area, \
 	void (*func)(void *, void *))
 {
-	static int	jid;
+	static int	jid = 100;
 	t_job		*new;
 
 	new = jobnew(jid, data, area, func);
 	if (new == NULL)
-		return (1 + jid);
+		return (jid);
 	jobadd_back(game->queue, new);
 	if (jid == INT_MAX)
-		jid = 0;
+		jid = 100;
 	else
 		++jid;
 	++game->n_job;

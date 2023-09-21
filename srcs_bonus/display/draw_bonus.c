@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:35:44 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/21 13:46:31 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:32:19 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	draw_square(t_img *img, t_vec2d pos, int size, int color)
 		while (pos.x < max_x)
 		{
 			ft_mlx_pixel_put(img, pos.x, pos.y, color);
-			pos.x++;
+			++pos.x;
 		}
-		pos.y++;
+		++pos.y;
 	}
 }

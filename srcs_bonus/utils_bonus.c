@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:57:21 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 14:47:32 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:37:16 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,10 @@ int	ft_randuint(int min, int max, int *n)
 	return (0);
 }
 
-int	is_near(t_vec3d p1, t_vec3d p2, float e)
+void	s_img_destroy(t_mlx *mlx, t_img *img)
 {
-	t_vec3d	diff;
-
-	diff = math_vec_op(p1, p2, '-');
-	if (diff.x < -e || diff.x > e)
-		return (0);
-	if (diff.y < -e || diff.y > e)
-		return (0);
-	return (1);
+	if (img->id)
+		mlx_destroy_image(mlx->ptr, img->id);
+	img->id = NULL;
+	img->addr = NULL;
 }

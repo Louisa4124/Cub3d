@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/21 14:02:12 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:18:34 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ void	display_map(void *ptr, void *area)
 	t_vec2d	idx_draw;
 
 	ln = ptr;
-	idx_map.x = -1;
-	idx_draw.x = 12;
-	while (++idx_map.x < ln->map->x_size)
+	idx_map.y = -1;
+	idx_draw.y = 12;
+	while (++idx_map.y < ln->map->y_size)
 	{
-		idx_map.y = -1;
-		idx_draw.y = 12;
-		while (++idx_map.y < ln->map->y_size)
+		idx_map.x = -1;
+		idx_draw.x = 12;
+		while (++idx_map.x < ln->map->x_size)
 		{
 			if (ln->map->layout[idx_map.y][idx_map.x] == 1)
 				draw_square(ln->view, idx_draw, *(int *) area, WHITE);
@@ -78,9 +78,9 @@ void	display_map(void *ptr, void *area)
 				draw_square(ln->view, idx_draw, *(int *) area, BLACK);
 			if (idx_map.x == (int)ln->pos->x && idx_map.y == (int)ln->pos->y)
 				draw_square(ln->view, idx_draw, 5, RED);
-			idx_draw.y += *(int *) area;
+			idx_draw.x += *(int *) area;
 		}
-		idx_draw.x += *(int *) area;
+		idx_draw.y += *(int *) area;
 	}
 }
 

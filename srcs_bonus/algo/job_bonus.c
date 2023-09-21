@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 23:29:11 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/04 23:29:33 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:15:26 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,5 @@ int	send_frame_job(t_game *game)
 			return (1);
 		++i;
 	}
-	if (add_job(game, &game->link, &game->minimap_size, display_map))
-		return (1);
 	return (0);
 }

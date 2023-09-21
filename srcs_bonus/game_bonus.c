@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboudjem <lboudjem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:53:49 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/21 10:30:04 by lboudjem         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:37:12 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ void	ft_transition(t_game *game)
 	ft_draw_img_vel(&game->view, game->anim[0][13], x, 0);
 }
 
+int	is_near(t_vec3d p1, t_vec3d p2, float e)
+{
+	t_vec3d	diff;
+
+	diff = math_vec_op(p1, p2, '-');
+	if (diff.x < -e || diff.x > e)
+		return (0);
+	if (diff.y < -e || diff.y > e)
+		return (0);
+	return (1);
+}
+
 void	run_game(t_game *game)
 {
 	view_update_pos(game);
@@ -30,6 +42,7 @@ void	run_game(t_game *game)
 	update_door(game);
 	send_frame_job(game);
 	wait_job(game);
+	display_map(&game->link, &game->minimap_size);
 	animation_fire(game);
 	ft_transition(game);
 	ft_jump(game);
