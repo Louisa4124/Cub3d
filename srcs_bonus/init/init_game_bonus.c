@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/21 15:18:56 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/23 15:02:03 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	init_link(t_game *game)
 
 int	ft_init_game(t_game *game)
 {
-	game->pause = 0;
+	game->pause = 2;
 	game->player = 1;
 	game->jump = 0;
 	game->angle_offset = ANG_OFFSET_MOUSE;
