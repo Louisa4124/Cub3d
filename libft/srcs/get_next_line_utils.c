@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:40:09 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/03/31 14:34:54 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:50:20 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ char	*gnl_chr_nl(char *s)
 	return (NULL);
 }
 
-size_t	gnl_strlcat(char *dst, char *src, size_t start)
+size_t	gnl_strlcat(char *dst, char *src, size_t start, size_t size)
 {
 	size_t	j;
 
 	j = 0;
-	while (src && src[j] && src[j] != '\n')
+	while (src && src[j] && src[j] != '\n' && start + j < size)
 	{
 		dst[start + j] = src[j];
 		++j;
@@ -69,11 +69,11 @@ char	*gnl_expand(char *line, size_t *size)
 {
 	char	*new_line;
 
-	*size = ((*size + BUFFER_SIZE) << 1) + 1;
-	new_line = malloc(*size * sizeof(char));
+	*size = *size << 1;
+	new_line = malloc((*size + 1) * sizeof(char));
 	if (!new_line)
 		return (free(line), NULL);
-	gnl_strlcat(new_line, line, 0);
+	gnl_strlcat(new_line, line, 0, *size);
 	if (line)
 		free(line);
 	return (new_line);
@@ -82,7 +82,7 @@ char	*gnl_expand(char *line, size_t *size)
 char	*gnl_init(size_t *idx, size_t *size, int *n_read)
 {
 	*idx = 0;
-	*size = 1;
+	*size = BUFFER_SIZE;
 	*n_read = 1;
 	return (NULL);
 }

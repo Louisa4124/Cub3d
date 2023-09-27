@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 14:39:06 by tlegrand          #+#    #+#              #
-#    Updated: 2023/07/20 14:29:18 by tlegrand         ###   ########.fr        #
+#    Updated: 2023/09/27 21:00:46 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,7 @@ LST_SRCS	= 	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isprint.c ft_isascii.c ft_
 				ft_printf_padding.c ft_printf_utils.c \
 				get_next_line.c get_next_line_utils.c \
 				ft_free.c ft_close.c ft_print_tab.c \
-				math_utils.c \
-				debug_print.c
+				math_utils.c 
 SRCS		=	${addprefix ${DIR_SRCS}, ${LST_SRCS}}
 
 
