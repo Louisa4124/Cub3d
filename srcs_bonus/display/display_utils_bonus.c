@@ -6,24 +6,32 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/21 15:05:51 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:52:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-int	is_in_minimap(t_link *link, int i, int *j)
+void	draw_map(t_link *ln, t_vec2d *idx_map, t_vec2d	*idx_draw, void *area)
 {
-	int	max;
-
-	max = link->map->x_size * *link->mm_size + 10;
-	if (i >= 10 && i < link->map->y_size * *link->mm_size + 10
-		&& *j >= 10 && *j < max)
+	if (idx_map->y == ((int)ln->pos->y) - (MINIMAP_SIZE - 1)
+		|| idx_map->x == ((int)ln->pos->x) - (MINIMAP_SIZE - 1)
+		|| idx_map->y == ((int)ln->pos->y) + (MINIMAP_SIZE - 1)
+		|| idx_map->x == ((int)ln->pos->x) + (MINIMAP_SIZE - 1))
+		draw_square(ln->view, *idx_draw, *(int *) area, WHITE);
+	else if (idx_map->y < 0 || idx_map->x < 0)
+		draw_square(ln->view, *idx_draw, *(int *) area, DARK_RED);
+	else
 	{
-		*j = max;
-		return (1);
+		if (ln->map->layout[idx_map->y][idx_map->x] == 1)
+			draw_square(ln->view, *idx_draw, *(int *) area, WHITE);
+		else if (ln->map->layout[idx_map->y][idx_map->x] == -1)
+			draw_square(ln->view, *idx_draw, *(int *) area, GREY);
+		else
+			draw_square(ln->view, *idx_draw, *(int *) area, BLACK);
+		if (idx_map->x == (int)ln->pos->x && idx_map->y == (int)ln->pos->y)
+			draw_square(ln->view, *idx_draw, 5, RED);
 	}
-	return (0);
 }
 
 void	ft_blur_pause(t_game *game)

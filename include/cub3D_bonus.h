@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/09/21 13:54:52 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:52:39 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 # define RESOLUTION 3
 # define WIDTH 1920
 # define HEIGHT 1080
-# define MINIMAP_SIZE 10
+# define MINIMAP_SIZE 25
+# define MINIMAP_SCALE 6
 # define BLUR 25
 # define FPS_MODE 0
 
@@ -174,6 +175,7 @@ void	ft_draw_img_vel(t_img *img_dst, t_img tex, float x, float y);
 void	draw_on(t_img *img_dst, t_vec2d pos, t_img img_src, t_area area);
 int		resize_image(t_game *game, t_img *src, int ratio);
 void	ft_blur_pause(t_game *game);
+void	draw_map(t_link *ln, t_vec2d *idx_map, t_vec2d	*idx_draw, void *area);
 
 /*			Math utils			*/
 t_vec3d	ft_rotate_vec_x(t_vec3d v, float rad);
@@ -195,7 +197,6 @@ int		launch_thread(t_game *game, t_thread_data th[N_THREAD]);
 /*			Utils				*/
 int		ft_randuint(int min, int max, int *n);
 int		is_near(t_vec3d p1, t_vec3d p2, float e);
-int		is_in_minimap(t_link *link, int i, int *j);
 int		better_mlx_mouse_hide(void *xvar, void *win, int *cursor);
 int		better_mlx_mouse_show(void *xvar, void *win, int *cursor);
 int		ft_get_fps(void);

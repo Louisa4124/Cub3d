@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/21 15:18:34 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:50:48 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,15 @@ void	display_map(void *ptr, void *area)
 	t_vec2d	idx_draw;
 
 	ln = ptr;
-	idx_map.y = -1;
+	idx_map.y = ((int)ln->pos->y) - MINIMAP_SIZE;
 	idx_draw.y = 12;
-	while (++idx_map.y < ln->map->y_size)
+	while (++idx_map.y < ((int)ln->pos->y) + MINIMAP_SIZE)
 	{
-		idx_map.x = -1;
+		idx_map.x = ((int)ln->pos->x) - MINIMAP_SIZE;
 		idx_draw.x = 12;
-		while (++idx_map.x < ln->map->x_size)
+		while (++idx_map.x < ((int)ln->pos->x) + MINIMAP_SIZE)
 		{
-			if (ln->map->layout[idx_map.y][idx_map.x] == 1)
-				draw_square(ln->view, idx_draw, *(int *) area, WHITE);
-			else if (ln->map->layout[idx_map.y][idx_map.x] == -1)
-				draw_square(ln->view, idx_draw, *(int *) area, GREY);
-			else
-				draw_square(ln->view, idx_draw, *(int *) area, BLACK);
-			if (idx_map.x == (int)ln->pos->x && idx_map.y == (int)ln->pos->y)
-				draw_square(ln->view, idx_draw, 5, RED);
+			draw_map(ln, &idx_map, &idx_draw, area);
 			idx_draw.x += *(int *) area;
 		}
 		idx_draw.y += *(int *) area;
@@ -98,8 +91,6 @@ void	display_game(void *ptr, void *area)
 		j = data.area->start_x;
 		while (j < data.area->end_x)
 		{
-			if (is_in_minimap(data.link, i, &j))
-				continue ;
 			data.rays = ft_rotate_vec_z(ft_rotate_vec_x(data.link->rays[i][j], \
 				*data.link->angle_x), *data.link->angle_z);
 			data.close_t = 0;

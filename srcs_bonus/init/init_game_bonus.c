@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/09/23 15:02:03 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:23:07 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	init_link(t_game *game)
 
 int	ft_init_game(t_game *game)
 {
-	game->pause = 2;
+	game->pause = 0;
 	game->player = 1;
 	game->jump = 0;
 	game->angle_offset = ANG_OFFSET_MOUSE;
@@ -114,7 +114,7 @@ int	ft_init_game(t_game *game)
 		game->mlx.win_height >> 1};
 	game->resolution = RESOLUTION;
 	game->light = 1;
-	game->minimap_size = MINIMAP_SIZE;
+	game->minimap_size = MINIMAP_SCALE;
 	game->sensitivity = 0.5;
 	if (rays_create(game) || plane_create(game))
 		return (ft_putstr_fd("Error\nMalloc failed\n", 2), EXIT_FAILURE);
