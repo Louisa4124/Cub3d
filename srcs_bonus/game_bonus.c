@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:53:49 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/09/21 15:37:12 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:27:49 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ void	run_game(t_game *game)
 	update_igs_plane(game->igs, game->pos);
 	update_doors_dist(game->doors, &game->pos, game->n_doors);
 	update_door(game);
-	send_frame_job(game);
+	if(send_frame_job(game))
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		ft_clean_exit(game, EXIT_FAILURE);
+	}
 	wait_job(game);
 	display_map(&game->link, &game->minimap_size);
 	animation_fire(game);

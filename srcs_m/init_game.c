@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:57:36 by lboudjem          #+#    #+#             */
-/*   Updated: 2023/08/05 20:30:02 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:24:07 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ int	ft_init_game(t_game *game)
 	game->r_h = 2 * tan((FOV * PI_DIV_180) * 0.5) / game->mlx.win_width;
 	game->r_v = 2 * tan((FOV * PI_DIV_180) * game->mlx.win_height / \
 		(game->mlx.win_width * 2)) / game->mlx.win_height;
-	if (rays_create(game))
+	if (rays_create(game) || plane_create(game))
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
 		return (EXIT_FAILURE);
-	if (plane_create(game))
-		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
