@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 21:38:36 by louisa            #+#    #+#             */
-/*   Updated: 2023/10/03 14:52:39 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:24:40 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 # define RESOLUTION 3
 # define WIDTH 1920
 # define HEIGHT 1080
-# define MINIMAP_SIZE 25
-# define MINIMAP_SCALE 6
+# define MINIMAP_SIZE 15
+# define MINIMAP_SCALE 8
 # define BLUR 25
 # define FPS_MODE 0
 

@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:01:12 by tlegrand          #+#    #+#             */
-/*   Updated: 2023/10/03 15:03:59 by tlegrand         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:25:30 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	draw_map(t_link *ln, t_vec2d *idx_map, t_vec2d	*idx_draw, void *area)
 		if (ln->map->layout[idx_map->y][idx_map->x] == 1)
 			draw_square(ln->view, *idx_draw, *(int *) area, WHITE);
 		else if (ln->map->layout[idx_map->y][idx_map->x] == -1)
-			draw_square(ln->view, *idx_draw, *(int *) area, GREY);
+			draw_square(ln->view, *idx_draw, *(int *) area, DARK_RED);
 		else
 			draw_square(ln->view, *idx_draw, *(int *) area, BLACK);
 		if (idx_map->x == (int)ln->pos->x && idx_map->y == (int)ln->pos->y)
-			draw_square(ln->view, *idx_draw, 5, RED);
+			draw_square(ln->view, *idx_draw, MINIMAP_SCALE, RED);
 	}
 }
 
