@@ -56,7 +56,7 @@ Bonus
 
 ## Demo
 ![screenshot of the game](https://raw.githubusercontent.com/Louisa4124/Cub3d/master/screenshot0.png)
-https://github.com/Louisa4124/Cub3d/blob/main/menu_preview.mp4
+[https://github.com/Louisa4124/Cub3d/blob/main/menu_preview.mp4](https://github.com/Louisa4124/Cub3d/blob/main/gameplay_preview%20(1).mp4)
 
 
 
