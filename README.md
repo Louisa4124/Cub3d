@@ -60,6 +60,11 @@ Thread start waiting on a semaphore, when semaphore is signaled, thread acquire 
 
 ## Demo
 
+https://github.com/user-attachments/assets/6280185e-2a75-44da-aacc-5b6018c35199
+
+https://github.com/user-attachments/assets/e4fad2a3-5027-420e-bfc5-f4150804c278
+
+
 
 
 
@@ -70,11 +75,14 @@ Thread start waiting on a semaphore, when semaphore is signaled, thread acquire 
 
 
 ## Credits
-- grass from 256x256 pixel textures pack 2 by FlakDeau on itch.io
-- barricades from isometric props and tents by rubberduck on https://opengameart.org/
+- grass from `256x256 pixel textures pack 2` by FlakDeau on [itch.io](https://itch.io/)
+- barricades from `isometric props and tents` by rubberduck on [opengameart](https://opengameart.org/)
 
 
 ## License
 
 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html)
+
+
+
 
