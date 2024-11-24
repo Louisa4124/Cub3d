@@ -1,5 +1,12 @@
 # cub3D
 
+![Score](https://img.shields.io/badge/Score-125%2F100-ff69b4?style=for-the-badge&logo=42&logoColor=white)
+![Outstanding Project](https://img.shields.io/badge/Project-Outstanding-blueviolet?style=for-the-badge&logo=star&logoColor=white)
+
+🎉 This project was completed with a perfect score of **125/100** and received the **Outstanding Project** award at École 42 Lyon!
+
+
+
 A Wolfenstein 3D like game, using the miniLibx a simple X-Window (X11R6) programming API in C, designed for students
 
 
