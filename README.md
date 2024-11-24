@@ -1,12 +1,9 @@
-# prefix
-Le super mega trop cool cub3d de titi et loulou <br>
-LA MEILLEURE EQUIPE ! <3
-
-
 # cub3D
 
 A Wolfenstein 3D like game, using the miniLibx a simple X-Window (X11R6) programming API in C, designed for students
 
+
+![screenshot of the game](https://raw.githubusercontent.com/Louisa4124/Cub3d/master/misc/screenshot0.png)
 
 
 ## Installation
@@ -29,7 +26,7 @@ Mandatory
 - Different texture based on wall orientation
 - POV (Point Of View) deplacement with WASD key
 - POV z-rotation with ← and →
-- Parsing of .cub map (see requirement in [cub3d.subject.pdf](https://www.github.com/Louisa4124/Cub3d/blob/main/cub3d.subject.pdf))
+- Parsing of .cub map
 - Color of floor and ceilling
 
 
@@ -49,14 +46,20 @@ Bonus
 
 
 ## How it's made ?
+
 #### 3D engine
 
 
 #### Multithreading
 
+At program start we create a thread pool, and a job queue.
+For each task needing parallelism, we can use the job queue, by creating job, pushing them to queue and then signal the semaphore.
+For example each frame is sliced in several (16 by default) area and a job is created with the area and the render function to apply.
+Thread start waiting on a semaphore, when semaphore is signaled, thread acquire the next job and apply the job's function to the job's data.
+
+
 ## Demo
-![screenshot of the game](https://raw.githubusercontent.com/Louisa4124/Cub3d/master/screenshot0.png)
-[https://github.com/Louisa4124/Cub3d/blob/main/menu_preview.mp4](https://github.com/Louisa4124/Cub3d/blob/main/gameplay_preview%20(1).mp4)
+
 
 
 
@@ -64,6 +67,11 @@ Bonus
 
 - [@Louisa4124](https://www.github.com/Louisa4124)
 - [@titi-rex](https://www.github.com/titi-rex)
+
+
+## Credits
+- grass from 256x256 pixel textures pack 2 by FlakDeau on itch.io
+- barricades from isometric props and tents by rubberduck on https://opengameart.org/
 
 
 ## License
